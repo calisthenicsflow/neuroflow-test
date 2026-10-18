@@ -1924,37 +1924,13 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 /* Settings: version label */
 .nf-ver{margin:22px 0 8px;text-align:center;font:400 12px 'DM Mono',monospace;color:var(--t3);letter-spacing:.04em;}
 
-/* ═══ Wim Hof Method session (full-screen, tap-driven) ═══ */
-.whm{position:fixed;inset:0;z-index:900;background:#07080d;color:#fff;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .35s ease;
-  touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;}
-.whm.on{opacity:1;pointer-events:auto;}
-.whm-bar{position:relative;z-index:3;display:flex;align-items:center;gap:12px;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px 0;}
-.whm-bar .back{position:static;flex-shrink:0;}
-.whm-t{flex:1;min-width:0;font:500 15px 'DM Sans',sans-serif;color:rgba(255,255,255,.86);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.whm-rd{font:400 12px 'DM Mono',monospace;color:rgba(255,255,255,.6);letter-spacing:.06em;}
-.whm-zone{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:90px 24px calc(env(safe-area-inset-bottom,0px) + 40px);}
-.whm-ph{font:500 22px 'DM Sans',sans-serif;color:#fff;text-align:center;min-height:30px;letter-spacing:.01em;}
-.whm-orb{position:relative;width:min(64vw,280px);height:min(64vw,280px);margin:28px 0;display:flex;align-items:center;justify-content:center;}
-.whm-orb i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 45%,rgba(232,96,64,.55),rgba(232,96,64,.16) 62%,rgba(232,96,64,0) 72%);border:1.5px solid rgba(232,96,64,.55);transform:scale(.55);transition-property:transform;transition-timing-function:cubic-bezier(.45,.05,.4,1);}
-.whm-orb.hold i{border-color:rgba(255,255,255,.35);background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.12),rgba(255,255,255,.03) 62%,rgba(255,255,255,0) 72%);}
-.whm-num{position:relative;font:300 min(60px,15vw)/1 'DM Sans',sans-serif;color:#fff;font-variant-numeric:tabular-nums;font-feature-settings:'tnum' 1;letter-spacing:-.01em;white-space:nowrap;}
-.whm-num.sm{font-size:min(48px,12vw);}
-.whm-sub{font:400 15px 'DM Sans',sans-serif;color:rgba(255,255,255,.72);text-align:center;min-height:22px;}
-.whm-hint{position:absolute;left:24px;right:24px;bottom:calc(env(safe-area-inset-bottom,0px) + 34px);display:flex;flex-direction:column;align-items:center;gap:10px;font:500 15px 'DM Sans',sans-serif;color:rgba(255,255,255,.88);text-align:center;transition:opacity .3s;}
-.whm-hint svg{opacity:.85;}
-.whm-hint.off{opacity:0;}
-.whm-hint.ping{animation:whmPing .5s ease;}
-@keyframes whmPing{40%{color:#fff;transform:scale(1.04);}}
-.whm-res{position:relative;z-index:3;margin:auto 0;padding:0 24px calc(env(safe-area-inset-bottom,0px) + 28px);display:none;flex-direction:column;align-items:center;gap:14px;}
-.whm.done .whm-res{display:flex;}
-.whm.done .whm-zone,.whm.done .whm-hint{display:none;}
-.whm-res h3{margin:0;font:500 22px 'DM Sans',sans-serif;}
-.whm-list{width:100%;max-width:320px;border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden;}
-.whm-list div{display:flex;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.08);font:400 15px 'DM Sans',sans-serif;color:rgba(255,255,255,.85);}
-.whm-list div:last-child{border-bottom:0;}
-.whm-list b{font:500 16px 'DM Mono',monospace;color:#fff;}
-.whm-best{font:400 13px 'DM Sans',sans-serif;color:rgba(255,255,255,.7);}
-.whm-ok{margin-top:6px;height:54px;min-width:220px;border-radius:27px;border:0;background:#e86040;color:#fff;font:600 16px 'DM Sans',sans-serif;cursor:pointer;}
+/* ═══ v104.1 — Wim Hof: v103 practice player, open-ended retention ended by double tap ═══ */
+#practice.whm-hold{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
+#practice.whm-hold .p-play{visibility:hidden;pointer-events:none;}
+.whm-cap{position:absolute;left:24px;right:24px;bottom:calc(env(safe-area-inset-bottom,0px) + 34px);z-index:6;text-align:center;font:500 15px 'DM Sans',sans-serif;color:rgba(255,255,255,.78);letter-spacing:.01em;pointer-events:none;opacity:0;transition:opacity .3s;}
+#practice.whm-hold .whm-cap{opacity:1;}
+.whm-cap .once{display:block;margin-top:6px;font-size:13px;color:rgba(255,255,255,.55);opacity:0;transition:opacity .25s;}
+.whm-cap.ping .once{opacity:1;}
 
 </style>
 </head>
@@ -12393,173 +12369,74 @@ function stAudioSession(on){
   var _c=closeCogEx;closeCogEx=function(){stAudioSession(false);try{if(_stSrc)_stSrc.stop();}catch(e){}return _c.apply(this,arguments);};
 })();
 
-/* ═══════════════════════════════════════════════════════
-   v104 — Wim Hof Method session, modelled on the official WHM app:
-   paced power breaths (bubble + breath sound) -> retention stopwatch starts
-   automatically after the last exhale -> DOUBLE TAP anywhere ends retention ->
-   recovery breath held 15 s -> next round. No pause button; exit = back arrow.
-═══════════════════════════════════════════════════════ */
+/* ═══ v104.1 — Wim Hof Method: the v103 practice player is kept unchanged (sphere animation, sounds,
+   flow, recovery). The only change: the retention after the last exhale of every round is open-ended.
+   The timer counts UP from 0:00 without a limit, the pause button is hidden during that phase only,
+   and a double tap anywhere on the screen ends the retention -> the v103 15 s recovery hold and the
+   next round follow exactly as before. A single tap does not end it (subtle "tap once more"). ═══ */
 var WHM_T={
-ru:{ready:'Приготовьтесь',ready_s:'Сядьте или лягте удобно',inh:'Вдох',exh:'Выдох',last:'Последние вдохи',
-  hold:'Задержка дыхания',hold_s:'Выдохните и не дышите',hint_hold:'Дважды коснитесь экрана, когда захотите вдохнуть',hint_br:'Дважды коснитесь, чтобы перейти к задержке',
-  once:'Коснитесь ещё раз',rin:'Глубокий вдох',rhold:'Задержите дыхание',rhold_s:'Восстановительный вдох · 15 секунд',rout:'Выдох',round:'Раунд {a} из {b}',
-  done:'Сессия завершена',row:'Раунд {n}',best:'Лучшая задержка за всё время: {t}',avg:'Средняя задержка: {t}',ok:'Готово',cap:'Задержка остановлена автоматически через 4 минуты'},
-en:{ready:'Get ready',ready_s:'Sit or lie down comfortably',inh:'Inhale',exh:'Exhale',last:'Last breaths',
-  hold:'Breath hold',hold_s:'Exhale and stop breathing',hint_hold:'Double-tap the screen when you need to breathe',hint_br:'Double-tap to go to the hold',
-  once:'Tap once more',rin:'Deep breath in',rhold:'Hold your breath',rhold_s:'Recovery breath · 15 seconds',rout:'Exhale',round:'Round {a} of {b}',
-  done:'Session complete',row:'Round {n}',best:'All-time best hold: {t}',avg:'Average hold: {t}',ok:'Done',cap:'The hold was stopped automatically after 4 minutes'},
-de:{ready:'Mach dich bereit',ready_s:'Setz oder leg dich bequem hin',inh:'Einatmen',exh:'Ausatmen',last:'Letzte Atemzüge',
-  hold:'Atem anhalten',hold_s:'Ausatmen und nicht atmen',hint_hold:'Doppeltippe auf den Bildschirm, wenn du atmen musst',hint_br:'Doppeltippen, um zum Anhalten zu wechseln',
-  once:'Noch einmal tippen',rin:'Tief einatmen',rhold:'Atem anhalten',rhold_s:'Erholungsatem · 15 Sekunden',rout:'Ausatmen',round:'Runde {a} von {b}',
-  done:'Sitzung beendet',row:'Runde {n}',best:'Bestes Anhalten bisher: {t}',avg:'Durchschnitt: {t}',ok:'Fertig',cap:'Das Anhalten wurde nach 4 Minuten automatisch beendet'},
-es:{ready:'Prepárate',ready_s:'Siéntate o túmbate cómodamente',inh:'Inhala',exh:'Exhala',last:'Últimas respiraciones',
-  hold:'Retención',hold_s:'Exhala y no respires',hint_hold:'Toca dos veces la pantalla cuando necesites respirar',hint_br:'Toca dos veces para pasar a la retención',
-  once:'Toca una vez más',rin:'Inhala profundo',rhold:'Retén el aire',rhold_s:'Respiración de recuperación · 15 segundos',rout:'Exhala',round:'Ronda {a} de {b}',
-  done:'Sesión completada',row:'Ronda {n}',best:'Mejor retención: {t}',avg:'Retención media: {t}',ok:'Listo',cap:'La retención se detuvo automáticamente a los 4 minutos'},
-zh:{ready:'准备',ready_s:'舒适地坐下或躺下',inh:'吸气',exh:'呼气',last:'最后几次呼吸',
-  hold:'屏息',hold_s:'呼气后停止呼吸',hint_hold:'需要呼吸时，双击屏幕',hint_br:'双击进入屏息',
-  once:'再点一次',rin:'深吸气',rhold:'屏住呼吸',rhold_s:'恢复呼吸 · 15 秒',rout:'呼气',round:'第 {a} / {b} 轮',
-  done:'练习完成',row:'第 {n} 轮',best:'历史最佳屏息：{t}',avg:'平均屏息：{t}',ok:'完成',cap:'屏息已在 4 分钟时自动结束'}
-};
-function WT(k,v){var s=(WHM_T[curLang]||WHM_T.ru)[k];if(s==null)s=WHM_T.ru[k];if(v)for(var x in v)s=s.split('{'+x+'}').join(v[x]);return s;}
-var WHM_TAP_SVG='<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="2.2"/><circle cx="12" cy="9" r="5.2" opacity=".55"/><path d="M12 14.5v5.5"/></svg>';
-var WHM={on:false,tok:0,st:null};
-function whmFmt(s){s=Math.max(0,Math.round(s));var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r;}
-function whmSndOn(){try{return dbGet('sound_on')!==false;}catch(e){return true;}}
-var _whmNoise=null;
-function whmBreathSound(inhale,dur){
-  if(!whmSndOn())return;
-  try{var ac=_cogAC();if(!ac)return;
-    if(!_whmNoise){var len=ac.sampleRate*2,b=ac.createBuffer(1,len,ac.sampleRate),d=b.getChannelData(0),l=0;for(var i=0;i<len;i++){var w=Math.random()*2-1;l=(l+0.02*w)/1.02;d[i]=l*3.2;}_whmNoise=b;}
-    var s=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain(),t=ac.currentTime;s.buffer=_whmNoise;s.loop=true;
-    f.type='bandpass';f.Q.value=0.8;f.frequency.setValueAtTime(inhale?380:900,t);f.frequency.linearRampToValueAtTime(inhale?950:360,t+dur);
-    g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(inhale?0.16:0.12,t+dur*0.45);g.gain.linearRampToValueAtTime(0.0001,t+dur*0.98);
-    s.connect(f);f.connect(g);g.connect(ac.destination);s.start(t);s.stop(t+dur);
-  }catch(e){}
+ ru:{cap:'Двойной тап — следующий цикл',once:'Коснитесь ещё раз'},
+ en:{cap:'Double tap — next cycle',once:'Tap once more'},
+ de:{cap:'Doppeltippen — nächster Zyklus',once:'Noch einmal tippen'},
+ es:{cap:'Doble toque — siguiente ciclo',once:'Toca una vez más'},
+ zh:{cap:'双击 — 进入下一循环',once:'再点一次'}};
+function whmT(k){return (WHM_T[curLang]||WHM_T.ru)[k];}
+function whmFmt(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60);}
+var WHM_H={on:false,cb:null,t0:0,last:null,rets:[],pingT:0};
+function whmCapEl(){var p=document.getElementById('practice');if(!p)return null;var c=document.getElementById('whmCap');
+  if(!c){p.insertAdjacentHTML('beforeend','<div class="whm-cap" id="whmCap"><span class="t"></span><span class="once"></span></div>');c=document.getElementById('whmCap');}
+  c.querySelector('.t').textContent=whmT('cap');c.querySelector('.once').textContent=whmT('once');return c;}
+function whmHoldOff(){WHM_H.on=false;WHM_H.cb=null;WHM_H.last=null;var p=document.getElementById('practice');if(p)p.classList.remove('whm-hold');
+  var c=document.getElementById('whmCap');if(c)c.classList.remove('ping');}
+function whmTapIn(e){
+  if(!WHM_H.on||!pRun)return;
+  if(e.target&&e.target.closest&&e.target.closest('.p-close,.post-ov'))return;
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  var now=performance.now(),x=e.clientX,y=e.clientY,l=WHM_H.last;
+  if(l&&now-l.t<450&&Math.abs(x-l.x)<90&&Math.abs(y-l.y)<90){WHM_H.last=null;whmEndHold(now);return;}
+  WHM_H.last={t:now,x:x,y:y};
+  var c=document.getElementById('whmCap');if(c){c.classList.add('ping');clearTimeout(WHM_H.pingT);WHM_H.pingT=setTimeout(function(){c.classList.remove('ping');},900);}
 }
-function whmUx(snd,hap){if(snd&&whmSndOn()&&window.nfSound)nfSound(snd,true);if(hap&&window.nfHaptic)nfHaptic(hap);}
-function whmEl(id){return document.getElementById(id);}
-function whmBuild(){
-  if(whmEl('whm'))return;
-  var d=document.createElement('div');d.id='whm';d.className='whm';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');
-  d.innerHTML='<div class="whm-bar"><div class="back" id="whmBack" onclick="whmExit()" aria-label="Back"></div><div class="whm-t" id="whmTitle"></div><div class="whm-rd" id="whmRound"></div></div>'+
-    '<div class="whm-zone" id="whmZone"><div class="whm-ph" id="whmPh"></div><div class="whm-orb" id="whmOrb"><i id="whmBub"></i><div class="whm-num" id="whmNum"></div></div><div class="whm-sub" id="whmSub"></div></div>'+
-    '<div class="whm-hint off" id="whmHint">'+WHM_TAP_SVG+'<span id="whmHintT"></span></div>'+
-    '<div class="whm-res" id="whmRes"></div>';
-  document.body.appendChild(d);
-  var bk=whmEl('whmBack');if(bk&&typeof NF_BACK_SVG!=='undefined')bk.innerHTML=NF_BACK_SVG;
-  /* the whole screen is the tap area; touchstart is cancelled so iOS never zooms, scrolls or selects */
-  function inUi(t){return t&&t.closest&&(t.closest('.back')||t.closest('.whm-res'));}
-  d.addEventListener('touchstart',function(e){if(!inUi(e.target))e.preventDefault();},{passive:false});
-  d.addEventListener('touchmove',function(e){e.preventDefault();},{passive:false});
-  d.addEventListener('pointerdown',function(e){if(inUi(e.target))return;whmTap(e.clientX,e.clientY);});
-  d.addEventListener('contextmenu',function(e){e.preventDefault();});
+function whmEndHold(now){
+  var cb=WHM_H.cb;if(!cb)return;
+  WHM_H.rets.push(Math.round((now-WHM_H.t0)/1000));
+  try{if(typeof nfHaptic==='function')nfHaptic('tap');}catch(_){}
+  whmHoldOff();if(pRafId){cancelAnimationFrame(pRafId);pRafId=null;}
+  playRoundEndSound();cb(now);
 }
-var _whmLast=null;
-function whmTap(x,y){
-  if(!WHM.on)return;var st=WHM.st;if(!st)return;
-  var can=st.phase==='hold'||st.phase==='breath';if(!can)return;
-  var now=Date.now();
-  if(_whmLast&&now-_whmLast.t<450&&Math.hypot(x-_whmLast.x,y-_whmLast.y)<90){_whmLast=null;st.taps2=(st.taps2||0)+1;
-    if(st.phase==='hold')whmEndHold(false);else whmToHold();return;}
-  _whmLast={t:now,x:x,y:y};
-  var h=whmEl('whmHint'),ht=whmEl('whmHintT');
-  if(h&&ht){var keep=ht.textContent;ht.textContent=WT('once');h.classList.remove('ping');void h.offsetWidth;h.classList.add('ping');
-    var tk=WHM.tok;setTimeout(function(){if(tk===WHM.tok&&ht.textContent===WT('once'))ht.textContent=keep;},900);}
-  whmUx('tap','tap');
-}
-function whmLater(fn,ms){var tk=WHM.tok;return setTimeout(function(){if(tk===WHM.tok&&WHM.on)fn();},ms);}
-function whmOrb(scale,ms,hold){var b=whmEl('whmBub'),o=whmEl('whmOrb');if(!b)return;b.style.transitionDuration=(ms||0)+'ms';b.style.transform='scale('+scale+')';if(o)o.classList.toggle('hold',!!hold);}
-function whmSet(ph,num,sub,hint){var a=whmEl('whmPh'),n=whmEl('whmNum'),s=whmEl('whmSub'),h=whmEl('whmHint'),ht=whmEl('whmHintT');
-  if(a)a.textContent=ph||'';if(n){n.textContent=num==null?'':num;n.classList.toggle('sm',String(num).length>3);}if(s)s.textContent=sub||'';
-  if(h&&ht){if(hint){ht.textContent=hint;h.classList.remove('off');}else h.classList.add('off');}}
-function whmRoundLbl(){var st=WHM.st,r=whmEl('whmRound');if(r&&st)r.textContent=WT('round',{a:Math.min(st.round+1,st.rounds),b:st.rounds});}
-function whmLaunch(tc,cycles,rounds){
-  whmBuild();
-  var IN=1.6,EX=1.6;
-  WHM.on=true;WHM.tok++;window._whmOn=true;
-  WHM.st={tc:tc,breaths:cycles||30,rounds:rounds||3,round:0,phase:'ready',rets:[],capped:[],t0:Date.now(),inS:IN,exS:EX,breath:0,taps2:0};
-  try{curTc=tc;}catch(e){}
-  var d=whmEl('whm');d.classList.remove('done');d.classList.add('on');
-  whmEl('whmTitle').textContent=tc.name[curLang]||tc.name.ru;whmRoundLbl();
-  try{nfWakeRequest(true);}catch(e){}
-  whmUx('session_start','start');
-  var n=3;whmOrb(0.55,0);
-  (function cd(){if(n<=0){whmBreaths();return;}whmSet(WT('ready'),n,WT('ready_s'),'');WHM.st.phase='ready';n--;whmLater(cd,1000);})();
-}
-function whmBreaths(){
-  var st=WHM.st;st.phase='breath';st.breath=0;whmRoundLbl();
-  function one(){
-    if(st.phase!=='breath')return;
-    if(st.breath>=st.breaths){whmToHold();return;}
-    st.breath++;var lastN=st.breaths-st.breath<3;
-    whmSet(WT('inh'),st.breath,lastN?WT('last'):'',WT('hint_br'));
-    whmOrb(1,st.inS*1000);whmBreathSound(true,st.inS);
-    whmLater(function(){if(st.phase!=='breath')return;var a=whmEl('whmPh');if(a)a.textContent=WT('exh');whmOrb(0.55,st.exS*1000);whmBreathSound(false,st.exS);whmLater(one,st.exS*1000);},st.inS*1000);
+/* open-ended retention: same visual state as the v103 post-round hold (pPh=3, setPT(3), drawP) */
+function whmOpenHold(lbl,startNow,cb){
+  stopTickSound();
+  if(pPause)togglePause(); /* no pause in this phase */
+  var lblEl=document.getElementById('pLbl'),timEl=document.getElementById('pTim');
+  if(lblEl)lblEl.textContent=lbl;if(timEl)timEl.textContent='0:00';
+  pPh=3;setPT(3);pPhDur=0;pPhSt=startNow;pCurT=-1;
+  WHM_H.on=true;WHM_H.cb=cb;WHM_H.t0=startNow;WHM_H.last=null;
+  var p=document.getElementById('practice');whmCapEl();if(p)p.classList.add('whm-hold');
+  if(pRafId){cancelAnimationFrame(pRafId);pRafId=null;}
+  function loop(now2){
+    if(!pRun||!WHM_H.on){if(!pRun)whmHoldOff();return;}
+    try{var s=Math.floor(Math.max(0,now2-WHM_H.t0)/1000);
+      if(s!==pCurT){pCurT=s;if(timEl)timEl.textContent=whmFmt(s);}
+      drawP(now2);pRafId=requestAnimationFrame(loop);
+    }catch(err){console.error('whm hold err:',err);pRun=false;pRafId=null;whmHoldOff();}
   }
-  one();
-}
-function whmToHold(){
-  var st=WHM.st;if(st.phase==='hold')return;WHM.tok++;st.phase='hold';st.holdT0=performance.now();_whmLast=null;
-  whmOrb(0.92,1200,true);whmSet(WT('hold'),'0:00',WT('hold_s'),WT('hint_hold'));
-  whmUx('session_end','start');
-  var tk=WHM.tok;
-  (function tick(){if(tk!==WHM.tok||st.phase!=='hold')return;var s=(performance.now()-st.holdT0)/1000;var n=whmEl('whmNum');if(n)n.textContent=whmFmt(Math.floor(s));st.holdSec=s;
-    if(s>=240){whmEndHold(true);return;}setTimeout(tick,200);})();
-}
-function whmEndHold(capped){
-  var st=WHM.st;if(st.phase!=='hold')return;WHM.tok++;
-  var s=Math.round((performance.now()-st.holdT0)/1000);st.rets.push(s);st.capped.push(!!capped);
-  whmUx('check','check');
-  st.phase='rin';whmSet(WT('rin'),'',capped?WT('cap'):'','');whmOrb(1,2500,false);whmBreathSound(true,2.5);
-  whmLater(function(){
-    st.phase='rhold';var left=15;whmOrb(1,0,true);
-    (function c(){if(st.phase!=='rhold')return;whmSet(WT('rhold'),left,WT('rhold_s'),'');if(left<=0){whmRecOut();return;}left--;whmLater(c,1000);})();
-  },2500);
-}
-function whmRecOut(){
-  var st=WHM.st;st.phase='rout';whmSet(WT('rout'),'','','');whmOrb(0.55,2000,false);whmBreathSound(false,2);whmUx('count',null);
-  whmLater(function(){st.round++;if(st.round>=st.rounds){whmFinish();return;}whmBreaths();},2200);
-}
-function whmFinish(){
-  var st=WHM.st;WHM.tok++;st.phase='done';
-  var d=whmEl('whm');d.classList.add('done');
-  var hist=[];try{hist=dbGet('whm_hist')||[];}catch(e){}
-  var prevBest=hist.reduce(function(m,h){return Math.max(m,Math.max.apply(null,(h.rets||[0]).concat([0])));},0);
-  if(st.rets.length){hist.push({d:dateKey(new Date()),rets:st.rets});if(hist.length>200)hist=hist.slice(-200);try{dbSet('whm_hist',hist);}catch(e){}}
-  var best=Math.max(prevBest,Math.max.apply(null,st.rets.concat([0]))),avg=st.rets.length?st.rets.reduce(function(a,b){return a+b;},0)/st.rets.length:0;
-  whmEl('whmRes').innerHTML='<h3>'+WT('done')+'</h3><div class="whm-list" id="whmList">'+st.rets.map(function(s,i){return '<div><span>'+WT('row',{n:i+1})+'</span><b>'+whmFmt(s)+'</b></div>';}).join('')+'</div>'+
-    (st.rets.length?'<div class="whm-best">'+WT('avg',{t:whmFmt(avg)})+'</div><div class="whm-best">'+WT('best',{t:whmFmt(best)})+'</div>':'')+
-    '<button class="whm-ok" id="whmOk" onclick="whmClose(true)">'+WT('ok')+'</button>';
-  whmEl('whmRound').textContent='';
-  whmUx('session_end','result');
-  window._whmResult={rets:st.rets.slice(),rounds:st.rounds,breaths:st.breaths};
-}
-function whmExit(){
-  if(!WHM.on)return;var st=WHM.st;
-  if(st&&st.phase!=='done'&&st.rets.length){whmFinish();return;}   /* leaving mid-session keeps finished rounds */
-  whmClose(st&&st.phase==='done');
-}
-function whmClose(save){
-  var st=WHM.st;WHM.tok++;WHM.on=false;window._whmOn=false;
-  if(save&&st&&st.rets.length){try{var dur=Math.round((Date.now()-st.t0)/1000),ss=dbGet('sessions')||[];
-    ss.push({nm:(st.tc.name[curLang]||st.tc.name.ru),dur:dur,date:dateKey(new Date()),cat:st.tc.cat||'energy',whm:st.rets});if(ss.length>200)ss=ss.slice(-200);dbSet('sessions',ss);
-    if(typeof renderProfile==='function')renderProfile();if(typeof updateGreet==='function')updateGreet();if(typeof renderTodayWidget==='function')renderTodayWidget();}catch(e){}}
-  var d=whmEl('whm');if(d){d.classList.remove('on');d.classList.remove('done');}
-  WHM.st=null;
+  pRafId=requestAnimationFrame(loop);
 }
 (function(){
-  var _l=launch;launch=function(tc){if(tc&&tc.id==='wim_hof')return whmLaunch.apply(this,arguments);return _l.apply(this,arguments);};
-  var _b=nfBusy;nfBusy=function(){return !!window._whmOn||_b();};   /* no UI tap sounds over the session */
+  var _dph=doPostHold;
+  doPostHold=function(dur,labelKey,startNow,cb){
+    if(curTc&&curTc.id==='wim_hof'&&labelKey==='hold_exhale_post'){
+      var POST={ru:'Пауза · выдох',en:'Post-exhale hold',de:'Pause Ausatmen',es:'Pausa exhalar',zh:'呼后屏息'};
+      return whmOpenHold(POST[curLang]||POST.ru,startNow,cb);
+    }
+    return _dph(dur,labelKey,startNow,cb);
+  };
+  var _lp=launch;launch=function(tc){WHM_H.rets=[];whmHoldOff();return _lp.apply(this,arguments);};
+  var _sp=stopPractice;stopPractice=function(){whmHoldOff();return _sp.apply(this,arguments);};
+  if(typeof endP==='function'){var _ep=endP;endP=function(){whmHoldOff();return _ep.apply(this,arguments);};}
+  document.addEventListener('pointerdown',function(e){var p=document.getElementById('practice');if(p&&p.contains(e.target))whmTapIn(e);},true);
 })();
-/* detail text: explain the tap control */
-(function(){var tc=ALL_TC&&ALL_TC.wim_hof;if(!tc||!tc.desc)return;var add={
-  ru:' Задержка не ограничена таймером: секундомер запускается сам после последнего выдоха, а закончить её можно двойным касанием в любом месте экрана.',
-  en:' The hold has no fixed timer: a stopwatch starts by itself after the last exhale, and you end it with a double tap anywhere on the screen.',
-  de:' Das Anhalten hat keinen festen Timer: Eine Stoppuhr startet nach dem letzten Ausatmen von selbst, beendet wird es mit Doppeltippen irgendwo auf dem Bildschirm.',
-  es:' La retención no tiene un tiempo fijo: un cronómetro arranca solo tras la última exhalación y la terminas tocando dos veces en cualquier parte de la pantalla.',
-  zh:' 屏息没有固定时长：最后一次呼气后秒表自动开始，双击屏幕任意位置即可结束。'};
-  for(var l in add)if(tc.desc[l])tc.desc[l]+=add[l];})();
 
 /* v100: run init only after every function/var in this script is defined */
 init();
