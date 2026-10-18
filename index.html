@@ -7,6 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
+<meta name="nf-version" content="v102">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ── Habit calendar grid ── */
@@ -1572,6 +1573,222 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 .ni.on .nl{ color:var(--glow-c, var(--t1)) !important; }
 .nl{ font-size:10px; letter-spacing:.14em; }
 
+/* ═══ v102 — HABITS ═══ */
+#reminders{--hb-acc:#38c068;}
+#reminders .hb-scroll{padding:0;width:100%;flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:none;}
+#reminders .hb-scroll::-webkit-scrollbar{display:none;}
+.hb-wrap{max-width:560px;margin:0 auto;padding:4px 20px calc(var(--nh) + var(--sb) + 32px);}
+.hb-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:8px 0 16px;}
+.hb-h1{font-size:24px;font-weight:300;letter-spacing:-.02em;color:var(--t1);line-height:1.15;}
+.hb-h2{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--t4);margin:36px 0 4px;}
+.hb-date{font-size:12px;font-weight:300;color:var(--t3);margin-top:5px;letter-spacing:.02em;}
+.hb-date::first-letter{text-transform:uppercase;}
+.hb-actions{display:flex;gap:8px;align-items:center;flex-shrink:0;}
+.hb-ibtn{width:44px;height:44px;border-radius:50%;border:1px solid var(--br1);background:transparent;color:var(--t2);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:border-color .2s,color .2s,background .2s,opacity .2s;}
+.hb-ibtn svg{width:20px;height:20px;}
+.hb-ibtn.sm{width:40px;height:40px;border-color:transparent;}
+.hb-ibtn:active{background:rgba(255,255,255,.06);}
+.hb-ibtn:disabled{opacity:.25;cursor:default;}
+.hb-tbtn{height:44px;padding:0 18px;border-radius:22px;border:1px solid var(--br1);background:transparent;color:var(--t2);font:400 13px 'DM Sans',sans-serif;letter-spacing:.01em;cursor:pointer;transition:all .2s;}
+.hb-tbtn.on{color:var(--t1);border-color:var(--br2);background:rgba(255,255,255,.05);}
+.hb-prog{display:flex;align-items:center;gap:14px;margin:0 2px 16px;}
+.hb-bar{flex:1;height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;}
+.hb-bar i{display:block;height:100%;background:var(--hb-acc);border-radius:2px;transition:width .6s cubic-bezier(.2,.8,.2,1);}
+.hb-cnt{font:400 12px 'DM Mono',monospace;color:var(--t3);white-space:nowrap;}
+.hb-hint{font-size:12px;font-weight:300;color:var(--t3);line-height:1.5;margin:-4px 2px 14px;}
+.hb-list{display:flex;flex-direction:column;gap:8px;}
+.hb-row{display:flex;align-items:center;gap:16px;min-height:68px;padding:12px 18px;border-radius:18px;border:1px solid var(--br0);background:rgba(255,255,255,.025);cursor:pointer;
+  transition:background .3s ease,border-color .3s ease,transform .18s ease;-webkit-tap-highlight-color:transparent;outline:none;}
+.hb-row:active{transform:scale(.985);}
+.hb-row:focus-visible{border-color:var(--br2);}
+.hb-row.done{background:rgba(56,192,104,.055);border-color:rgba(56,192,104,.16);}
+.hb-chk{flex-shrink:0;width:30px;height:30px;overflow:visible;}
+.hb-chk circle{fill:transparent;stroke:rgba(255,255,255,.24);stroke-width:1.3;transition:fill .3s ease,stroke .3s ease;}
+.hb-chk path{fill:none;stroke:#07070e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:18;stroke-dashoffset:18;transition:stroke-dashoffset .38s cubic-bezier(.65,0,.35,1) .08s;}
+.hb-row.done .hb-chk circle{fill:var(--hb-acc);stroke:var(--hb-acc);}
+.hb-row.done .hb-chk path{stroke-dashoffset:0;}
+.hb-row.hb-pop .hb-chk{animation:hbPop .42s cubic-bezier(.34,1.56,.64,1);}
+@keyframes hbPop{0%{transform:scale(1)}40%{transform:scale(.86)}100%{transform:scale(1)}}
+.hb-txt{flex:1;min-width:0;}
+.hb-name{font-size:15px;font-weight:400;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .3s;}
+.hb-row.done .hb-name{color:var(--t2);}
+.hb-meta{font:400 11px 'DM Mono',monospace;color:var(--t4);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hb-meta b{font-weight:400;color:var(--t3);}
+.hb-editing{cursor:default;gap:6px;padding-right:8px;}
+.hb-editing .hb-txt{cursor:pointer;padding:4px 0;}
+.hb-mini{width:44px;height:44px;flex-shrink:0;border:0;background:transparent;color:var(--t3);display:flex;align-items:center;justify-content:center;border-radius:12px;cursor:pointer;padding:0;}
+.hb-mini svg{width:18px;height:18px;}
+.hb-mini:active{background:rgba(255,255,255,.06);}
+.hb-mini:disabled{opacity:.2;}
+.hb-empty{text-align:center;padding:36px 12px 8px;}
+.hb-empty-t{font-size:17px;font-weight:400;color:var(--t1);}
+.hb-empty-s{font-size:13px;font-weight:300;color:var(--t3);margin:8px 0 22px;line-height:1.5;text-align:center;}
+.hb-primary,.hb-sec-btn,.hb-danger{height:52px;border-radius:26px;padding:0 24px;font:500 14px 'DM Sans',sans-serif;letter-spacing:.02em;cursor:pointer;transition:opacity .2s,transform .15s;}
+.hb-primary{background:var(--hb-acc,#38c068);border:0;color:#06110a;}
+.hb-sec-btn{background:transparent;border:1px solid var(--br1);color:var(--t2);}
+.hb-danger{background:rgba(240,80,70,.14);border:1px solid rgba(240,80,70,.35);color:#ff8a80;}
+.hb-primary:active,.hb-sec-btn:active,.hb-danger:active{transform:scale(.98);}
+/* calendar */
+.hb-cal-head{display:flex;align-items:center;justify-content:space-between;margin:2px -6px 6px;}
+.hb-cal-title{font-size:16px;font-weight:400;color:var(--t1);letter-spacing:-.01em;}
+.hb-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);row-gap:2px;}
+.hb-cal.hb-slide-l .hb-cal-grid{animation:hbSlideL .32s ease;}
+.hb-cal.hb-slide-r .hb-cal-grid{animation:hbSlideR .32s ease;}
+@keyframes hbSlideL{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+@keyframes hbSlideR{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+.hb-dow{font:500 10px 'DM Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--t4);text-align:center;padding:8px 0;}
+.hb-day{position:relative;height:48px;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);font:400 13px 'DM Mono',monospace;}
+.hb-day svg{position:absolute;left:50%;top:50%;width:40px;height:40px;transform:translate(-50%,-50%) rotate(-90deg);}
+.hb-day .trk{fill:transparent;stroke:rgba(255,255,255,.06);stroke-width:1.2;transition:fill .3s;}
+.hb-day .arc{fill:none;stroke:var(--hb-acc);stroke-width:1.6;stroke-linecap:round;transition:stroke-dasharray .4s ease;}
+.hb-day span{position:relative;}
+.hb-day.full .trk{fill:var(--hb-acc);stroke:var(--hb-acc);}
+.hb-day.full span{color:#06110a;font-weight:500;}
+.hb-day.today span{color:var(--t1);font-weight:500;}
+.hb-day.today:not(.full) .trk{stroke:rgba(255,255,255,.4);}
+.hb-day.future{color:var(--t4);opacity:.45;cursor:default;}
+.hb-day:active:not(:disabled) svg{transform:translate(-50%,-50%) rotate(-90deg) scale(.92);}
+.hb-cal-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;font-size:12px;font-weight:300;color:var(--t3);}
+.hb-legend{display:flex;gap:5px;}
+.hb-legend i{width:10px;height:10px;border-radius:50%;border:1px solid rgba(255,255,255,.14);}
+.hb-legend .l1{border-color:var(--hb-acc);border-right-color:rgba(255,255,255,.14);border-bottom-color:rgba(255,255,255,.14);transform:rotate(45deg);}
+.hb-legend .l2{background:var(--hb-acc);border-color:var(--hb-acc);}
+/* sheet */
+.hb-sheet-ov{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s ease;}
+.hb-sheet-ov.on{background:rgba(0,0,0,.6);pointer-events:auto;}
+.hb-sheet2{position:absolute;left:0;right:0;bottom:0;max-height:88%;overflow-y:auto;background:#0e0e19;border-top:1px solid var(--br1);border-radius:24px 24px 0 0;
+  padding:10px 20px calc(var(--sb) + 20px);transform:translateY(100%);transition:transform .38s cubic-bezier(.2,.8,.2,1);max-width:560px;margin:0 auto;}
+.hb-sheet-ov.on .hb-sheet2{transform:none;}
+.hb-grab{width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,.14);margin:0 auto 10px;}
+.hb-sh-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 -8px 14px 0;}
+.hb-sh-title{font-size:18px;font-weight:400;color:var(--t1);letter-spacing:-.01em;}
+.hb-lbl{display:block;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);margin:16px 0 8px;}
+.hb-input{width:100%;height:52px;border-radius:14px;border:1px solid var(--br1);background:rgba(255,255,255,.03);color:var(--t1);font:400 16px 'DM Sans',sans-serif;padding:0 16px;outline:none;transition:border-color .2s;-webkit-user-select:text;user-select:text;}
+.hb-input:focus{border-color:rgba(56,192,104,.5);}
+.hb-input.bad{border-color:rgba(240,80,70,.6);}
+.hb-err{font-size:12px;color:#ff8a80;min-height:16px;margin-top:6px;}
+.hb-seg{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+.hb-seg button{height:44px;border-radius:12px;border:1px solid var(--br0);background:rgba(255,255,255,.03);color:var(--t3);font:400 14px 'DM Mono',monospace;cursor:pointer;transition:all .2s;}
+.hb-seg button.on{border-color:var(--hb-acc,#38c068);color:var(--t1);background:rgba(56,192,104,.1);}
+.hb-seg-cap{font-size:12px;font-weight:300;color:var(--t3);margin-top:8px;}
+.hb-btns{display:flex;gap:10px;margin-top:24px;}
+.hb-btns>button{flex:1;}
+.hb-del{width:100%;margin-top:14px;height:48px;border:0;background:transparent;color:rgba(255,120,110,.85);font:400 14px 'DM Sans',sans-serif;cursor:pointer;}
+.hb-confirm{margin-top:16px;padding:16px;border-radius:16px;border:1px solid rgba(240,80,70,.25);background:rgba(240,80,70,.05);animation:luxFadeUp .3s ease both;}
+.hb-confirm .hb-btns{margin-top:14px;}
+.hb-confirm-q{font-size:13px;font-weight:300;color:var(--t2);line-height:1.5;}
+#hbSheetOv .hb-list .hb-row{min-height:60px;}
+
+/* ═══ v102 — COGNITION ═══ */
+.cog-card-ico svg{width:20px;height:20px;}
+.cg-bar-t{font-size:15px;font-weight:500;color:var(--t1);text-align:center;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cog-ex-bar{gap:8px;}
+.cg-det{padding:0 20px calc(var(--sb) + 28px);}
+.cg-hero{text-align:center;padding:18px 0 22px;}
+.cg-hero-ico{width:64px;height:64px;border-radius:20px;border:1px solid;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.cg-hero-ico svg{width:30px;height:30px;}
+.cg-hero-t{font-size:22px;font-weight:400;letter-spacing:-.015em;color:var(--t1);}
+.cg-hero-s{font-size:13px;font-weight:300;color:var(--t2);margin-top:6px;}
+.cg-hero-best{font-size:12px;font-weight:300;color:var(--t3);margin-top:12px;}
+.cg-hero-best b{font-weight:500;}
+.cg-info{background:rgba(255,255,255,.03);border:1px solid var(--br0);border-radius:16px;padding:16px 18px;font-size:14px;font-weight:300;color:var(--t2);line-height:1.65;margin-bottom:18px;}
+.cg-lbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);margin:4px 0 8px;}
+.cg-seg{display:flex;gap:8px;margin-bottom:18px;}
+.cg-seg button{flex:1;height:44px;border-radius:12px;border:1px solid var(--br0);background:rgba(255,255,255,.03);color:var(--t3);font:400 13px 'DM Sans',sans-serif;cursor:pointer;transition:all .2s;}
+.cg-seg button.on{color:var(--t1);border-color:var(--c);background:rgba(255,255,255,.05);}
+.cg-start{width:100%;height:54px;border-radius:27px;border:0;color:#fff;font:500 15px 'DM Sans',sans-serif;letter-spacing:.03em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px;}
+.cg-start:active{transform:scale(.98);}
+.cg-sub{display:flex;align-items:center;gap:14px;padding:14px 16px;min-height:68px;border-radius:16px;border:1px solid var(--br0);background:rgba(255,255,255,.03);margin-bottom:8px;cursor:pointer;color:var(--t4);}
+.cg-sub-ico{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cg-sub-ico svg{width:22px;height:22px;}
+.cg-sub-txt{flex:1;min-width:0;}
+.cg-sub-t{font-size:14px;font-weight:500;color:var(--t1);}
+.cg-sub-d{font-size:12px;font-weight:300;color:var(--t3);margin-top:3px;}
+.cg-pad{padding:6px 16px calc(var(--sb) + 24px);max-width:560px;margin:0 auto;}
+.cg-center{display:flex;flex-direction:column;align-items:center;text-align:center;min-height:62vh;justify-content:center;gap:18px;}
+.cg-cnt{font:400 11px 'DM Mono',monospace;color:var(--t4);letter-spacing:.06em;margin-bottom:6px;}
+.cg-pad:not(.cg-center)>.cg-cnt{text-align:center;}
+.cg-q{font-size:14px;font-weight:300;color:var(--t2);line-height:1.5;margin-bottom:12px;text-align:center;}
+.cg-center .cg-q{margin-bottom:0;}
+.cg-h{font-size:19px;font-weight:400;color:var(--t1);text-align:center;margin-bottom:6px;}
+.cg-warn{color:#f06040;font-weight:500;}
+.cg-canvas{width:100%;display:block;border-radius:16px;background:rgba(255,255,255,.025);border:1px solid var(--br0);touch-action:none;}
+.cg-canvas.dark{background:#050508;}
+.cg-timer{text-align:center;font:300 30px 'DM Mono',monospace;color:#38c068;margin-top:14px;min-height:38px;}
+.cg-timer.sm{font-size:18px;min-height:24px;margin-top:8px;color:var(--t3);}
+.cg-tbar{width:100%;max-width:300px;height:2px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;margin:4px auto 0;}
+.cg-tbar i{display:block;height:100%;width:100%;}
+.cg-fb{font-size:13px;min-height:18px;color:var(--t3);}
+.cg-fb.good{color:#5fd38a;}.cg-fb.bad{color:#ff8a80;}
+.cg-ok{border-color:#38c068 !important;background-color:rgba(56,192,104,.22);}
+.cg-bad{border-color:#f06040 !important;background-color:rgba(240,96,64,.22);}
+.cg-ring{box-shadow:0 0 0 2px #38c068 inset, 0 0 14px rgba(56,192,104,.4) !important;}
+.cg-vs{display:grid;gap:1px;width:100%;}
+.cg-vs button{aspect-ratio:1;border:1px solid transparent;border-radius:8px;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.cg-vs button i{width:62%;height:62%;border-radius:50%;display:block;}
+.cg-word{font-size:40px;font-weight:500;letter-spacing:.01em;line-height:1.2;min-height:60px;word-break:break-word;}
+.cg-colors{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;width:100%;max-width:340px;}
+.cg-colors button{flex:0 0 calc((100% - 20px)/3);height:64px;border-radius:16px;border:1px solid var(--br1);background:rgba(255,255,255,.03);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;cursor:pointer;padding:0 4px;min-width:0;}
+.cg-colors.n4 button{flex-basis:calc((100% - 10px)/2);}
+.cg-colors i{width:24px;height:24px;border-radius:50%;display:block;}
+.cg-colors span{font-size:12px;color:var(--t2);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.cg-bim{display:flex;gap:8px;touch-action:none;}
+.cg-bim>div{flex:1 1 0;min-width:0;text-align:center;}
+.cg-bim canvas{display:block;margin:0 auto;max-width:100%;border-radius:14px;background:rgba(255,255,255,.025);border:1px solid var(--br0);touch-action:none;-webkit-user-select:none;user-select:none;}
+.cg-cap{font-size:11px;color:var(--t3);margin-top:6px;}
+.cg-split{display:flex;gap:40px;justify-content:center;}
+.cg-num{font:300 30px 'DM Mono',monospace;margin-top:4px;}
+.cg-big{font:200 56px 'DM Mono',monospace;line-height:1;}
+.cg-range{width:100%;max-width:280px;}
+.cg-btn1,.cg-btn2{height:50px;padding:0 26px;border-radius:25px;font:500 14px 'DM Sans',sans-serif;cursor:pointer;}
+.cg-btn1{border:0;color:#fff;}
+.cg-btn2{background:transparent;border:1px solid var(--br1);color:var(--t1);}
+.cg-btn1.wide{width:100%;max-width:320px;margin-top:14px;}
+.cg-card-word{min-width:220px;padding:44px 28px;border-radius:22px;border:1px solid var(--br1);background:rgba(255,255,255,.035);font-size:30px;font-weight:400;color:var(--t1);animation:luxFadeUp .35s ease both;}
+.cg-ta{width:100%;height:120px;border-radius:16px;border:1px solid var(--br1);background:rgba(255,255,255,.03);color:var(--t1);font:400 16px 'DM Sans',sans-serif;padding:14px 16px;resize:none;outline:none;-webkit-user-select:text;user-select:text;}
+.cg-words{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:14px;max-width:320px;}
+.cg-words span{font-size:12px;padding:5px 10px;border-radius:12px;border:1px solid var(--br0);color:var(--t4);}
+.cg-words span.ok{color:#5fd38a;border-color:rgba(56,192,104,.3);}
+.cg-ig{display:grid;gap:12px;}
+.cg-ig.g2{grid-template-columns:repeat(2,1fr);width:240px;}
+.cg-ig.g2.wide{width:100%;max-width:300px;}
+.cg-ig.g3{grid-template-columns:repeat(3,1fr);width:100%;max-width:300px;gap:10px;}
+.cg-ig.g4{grid-template-columns:repeat(4,1fr);width:100%;max-width:320px;gap:10px;}
+.cg-ig button{aspect-ratio:1;border-radius:16px;border:1px solid var(--br1);background:rgba(255,255,255,.035);color:var(--t1);font:400 26px 'DM Mono',monospace;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:background .3s,border-color .3s;}
+.cg-ig.wide button{aspect-ratio:auto;height:60px;font-size:20px;}
+.cg-ig.g3 button svg{width:34px;height:34px;color:var(--t2);}
+.cg-env svg{width:72px;height:72px;}
+.cg-swatch{width:44px;height:44px;border-radius:50%;}
+.cg-expr{font:300 42px 'DM Mono',monospace;color:var(--t1);}
+.cg-trail{display:flex;gap:8px;align-items:center;min-height:14px;}
+.cg-trail i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.14);}
+.cg-trail i.tg{background:transparent;border:1px solid var(--c);}
+.cg-trail b{width:10px;height:10px;border-radius:50%;background:var(--c);}
+.cg-letter{width:110px;height:110px;border-radius:24px;border:1px solid;display:flex;align-items:center;justify-content:center;font:300 56px 'DM Mono',monospace;}
+.cg-match{height:56px;min-width:220px;border-radius:28px;border:1px solid var(--c);background:transparent;color:var(--c);font:500 15px 'DM Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+.cg-hint{font-size:11px;color:var(--t4);}
+.cg-seq{display:grid;grid-template-columns:repeat(2,120px);gap:12px;}
+.cg-seq button{height:120px;border-radius:22px;border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 12%,transparent);color:var(--c);font:300 22px 'DM Mono',monospace;cursor:pointer;transition:background .1s,box-shadow .1s,transform .1s;}
+.cg-seq button.lit{background:var(--c);color:#07070e;box-shadow:0 0 24px var(--c);transform:scale(1.04);}
+.cg-res{display:flex;flex-direction:column;align-items:center;text-align:center;padding:28px 20px calc(var(--sb) + 24px);min-height:64vh;justify-content:center;gap:10px;max-width:520px;margin:0 auto;}
+.cg-res-lbl{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--t4);}
+.cg-res-pct{font:200 64px 'DM Mono',monospace;line-height:1.05;}
+.cg-res-x{font-size:14px;font-weight:300;color:var(--t2);line-height:1.5;}
+.cg-res-best{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#5fd38a;}
+.cg-res-bar{width:100%;max-width:280px;height:2px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;margin:14px 0 18px;}
+.cg-res-bar i{display:block;height:100%;transition:width 1s ease;}
+.cg-res-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+/* ═══ v102 — misc line icons replacing emoji ═══ */
+.nf-ic{display:inline-flex;vertical-align:-3px;}
+.nf-ic svg{width:15px;height:15px;}
+.med-mood-em svg{width:24px;height:24px;color:var(--t2);}
+.med-mood-opt.on .med-mood-em svg{color:var(--t1);}
+.msw-meta svg{width:12px;height:12px;vertical-align:-2px;color:var(--t3);}
+.med-done-icon svg{width:36px;height:36px;}
+
+/* v102: cognition list had no side padding (cards touched the screen edges) */
+#cog-body{padding-left:16px;padding-right:16px;box-sizing:border-box;}
+
 </style>
 </head>
 <body>
@@ -1716,7 +1933,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 
   <!-- Кнопка закрытия: симметричные отступы сверху/слева = bottom/right у кнопки play -->
   <div class="p-close">
-    <div class="back" onclick="stopPractice()">✕</div>
+    <div class="back" onclick="stopPractice()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
   </div>
 
   <!-- Название практики + ТЕКУЩАЯ ФАЗА — над сферой, JS-позиционирование -->
@@ -1747,7 +1964,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
   </div>
   <div class="post-ov" id="postOv">
     <div class="post-c">
-      <div class="pb-star">◆</div>
+      <div class="pb-star"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M12 3l7 9-7 9-7-9z"/></svg></div>
       <div class="pb-t" data-i18n="session_done">Сессия завершена</div>
       <div class="pb-s" id="pStat"></div>
       <div class="pb-q" data-i18n="one_word">Одно слово о состоянии:</div>
@@ -1912,46 +2129,11 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 <!-- ═══ REMINDERS ════════════════════════════════════════ -->
 <div id="reminders" class="scr">
   <div class="hdr">
-    <span class="logo" style="font-size:15px" data-i18n="rem_title">Привычки</span>
+    <span class="logo" id="hbLogo" style="font-size:15px">Привычки</span>
   </div>
-  <div id="remContent" class="pscr" style="padding:0 0 16px">
-    <div class="hab-top-row">
-      <div class="hab-ring-wrap" id="hab-daily-ring"></div>
-      <div class="hab-top-info">
-        <div class="hab-top-pct" id="hab-top-pct">0%</div>
-        <div class="hab-top-sub" id="hab-top-sub">Начни день</div>
-      </div>
-    </div>
-    <div class="hab-view-switch">
-      <div class="hab-view-btn on" id="habViewWeekBtn" onclick="setHabView('week')">Неделя</div>
-      <div class="hab-view-btn" id="habViewMonthBtn" onclick="setHabView('month')">Месяц</div>
-    </div>
-    <div id="habWeekView">
-      <div id="habRibbon" class="hab-week-ribbon"></div>
-      <div id="habStreakRow" class="hab-streak-row"></div>
-      <div class="rem-section">
-        <div class="rem-sec-hdr">
-          <div class="rem-sec-title" data-i18n="rem_sub_hab">Привычки</div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div id="hab-delete-btn" onclick="deleteSelectedHabits()" style="display:none;padding:5px 14px;background:rgba(220,50,50,.18);border:1px solid rgba(220,50,50,.4);border-radius:20px;font-size:12px;font-weight:500;color:rgba(255,100,100,.95);cursor:pointer;white-space:nowrap;">Удалить</div>
-            <div class="rem-add-btn" onclick="openRemForm('habit')">+</div>
-          </div>
-        </div>
-        <div id="habList"></div>
-      </div>
-    </div>
-    <div id="habMonthView" style="display:none;">
-      <div id="habMonthHead" class="hab-month-head"></div>
-      <div id="habMonthGrid" class="hab-month-grid"></div>
-    </div>
-    <div class="rem-hint" data-i18n="rem_notif_hint">Уведомления работают, если приложение открыто</div>
-    <div class="rem-hint" style="color:rgba(255,255,255,.28);padding-top:4px">📅 Нажми «В Календарь» — скачается .ics файл. Открой его на iPhone — добавится в Календарь.</div>
-  </div>
-  <div id="habDaySheet" class="hab-sheet-overlay" onclick="if(event.target===this)closeDaySheet()">
-    <div class="hab-sheet">
-      <div class="hab-sheet-handle"></div>
-      <div id="habSheetBody"></div>
-    </div>
+  <div class="hb-scroll"><div class="hb-wrap" id="hbRoot"></div></div>
+  <div id="hbSheetOv" class="hb-sheet-ov" onclick="if(event.target===this)hbCloseSheet()">
+    <div class="hb-sheet2" role="dialog" aria-modal="true"><div class="hb-grab"></div><div id="hbSheetBody"></div></div>
   </div>
   <div class="bnav">
     <div class="ni" id="rnav-dash" onclick="navTo('dashboard')">
@@ -2207,7 +2389,7 @@ var LANGS={
   after_round_lbl:'Post-round pause',
   structure_lbl:'Structure',
   hold_after_exhale:'Hold after exhale',
-  hold_after_inhale:'Hold after inhale',nav_rem:'Habits',rem_recovery:'Prepare for next round',med_start_session:'Begin Meditation',vup_title:'Voice Instructions',vup_upload:'Upload',vup_delete:'Delete',vup_play:'Preview',vup_loading:'...',vup_saving:'Saving...',vup_uploaded:'uploaded',vup_clear_all:'Clear all',vup_hint:'MP3 or WAV. Stored in browser.',med_lv_easy:'Easy',med_desc_effect:'Effect',med_done_title:'Session complete',med_done_duration:'Duration',med_done_mood:'How do you feel?',med_done_note:'Notes',med_done_note_ph:'Write your observations...',med_done_save:'Save',med_done_skip:'Skip',med_stat_title:'My Meditations',med_stat_today:'Today',med_stat_total:'Total',med_stat_empty:'No records yet',med_stat_min:'min',med_desc_practice:'Practice',med_desc_focus:'Focus',med_lv_mid:'Medium',med_lv_hard:'Deep',med_time_elapsed:'Elapsed',med_time_total:'Total',med_stop_session:'End',med_session_title:'Meditation Session',med_voice_preparing:'Preparing...',rem_recovery:'Prepare for next round',rem_recovery:'Prepare for next round',rem_title:'Reminders & Habits',rem_sub_rem:'Reminders',rem_sub_hab:'Habits',rem_add_reminder:'+ Add reminder',rem_add_habit:'+ Add habit',rem_time:'Time',rem_label:'Title',rem_days:'Days',rem_save:'Save',rem_cancel:'Cancel',rem_delete:'Delete',rem_edit:'Edit',rem_empty_rem:'No reminders yet. Add your first.',rem_empty_hab:'No habits yet. Add your first.',rem_done_today:'Done today',rem_streak:'Streak',rem_days_short:'Mo,Tu,We,Th,Fr,Sa,Su',rem_every_day:'Every day',rem_custom_days:'Choose days',rem_cal_export:'Add to Calendar',rem_notif_hint:'Notifications work when app is open',med_sub:'Mindfulness & Meditation',med_how:'How to practice',med_sci:'Science',med_breath:'Recommended breathing',
+  hold_after_inhale:'Hold after inhale',nav_rem:'Habits',rem_recovery:'Prepare for next round',med_start_session:'Begin Meditation',vup_title:'Voice Instructions',vup_upload:'Upload',vup_delete:'Delete',vup_play:'Preview',vup_loading:'...',vup_saving:'Saving...',vup_uploaded:'uploaded',vup_clear_all:'Clear all',vup_hint:'MP3 or WAV. Stored in browser.',med_lv_easy:'Easy',med_desc_effect:'Effect',med_done_title:'Session complete',med_done_duration:'Duration',med_done_mood:'How do you feel?',med_done_note:'Notes',med_done_note_ph:'Write your observations...',med_done_save:'Save',med_done_skip:'Skip',med_stat_title:'My Meditations',med_stat_today:'Today',med_stat_total:'Total',med_stat_empty:'No records yet',med_stat_min:'min',med_desc_practice:'Practice',med_desc_focus:'Focus',med_lv_mid:'Medium',med_lv_hard:'Deep',med_time_elapsed:'Elapsed',med_time_total:'Total',med_stop_session:'End',med_session_title:'Meditation Session',med_voice_preparing:'Preparing...',rem_recovery:'Prepare for next round',rem_recovery:'Prepare for next round',rem_title:'Habits',rem_sub_rem:'Reminders',rem_sub_hab:'Habits',rem_add_reminder:'+ Add reminder',rem_add_habit:'+ Add habit',rem_time:'Time',rem_label:'Title',rem_days:'Days',rem_save:'Save',rem_cancel:'Cancel',rem_delete:'Delete',rem_edit:'Edit',rem_empty_rem:'No reminders yet. Add your first.',rem_empty_hab:'No habits yet. Add your first.',rem_done_today:'Done today',rem_streak:'Streak',rem_days_short:'Mo,Tu,We,Th,Fr,Sa,Su',rem_every_day:'Every day',rem_custom_days:'Choose days',rem_cal_export:'Add to Calendar',rem_notif_hint:'Notifications work when app is open',med_sub:'Mindfulness & Meditation',med_how:'How to practice',med_sci:'Science',med_breath:'Recommended breathing',
   },
   de:{
     nav_home:'Startseite',nav_lib:'Praktiken',nav_med:'Meditationen',nav_profile:'Profil',
@@ -2238,7 +2420,7 @@ var LANGS={
     rounds:'Runden',rounds_short:'Runden',cycles_lbl:'Zyklen',rounds_lbl:'Runden',
     round:'Runde',cycle:'Zyklus',
     hold_after_exhale:'Halten nach Ausatmen',hold_after_inhale:'Halten nach Einatmen',
-  hold_after_inhale:'Halten nach Einatmung',nav_rem:'Gewohnheiten',rem_recovery:'Bereite dich auf die nächste Runde vor',med_start_session:'Meditation beginnen',vup_title:'Sprachanweisungen',vup_upload:'Hochladen',vup_delete:'Löschen',vup_play:'Anhören',vup_loading:'...',vup_saving:'Speichern...',vup_uploaded:'hochgeladen',vup_clear_all:'Alle löschen',vup_hint:'MP3 oder WAV. Im Browser gespeichert.',med_lv_easy:'Leicht',med_desc_effect:'Wirkung',med_done_title:'Sitzung abgeschlossen',med_done_duration:'Dauer',med_done_mood:'Wie fühlen Sie sich?',med_done_note:'Notizen',med_done_note_ph:'Beobachtungen aufschreiben...',med_done_save:'Speichern',med_done_skip:'Überspringen',med_stat_title:'Meine Meditationen',med_stat_today:'Heute',med_stat_total:'Gesamt',med_stat_empty:'Keine Einträge',med_stat_min:'Min',med_desc_practice:'Praxis',med_desc_focus:'Fokus',med_lv_mid:'Mittel',med_lv_hard:'Tief',med_time_elapsed:'Vergangen',med_time_total:'Gesamt',med_stop_session:'Beenden',med_session_title:'Meditationssitzung',med_voice_preparing:'Vorbereitung...',rem_title:'Erinnerungen & Gewohnheiten',rem_sub_rem:'Erinnerungen',rem_sub_hab:'Gewohnheiten',rem_add_reminder:'+ Erinnerung hinzufügen',rem_add_habit:'+ Gewohnheit hinzufügen',rem_time:'Zeit',rem_label:'Titel',rem_days:'Tage',rem_save:'Speichern',rem_cancel:'Abbrechen',rem_delete:'Löschen',rem_edit:'Bearbeiten',rem_empty_rem:'Keine Erinnerungen. Erste hinzufügen.',rem_empty_hab:'Keine Gewohnheiten. Erste hinzufügen.',rem_done_today:'Heute erledigt',rem_streak:'Serie',rem_days_short:'Mo,Di,Mi,Do,Fr,Sa,So',rem_every_day:'Jeden Tag',rem_custom_days:'Tage wählen',rem_cal_export:'Zum Kalender',rem_notif_hint:'Benachrichtigungen funktionieren wenn App offen',med_sub:'Achtsamkeit & Meditation',med_how:'Wie zu üben',med_sci:'Wissenschaft',med_breath:'Empfohlene Atmung',
+  hold_after_inhale:'Halten nach Einatmung',nav_rem:'Gewohnheiten',rem_recovery:'Bereite dich auf die nächste Runde vor',med_start_session:'Meditation beginnen',vup_title:'Sprachanweisungen',vup_upload:'Hochladen',vup_delete:'Löschen',vup_play:'Anhören',vup_loading:'...',vup_saving:'Speichern...',vup_uploaded:'hochgeladen',vup_clear_all:'Alle löschen',vup_hint:'MP3 oder WAV. Im Browser gespeichert.',med_lv_easy:'Leicht',med_desc_effect:'Wirkung',med_done_title:'Sitzung abgeschlossen',med_done_duration:'Dauer',med_done_mood:'Wie fühlen Sie sich?',med_done_note:'Notizen',med_done_note_ph:'Beobachtungen aufschreiben...',med_done_save:'Speichern',med_done_skip:'Überspringen',med_stat_title:'Meine Meditationen',med_stat_today:'Heute',med_stat_total:'Gesamt',med_stat_empty:'Keine Einträge',med_stat_min:'Min',med_desc_practice:'Praxis',med_desc_focus:'Fokus',med_lv_mid:'Mittel',med_lv_hard:'Tief',med_time_elapsed:'Vergangen',med_time_total:'Gesamt',med_stop_session:'Beenden',med_session_title:'Meditationssitzung',med_voice_preparing:'Vorbereitung...',rem_title:'Gewohnheiten',rem_sub_rem:'Erinnerungen',rem_sub_hab:'Gewohnheiten',rem_add_reminder:'+ Erinnerung hinzufügen',rem_add_habit:'+ Gewohnheit hinzufügen',rem_time:'Zeit',rem_label:'Titel',rem_days:'Tage',rem_save:'Speichern',rem_cancel:'Abbrechen',rem_delete:'Löschen',rem_edit:'Bearbeiten',rem_empty_rem:'Keine Erinnerungen. Erste hinzufügen.',rem_empty_hab:'Keine Gewohnheiten. Erste hinzufügen.',rem_done_today:'Heute erledigt',rem_streak:'Serie',rem_days_short:'Mo,Di,Mi,Do,Fr,Sa,So',rem_every_day:'Jeden Tag',rem_custom_days:'Tage wählen',rem_cal_export:'Zum Kalender',rem_notif_hint:'Benachrichtigungen funktionieren wenn App offen',med_sub:'Achtsamkeit & Meditation',med_how:'Wie zu üben',med_sci:'Wissenschaft',med_breath:'Empfohlene Atmung',
     phase_inhale:'Einatmen',phase_hold_in:'Halten Einatmen',phase_exhale:'Ausatmen',phase_hold_ex:'Halten Ausatmen',
     settings:'Einstellungen',sound:'Ton bei Übung',sound_on:'AN',sound_off:'AUS',
     calendar:'Kalender',avatar_hint:'Tippen zum Ändern',
@@ -2278,7 +2460,7 @@ var LANGS={
     rounds:'Rondas',rounds_short:'Rondas',cycles_lbl:'ciclos',rounds_lbl:'rondas',
     round:'Ronda',cycle:'Ciclo',
     hold_after_exhale:'Retención tras exhalar',hold_after_inhale:'Retención tras inhalar',
-  hold_after_inhale:'Retener tras inhalar',nav_rem:'Hábitos',rem_recovery:'Prepárate para la próxima ronda',med_start_session:'Comenzar meditación',vup_title:'Instrucciones de voz',vup_upload:'Subir',vup_delete:'Eliminar',vup_play:'Escuchar',vup_loading:'...',vup_saving:'Guardando...',vup_uploaded:'subidos',vup_clear_all:'Borrar todo',vup_hint:'MP3 o WAV. Guardados en el navegador.',med_lv_easy:'Suave',med_desc_effect:'Efecto',med_done_title:'Sesión completada',med_done_duration:'Duración',med_done_mood:'¿Cómo te sientes?',med_done_note:'Notas',med_done_note_ph:'Escribe tus observaciones...',med_done_save:'Guardar',med_done_skip:'Omitir',med_stat_title:'Mis Meditaciones',med_stat_today:'Hoy',med_stat_total:'Total',med_stat_empty:'Sin registros',med_stat_min:'min',med_desc_practice:'Práctica',med_desc_focus:'Enfoque',med_lv_mid:'Medio',med_lv_hard:'Profundo',med_time_elapsed:'Transcurrido',med_time_total:'Total',med_stop_session:'Terminar',med_session_title:'Sesión de meditación',med_voice_preparing:'Preparando...',rem_recovery:'Prepárate para la próxima ronda',rem_title:'Recordatorios y Hábitos',rem_sub_rem:'Recordatorios',rem_sub_hab:'Hábitos',rem_add_reminder:'+ Añadir recordatorio',rem_add_habit:'+ Añadir hábito',rem_time:'Hora',rem_label:'Título',rem_days:'Días',rem_save:'Guardar',rem_cancel:'Cancelar',rem_delete:'Eliminar',rem_edit:'Editar',rem_empty_rem:'Sin recordatorios. Añade el primero.',rem_empty_hab:'Sin hábitos. Añade el primero.',rem_done_today:'Hecho hoy',rem_streak:'Racha',rem_days_short:'Lu,Ma,Mi,Ju,Vi,Sa,Do',rem_every_day:'Cada día',rem_custom_days:'Elegir días',rem_cal_export:'Al Calendario',rem_notif_hint:'Las notificaciones funcionan con la app abierta',med_sub:'Conciencia y Meditación',med_how:'Cómo practicar',med_sci:'Ciencia',med_breath:'Respiración recomendada',
+  hold_after_inhale:'Retener tras inhalar',nav_rem:'Hábitos',rem_recovery:'Prepárate para la próxima ronda',med_start_session:'Comenzar meditación',vup_title:'Instrucciones de voz',vup_upload:'Subir',vup_delete:'Eliminar',vup_play:'Escuchar',vup_loading:'...',vup_saving:'Guardando...',vup_uploaded:'subidos',vup_clear_all:'Borrar todo',vup_hint:'MP3 o WAV. Guardados en el navegador.',med_lv_easy:'Suave',med_desc_effect:'Efecto',med_done_title:'Sesión completada',med_done_duration:'Duración',med_done_mood:'¿Cómo te sientes?',med_done_note:'Notas',med_done_note_ph:'Escribe tus observaciones...',med_done_save:'Guardar',med_done_skip:'Omitir',med_stat_title:'Mis Meditaciones',med_stat_today:'Hoy',med_stat_total:'Total',med_stat_empty:'Sin registros',med_stat_min:'min',med_desc_practice:'Práctica',med_desc_focus:'Enfoque',med_lv_mid:'Medio',med_lv_hard:'Profundo',med_time_elapsed:'Transcurrido',med_time_total:'Total',med_stop_session:'Terminar',med_session_title:'Sesión de meditación',med_voice_preparing:'Preparando...',rem_recovery:'Prepárate para la próxima ronda',rem_title:'Hábitos',rem_sub_rem:'Recordatorios',rem_sub_hab:'Hábitos',rem_add_reminder:'+ Añadir recordatorio',rem_add_habit:'+ Añadir hábito',rem_time:'Hora',rem_label:'Título',rem_days:'Días',rem_save:'Guardar',rem_cancel:'Cancelar',rem_delete:'Eliminar',rem_edit:'Editar',rem_empty_rem:'Sin recordatorios. Añade el primero.',rem_empty_hab:'Sin hábitos. Añade el primero.',rem_done_today:'Hecho hoy',rem_streak:'Racha',rem_days_short:'Lu,Ma,Mi,Ju,Vi,Sa,Do',rem_every_day:'Cada día',rem_custom_days:'Elegir días',rem_cal_export:'Al Calendario',rem_notif_hint:'Las notificaciones funcionan con la app abierta',med_sub:'Conciencia y Meditación',med_how:'Cómo practicar',med_sci:'Ciencia',med_breath:'Respiración recomendada',
     phase_inhale:'Inhalar',phase_hold_in:'Retener inhal.',phase_exhale:'Exhalar',phase_hold_ex:'Retener exhal.',
     settings:'Configuración',sound:'Sonido',sound_on:'ON',sound_off:'OFF',
     calendar:'Calendario',avatar_hint:'Toca para cambiar foto',
@@ -2317,7 +2499,7 @@ var LANGS={
     name_practice:'练习名称...',
     rounds:'轮次',rounds_short:'轮',cycles_lbl:'个循环',rounds_lbl:'轮',
     round:'轮',cycle:'循环',
-    hold_after_exhale:'呼气后屏息',hold_after_inhale:'吸气后屏息',nav_rem:'习惯',rem_recovery:'准备下一轮',med_start_session:'开始冥想',vup_title:'语音指导',vup_upload:'上传',vup_delete:'删除',vup_play:'预听',vup_loading:'...',vup_saving:'保存中...',vup_uploaded:'已上传',vup_clear_all:'全部删除',vup_hint:'MP3或WAV，保存在浏览器中。',med_lv_easy:'轻松',med_desc_effect:'效果',med_done_title:'练习完成',med_done_duration:'时长',med_done_mood:'你感觉如何？',med_done_note:'笔记',med_done_note_ph:'写下你的感受...',med_done_save:'保存',med_done_skip:'跳过',med_stat_title:'我的冥想',med_stat_today:'今天',med_stat_total:'总计',med_stat_empty:'暂无记录',med_stat_min:'分钟',med_desc_practice:'练习',med_desc_focus:'专注',med_lv_mid:'中等',med_lv_hard:'深度',med_time_elapsed:'已过',med_time_total:'总时长',med_stop_session:'结束',med_session_title:'冥想练习',med_voice_preparing:'准备中...',rem_title:'提醒与习惯',rem_sub_rem:'提醒',rem_sub_hab:'习惯',rem_add_reminder:'+ 添加提醒',rem_add_habit:'+ 添加习惯',rem_time:'时间',rem_label:'名称',rem_days:'天数',rem_save:'保存',rem_cancel:'取消',rem_delete:'删除',rem_edit:'编辑',rem_empty_rem:'暂无提醒，添加第一个。',rem_empty_hab:'暂无习惯，添加第一个。',rem_done_today:'今日完成',rem_streak:'连续',rem_days_short:'一,二,三,四,五,六,日',rem_every_day:'每天',rem_custom_days:'选择天数',rem_cal_export:'加入日历',rem_notif_hint:'应用打开时通知才有效',med_sub:'正念与冥想',med_how:'如何练习',med_sci:'科学依据',med_breath:'推荐呼吸练习',
+    hold_after_exhale:'呼气后屏息',hold_after_inhale:'吸气后屏息',nav_rem:'习惯',rem_recovery:'准备下一轮',med_start_session:'开始冥想',vup_title:'语音指导',vup_upload:'上传',vup_delete:'删除',vup_play:'预听',vup_loading:'...',vup_saving:'保存中...',vup_uploaded:'已上传',vup_clear_all:'全部删除',vup_hint:'MP3或WAV，保存在浏览器中。',med_lv_easy:'轻松',med_desc_effect:'效果',med_done_title:'练习完成',med_done_duration:'时长',med_done_mood:'你感觉如何？',med_done_note:'笔记',med_done_note_ph:'写下你的感受...',med_done_save:'保存',med_done_skip:'跳过',med_stat_title:'我的冥想',med_stat_today:'今天',med_stat_total:'总计',med_stat_empty:'暂无记录',med_stat_min:'分钟',med_desc_practice:'练习',med_desc_focus:'专注',med_lv_mid:'中等',med_lv_hard:'深度',med_time_elapsed:'已过',med_time_total:'总时长',med_stop_session:'结束',med_session_title:'冥想练习',med_voice_preparing:'准备中...',rem_title:'习惯',rem_sub_rem:'提醒',rem_sub_hab:'习惯',rem_add_reminder:'+ 添加提醒',rem_add_habit:'+ 添加习惯',rem_time:'时间',rem_label:'名称',rem_days:'天数',rem_save:'保存',rem_cancel:'取消',rem_delete:'删除',rem_edit:'编辑',rem_empty_rem:'暂无提醒，添加第一个。',rem_empty_hab:'暂无习惯，添加第一个。',rem_done_today:'今日完成',rem_streak:'连续',rem_days_short:'一,二,三,四,五,六,日',rem_every_day:'每天',rem_custom_days:'选择天数',rem_cal_export:'加入日历',rem_notif_hint:'应用打开时通知才有效',med_sub:'正念与冥想',med_how:'如何练习',med_sci:'科学依据',med_breath:'推荐呼吸练习',
     phase_inhale:'吸气',phase_hold_in:'吸气屏息',phase_exhale:'呼气',phase_hold_ex:'呼气屏息',
     settings:'设置',sound:'练习音效',sound_on:'开',sound_off:'关',
     calendar:'日历',avatar_hint:'点击更换照片',
@@ -3223,7 +3405,7 @@ function show(id){
 function navTo(id){
   if(typeof pRun!=='undefined'&&pRun){pRun=false;if(pRafId){cancelAnimationFrame(pRafId);pRafId=null;}}
   if(id!=='meditation')curMed=null;
-  if(id!=='reminders')closeRemForm();
+  if(id!=='reminders'){closeRemForm();if(typeof hbCloseSheet==='function')hbCloseSheet();}
   stk=[];show(id);hlNav(id);
   if(id==='cognitive'){if(typeof COG_CATS!=='undefined')try{renderCognitive();}catch(e){console.log('cog:',e.message);}}
 }
@@ -3254,7 +3436,7 @@ function refreshPcDisp(){
       if(pcAvC)pcAvC.textContent='';
     }else{
       pcAv.style.backgroundImage='none';
-      if(pcAvC)pcAvC.textContent=nm?nm[0].toUpperCase():'✦';
+      if(pcAvC){if(nm)pcAvC.textContent=nm[0].toUpperCase();else pcAvC.innerHTML=NF_IC.user;}
     }
   }
 }
@@ -3304,7 +3486,7 @@ function buildStateGrid(){
     recs.forEach(function(s){
       var m=Math.floor((s.dur||0)/60),sc2=(s.dur||0)%60;
       rHtml+='<div style="display:flex;align-items:center;gap:12px;padding:10px 14px;margin:0 0 6px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)">'+
-        '<div style="font-size:20px;flex-shrink:0">⏱</div>'+
+        '<div style="flex-shrink:0;color:rgba(255,255,255,.45);display:flex">'+NF_IC.clock+'</div>'+
         '<div><div style="font-size:13px;font-weight:300;color:rgba(255,255,255,.82)">'+esc(s.nm||'—')+'</div>'+
         '<div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:2px">'+(m?m+'m ':'')+sc2+'s · '+fmtD(s.date)+'</div></div>'+
         '</div>';
@@ -3434,7 +3616,7 @@ function openTD(id,state){
     '<div class="d-tag">'+tag+'</div>'+
     '<div class="dpat">'+blks+'</div>'+
     '<div class="d-rounds">'+rvHtml+'</div>'+
-    (SAFETY_TC[tc.id]?'<div class="d-warn">⚠ '+(SAFETY_TXT[curLang]||SAFETY_TXT.ru)+'</div>':'')+
+    (SAFETY_TC[tc.id]?'<div class="d-warn">'+NF_IC.warn+(SAFETY_TXT[curLang]||SAFETY_TXT.ru)+'</div>':'')+
     '<div class="d-section"><div class="d-sec-lbl">'+t('how_to')+'</div><div class="d-sec-txt">'+desc+'</div></div>'+
     '<div class="d-section"><div class="d-sec-lbl">'+t('effect')+'</div><div class="d-sec-txt">'+phy+'</div></div>'+
     '<div class="d-section" style="margin-bottom:0"><div class="d-sec-lbl">'+t('science')+'</div><div class="d-sec-txt" style="color:rgba(255,255,255,.28)">'+sci+'</div></div>';
@@ -3514,7 +3696,7 @@ function renderLib(){
 
   var saved=dbGet('myPresets')||[];
   if(saved.length){
-    h+='<div class="cath"><span class="cath-txt" style="color:#9080ff">♡ '+t('my_practices')+'</span><div class="cath-line"></div></div>';
+    h+='<div class="cath"><span class="cath-txt" style="color:#9080ff">'+NF_IC.bookmark+t('my_practices')+'</span><div class="cath-line"></div></div>';
     saved.forEach(function(p,i){
       h+='<div class="my-tc" onclick="launchSaved('+i+')">'+
         '<div class="tci">'+
@@ -3524,7 +3706,7 @@ function renderLib(){
           '<div class="tc-pl" style="width:28px;height:28px" onclick="openEdit(event,'+i+')">'+
             '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>'+
           '</div>'+
-          '<div class="tc-pl" style="width:24px;height:24px;font-size:11px;color:rgba(255,100,100,.6)" onclick="delSaved(event,'+i+')">✕</div>'+
+          '<div class="tc-pl" style="width:24px;height:24px;font-size:11px;color:rgba(255,100,100,.6)" onclick="delSaved(event,'+i+')">'+NF_IC.closeSm+'</div>'+
         '</div>'+
         '</div></div>';
     });
@@ -4684,7 +4866,7 @@ function renderProfile(){
   var nm=dbGet('username')||'—';var str=calcStreak(ss);
   var tm=Math.round(ss.reduce(function(a,s){return a+(s.dur||0);},0)/60);
   document.getElementById('prNm').textContent=nm;
-  document.getElementById('prSt').textContent=str>0?'🔥 '+str+' '+t('days_in_row'):t('start_first');
+  document.getElementById('prSt').textContent=str>0?str+' '+t('days_in_row'):t('start_first');
   // Аватар: буква имени, сохранённое фото или иконка профиля (никогда не "?")
   var av=document.getElementById('prAv');
   var savedAvatar=dbGet('avatar');
@@ -4696,7 +4878,7 @@ function renderProfile(){
       av.textContent='';
     }else{
       av.style.backgroundImage='none';
-      av.textContent=nm&&nm!=='—'?nm[0].toUpperCase():'✦';// никогда не "?"
+      if(nm&&nm!=='—')av.textContent=nm[0].toUpperCase();else av.innerHTML=NF_IC.user;// никогда не "?"
     }
   }
 
@@ -4722,13 +4904,13 @@ function renderProfile(){
   var ambOn=dbGet('ambient_on')!==false;
   function sBtn(onclick,icon,label,statusId,statusVal){
     return '<div style="display:flex;align-items:center;justify-content:space-between;background:var(--g);border:1px solid var(--gb);border-radius:12px;padding:11px 14px;cursor:pointer;margin-bottom:7px" onclick="'+onclick+'">'+
-      '<span style="font-size:12px;font-weight:300">'+icon+' '+label+'</span>'+
+      '<span style="font-size:12px;font-weight:300">'+icon+label+'</span>'+
       '<div id="'+statusId+'" style="font-size:10px;color:var(--sd);letter-spacing:.1em">'+statusVal+'</div></div>';
   }
   var sndBtn=
-    sBtn('toggleSound(this)','🔔',t('sound'),'sndStatus',sndOn?t('sound_on'):t('sound_off'))+
-    sBtn('toggleVoice(this)','🗣️',t('voice_cues'),'voiceStatus',voiceOn?t('sound_on'):t('sound_off'))+
-    sBtn('toggleAmbient(this)','🎵',t('ambient_music'),'ambientStatus',ambOn?t('sound_on'):t('sound_off'));
+    sBtn('toggleSound(this)',NF_IC.bell,t('sound'),'sndStatus',sndOn?t('sound_on'):t('sound_off'))+
+    sBtn('toggleVoice(this)',NF_IC.voice,t('voice_cues'),'voiceStatus',voiceOn?t('sound_on'):t('sound_off'))+
+    sBtn('toggleAmbient(this)',NF_IC.music,t('ambient_music'),'ambientStatus',ambOn?t('sound_on'):t('sound_off'));
 
   document.getElementById('pScr').innerHTML=
     '<div class="str2">'+
@@ -4928,7 +5110,7 @@ function cycleLang(e){
   m.style.cssText='position:fixed;top:calc(var(--st) + 46px);right:14px;z-index:600;'+
     'background:rgba(14,14,22,.98);border:1px solid rgba(255,255,255,.14);border-radius:14px;'+
     'overflow:hidden;min-width:148px;box-shadow:0 8px 32px rgba(0,0,0,.65);animation:fadeUp .16s ease;';
-  var langs=[['ru','🇷🇺 Русский'],['en','🇺🇸 English'],['de','🇩🇪 Deutsch'],['es','🇪🇸 Español'],['zh','🇨🇳 中文']];
+  var langs=[['ru','Русский'],['en','English'],['de','Deutsch'],['es','Español'],['zh','中文']];
   langs.forEach(function(pair){
     var d=document.createElement('div');
     var active=pair[0]===curLang;
@@ -4936,7 +5118,7 @@ function cycleLang(e){
       'color:rgba(255,255,255,'+(active?'.9':'.5')+');'+
       'background:'+(active?'rgba(255,255,255,.07)':'transparent')+';'+
       'display:flex;align-items:center;justify-content:space-between;gap:10px;';
-    d.innerHTML='<span>'+pair[1]+'</span>'+(active?'<span style="font-size:10px;opacity:.6">✓</span>':'');
+    d.innerHTML='<span>'+pair[1]+'</span>'+(active?'<span style="opacity:.6;display:flex">'+NF_IC.check+'</span>':'');
     d.addEventListener('click',function(ev){ev.stopPropagation();setLang(pair[0]);closeLangMenu();});
     m.appendChild(d);
   });
@@ -4976,7 +5158,7 @@ function updateAvatarDisplay(dataUrl){
     }else{
       prAv.style.backgroundImage='none';
       var nm=dbGet('username')||'';
-      prAv.textContent=nm?nm[0].toUpperCase():'✦';
+      if(nm)prAv.textContent=nm[0].toUpperCase();else prAv.innerHTML=NF_IC.user;
     }
   }
   // profile overlay
@@ -4991,7 +5173,7 @@ function updateAvatarDisplay(dataUrl){
     }else{
       pcAvBox.style.backgroundImage='none';
       var nm2=dbGet('username')||'';
-      if(pcAv)pcAv.textContent=nm2?nm2[0].toUpperCase():'✦';
+      if(pcAv){if(nm2)pcAv.textContent=nm2[0].toUpperCase();else pcAv.innerHTML=NF_IC.user;}
     }
   }
 }
@@ -5199,9 +5381,9 @@ function buildMedDesc(medId){
   }
   if(!effectText&&!practiceText&&!focusText) return '';
   var rows='';
-  if(effectText) rows+='<div class="med-desc-row"><span class="med-desc-ico">&#10022;</span><div><div class="med-desc-lbl">'+t('med_desc_effect')+'</div><div class="med-desc-txt">'+esc(effectText)+'</div></div></div>';
-  if(practiceText) rows+='<div class="med-desc-row"><span class="med-desc-ico">&#9678;</span><div><div class="med-desc-lbl">'+t('med_desc_practice')+'</div><div class="med-desc-txt">'+esc(practiceText.split('\n')[0])+'</div></div></div>';
-  if(focusText) rows+='<div class="med-desc-row"><span class="med-desc-ico">&#9658;</span><div><div class="med-desc-lbl">'+t('med_desc_focus')+'</div><div class="med-desc-txt">'+esc(focusText)+'</div></div></div>';
+  if(effectText) rows+='<div class="med-desc-row"><span class="med-desc-ico"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="2.5"/></svg></span><div><div class="med-desc-lbl">'+t('med_desc_effect')+'</div><div class="med-desc-txt">'+esc(effectText)+'</div></div></div>';
+  if(practiceText) rows+='<div class="med-desc-row"><span class="med-desc-ico"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></span><div><div class="med-desc-lbl">'+t('med_desc_practice')+'</div><div class="med-desc-txt">'+esc(practiceText.split('\n')[0])+'</div></div></div>';
+  if(focusText) rows+='<div class="med-desc-row"><span class="med-desc-ico"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5v13l10-6.5z"/></svg></span><div><div class="med-desc-lbl">'+t('med_desc_focus')+'</div><div class="med-desc-txt">'+esc(focusText)+'</div></div></div>';
   return '<div class="med-desc-block" style="padding:4px 20px 12px">'+rows+'</div>';
 }
 
@@ -5248,11 +5430,7 @@ function openMedDet(medId,skipPush){
       '<div class="med-lv-name">'+t(lvs[li])+'</div>'+
       '<div class="med-lv-time">'+lvMins[li]+'</div></div>';
   }
-  if(m.trackSec){ /* v101: fixed-length track — one option with the real duration */
-    lvHtml='<div class="med-lv-opt med-lv-on med-lv-0" style="--lc:'+m.color+'">'+
-      '<div class="med-lv-name">'+(MED_FULL_LBL[l]||MED_FULL_LBL.ru)+'</div>'+
-      '<div class="med-lv-time">'+medFmtSec(m.trackSec)+'</div></div>';
-  }
+  if(m.trackSec){ lvHtml=''; } /* v102: fixed-length track — no option card, Start plays the full recording */
   var remSvg='<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="9" r="6"/><path d="M10 6v3l2 2"/><path d="M4 17l2-2M16 17l-2-2"/></svg>';
   medEl.innerHTML=
     '<div class="mdet">'+
@@ -5265,11 +5443,11 @@ function openMedDet(medId,skipPush){
       '<div style="display:flex;flex-direction:column;align-items:center;padding:20px 20px 0;gap:6px">'+
         '<div class="mdet-ico" style="background:'+hexA(m.color,.15)+';color:'+m.color+'">'+m.icon+'</div>'+
         '<div class="mdet-title">'+nm+'</div>'+
-        '<div class="mdet-tag">'+tg+'</div>'+
+        '<div class="mdet-tag">'+tg+(m.trackSec?' · '+medFmtSec(m.trackSec):'')+'</div>'+
       '</div>'+
       descHtml+
       tcBlock+
-      '<div class="med-lv-selector" style="padding:8px 20px 4px">'+lvHtml+'</div>'+
+      (lvHtml?'<div class="med-lv-selector" style="padding:8px 20px 4px">'+lvHtml+'</div>':'')+
       '<div style="padding:12px 20px 4px">'+
         '<button class="mdet-start-btn" style="width:100%;--mc:'+m.color+'"'+
           ' onclick="launchMedSession(\''+m.id+'\',\''+m.color+'\',medSelLv)">'+
@@ -5320,20 +5498,20 @@ function openTCfromMed(tcId){
 
 /* ── Default habits (5 built-in, toggleable) ── */
 var DEFAULT_HABITS = [
-  {id:'cold_shower',  icon:'🚿', color:'#60c0e0', builtin:true},
-  {id:'sunlight',     icon:'☀️', color:'#f0a020', builtin:true},
-  {id:'no_phone_am',  icon:'📵', color:'#e86040', builtin:true},
-  {id:'meditation_h', icon:'🧘', color:'#9060e0', builtin:true},
-  {id:'breathing_h',  icon:'💨', color:'#4a82ff', builtin:true},
-  {id:'walk',         icon:'🚶', color:'#40c060', builtin:true},
-  {id:'water',        icon:'💧', color:'#40b0ff', builtin:true},
-  {id:'journal',      icon:'📓', color:'#e0a020', builtin:true},
-  {id:'gratitude',    icon:'🙏', color:'#9060e0', builtin:true},
-  {id:'no_sugar',     icon:'🚫', color:'#e06060', builtin:true},
-  {id:'read',         icon:'📚', color:'#a060e0', builtin:true},
-  {id:'stretch',      icon:'🤸', color:'#40c080', builtin:true},
-  {id:'no_phone_pm',  icon:'🌙', color:'#6080c0', builtin:true},
-  {id:'sleep_early',  icon:'😴', color:'#8060e0', builtin:true},
+  {id:'cold_shower',  icon:'', color:'#60c0e0', builtin:true},
+  {id:'sunlight',     icon:'', color:'#f0a020', builtin:true},
+  {id:'no_phone_am',  icon:'', color:'#e86040', builtin:true},
+  {id:'meditation_h', icon:'', color:'#9060e0', builtin:true},
+  {id:'breathing_h',  icon:'', color:'#4a82ff', builtin:true},
+  {id:'walk',         icon:'', color:'#40c060', builtin:true},
+  {id:'water',        icon:'', color:'#40b0ff', builtin:true},
+  {id:'journal',      icon:'', color:'#e0a020', builtin:true},
+  {id:'gratitude',    icon:'', color:'#9060e0', builtin:true},
+  {id:'no_sugar',     icon:'', color:'#e06060', builtin:true},
+  {id:'read',         icon:'', color:'#a060e0', builtin:true},
+  {id:'stretch',      icon:'', color:'#40c080', builtin:true},
+  {id:'no_phone_pm',  icon:'', color:'#6080c0', builtin:true},
+  {id:'sleep_early',  icon:'', color:'#8060e0', builtin:true},
 ];
 
 var HAB_NAMES = {
@@ -5478,7 +5656,7 @@ function _renderDailyRing(habits, done, today){
   var pctEl=document.getElementById('hab-top-pct'); if(pctEl)pctEl.textContent=pct+'%';
   var subEl=document.getElementById('hab-top-sub');
   if(subEl){
-    var msg = pct===100?'Всё выполнено! 🎉' : pct>70?'Отличный темп!' : pct>30?'Хорошее начало' : pct>0?'Продолжай' : 'Начни день';
+    var msg = pct===100?'Всё выполнено! ' : pct>70?'Отличный темп!' : pct>30?'Хорошее начало' : pct>0?'Продолжай' : 'Начни день';
     subEl.textContent=msg;
   }
 }
@@ -5491,7 +5669,7 @@ function _renderStreakRow(habits, streaks){
     var s=streaks[h.id];
     if(s){ cur=Math.max(cur,s.count||0); rec=Math.max(rec,s.best||0,s.count||0); }
   });
-  el.innerHTML='Текущая серия: <b>🔥 '+cur+'</b> '+_ruDays(cur)+' · Рекорд: <b>'+rec+'</b> '+_ruDays(rec);
+  el.innerHTML='Текущая серия: <b> '+cur+'</b> '+_ruDays(cur)+' · Рекорд: <b>'+rec+'</b> '+_ruDays(rec);
 }
 
 function _renderWeekRibbon(habits, done, today){
@@ -5546,7 +5724,7 @@ function _renderHabCards(habits, done, streaks, today){
       '<div class="hab-icon-box" style="background:'+hexA(h.color,.15)+';color:'+h.color+';">'+h.icon+'</div>'+
       '<div class="hab-info-col">'+
         '<div class="hab-name-full">'+name+'</div>'+
-        '<div class="hab-streak-txt">'+(streak>0?'🔥 '+streak:h.time||'')+'</div>'+
+        '<div class="hab-streak-txt">'+(streak>0?' '+streak:h.time||'')+'</div>'+
       '</div>'+
       '<div style="display:flex;gap:6px;flex-shrink:0;">'+
         '<div onclick="openRemEdit(\'habit\',\''+h.id+'\')" style="width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t3);">'+
@@ -5703,7 +5881,7 @@ function renderRemList(){
         '</div>'+
       '</div>'+
       '<div class="rem-item-actions">'+
-        '<div class="rem-act-btn rem-act-cal" onclick="exportRemToCalendar(\''+r.id+'\')">'+'📅 '+t('rem_cal_export')+'</div>'+
+        '<div class="rem-act-btn rem-act-cal" onclick="exportRemToCalendar(\''+r.id+'\')">'+' '+t('rem_cal_export')+'</div>'+
         '<div class="rem-act-btn" onclick="openRemEdit(\'rem\',\''+r.id+'\')">'+t('rem_edit')+'</div>'+
         '<div class="rem-act-btn rem-act-del" onclick="deleteRem(\''+r.id+'\')">'+t('rem_delete')+'</div>'+
       '</div>'+
@@ -5748,7 +5926,7 @@ function showRemForm(type, data){
   var selDays = data ? data.days : [0,1,2,3,4,5,6];
   var selTime = data ? data.time : '08:00';
   var selLabel = data ? (getHabName(data) || data.label || '') : '';
-  var selIcon = data ? (data.icon || '⏰') : '⏰';
+  var selIcon = data ? (data.icon || '') : '';
   var selColor = data ? (data.color || '#4a7fff') : '#4a7fff';
   var isBuiltin = data && data.builtin;
 
@@ -5759,7 +5937,7 @@ function showRemForm(type, data){
 
   var iconPicker = '';
   if(type==='hab'){
-    var icons = ['🚿','☀️','📵','🚶','🙏','💧','🏃','📖','🧘','🥗','😴','💊','🎯','🎵','✍️','🌿','🏋️','🥛','🔥','❄️','🌊','🎧','🖊️','🍎','☕','🧠','💪','🛏️','🌙','⭐','🎨','🏃‍♂️','🚴','🤸','🧹','💻','📱','🗓️','⏰','🎁'];
+    var icons = ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''];
     iconPicker = '<div class="rem-field"><div class="rem-field-lbl">Иконка</div>'+
       '<div class="rem-icon-grid">'+icons.map(function(ic){
         return '<div class="rem-icon-opt'+(ic===selIcon?' on':'')+'" onclick="pickRemIcon(this,\''+ic+'\')">'+ic+'</div>';
@@ -5792,7 +5970,7 @@ function showRemForm(type, data){
     '<div class="rem-form-card">'+
       '<div class="rem-form-hdr">'+
         '<div class="rem-form-title">'+(type==='rem'?t('rem_sub_rem'):t('rem_sub_hab'))+'</div>'+
-        '<div class="rem-form-close" onclick="closeRemForm()">✕</div>'+
+        '<div class="rem-form-close" onclick="closeRemForm()"></div>'+
       '</div>'+
       (type!=='hab' || !isBuiltin ?
         '<div class="rem-field"><div class="rem-field-lbl">'+t('rem_label')+'</div>'+
@@ -5841,7 +6019,7 @@ function saveRemForm(){
   var labelEl = document.getElementById('remInpLabel');
   var label = labelEl ? labelEl.value.trim() : '';
   var iconEl = document.querySelector('.rem-icon-opt.on');
-  var icon = iconEl ? iconEl.textContent : '⏰';
+  var icon = iconEl ? iconEl.textContent : '';
   var colorEl = document.querySelector('.rem-color-dot.on');
   var color = colorEl ? colorEl.style.background : '#4a7fff';
 
@@ -6028,14 +6206,14 @@ function checkReminders(){
 
   getReminders().forEach(function(r){
     if(r.time === timeNow && r.days.indexOf(dayIdx)>=0){
-      new Notification('⏰ ' + r.label, {body: r.time, icon: ''});
+      new Notification(r.label, {body: r.time, icon: ''});
     }
   });
   getHabits().forEach(function(h){
     if(!h.enabled) return;
     if(h.time === timeNow && h.days.indexOf(dayIdx)>=0){
       var name = getHabName(h);
-      new Notification(h.icon + ' ' + name, {body: h.time});
+      new Notification(name, {body: h.time});
     }
   });
 }
@@ -7539,7 +7717,7 @@ function vupSetRowState(idx,has){
   var delBtn=document.getElementById('vup-del-'+idx);
   var playBtn=document.getElementById('vup-play-'+idx);
   var row=document.getElementById('vup-row-'+idx);
-  if(statusEl) statusEl.textContent = has ? '✓' : '—';
+  if(statusEl) statusEl.innerHTML = has ? NF_IC.check : '—';
   if(statusEl) statusEl.className = 'vup-status'+(has?' vup-ok':'');
   if(delBtn) delBtn.style.display = has?'flex':'none';
   if(playBtn) playBtn.style.display = has?'flex':'none';
@@ -7599,7 +7777,7 @@ function vupClearAll(medId){
 
 
 
-var MOOD_OPTS = ['😴','😐','🙂','😊','✨'];
+var MOOD_OPTS = ['','','','',''];
 var MOOD_LABELS = {
   ru:['Сонно','Нейтрально','Спокойно','Хорошо','Прекрасно'],
   en:['Sleepy','Neutral','Calm','Good','Wonderful'],
@@ -7645,7 +7823,7 @@ function completeMedSession(){
   ov.innerHTML=
     '<div class="med-done-wrap">'+
       '<div class="med-done-card">'+
-        '<div class="med-done-icon" style="color:'+color+'">'+((mData.icon)||'✦')+'</div>'+
+        '<div class="med-done-icon" style="color:'+color+'">'+((mData.icon)||'')+'</div>'+
         '<div class="med-done-title">'+t('med_done_title')+'</div>'+
         '<div class="med-done-name">'+nm+'</div>'+
         '<div class="med-done-dur">'+t('med_done_duration')+' · '+durMin+':'+( durSec<10?'0':'')+durSec+'</div>'+
@@ -7881,17 +8059,17 @@ var COG_T = {
 function cogT(k){ return (COG_T[curLang]||COG_T.ru)[k]||k; }
 
 var COG_PRACTICES = [
-  {id:'visual_search',cat:'attention',    icon:'⬡', color:'#60A5FA'},
-  {id:'mot',          cat:'attention',    icon:'◎', color:'#5EEAD4'},
-  {id:'stroop',       cat:'attention',    icon:'◈', color:'#818CF8'},
-  {id:'sart',         cat:'attention',    icon:'⬢', color:'#F472B6'},
-  {id:'focus_point',  cat:'attention',    icon:'◉', color:'#38c068'},
-  {id:'bimanual',     cat:'attention',    icon:'✋', color:'#F97316'},
-  {id:'pred',         cat:'metacognition',icon:'◆', color:'#A78BFA'},
-  {id:'conf',         cat:'metacognition',icon:'◐', color:'#A78BFA'},
-  {id:'err',          cat:'metacognition',icon:'◬', color:'#A78BFA'},
-  {id:'nb',           cat:'memory',       icon:'⬟', color:'#A078FF'},
-  {id:'seq',          cat:'memory',       icon:'▣', color:'#5EEAD4'}
+  {id:'visual_search',cat:'attention',    icon:'', color:'#60A5FA'},
+  {id:'mot',          cat:'attention',    icon:'', color:'#5EEAD4'},
+  {id:'stroop',       cat:'attention',    icon:'', color:'#818CF8'},
+  {id:'sart',         cat:'attention',    icon:'', color:'#F472B6'},
+  {id:'focus_point',  cat:'attention',    icon:'', color:'#38c068'},
+  {id:'bimanual',     cat:'attention',    icon:'', color:'#F97316'},
+  {id:'pred',         cat:'metacognition',icon:'', color:'#A78BFA'},
+  {id:'conf',         cat:'metacognition',icon:'', color:'#A78BFA'},
+  {id:'err',          cat:'metacognition',icon:'', color:'#A78BFA'},
+  {id:'nb',           cat:'memory',       icon:'', color:'#A078FF'},
+  {id:'seq',          cat:'memory',       icon:'', color:'#5EEAD4'}
 ];
 var _cogDifficulty = 1;
 /* v100: "_cogDifficulty||1" turned Easy (0) into Medium — Easy was unreachable everywhere */
@@ -8139,10 +8317,10 @@ function openCogDetail(id){
   var sc=scores[id];
   if(id==='conf'){
     var subs=[
-      {gid:'number',icon:'🔢',name:'Цифра',desc:'Найди карточку с нужной цифрой'},
-      {gid:'direction',icon:'✉️',name:'Почувствуй направление',desc:'Угадай стрелку внутри конверта'},
-      {gid:'spy',icon:'🕵️',name:'Шпион',desc:'Найди шпиона среди девяти карточек'},
-      {gid:'color',icon:'🎨',name:'Цвет',desc:'Почувствуй нужный цвет'}
+      {gid:'number',icon:'',name:'Цифра',desc:'Найди карточку с нужной цифрой'},
+      {gid:'direction',icon:'',name:'Почувствуй направление',desc:'Угадай стрелку внутри конверта'},
+      {gid:'spy',icon:'',name:'Шпион',desc:'Найди шпиона среди девяти карточек'},
+      {gid:'color',icon:'',name:'Цвет',desc:'Почувствуй нужный цвет'}
     ];
     el.innerHTML=
       '<div class="cog-det-bar">'+
@@ -8192,7 +8370,7 @@ function openCogDetail(id){
           '<button onclick="cogSetDiff(this,1)" style="flex:1;padding:8px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:12px;font-family:inherit;cursor:pointer;outline:2px solid #38c068;outline-offset:1px;">Средне</button>'+
           '<button onclick="cogSetDiff(this,2)" style="flex:1;padding:8px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:12px;font-family:inherit;cursor:pointer;">Сложно</button>'+
         '</div>'+
-        '<button onclick="launchFocusPoint()" style="width:100%;height:52px;border-radius:16px;background:#38c068;border:none;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;">'+cogT('cog_start')+' ▶</button>'+
+        '<button onclick="launchFocusPoint()" style="width:100%;height:52px;border-radius:16px;background:#38c068;border:none;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;">'+cogT('cog_start')+' </button>'+
       '</div>';
     el.classList.add('on');
     return;
@@ -8222,7 +8400,7 @@ function openCogDetail(id){
         '<button onclick="cogSetDiff(this,2)" style="flex:1;padding:8px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:12px;font-family:inherit;cursor:pointer;">Сложно</button>'+
       '</div>'+
     '</div>')) +
-    '<button onclick="launchCogEx(\''+id+'\')" style="width:100%;height:52px;border-radius:16px;background:'+p.color+';border:none;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.04em;">'+cogT('cog_start')+' ▶</button>'+
+    '<button onclick="launchCogEx(\''+id+'\')" style="width:100%;height:52px;border-radius:16px;background:'+p.color+';border:none;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.04em;">'+cogT('cog_start')+' </button>'+
     '</div>';
   el.classList.add('on');
 }
@@ -8931,7 +9109,7 @@ function cogIntuitDirection(body,p){
       '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:24px;padding:20px;">'+
         '<div style="font-size:12px;color:var(--t3);">'+cur+'/'+rounds+'</div>'+
         '<div style="font-size:13px;color:var(--t2);">Почувствуй направление в конверте</div>'+
-        '<div id="env-icon" style="font-size:64px;">✉️</div>'+
+        '<div id="env-icon" style="font-size:64px;"></div>'+
         '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;" id="dir-grid">'+
         (function(){var h='';for(var i=0;i<4;i++){h+='<div onclick="cogDirPick(\''+dirs[i].k+'\')" style="aspect-ratio:1;border-radius:14px;background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--t1);cursor:pointer;">'+dirs[i].s+'</div>';}return h;})()+
         '</div>'+
@@ -8954,7 +9132,7 @@ function cogIntuitDirection(body,p){
 /* ── 3. Шпион ── */
 function cogIntuitSpy(body,p){
   var rounds=5, cur=0, correct=0;
-  var faces=['🙂','😐','🙃','😶','🤔','😌','🧐','😏','🫤','😑','🙄','😬'];
+  var faces=['','','','','','','','','','','',''];
   function nextRound(){
     if(cur>=rounds){ cogShowResult(body,p,correct,rounds,correct+'/'+rounds+'</div>'); return; }
     var spyIdx=Math.floor(Math.random()*9);
@@ -9115,7 +9293,7 @@ function cogVisualSearch(body,p){
   function nextRound(){
     if(round>=ROUNDS){
       var avg=Math.round(times.reduce(function(a,b){return a+b;},0)/(times.length||1));
-      cogShowResult(body,p,score,ROUNDS,'✓ '+score+'/'+ROUNDS+' · '+avg+'мс</div>');
+      cogShowResult(body,p,score,ROUNDS,' '+score+'/'+ROUNDS+' · '+avg+'мс</div>');
       return;
     }
     var n=count+round*(diff+1)*10;
@@ -9542,8 +9720,1114 @@ function cogSpacedRep(body,p){
 
 
 
+
+/* ════════ v102 modules ════════ */
+/* ═══ v102 — thin line icons that replace emoji across the app ═══ */
+var NF_IC={
+ check:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+ close:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+ closeSm:'<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+ clock:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="12" cy="13" r="7.5"/><path d="M12 9.5V13l2.5 2M10 3h4"/></svg>',
+ warn:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px"><path d="M12 4l9 16H3z"/><path d="M12 10v4.5M12 17.3v.2"/></svg>',
+ bookmark:'<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M7 4h10v16l-5-4-5 4z"/></svg>',
+ bell:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>',
+ voice:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" style="vertical-align:-3px;margin-right:6px"><path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4"/></svg>',
+ music:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg>',
+ user:'<svg viewBox="0 0 24 24" width="55%" height="55%" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1-4 4-6 7.5-6s6.5 2 7.5 6"/></svg>'
+};
+function _nfFace(eyes,mouth){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/>'+eyes+mouth+'</svg>';}
+var MOOD_OPTS=[
+ _nfFace('<path d="M7.5 10h2.5M14 10h2.5"/>','<path d="M10.5 15.5h3"/>'),
+ _nfFace('<path d="M9 9.6v.6M15 9.6v.6"/>','<path d="M8.5 15h7"/>'),
+ _nfFace('<path d="M9 9.6v.6M15 9.6v.6"/>','<path d="M9 14.6c1.8 1.2 4.2 1.2 6 0"/>'),
+ _nfFace('<path d="M9 9.6v.6M15 9.6v.6"/>','<path d="M8 13.8c2.2 2.6 5.8 2.6 8 0"/>'),
+ _nfFace('<path d="M7.8 10.2c.7-1 1.8-1 2.5 0M13.7 10.2c.7-1 1.8-1 2.5 0"/>','<path d="M7.8 13.5c2.3 3.2 6.1 3.2 8.4 0z"/>')
+];
+
+/* ═══════════════════════════════════════════════════════
+   v102 — HABITS (redesign): Today list + month calendar
+   Storage: localStorage 'nf_hab2' = {v:2, habits:[{id,key|name,target,created}], done:{'YYYY-MM-DD':{id:1}}}
+   Old data (nf_habits / nf_hab_done) is migrated once and left untouched.
+═══════════════════════════════════════════════════════ */
+var HB_KEY='nf_hab2';
+var HB_ACC='#38c068';
+var HB_DEFAULTS=['meditation_h','breathing_h','training','water','sleep_early','read'];
+var HB_NAMES={
+  meditation_h:{ru:'Медитация',en:'Meditation',de:'Meditation',es:'Meditación',zh:'冥想'},
+  breathing_h:{ru:'Дыхательная практика',en:'Breathing practice',de:'Atemübung',es:'Práctica de respiración',zh:'呼吸练习'},
+  training:{ru:'Тренировка',en:'Workout',de:'Training',es:'Entrenamiento',zh:'锻炼'},
+  water:{ru:'Вода — 2 литра',en:'Water — 2 litres',de:'Wasser — 2 Liter',es:'Agua — 2 litros',zh:'喝水 2 升'},
+  sleep_early:{ru:'Сон до 23:00',en:'In bed by 11 pm',de:'Schlafen vor 23 Uhr',es:'Dormir antes de las 23:00',zh:'23点前入睡'},
+  read:{ru:'Чтение 20 минут',en:'Read 20 minutes',de:'20 Minuten lesen',es:'Leer 20 minutos',zh:'阅读20分钟'}
+};
+var HB_T={
+ ru:{title:'Привычки',today:'Сегодня',calendar:'Календарь',edit:'Изменить',done:'Готово',add:'Добавить привычку',new_h:'Новая привычка',edit_h:'Привычка',name:'Название',name_ph:'Например, прогулка',target:'Цель',per_week:'раз в неделю',every_day:'Каждый день',save:'Сохранить',cancel:'Отмена',del:'Удалить привычку',del_q:'Удалить «{n}»? История отметок этой привычки тоже удалится.',del_yes:'Удалить',streak:'серия',best:'рекорд',ud:' дн',uw:' нед',pw:'/нед',all_done:'Всё выполнено',empty:'Пока нет привычек',empty_sub:'Добавь первую и отмечай её каждый день',future:'Этот день ещё не наступил',month_sum:'Выполнено {p}% · полных дней: {d}',edit_hint:'Нажми на привычку, чтобы переименовать или удалить. Стрелки меняют порядок.',name_err:'Введите название',up:'Выше',down:'Ниже',prev:'Предыдущий месяц',next:'Следующий месяц',close:'Закрыть',legend_0:'0%',legend_1:'100%'},
+ en:{title:'Habits',today:'Today',calendar:'Calendar',edit:'Edit',done:'Done',add:'Add habit',new_h:'New habit',edit_h:'Habit',name:'Name',name_ph:'e.g. Evening walk',target:'Goal',per_week:'times a week',every_day:'Every day',save:'Save',cancel:'Cancel',del:'Delete habit',del_q:'Delete “{n}”? Its check-in history will be removed too.',del_yes:'Delete',streak:'streak',best:'best',ud:'d',uw:'w',pw:'/wk',all_done:'All done',empty:'No habits yet',empty_sub:'Add your first one and check it off every day',future:'This day hasn’t come yet',month_sum:'Completed {p}% · perfect days: {d}',edit_hint:'Tap a habit to rename or delete it. Use the arrows to reorder.',name_err:'Enter a name',up:'Move up',down:'Move down',prev:'Previous month',next:'Next month',close:'Close',legend_0:'0%',legend_1:'100%'},
+ de:{title:'Gewohnheiten',today:'Heute',calendar:'Kalender',edit:'Bearbeiten',done:'Fertig',add:'Gewohnheit hinzufügen',new_h:'Neue Gewohnheit',edit_h:'Gewohnheit',name:'Name',name_ph:'z. B. Abendspaziergang',target:'Ziel',per_week:'mal pro Woche',every_day:'Jeden Tag',save:'Speichern',cancel:'Abbrechen',del:'Gewohnheit löschen',del_q:'„{n}“ löschen? Der Verlauf wird ebenfalls entfernt.',del_yes:'Löschen',streak:'Serie',best:'Rekord',ud:' T',uw:' W',pw:'/Wo',all_done:'Alles erledigt',empty:'Noch keine Gewohnheiten',empty_sub:'Füge die erste hinzu und hake sie täglich ab',future:'Dieser Tag liegt in der Zukunft',month_sum:'Erledigt {p}% · perfekte Tage: {d}',edit_hint:'Tippe auf eine Gewohnheit, um sie umzubenennen oder zu löschen. Pfeile ändern die Reihenfolge.',name_err:'Name eingeben',up:'Nach oben',down:'Nach unten',prev:'Voriger Monat',next:'Nächster Monat',close:'Schließen',legend_0:'0%',legend_1:'100%'},
+ es:{title:'Hábitos',today:'Hoy',calendar:'Calendario',edit:'Editar',done:'Listo',add:'Añadir hábito',new_h:'Nuevo hábito',edit_h:'Hábito',name:'Nombre',name_ph:'p. ej., paseo por la tarde',target:'Objetivo',per_week:'veces por semana',every_day:'Cada día',save:'Guardar',cancel:'Cancelar',del:'Eliminar hábito',del_q:'¿Eliminar «{n}»? También se borrará su historial.',del_yes:'Eliminar',streak:'racha',best:'récord',ud:' d',uw:' sem',pw:'/sem',all_done:'Todo hecho',empty:'Aún no hay hábitos',empty_sub:'Añade el primero y márcalo cada día',future:'Este día aún no ha llegado',month_sum:'Completado {p}% · días perfectos: {d}',edit_hint:'Toca un hábito para renombrarlo o eliminarlo. Las flechas cambian el orden.',name_err:'Escribe un nombre',up:'Subir',down:'Bajar',prev:'Mes anterior',next:'Mes siguiente',close:'Cerrar',legend_0:'0%',legend_1:'100%'},
+ zh:{title:'习惯',today:'今天',calendar:'日历',edit:'编辑',done:'完成',add:'添加习惯',new_h:'新习惯',edit_h:'习惯',name:'名称',name_ph:'例如：晚间散步',target:'目标',per_week:'次 / 周',every_day:'每天',save:'保存',cancel:'取消',del:'删除习惯',del_q:'删除“{n}”？该习惯的打卡记录也会被删除。',del_yes:'删除',streak:'连续',best:'最佳',ud:'天',uw:'周',pw:'/周',all_done:'全部完成',empty:'还没有习惯',empty_sub:'添加第一个习惯，每天打卡',future:'这一天还没到',month_sum:'完成率 {p}% · 全勤天数：{d}',edit_hint:'点按习惯可重命名或删除，箭头可调整顺序。',name_err:'请输入名称',up:'上移',down:'下移',prev:'上个月',next:'下个月',close:'关闭',legend_0:'0%',legend_1:'100%'}
+};
+var HB_LOC={ru:'ru-RU',en:'en-GB',de:'de-DE',es:'es-ES',zh:'zh-CN'};
+function HT(k,v){var s=(HB_T[curLang]||HB_T.ru)[k];if(s==null)s=HB_T.ru[k]||k;if(v)for(var x in v)s=s.split('{'+x+'}').join(v[x]);return s;}
+function hbEsc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+var HB_IC={
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  left:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',
+  right:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
+  up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>',
+  down:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
+  pen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>',
+  close:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+};
+function hbCheckSvg(){return '<svg class="hb-chk" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13.25"/><path d="M9.5 15.5l3.8 3.7 7.4-8"/></svg>';}
+
+/* ── dates ── */
+function hbParse(k){var a=k.split('-');return new Date(+a[0],+a[1]-1,+a[2]);}
+function hbAdd(k,n){var d=hbParse(k);d.setDate(d.getDate()+n);return dateKey(d);}
+function hbMonday(k){var d=hbParse(k);var w=(d.getDay()+6)%7;d.setDate(d.getDate()-w);return dateKey(d);}
+function hbDiff(a,b){return Math.round((hbParse(b)-hbParse(a))/86400000);}
+
+/* ── state ── */
+var _hbS=null;
+function hbSave(){try{localStorage.setItem(HB_KEY,JSON.stringify(_hbS));}catch(e){}}
+function hbNewId(){return 'h'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36);}
+function hbMigrate(){
+  var today=todayKey();
+  var old=null,oldDone=null;
+  try{old=JSON.parse(localStorage.getItem('nf_habits')||'null');}catch(e){}
+  try{oldDone=JSON.parse(localStorage.getItem('nf_hab_done')||'null');}catch(e){}
+  var done={},first={};
+  if(oldDone&&typeof oldDone==='object'){
+    Object.keys(oldDone).forEach(function(k){
+      if(!oldDone[k]||!/^\d{4}-\d{2}-\d{2}_/.test(k))return;
+      var d=k.slice(0,10),id=k.slice(11);
+      (done[d]=done[d]||{})[id]=1;
+      if(!first[id]||d<first[id])first[id]=d;
+    });
+  }
+  var habits=[],seen={};
+  function push(h){if(seen[h.id])return;seen[h.id]=1;habits.push(h);}
+  if(Array.isArray(old)){
+    old.forEach(function(h){
+      if(!h||!h.id)return;
+      var keep=!h.builtin||first[h.id]||HB_DEFAULTS.indexOf(h.id)>=0;
+      if(!keep)return;
+      var o={id:String(h.id),target:7,created:first[h.id]||today};
+      if(h.builtin&&(HB_NAMES[h.id]||(typeof HAB_NAMES!=='undefined'&&HAB_NAMES[h.id])))o.key=h.id;
+      else o.name=String(h.name||h.label||h.id).slice(0,40);
+      push(o);
+    });
+  }
+  HB_DEFAULTS.forEach(function(id){push({id:id,key:id,target:7,created:first[id]||today});});
+  /* drop marks of habits that were not migrated */
+  Object.keys(done).forEach(function(d){Object.keys(done[d]).forEach(function(id){if(!seen[id])delete done[d][id];});if(!Object.keys(done[d]).length)delete done[d];});
+  return {v:2,habits:habits,done:done,migratedFrom:Array.isArray(old)?'v1':null};
+}
+function hbState(){
+  if(_hbS)return _hbS;
+  var s=null;try{s=JSON.parse(localStorage.getItem(HB_KEY)||'null');}catch(e){}
+  if(!s||s.v!==2||!Array.isArray(s.habits)){s=hbMigrate();_hbS=s;hbSave();}
+  if(!s.done||typeof s.done!=='object')s.done={};
+  _hbS=s;return s;
+}
+function hbName(h){
+  if(h.name)return h.name;
+  var n=HB_NAMES[h.key]||(typeof HAB_NAMES!=='undefined'?HAB_NAMES[h.key]:null);
+  return n?(n[curLang]||n.ru):h.id;
+}
+function hbIsDone(id,k){var d=hbState().done[k];return !!(d&&d[id]);}
+function hbSet(id,k,on){
+  var s=hbState();
+  if(on){(s.done[k]=s.done[k]||{})[id]=1;}
+  else if(s.done[k]){delete s.done[k][id];if(!Object.keys(s.done[k]).length)delete s.done[k];}
+  hbSave();
+}
+/* ── stats ── */
+function hbFirst(h){var f=h.created||todayKey();var dn=hbState().done;for(var k in dn){if(dn[k][h.id]&&k<f)f=k;}return f;}
+function hbWeekCount(id,mon){var c=0;for(var i=0;i<7;i++)if(hbIsDone(id,hbAdd(mon,i)))c++;return c;}
+function hbStats(h){
+  var today=todayKey(),tg=h.target||7,first=hbFirst(h),cur=0,best=0,run=0,k;
+  if(tg>=7){
+    k=hbIsDone(h.id,today)?today:hbAdd(today,-1);
+    while(hbIsDone(h.id,k)){cur++;k=hbAdd(k,-1);}
+    for(k=first;k<=today;k=hbAdd(k,1)){if(hbIsDone(h.id,k)){run++;if(run>best)best=run;}else run=0;}
+  } else {
+    var mon=hbMonday(today);
+    if(hbWeekCount(h.id,mon)<tg)mon=hbAdd(mon,-7);
+    while(hbWeekCount(h.id,mon)>=tg){cur++;mon=hbAdd(mon,-7);}
+    for(mon=hbMonday(first);mon<=today;mon=hbAdd(mon,7)){if(hbWeekCount(h.id,mon)>=tg){run++;if(run>best)best=run;}else if(mon<hbMonday(today))run=0;}
+  }
+  if(cur>best)best=cur;
+  var start=hbAdd(today,-29);if(first>start)start=first;
+  var days=hbDiff(start,today)+1,dn=0;
+  for(k=start;k<=today;k=hbAdd(k,1))if(hbIsDone(h.id,k))dn++;
+  var exp=tg>=7?days:Math.max(1,Math.round(days*tg/7));
+  return {cur:cur,best:best,pct:Math.min(100,Math.round(dn/exp*100)),unit:tg>=7?HT('ud'):HT('uw')};
+}
+function hbMeta(h){
+  var s=hbStats(h);
+  return (h.target<7?'<b>'+h.target+HT('pw')+'</b> · ':'')+HT('streak')+' <b>'+s.cur+s.unit+'</b> · '+HT('best')+' <b>'+s.best+s.unit+'</b> · <b>'+s.pct+'%</b>';
+}
+
+/* ── render ── */
+var _hbEdit=false,_hbMonth=null;
+function hbRender(){
+  var root=document.getElementById('hbRoot');if(!root)return;
+  var lg=document.getElementById('hbLogo');if(lg)lg.textContent=HT('title');
+  var s=hbState();
+  root.innerHTML=
+    '<section class="hb-sec" id="hbToday">'+hbTodayHtml()+'</section>'+
+    '<section class="hb-sec hb-cal" id="hbCal">'+hbCalHtml()+'</section>';
+}
+function hbTodayHtml(){
+  var s=hbState(),today=todayKey(),loc=HB_LOC[curLang]||'ru-RU';
+  var dstr=new Date().toLocaleDateString(loc,{weekday:'long',day:'numeric',month:'long'});
+  var h='<div class="hb-head"><div><div class="hb-h1">'+HT('today')+'</div><div class="hb-date">'+hbEsc(dstr)+'</div></div>'+
+    '<div class="hb-actions">'+
+      (s.habits.length?'<button class="hb-tbtn'+(_hbEdit?' on':'')+'" id="hbEditBtn" onclick="hbToggleEdit()">'+(_hbEdit?HT('done'):HT('edit'))+'</button>':'')+
+      '<button class="hb-ibtn" id="hbAddBtn" aria-label="'+hbEsc(HT('add'))+'" onclick="hbOpenAdd()">'+HB_IC.plus+'</button>'+
+    '</div></div>';
+  if(!s.habits.length){
+    return h+'<div class="hb-empty"><div class="hb-empty-t">'+HT('empty')+'</div><div class="hb-empty-s">'+HT('empty_sub')+'</div>'+
+      '<button class="hb-primary" onclick="hbOpenAdd()">'+HT('add')+'</button></div>';
+  }
+  h+=hbProgHtml();
+  if(_hbEdit)h+='<div class="hb-hint">'+HT('edit_hint')+'</div>';
+  h+='<div class="hb-list" id="hbList">';
+  s.habits.forEach(function(x,i){
+    var dn=hbIsDone(x.id,today);
+    if(_hbEdit){
+      h+='<div class="hb-row hb-editing" data-id="'+x.id+'">'+
+        '<div class="hb-txt" onclick="hbOpenEdit(\''+x.id+'\')"><div class="hb-name">'+hbEsc(hbName(x))+'</div><div class="hb-meta">'+(x.target<7?x.target+HT('pw'):HT('every_day'))+'</div></div>'+
+        '<button class="hb-mini" aria-label="'+HT('up')+'" '+(i===0?'disabled':'')+' onclick="hbMove(\''+x.id+'\',-1)">'+HB_IC.up+'</button>'+
+        '<button class="hb-mini" aria-label="'+HT('down')+'" '+(i===s.habits.length-1?'disabled':'')+' onclick="hbMove(\''+x.id+'\',1)">'+HB_IC.down+'</button>'+
+        '<button class="hb-mini" aria-label="'+HT('edit_h')+'" onclick="hbOpenEdit(\''+x.id+'\')">'+HB_IC.pen+'</button>'+
+      '</div>';
+    } else {
+      h+='<div class="hb-row'+(dn?' done':'')+'" role="checkbox" aria-checked="'+dn+'" tabindex="0" data-id="'+x.id+'" onclick="hbTapToday(\''+x.id+'\',this)">'+
+        hbCheckSvg()+
+        '<div class="hb-txt"><div class="hb-name">'+hbEsc(hbName(x))+'</div><div class="hb-meta">'+hbMeta(x)+'</div></div>'+
+      '</div>';
+    }
+  });
+  return h+'</div>';
+}
+function hbProgHtml(){
+  var s=hbState(),today=todayKey(),n=0;
+  s.habits.forEach(function(x){if(hbIsDone(x.id,today))n++;});
+  var tot=s.habits.length,pct=tot?Math.round(n/tot*100):0;
+  return '<div class="hb-prog" id="hbProg"><div class="hb-bar"><i style="width:'+pct+'%"></i></div><div class="hb-cnt">'+(n===tot&&tot?HT('all_done')+' · ':'')+n+' / '+tot+'</div></div>';
+}
+function hbUpdateProg(){var p=document.getElementById('hbProg');if(p)p.outerHTML=hbProgHtml();}
+function hbTapToday(id,el){
+  var today=todayKey(),on=!hbIsDone(id,today);
+  hbSet(id,today,on);
+  if(el){
+    el.classList.toggle('done',on);el.setAttribute('aria-checked',on);
+    el.classList.remove('hb-pop');void el.offsetWidth;if(on)el.classList.add('hb-pop');
+    var h=hbFind(id),m=el.querySelector('.hb-meta');if(h&&m)m.innerHTML=hbMeta(h);
+  }
+  try{if(on&&navigator.vibrate)navigator.vibrate(8);}catch(e){}
+  hbUpdateProg();hbRenderCal();
+}
+function hbFind(id){var r=null;hbState().habits.forEach(function(h){if(h.id===id)r=h;});return r;}
+function hbToggleEdit(){_hbEdit=!_hbEdit;hbRender();}
+function hbMove(id,dir){
+  var a=hbState().habits,i=-1;a.forEach(function(h,j){if(h.id===id)i=j;});
+  var j=i+dir;if(i<0||j<0||j>=a.length)return;
+  var t=a[i];a[i]=a[j];a[j]=t;hbSave();
+  var root=document.getElementById('hbToday');if(root)root.innerHTML=hbTodayHtml();
+}
+
+/* ── calendar ── */
+function hbRenderCal(){var c=document.getElementById('hbCal');if(c)c.innerHTML=hbCalHtml();}
+function hbCalHtml(){
+  var s=hbState(),today=todayKey(),loc=HB_LOC[curLang]||'ru-RU';
+  if(!_hbMonth){var n=new Date();_hbMonth=new Date(n.getFullYear(),n.getMonth(),1);}
+  var y=_hbMonth.getFullYear(),m=_hbMonth.getMonth();
+  var title=curLang==='zh'?y+'年'+(m+1)+'月':(function(){var t=_hbMonth.toLocaleDateString(loc,{month:'long'});return t.charAt(0).toUpperCase()+t.slice(1)+' '+y;})();
+  var now=new Date(),isCurMonth=(y===now.getFullYear()&&m===now.getMonth());
+  var h='<div class="hb-cal-head"><button class="hb-ibtn sm" id="hbPrev" aria-label="'+HT('prev')+'" onclick="hbMonthNav(-1)">'+HB_IC.left+'</button>'+
+    '<div class="hb-cal-title" id="hbCalTitle">'+hbEsc(title)+'</div>'+
+    '<button class="hb-ibtn sm" id="hbNext" aria-label="'+HT('next')+'" '+(isCurMonth?'disabled':'')+' onclick="hbMonthNav(1)">'+HB_IC.right+'</button></div>';
+  var dows=(t('rem_days_short')||'').split(',');
+  h+='<div class="hb-cal-grid" id="hbCalGrid">';
+  for(var i=0;i<7;i++)h+='<div class="hb-dow">'+hbEsc(dows[i]||'')+'</div>';
+  var off=(new Date(y,m,1).getDay()+6)%7,dim=new Date(y,m+1,0).getDate(),tot=s.habits.length,sumF=0,cnt=0,full=0;
+  for(i=0;i<off;i++)h+='<div></div>';
+  var R=16,C=2*Math.PI*R;
+  for(var d=1;d<=dim;d++){
+    var k=dateKey(new Date(y,m,d)),fut=k>today,n=0;
+    var dd=s.done[k]||{};s.habits.forEach(function(x){if(dd[x.id])n++;});
+    var f=tot?n/tot:0;
+    if(!fut){sumF+=f;cnt++;if(f>=1&&tot)full++;}
+    var cls='hb-day'+(fut?' future':'')+(k===today?' today':'')+(f>=1&&tot?' full':'')+(f>0&&f<1?' part':'');
+    h+='<button class="'+cls+'" data-date="'+k+'" data-frac="'+f.toFixed(2)+'" '+(fut?'disabled':'')+' onclick="hbOpenDay(\''+k+'\')">'+
+      '<svg viewBox="0 0 40 40" aria-hidden="true"><circle class="trk" cx="20" cy="20" r="'+R+'"/>'+
+      (f>0?'<circle class="arc" cx="20" cy="20" r="'+R+'" stroke-dasharray="'+(C*f).toFixed(2)+' '+C.toFixed(2)+'"/>':'')+
+      '</svg><span>'+d+'</span></button>';
+  }
+  h+='</div>';
+  var pct=cnt?Math.round(sumF/cnt*100):0;
+  h+='<div class="hb-cal-foot"><span id="hbMonthSum">'+HT('month_sum',{p:pct,d:full})+'</span>'+
+     '<span class="hb-legend"><i class="l0"></i><i class="l1"></i><i class="l2"></i></span></div>';
+  return '<div class="hb-h2">'+HT('calendar')+'</div>'+h;
+}
+function hbMonthNav(dir){
+  if(!_hbMonth){var n=new Date();_hbMonth=new Date(n.getFullYear(),n.getMonth(),1);}
+  var nm=new Date(_hbMonth.getFullYear(),_hbMonth.getMonth()+dir,1),now=new Date();
+  if(nm>new Date(now.getFullYear(),now.getMonth(),1))return;
+  _hbMonth=nm;
+  var g=document.getElementById('hbCal');if(g){g.classList.remove('hb-slide-l','hb-slide-r');void g.offsetWidth;g.classList.add(dir<0?'hb-slide-r':'hb-slide-l');}
+  hbRenderCal();
+}
+
+/* ── bottom sheet ── */
+var _hbSheet=null;
+function hbSheetOpen(html){
+  var ov=document.getElementById('hbSheetOv');if(!ov)return;
+  document.getElementById('hbSheetBody').innerHTML=html;
+  ov.classList.add('on');
+}
+function hbCloseSheet(){var ov=document.getElementById('hbSheetOv');if(ov)ov.classList.remove('on');_hbSheet=null;}
+function hbOpenDay(k){
+  _hbSheet={type:'day',date:k};hbSheetOpen(hbDayHtml(k));
+}
+function hbDayHtml(k){
+  var s=hbState(),loc=HB_LOC[curLang]||'ru-RU';
+  var d=hbParse(k),title=d.toLocaleDateString(loc,{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  var h='<div class="hb-sh-head"><div class="hb-sh-title" id="hbDayTitle">'+hbEsc(title.charAt(0).toUpperCase()+title.slice(1))+'</div>'+
+    '<button class="hb-ibtn sm" aria-label="'+HT('close')+'" onclick="hbCloseSheet()">'+HB_IC.close+'</button></div>';
+  if(k>todayKey())return h+'<div class="hb-empty-s" style="padding:24px 0">'+HT('future')+'</div>';
+  if(!s.habits.length)return h+'<div class="hb-empty-s" style="padding:24px 0">'+HT('empty')+'</div>';
+  h+='<div class="hb-list">';
+  s.habits.forEach(function(x){
+    var dn=hbIsDone(x.id,k);
+    h+='<div class="hb-row'+(dn?' done':'')+'" role="checkbox" aria-checked="'+dn+'" data-id="'+x.id+'" onclick="hbTapDay(\''+x.id+'\',\''+k+'\',this)">'+hbCheckSvg()+
+      '<div class="hb-txt"><div class="hb-name">'+hbEsc(hbName(x))+'</div></div></div>';
+  });
+  return h+'</div>';
+}
+function hbTapDay(id,k,el){
+  var on=!hbIsDone(id,k);hbSet(id,k,on);
+  if(el){el.classList.toggle('done',on);el.setAttribute('aria-checked',on);el.classList.remove('hb-pop');void el.offsetWidth;if(on)el.classList.add('hb-pop');}
+  var t=document.getElementById('hbToday');if(t&&!_hbEdit)t.innerHTML=hbTodayHtml();
+  hbRenderCal();
+}
+function hbOpenAdd(){_hbSheet={type:'form',id:null,target:7};hbSheetOpen(hbFormHtml(null));setTimeout(function(){var i=document.getElementById('hbNameIn');if(i)try{i.focus({preventScroll:true});}catch(e){}},280);}
+function hbOpenEdit(id){var h=hbFind(id);if(!h)return;_hbSheet={type:'form',id:id,target:h.target||7};hbSheetOpen(hbFormHtml(h));}
+function hbFormHtml(h){
+  var tg=_hbSheet.target;
+  var html='<div class="hb-sh-head"><div class="hb-sh-title" id="hbFormTitle">'+(h?HT('edit_h'):HT('new_h'))+'</div>'+
+    '<button class="hb-ibtn sm" aria-label="'+HT('close')+'" onclick="hbCloseSheet()">'+HB_IC.close+'</button></div>'+
+    '<label class="hb-lbl" for="hbNameIn">'+HT('name')+'</label>'+
+    '<input id="hbNameIn" class="hb-input" maxlength="40" autocomplete="off" placeholder="'+hbEsc(HT('name_ph'))+'" value="'+(h?hbEsc(hbName(h)):'')+'" oninput="this.classList.remove(\'bad\');var e=document.getElementById(\'hbNameErr\');if(e)e.textContent=\'\'" onkeydown="if(event.key===\'Enter\')hbSaveForm()">'+
+    '<div class="hb-err" id="hbNameErr"></div>'+
+    '<div class="hb-lbl">'+HT('target')+'</div>'+
+    '<div class="hb-seg" id="hbTargetSeg">';
+  for(var i=1;i<=7;i++)html+='<button class="'+(i===tg?'on':'')+'" data-n="'+i+'" onclick="hbSetTarget('+i+')">'+i+'</button>';
+  html+='</div><div class="hb-seg-cap" id="hbTargetCap">'+hbPerWeek(tg)+'</div>'+
+    '<div class="hb-btns"><button class="hb-sec-btn" onclick="hbCloseSheet()">'+HT('cancel')+'</button><button class="hb-primary" id="hbSaveBtn" onclick="hbSaveForm()">'+HT('save')+'</button></div>';
+  if(h)html+='<div id="hbDelZone"><button class="hb-del" id="hbDelBtn" onclick="hbAskDelete()">'+HT('del')+'</button></div>';
+  return html;
+}
+function hbPerWeek(n){if(n>=7)return HT('every_day');if(curLang==='ru'&&n>=2&&n<=4)return n+' раза в неделю';return n+' '+HT('per_week');}
+function hbSetTarget(n){
+  if(!_hbSheet)return;_hbSheet.target=n;
+  var b=document.querySelectorAll('#hbTargetSeg button');for(var i=0;i<b.length;i++)b[i].classList.toggle('on',+b[i].dataset.n===n);
+  var c=document.getElementById('hbTargetCap');if(c)c.textContent=hbPerWeek(n);
+}
+function hbSaveForm(){
+  if(!_hbSheet||_hbSheet.type!=='form')return;
+  var inp=document.getElementById('hbNameIn'),nm=(inp?inp.value:'').replace(/\s+/g,' ').trim().slice(0,40);
+  if(!nm){var e=document.getElementById('hbNameErr');if(e)e.textContent=HT('name_err');if(inp)inp.classList.add('bad');return;}
+  var s=hbState();
+  if(_hbSheet.id){
+    var h=hbFind(_hbSheet.id);
+    if(h){if(nm!==hbName(h)){h.name=nm;delete h.key;}h.target=_hbSheet.target;}
+  } else {
+    s.habits.push({id:hbNewId(),name:nm,target:_hbSheet.target,created:todayKey()});
+  }
+  hbSave();hbCloseSheet();hbRender();
+}
+function hbAskDelete(){
+  var h=hbFind(_hbSheet&&_hbSheet.id);if(!h)return;
+  var z=document.getElementById('hbDelZone');if(!z)return;
+  z.innerHTML='<div class="hb-confirm" id="hbConfirm"><div class="hb-confirm-q">'+hbEsc(HT('del_q',{n:hbName(h)}))+'</div>'+
+    '<div class="hb-btns"><button class="hb-sec-btn" onclick="hbCancelDelete()">'+HT('cancel')+'</button><button class="hb-danger" id="hbDelYes" onclick="hbConfirmDelete()">'+HT('del_yes')+'</button></div></div>';
+}
+function hbCancelDelete(){var z=document.getElementById('hbDelZone');if(z)z.innerHTML='<button class="hb-del" id="hbDelBtn" onclick="hbAskDelete()">'+HT('del')+'</button>';}
+function hbConfirmDelete(){
+  var id=_hbSheet&&_hbSheet.id;if(!id)return;
+  var s=hbState();
+  s.habits=s.habits.filter(function(h){return h.id!==id;});
+  Object.keys(s.done).forEach(function(d){if(s.done[d][id]){delete s.done[d][id];if(!Object.keys(s.done[d]).length)delete s.done[d];}});
+  hbSave();hbCloseSheet();if(!s.habits.length)_hbEdit=false;hbRender();
+}
+
+/* ── legacy API kept working on top of the new store ── */
+function getHabits(){return hbState().habits.map(function(h){return {id:h.id,name:hbName(h),icon:'',color:HB_ACC,builtin:!!h.key,enabled:false,notify:false,time:'',days:[0,1,2,3,4,5,6],target:h.target};});}
+function getHabName(h){var x=hbFind(h&&h.id);return x?hbName(x):(h&&h.name)||'';}
+function getHabDone(){var r={},dn=hbState().done;Object.keys(dn).forEach(function(d){Object.keys(dn[d]).forEach(function(id){r[d+'_'+id]=1;});});return r;}
+function toggleHabForDay(id,k){hbSet(id,k,!hbIsDone(id,k));hbRender();}
+function renderHabits(){hbRender();}
+function renderReminders(){hbRender();}
+function openDaySheet(k){hbOpenDay(k);}
+function closeDaySheet(){hbCloseSheet();}
+function deleteHabitDirect(id){var s=hbState();s.habits=s.habits.filter(function(h){return h.id!==id;});hbSave();hbRender();}
+
+/* ═══ v102 — cognition: full translations (de/es/zh were falling back to Russian) + new UI strings ═══ */
+(function(){
+var base={
+ de:{cog_nav:'Kognition',cog_title:'Kognitives Training',cog_sub:'Trainiere Aufmerksamkeit, Gedächtnis und Metakognition',cat_attention:'Aufmerksamkeit',cat_metacognition:'Metakognition',cat_memory:'Gedächtnis',cog_start:'Start',cog_back:'Zurück',cog_result:'Ergebnis',cog_score:'Punkte',cog_accuracy:'Genauigkeit',cog_again:'Nochmal',cog_done:'Fertig',cog_correct:'Richtig',cog_wrong:'Fehler',cog_instructions:'Anleitung',cog_get_ready:'Bereit machen',cog_seconds:'s',
+  visual_search_t:'Finde das Ziel',visual_search_s:'Entdecke den abweichenden Kreis',visual_search_i:'Viele gleiche Kreise — einer hat einen anderen Farbton. Tippe ihn so schnell wie möglich an. 5 Runden; mit jeder Runde wird der Unterschied feiner.',
+  mot_t:'Bälle verfolgen',mot_s:'Verfolge bewegte Ziele',mot_i:'Einige Bälle leuchten kurz auf — merke sie dir. Dann bewegen sich alle. Wenn sie stehen bleiben, tippe die markierten an. 3 Durchgänge.',
+  stroop_t:'Farbe oder Wort',stroop_s:'Nenne die Farbe, ignoriere das Wort',stroop_i:'Ein Farbwort ist in einer anderen Farbe geschrieben. Wähle die FARBE DER SCHRIFT, nicht die Bedeutung. Für jede Antwort hast du wenige Sekunden.',
+  sart_t:'Hemmung',sart_s:'Im richtigen Moment stoppen',sart_i:'Zahlen erscheinen im Takt. Tippe auf jede Zahl — AUSSER auf die 3. Das Schwierigste: anhalten, wenn der Rhythmus läuft. Ein Test der Impulskontrolle.',
+  focus_point_t:'Fokuspunkt',focus_point_s:'Halte den Blick auf dem ruhenden Punkt',focus_point_i:'Punkte bewegen sich chaotisch. Nach einigen Sekunden bleibt einer — der grüne — stehen. Halte den Blick darauf bis zum Ende. Danach werden alle Punkte gleich: tippe dorthin, wo der grüne war.',
+  bimanual_t:'Zwei Hände',bimanual_s:'Zeichne zwei Formen gleichzeitig',bimanual_i:'Links und rechts erscheinen verschiedene Vorlagen. Zeichne mit der linken Hand die eine und mit der rechten die andere — gleichzeitig. Nach jeder Runde siehst du die Genauigkeit.',
+  conf_t:'Intuition',conf_s:'4 Übungen für dein Bauchgefühl',conf_i:'Vier kurze Ratespiele. Es gibt keine Hinweise — vertraue dem ersten Impuls. Das Ergebnis wird mit dem Zufallsniveau verglichen.',
+  pred_t:'Gedächtnis',pred_s:'Merke dir Wörter und rufe sie ab',pred_i:'Wähle, wie viele Wörter du dir merken willst. Sie erscheinen nacheinander auf Karten. Danach schreibst du alle auf, an die du dich erinnerst.',
+  err_t:'Kopfrechnen',err_s:'Rechne so schnell wie möglich',err_i:'Löse Aufgaben gegen die Zeit: für jede Aufgabe läuft ein Zeitbalken. Wähle die richtige von vier Antworten. Höhere Stufe — größere Zahlen.',
+  nb_t:'N-Back',nb_s:'Erinnere dich an N Schritte zurück',nb_i:'Buchstaben erscheinen nacheinander. Drücke TREFFER, wenn der aktuelle mit dem von vor N Schritten übereinstimmt. Sonst nichts drücken. Einer der stärksten Trainer für das Arbeitsgedächtnis.',
+  seq_t:'Kette',seq_s:'Wiederhole die wachsende Folge',seq_i:'Felder leuchten nacheinander auf. Merke dir die Reihenfolge und tippe sie nach. Jede Runde kommt ein Schritt dazu.'},
+ es:{cog_nav:'Cognición',cog_title:'Entrenamiento cognitivo',cog_sub:'Entrena la atención, la memoria y la metacognición',cat_attention:'Atención',cat_metacognition:'Metacognición',cat_memory:'Memoria',cog_start:'Empezar',cog_back:'Atrás',cog_result:'Resultado',cog_score:'Puntos',cog_accuracy:'Precisión',cog_again:'Otra vez',cog_done:'Listo',cog_correct:'Correcto',cog_wrong:'Error',cog_instructions:'Instrucciones',cog_get_ready:'Prepárate',cog_seconds:'s',
+  visual_search_t:'Encuentra el objetivo',visual_search_s:'Detecta el círculo diferente',visual_search_i:'Muchos círculos iguales y uno con otro tono. Tócalo lo más rápido posible. 5 rondas; en cada ronda la diferencia es más sutil.',
+  mot_t:'Sigue las bolas',mot_s:'Sigue objetivos en movimiento',mot_i:'Algunas bolas se iluminan: memorízalas. Luego todas se mueven. Cuando se detengan, toca las que estaban marcadas. 3 intentos.',
+  stroop_t:'Color o palabra',stroop_s:'Di el color, ignora la palabra',stroop_i:'Una palabra de color está escrita con tinta de otro color. Elige el COLOR DE LA TINTA, no lo que dice la palabra. Tienes pocos segundos por respuesta.',
+  sart_t:'Inhibición',sart_s:'Frena en el momento justo',sart_i:'Los números aparecen al ritmo. Toca cada número EXCEPTO el 3. Lo más difícil: frenar cuando el ritmo ya está creado. Una prueba de control de impulsos.',
+  focus_point_t:'Punto de foco',focus_point_s:'Mantén la mirada en el punto quieto',focus_point_i:'Los puntos se mueven al azar. Tras unos segundos uno, el verde, se detiene. Mantén la mirada en él hasta el final. Después todos se vuelven iguales: toca donde estaba el verde.',
+  bimanual_t:'Dos manos',bimanual_s:'Dibuja dos figuras a la vez',bimanual_i:'A la izquierda y a la derecha aparecen figuras distintas. Dibuja una con la mano izquierda y otra con la derecha, a la vez. Tras cada ronda verás la precisión.',
+  conf_t:'Intuición',conf_s:'4 ejercicios de intuición',conf_i:'Cuatro juegos de adivinar. No hay pistas: confía en tu primer impulso. El resultado se compara con el nivel del azar.',
+  pred_t:'Memoria',pred_s:'Memoriza palabras y recuérdalas',pred_i:'Elige cuántas palabras memorizar. Aparecerán una a una en tarjetas. Después escribe todas las que recuerdes.',
+  err_t:'Cálculo',err_s:'Calcula lo más rápido posible',err_i:'Resuelve operaciones contra el reloj: cada una tiene una barra de tiempo. Elige la respuesta correcta entre cuatro. Más nivel, números más grandes.',
+  nb_t:'N-Back',nb_s:'Recuerda lo de hace N pasos',nb_i:'Las letras aparecen una a una. Pulsa COINCIDE si la actual es igual a la de hace N pasos. Si no, no pulses nada. Uno de los mejores ejercicios de memoria de trabajo.',
+  seq_t:'Secuencia',seq_s:'Repite la secuencia creciente',seq_i:'Las casillas se iluminan en orden. Memoriza el orden y repítelo. Cada ronda añade un paso.'},
+ zh:{cog_nav:'认知',cog_title:'认知训练',cog_sub:'训练注意力、记忆力和元认知',cat_attention:'注意力',cat_metacognition:'元认知',cat_memory:'记忆',cog_start:'开始',cog_back:'返回',cog_result:'结果',cog_score:'得分',cog_accuracy:'准确率',cog_again:'再来一次',cog_done:'完成',cog_correct:'正确',cog_wrong:'错误',cog_instructions:'玩法',cog_get_ready:'准备',cog_seconds:'秒',
+  visual_search_t:'寻找目标',visual_search_s:'找出颜色不同的圆',visual_search_i:'许多相同的圆中有一个色调不同。尽快点它。共5轮，每轮差异更细微。',
+  mot_t:'追踪小球',mot_s:'追踪移动的目标',mot_i:'几个小球会短暂发光——记住它们。随后所有小球开始移动。停下后，点出被标记的小球。共3次。',
+  stroop_t:'颜色还是文字',stroop_s:'选墨水颜色，忽略文字',stroop_i:'颜色词用另一种颜色书写。选择文字的墨水颜色，而不是文字意思。每题只有几秒钟。',
+  sart_t:'抑制',sart_s:'在正确时刻停下',sart_i:'数字按节奏依次出现。除了3以外，每个数字都要点。最难的是在节奏形成后停住。这是冲动控制测试。',
+  focus_point_t:'焦点',focus_point_s:'注视静止的点',focus_point_i:'许多点随机移动。几秒后，其中绿色的点会停下。一直注视它直到结束。之后所有点变得一样：点出绿点原来的位置。',
+  bimanual_t:'双手',bimanual_s:'同时画两个不同图形',bimanual_i:'左右两侧会出现不同的图形。左手画一个，右手同时画另一个。每轮结束后显示准确度。',
+  conf_t:'直觉',conf_s:'4个直觉练习',conf_i:'四个简短的猜测游戏。没有提示——相信你的第一反应。结果会与随机水平对比。',
+  pred_t:'记忆',pred_s:'记住词语并全部回忆',pred_i:'选择要记住的词数。词语会逐个出现在卡片上。然后写下你记得的所有词。',
+  err_t:'心算',err_s:'尽快计算',err_i:'限时解题：每道题都有时间条。从四个选项中选出正确答案。难度越高，数字越大。',
+  nb_t:'N-Back',nb_s:'记住N步之前的内容',nb_i:'字母逐个出现。当前字母与N步之前相同时，点“匹配”。否则不要点。这是最有效的工作记忆训练之一。',
+  seq_t:'序列',seq_s:'重复不断变长的序列',seq_i:'方块依次亮起。记住顺序并重复。每轮增加一步。'}
+};
+for(var l in base){COG_T[l]=base[l];}
+COG_T.ru.conf_t='Интуиция';COG_T.ru.conf_s='4 упражнения на внутреннее чутьё';
+COG_T.ru.conf_i='Четыре коротких игры на угадывание. Подсказок нет — доверься первому импульсу. Результат сравнивается со случайным уровнем.';
+COG_T.en.conf_t='Intuition';COG_T.en.conf_s='4 exercises for your gut feeling';
+COG_T.en.conf_i='Four short guessing games. There are no clues — trust your first impulse. Your score is compared with chance level.';
+COG_T.ru.err_i='Решай примеры на время: у каждого есть полоска времени. Выбери верный ответ из четырёх. Чем выше уровень — тем больше числа.';
+COG_T.en.err_i='Solve problems against the clock: each one has a time bar. Pick the right answer from four. Higher level — bigger numbers.';
+COG_T.ru.focus_point_i='Точки хаотично движутся. Через несколько секунд одна — зелёная — остановится. Не отрывай от неё взгляд до конца. Потом все точки станут одинаковыми: нажми туда, где была зелёная.';
+COG_T.en.focus_point_i='Dots move chaotically. After a few seconds one — the green one — stops. Keep looking at it until the end. Then all dots look the same: tap where the green one was.';
+COG_T.ru.visual_search_i='Много одинаковых кругов, и один отличается оттенком. Найди и нажми на него как можно быстрее. 5 раундов; с каждым раундом различие тоньше.';
+COG_T.en.visual_search_i='Many identical circles and one with a different shade. Tap it as fast as you can. 5 rounds; the difference gets subtler each round.';
+COG_T.ru.mot_i='Несколько шаров подсветятся — запомни их. Затем все начнут двигаться. Когда остановятся — нажми на те, что были выделены. 3 попытки.';
+COG_T.en.mot_i='Some balls light up — memorize them. Then all of them move. When they stop, tap the ones that were highlighted. 3 trials.';
+COG_T.ru.nb_i='Буквы появляются по одной. Нажми СОВПАДЕНИЕ, если текущая совпадает с той, что была N шагов назад. Иначе ничего не нажимай. Один из самых сильных тренажёров рабочей памяти.';
+COG_T.en.nb_i='Letters appear one by one. Press MATCH when the current one is the same as N steps back. Otherwise press nothing. One of the strongest working-memory trainers.';
+COG_T.ru.seq_i='Плитки загораются по очереди. Запомни порядок и повтори его. Каждый раунд добавляет один шаг.';
+COG_T.en.seq_i='Tiles light up in order. Memorize the order and repeat it. Each round adds one step.';
+COG_T.ru.stroop_i='Слово-цвет написано чернилами другого цвета. Выбирай ЦВЕТ ЧЕРНИЛ, а не значение слова. На каждый ответ — несколько секунд.';
+COG_T.en.stroop_i='A colour word is written in a different ink colour. Pick the INK COLOUR, not what the word says. You have a few seconds for each answer.';
+})();
+var CG_T={
+ ru:{diff:'Сложность',easy:'Легко',mid:'Средне',hard:'Сложно',best:'Лучший результат',last:'последний',plays:'попыток',new_best:'Новый рекорд',hold:'Время удержания',s:'с',ms:'мс',round:'Раунд {a} из {b}',ok:'Верно',miss:'Мимо',timeout:'Время вышло',close:'Закрыть',
+  vs_q:'Найди круг другого оттенка',vs_res:'Найдено {a} из {b} · в среднем {t} с',
+  mot_mem:'Запомни подсвеченные шары',mot_track:'Следи за ними',mot_pick:'Нажми на отмеченные шары',mot_sel:'Выбрано {a} из {b}',mot_res:'Найдено {a} из {b}',
+  st_q:'Выбери цвет чернил',st_words:['КРАСНЫЙ','СИНИЙ','ЗЕЛЁНЫЙ','ЖЁЛТЫЙ','ФИОЛЕТОВЫЙ'],st_btn:['красный','синий','зелёный','жёлтый','фиолетовый'],st_res:'Верно {a} из {b} · реакция {t} мс',
+  sart_rule:'Нажимай на каждое число, кроме {n}',sart_res:'Верно {a} из {b} · нажатий на {n}: {c} · пропусков: {d}',
+  fp_watch:'Смотри на точки',fp_hold:'Удерживай взгляд на зелёной точке',fp_where:'Где была зелёная точка? Нажми туда',fp_res:'Удержание {s} с · точность {p}%',
+  bim_ready:'Приготовься: рисуй обеими руками одновременно',bim_l:'Левая рука',bim_r:'Правая рука',bim_round:'Раунд {n}: {p}%',bim_res:'Средняя точность {p}%',
+  pred_q:'Сколько слов запомнишь?',pred_pick:'Выбери количество слов',pred_go:'Начать',pred_recall:'Впиши все слова, которые помнишь',pred_hint:'Через пробел, запятую или с новой строки',pred_ph:'слово, слово…',pred_check:'Проверить',pred_res:'Вспомнено {a} из {b}',
+  pred_words:['кот','дом','луна','река','огонь','небо','книга','дерево','море','звезда','ветер','снег','мост','сад','птица','свет'],
+  in_number:'Цифра',in_number_d:'Под какой карточкой цифра',in_dir:'Направление',in_dir_d:'Какая стрелка в конверте',in_spy:'Шпион',in_spy_d:'Найди шпиона среди девяти агентов',in_color:'Цвет',in_color_d:'Под какой карточкой этот цвет',
+  in_number_q:'Под какой карточкой цифра {n}?',in_dir_q:'Какая стрелка внутри конверта?',in_spy_q:'Один из девяти — шпион. Доверься чутью',in_color_q:'Под какой карточкой этот цвет?',in_res:'Угадано {a} из {b} · случайный уровень {c}%',
+  math_res:'Верно {a} из {b} · в среднем {t} с',
+  nb_q1:'Совпадает с буквой 1 шаг назад?',nb_qn:'Совпадает с буквой {n} шага назад?',nb_match:'Совпадение',nb_hint:'Если не совпадает — ничего не нажимай',nb_res:'Совпадений {h} · ложных {f} · пропусков {m}',
+  seq_watch:'Смотри',seq_go:'Повтори: {n}',seq_ok:'Верно',seq_err:'Ошибка',seq_all:'Все раунды пройдены',seq_res:'Пройдено раундов {a} из {b} · длина цепочки {l}'},
+ en:{diff:'Difficulty',easy:'Easy',mid:'Medium',hard:'Hard',best:'Best score',last:'last',plays:'plays',new_best:'New best',hold:'Hold time',s:'s',ms:'ms',round:'Round {a} of {b}',ok:'Correct',miss:'Miss',timeout:'Time is up',close:'Close',
+  vs_q:'Find the circle with a different shade',vs_res:'Found {a} of {b} · {t} s on average',
+  mot_mem:'Remember the highlighted balls',mot_track:'Keep tracking them',mot_pick:'Tap the highlighted balls',mot_sel:'Selected {a} of {b}',mot_res:'Found {a} of {b}',
+  st_q:'Pick the ink colour',st_words:['RED','BLUE','GREEN','YELLOW','PURPLE'],st_btn:['red','blue','green','yellow','purple'],st_res:'{a} of {b} correct · {t} ms reaction',
+  sart_rule:'Tap every number except {n}',sart_res:'{a} of {b} correct · taps on {n}: {c} · misses: {d}',
+  fp_watch:'Watch the dots',fp_hold:'Keep your gaze on the green dot',fp_where:'Where was the green dot? Tap there',fp_res:'Held {s} s · accuracy {p}%',
+  bim_ready:'Get ready: draw with both hands at once',bim_l:'Left hand',bim_r:'Right hand',bim_round:'Round {n}: {p}%',bim_res:'Average accuracy {p}%',
+  pred_q:'How many words can you remember?',pred_pick:'Choose the number of words',pred_go:'Start',pred_recall:'Type all the words you remember',pred_hint:'Separate with spaces, commas or new lines',pred_ph:'word, word…',pred_check:'Check',pred_res:'Recalled {a} of {b}',
+  pred_words:['cat','house','moon','river','fire','sky','book','tree','sea','star','wind','snow','bridge','garden','bird','light'],
+  in_number:'Number',in_number_d:'Which card hides the number',in_dir:'Direction',in_dir_d:'Which arrow is in the envelope',in_spy:'Spy',in_spy_d:'Find the spy among nine agents',in_color:'Colour',in_color_d:'Which card hides this colour',
+  in_number_q:'Which card hides the number {n}?',in_dir_q:'Which arrow is inside the envelope?',in_spy_q:'One of the nine is a spy. Trust your gut',in_color_q:'Which card hides this colour?',in_res:'Guessed {a} of {b} · chance level {c}%',
+  math_res:'{a} of {b} correct · {t} s on average',
+  nb_q1:'Same letter as 1 step back?',nb_qn:'Same letter as {n} steps back?',nb_match:'Match',nb_hint:'If it is not a match, press nothing',nb_res:'Hits {h} · false alarms {f} · misses {m}',
+  seq_watch:'Watch',seq_go:'Repeat: {n}',seq_ok:'Correct',seq_err:'Wrong',seq_all:'All rounds completed',seq_res:'Rounds completed {a} of {b} · sequence length {l}'},
+ de:{diff:'Schwierigkeit',easy:'Leicht',mid:'Mittel',hard:'Schwer',best:'Bestwert',last:'zuletzt',plays:'Versuche',new_best:'Neuer Rekord',hold:'Haltezeit',s:'s',ms:'ms',round:'Runde {a} von {b}',ok:'Richtig',miss:'Daneben',timeout:'Zeit abgelaufen',close:'Schließen',
+  vs_q:'Finde den Kreis mit anderem Farbton',vs_res:'Gefunden {a} von {b} · im Schnitt {t} s',
+  mot_mem:'Merke dir die leuchtenden Bälle',mot_track:'Verfolge sie',mot_pick:'Tippe die markierten Bälle an',mot_sel:'Gewählt {a} von {b}',mot_res:'Gefunden {a} von {b}',
+  st_q:'Wähle die Schriftfarbe',st_words:['ROT','BLAU','GRÜN','GELB','LILA'],st_btn:['rot','blau','grün','gelb','lila'],st_res:'{a} von {b} richtig · Reaktion {t} ms',
+  sart_rule:'Tippe jede Zahl außer {n}',sart_res:'{a} von {b} richtig · Tipps auf {n}: {c} · verpasst: {d}',
+  fp_watch:'Beobachte die Punkte',fp_hold:'Halte den Blick auf dem grünen Punkt',fp_where:'Wo war der grüne Punkt? Tippe dorthin',fp_res:'Gehalten {s} s · Genauigkeit {p}%',
+  bim_ready:'Bereit: zeichne mit beiden Händen gleichzeitig',bim_l:'Linke Hand',bim_r:'Rechte Hand',bim_round:'Runde {n}: {p}%',bim_res:'Durchschnittliche Genauigkeit {p}%',
+  pred_q:'Wie viele Wörter merkst du dir?',pred_pick:'Wähle die Anzahl der Wörter',pred_go:'Start',pred_recall:'Schreibe alle Wörter, an die du dich erinnerst',pred_hint:'Getrennt durch Leerzeichen, Kommas oder Zeilen',pred_ph:'Wort, Wort…',pred_check:'Prüfen',pred_res:'Erinnert {a} von {b}',
+  pred_words:['Katze','Haus','Mond','Fluss','Feuer','Himmel','Buch','Baum','Meer','Stern','Wind','Schnee','Brücke','Garten','Vogel','Licht'],
+  in_number:'Zahl',in_number_d:'Unter welcher Karte ist die Zahl',in_dir:'Richtung',in_dir_d:'Welcher Pfeil ist im Umschlag',in_spy:'Spion',in_spy_d:'Finde den Spion unter neun Agenten',in_color:'Farbe',in_color_d:'Unter welcher Karte ist diese Farbe',
+  in_number_q:'Unter welcher Karte ist die {n}?',in_dir_q:'Welcher Pfeil ist im Umschlag?',in_spy_q:'Einer der neun ist ein Spion. Vertraue dem Gefühl',in_color_q:'Unter welcher Karte ist diese Farbe?',in_res:'Erraten {a} von {b} · Zufallsniveau {c}%',
+  math_res:'{a} von {b} richtig · im Schnitt {t} s',
+  nb_q1:'Gleicher Buchstabe wie 1 Schritt zuvor?',nb_qn:'Gleicher Buchstabe wie {n} Schritte zuvor?',nb_match:'Treffer',nb_hint:'Wenn nicht gleich — nichts drücken',nb_res:'Treffer {h} · Fehlalarme {f} · verpasst {m}',
+  seq_watch:'Schau',seq_go:'Wiederhole: {n}',seq_ok:'Richtig',seq_err:'Fehler',seq_all:'Alle Runden geschafft',seq_res:'Runden geschafft {a} von {b} · Kettenlänge {l}'},
+ es:{diff:'Dificultad',easy:'Fácil',mid:'Media',hard:'Difícil',best:'Mejor resultado',last:'último',plays:'intentos',new_best:'Nuevo récord',hold:'Tiempo de fijación',s:'s',ms:'ms',round:'Ronda {a} de {b}',ok:'Correcto',miss:'Fallo',timeout:'Se acabó el tiempo',close:'Cerrar',
+  vs_q:'Encuentra el círculo de otro tono',vs_res:'Encontrados {a} de {b} · {t} s de media',
+  mot_mem:'Memoriza las bolas iluminadas',mot_track:'Síguelas',mot_pick:'Toca las bolas marcadas',mot_sel:'Elegidas {a} de {b}',mot_res:'Encontradas {a} de {b}',
+  st_q:'Elige el color de la tinta',st_words:['ROJO','AZUL','VERDE','AMARILLO','MORADO'],st_btn:['rojo','azul','verde','amarillo','morado'],st_res:'{a} de {b} correctas · reacción {t} ms',
+  sart_rule:'Toca cada número excepto el {n}',sart_res:'{a} de {b} correctas · toques en {n}: {c} · omisiones: {d}',
+  fp_watch:'Mira los puntos',fp_hold:'Mantén la mirada en el punto verde',fp_where:'¿Dónde estaba el punto verde? Toca allí',fp_res:'Fijación {s} s · precisión {p}%',
+  bim_ready:'Prepárate: dibuja con las dos manos a la vez',bim_l:'Mano izquierda',bim_r:'Mano derecha',bim_round:'Ronda {n}: {p}%',bim_res:'Precisión media {p}%',
+  pred_q:'¿Cuántas palabras recordarás?',pred_pick:'Elige el número de palabras',pred_go:'Empezar',pred_recall:'Escribe todas las palabras que recuerdes',pred_hint:'Separadas por espacios, comas o líneas',pred_ph:'palabra, palabra…',pred_check:'Comprobar',pred_res:'Recordadas {a} de {b}',
+  pred_words:['gato','casa','luna','río','fuego','cielo','libro','árbol','mar','estrella','viento','nieve','puente','jardín','pájaro','luz'],
+  in_number:'Número',in_number_d:'Bajo qué carta está el número',in_dir:'Dirección',in_dir_d:'Qué flecha hay en el sobre',in_spy:'Espía',in_spy_d:'Encuentra al espía entre nueve agentes',in_color:'Color',in_color_d:'Bajo qué carta está este color',
+  in_number_q:'¿Bajo qué carta está el {n}?',in_dir_q:'¿Qué flecha hay dentro del sobre?',in_spy_q:'Uno de los nueve es un espía. Confía en tu intuición',in_color_q:'¿Bajo qué carta está este color?',in_res:'Acertadas {a} de {b} · nivel del azar {c}%',
+  math_res:'{a} de {b} correctas · {t} s de media',
+  nb_q1:'¿Misma letra que hace 1 paso?',nb_qn:'¿Misma letra que hace {n} pasos?',nb_match:'Coincide',nb_hint:'Si no coincide, no pulses nada',nb_res:'Aciertos {h} · falsas alarmas {f} · omisiones {m}',
+  seq_watch:'Mira',seq_go:'Repite: {n}',seq_ok:'Correcto',seq_err:'Error',seq_all:'Todas las rondas superadas',seq_res:'Rondas superadas {a} de {b} · longitud {l}'},
+ zh:{diff:'难度',easy:'简单',mid:'中等',hard:'困难',best:'最佳成绩',last:'上次',plays:'次',new_best:'新纪录',hold:'注视时长',s:'秒',ms:'毫秒',round:'第 {a} / {b} 轮',ok:'正确',miss:'未中',timeout:'时间到',close:'关闭',
+  vs_q:'找出色调不同的圆',vs_res:'找到 {a} / {b} · 平均 {t} 秒',
+  mot_mem:'记住发光的小球',mot_track:'持续追踪',mot_pick:'点出被标记的小球',mot_sel:'已选 {a} / {b}',mot_res:'找到 {a} / {b}',
+  st_q:'选择墨水颜色',st_words:['红','蓝','绿','黄','紫'],st_btn:['红','蓝','绿','黄','紫'],st_res:'正确 {a} / {b} · 反应 {t} 毫秒',
+  sart_rule:'除了 {n}，每个数字都要点',sart_res:'正确 {a} / {b} · 误点 {n}：{c} · 漏点：{d}',
+  fp_watch:'观察这些点',fp_hold:'注视绿色的点',fp_where:'绿点刚才在哪里？点那里',fp_res:'注视 {s} 秒 · 准确度 {p}%',
+  bim_ready:'准备：双手同时画',bim_l:'左手',bim_r:'右手',bim_round:'第 {n} 轮：{p}%',bim_res:'平均准确度 {p}%',
+  pred_q:'你能记住多少个词？',pred_pick:'选择词语数量',pred_go:'开始',pred_recall:'写下你记得的所有词语',pred_hint:'用空格、逗号或换行分隔',pred_ph:'词语，词语…',pred_check:'检查',pred_res:'回忆出 {a} / {b}',
+  pred_words:['猫','房子','月亮','河流','火','天空','书','树','大海','星星','风','雪','桥','花园','鸟','光'],
+  in_number:'数字',in_number_d:'数字在哪张卡片下',in_dir:'方向',in_dir_d:'信封里是哪个箭头',in_spy:'间谍',in_spy_d:'在九名特工中找出间谍',in_color:'颜色',in_color_d:'这个颜色在哪张卡片下',
+  in_number_q:'数字 {n} 在哪张卡片下？',in_dir_q:'信封里是哪个箭头？',in_spy_q:'九人中有一名间谍，相信直觉',in_color_q:'这个颜色在哪张卡片下？',in_res:'猜中 {a} / {b} · 随机水平 {c}%',
+  math_res:'正确 {a} / {b} · 平均 {t} 秒',
+  nb_q1:'与 1 步前的字母相同吗？',nb_qn:'与 {n} 步前的字母相同吗？',nb_match:'匹配',nb_hint:'不相同就什么都不点',nb_res:'命中 {h} · 误报 {f} · 漏报 {m}',
+  seq_watch:'观察',seq_go:'重复：{n}',seq_ok:'正确',seq_err:'错误',seq_all:'全部通关',seq_res:'完成 {a} / {b} 轮 · 序列长度 {l}'}
+};
+function CT(k,v){var s=(CG_T[curLang]||CG_T.ru)[k];if(s==null)s=CG_T.ru[k];if(s==null)return k;if(v&&typeof s==='string')for(var x in v)s=s.split('{'+x+'}').join(v[x]);return s;}
+
+/* ═══════════════════════════════════════════════════════
+   v102 — COGNITION: line icons, localized UI, game fixes
+   (same concepts; overrides the v101 implementations)
+═══════════════════════════════════════════════════════ */
+var CG_IC={
+ visual_search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/><circle cx="10.5" cy="10.5" r="1.6"/></svg>',
+ mot:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="8" r="2.5"/><circle cx="17" cy="6" r="2.5"/><circle cx="13" cy="17" r="2.5"/><path d="M8.3 9.2l3.4 5.6M14.6 15l1.8-6.5" stroke-dasharray="1.5 2"/></svg>',
+ stroop:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18L8.5 6 13 18M5.6 14h5.8"/><circle cx="17.5" cy="15.5" r="3"/></svg>',
+ sart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M8.3 3h7.4L21 8.3v7.4L15.7 21H8.3L3 15.7V8.3z"/><path d="M8 12h8" stroke-linecap="round"/></svg>',
+ focus_point:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>',
+ bimanual:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="12" r="4"/><path d="M14 8h6v8h-6z"/></svg>',
+ pred:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="6" y="5" width="13" height="15" rx="2"/><path d="M4 16V5a2 2 0 0 1 2-2h9" stroke-linecap="round"/><path d="M9.5 10h6M9.5 14h4" stroke-linecap="round"/></svg>',
+ conf:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>',
+ err:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M7 8.5h4M9 6.5v4M13.5 8.5h4M7 15.5h4M13.5 14.5h4M13.5 16.5h4"/></svg>',
+ nb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="4" width="11" height="11" rx="2"/><path d="M6 8v9a2 2 0 0 0 2 2h9"/><path d="M13 9.5l-2 0M11 9.5l1.5-1.5M11 9.5l1.5 1.5"/></svg>',
+ seq:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>',
+ play:'<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z"/></svg>',
+ back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15,18 9,12 15,6"/></svg>',
+ chev:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="9,18 15,12 9,6"/></svg>',
+ number:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 4L7 20M17 4l-2 16M4.5 9h15M3.5 15h15"/></svg>',
+ envelope:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>',
+ agent:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-4 3.6-6 7-6s6.2 2 7 6"/></svg>',
+ spy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 7.5h11M8 7.5l1-3.5h6l1 3.5"/><circle cx="10" cy="10.5" r="1.6"/><circle cx="14" cy="10.5" r="1.6"/><path d="M11.6 10.5h.8"/><path d="M5 20c.8-4 3.6-6 7-6s6.2 2 7 6"/></svg>',
+ palette:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17M3.5 12h17"/></svg>'
+};
+var CG_ARROW={left:'M19 12H5M11 6l-6 6 6 6',up:'M12 19V5M6 11l6-6 6 6',down:'M12 5v14M6 13l6 6 6-6',right:'M5 12h14M13 6l6 6-6 6'};
+function cgArrow(k,sz){return '<svg viewBox="0 0 24 24" width="'+(sz||26)+'" height="'+(sz||26)+'" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="'+CG_ARROW[k]+'"/></svg>';}
+COG_PRACTICES.forEach(function(p){if(CG_IC[p.id])p.icon=CG_IC[p.id];});
+function cgP(id){for(var i=0;i<COG_PRACTICES.length;i++)if(COG_PRACTICES[i].id===id)return COG_PRACTICES[i];return null;}
+function cgCnt(a,b){return '<div class="cg-cnt">'+CT('round',{a:a,b:b})+'</div>';}
+function cgFmtS(ms){return (ms/1000).toFixed(1).replace('.',curLang==='en'||curLang==='zh'?'.':',');}
+
+/* ── scores: keep best + last + plays ── */
+function saveCogScore(id,score,max){
+  var s=getCogScores(),o=s[id]||{best:-1,max:max,date:''};
+  var isBest=score>(o.best==null?-1:o.best);
+  if(isBest){o.best=score;o.date=todayKey();}
+  o.max=max;o.last=score;o.n=(o.n||0)+1;o.lastDate=todayKey();
+  s[id]=o;remSet('cog_scores',s);return isBest;
+}
+
+/* ── list ── */
+function renderCognitive(){
+  var el=document.getElementById('cog-body');if(!el)return;
+  var scores=getCogScores(),html='';
+  COG_CATS.forEach(function(cat){
+    html+='<div class="cog-cat-hdr" style="color:'+cat.color+'">'+cogT('cat_'+cat.id)+'</div><div class="cog-grid">';
+    COG_PRACTICES.filter(function(p){return p.cat===cat.id;}).forEach(function(p){
+      var sc=scores[p.id];
+      html+='<div class="cog-card" onclick="openCogDetail(\''+p.id+'\')" style="border-color:'+hexA(p.color,.18)+'">'+
+        '<div class="cog-card-top"><div class="cog-card-ico" style="background:'+hexA(p.color,.12)+';color:'+p.color+'">'+p.icon+'</div>'+
+        (sc&&sc.best>=0?'<span class="cog-card-score">'+sc.best+'%</span>':'')+'</div>'+
+        '<div class="cog-card-name">'+cogT(p.id+'_t')+'</div><div class="cog-card-sub">'+cogT(p.id+'_s')+'</div>'+
+        '<div class="cog-card-btn" style="background:'+hexA(p.color,.12)+';color:'+p.color+'">'+cogT('cog_start')+'</div></div>';
+    });
+    html+='</div>';
+  });
+  el.innerHTML=html;
+  var c=document.getElementById('cognitive');
+  if(c){var a=c.querySelector('.lt'),b=c.querySelector('.ls');if(a)a.textContent=cogT('cog_title');if(b)b.textContent=cogT('cog_sub');}
+}
+
+/* ── detail ── */
+function cgBar(title){return '<div class="cog-det-bar"><div class="back" onclick="closeCogDetail()">'+CG_IC.back+'</div><div class="cg-bar-t">'+title+'</div><div style="width:40px;"></div></div>';}
+function cgHero(p,id){
+  var sc=getCogScores()[id];
+  return '<div class="cg-hero"><div class="cg-hero-ico" style="color:'+p.color+';background:'+hexA(p.color,.1)+';border-color:'+hexA(p.color,.22)+'">'+p.icon+'</div>'+
+    '<div class="cg-hero-t">'+cogT(id+'_t')+'</div><div class="cg-hero-s">'+cogT(id+'_s')+'</div>'+
+    (sc&&sc.best>=0?'<div class="cg-hero-best" id="cg-best">'+CT('best')+': <b style="color:'+p.color+'">'+sc.best+'%</b>'+(sc.last!=null?' · '+CT('last')+' '+sc.last+'%':'')+(sc.n?' · '+sc.n+' '+CT('plays'):'')+'</div>':'')+'</div>';
+}
+function cgDiffHtml(color){
+  var l=[CT('easy'),CT('mid'),CT('hard')],h='<div class="cg-lbl">'+CT('diff')+'</div><div class="cg-seg" id="diff-btns">';
+  for(var i=0;i<3;i++)h+='<button data-d="'+i+'" class="'+(i===_cogDifficulty?'on':'')+'" style="--c:'+color+'" onclick="cogSetDiff(this,'+i+')">'+l[i]+'</button>';
+  return h+'</div>';
+}
+function cogSetDiff(el,d){_cogDifficulty=d;var b=el.parentNode.children;for(var i=0;i<b.length;i++)b[i].classList.toggle('on',b[i]===el);}
+function cgStartBtn(p,fn){return '<button class="cg-start" style="background:'+p.color+'" onclick="'+fn+'">'+CG_IC.play+'<span>'+cogT('cog_start')+'</span></button>';}
+function openCogDetail(id,keep){
+  if(!keep)_cogDifficulty=1; /* v100: Средне pre-selected; kept when returning from a game */
+  var p=cgP(id),el=document.getElementById('cog-detail');if(!p||!el)return;
+  var h=cgBar(cogT(id+'_t'))+'<div class="cog-det-body cg-det">'+cgHero(p,id);
+  if(id==='conf'){
+    h+='<div class="cg-info">'+cogT('conf_i')+'</div>';
+    [['number','number'],['direction','envelope'],['spy','agent'],['color','palette']].forEach(function(g){
+      var k=g[0]==='direction'?'dir':g[0];
+      h+='<div class="cg-sub" onclick="launchIntuitionGame(\''+g[0]+'\')" data-gid="'+g[0]+'">'+
+        '<div class="cg-sub-ico" style="color:'+p.color+';background:'+hexA(p.color,.1)+'">'+CG_IC[g[1]]+'</div>'+
+        '<div class="cg-sub-txt"><div class="cg-sub-t">'+CT('in_'+k)+'</div><div class="cg-sub-d">'+CT('in_'+k+'_d')+'</div></div>'+CG_IC.chev+'</div>';
+    });
+  } else {
+    h+='<div class="cg-info"><div class="cg-lbl" style="margin:0 0 8px">'+cogT('cog_instructions')+'</div>'+cogT(id+'_i')+'</div>';
+    if(id==='focus_point'){
+      h+='<div class="cg-lbl">'+CT('hold')+'</div><div class="cg-seg" id="fp-dur-btns">';
+      [30,60,90,120].forEach(function(s){h+='<button class="'+(s===_fpDuration?'on':'')+'" style="--c:'+p.color+'" onclick="cogSetFPDur(this,'+s+')">'+s+' '+CT('s')+'</button>';});
+      h+='</div>';
+    }
+    if(id!=='pred')h+=cgDiffHtml(p.color);
+    h+=cgStartBtn(p,id==='focus_point'?'launchFocusPoint()':'launchCogEx(\''+id+'\')');
+  }
+  el.innerHTML=h+'</div>';el.classList.add('on');
+}
+var _fpDuration=60;
+function cogSetFPDur(el,s){_fpDuration=s;var b=el.parentNode.children;for(var i=0;i<b.length;i++)b[i].classList.toggle('on',b[i]===el);}
+
+/* ── exercise frame ── */
+function cgExOpen(p,title){
+  var el=document.getElementById('cog-exercise');if(!el)return null;
+  el.classList.add('on');
+  var bar=el.querySelector('.cog-ex-bar');
+  if(bar&&!document.getElementById('cogExTitle')){bar.insertAdjacentHTML('beforeend','<div class="cg-bar-t" id="cogExTitle"></div><div style="width:40px"></div>');}
+  var tt=document.getElementById('cogExTitle');if(tt)tt.textContent=title||'';
+  var b=document.getElementById('cog-ex-body');if(b){b.innerHTML='';b.scrollTop=0;}
+  window._cogState=null;
+  return b;
+}
+function launchCogEx(id){
+  _stopAllCogTimers();window._intuitGid=null;_cogExId=id;
+  var p=cgP(id),body=cgExOpen(p,cogT(id+'_t'));if(!body||!p)return;
+  var fns={visual_search:cogVisualSearch,mot:cogMOT,stroop:cogStroop,sart:cogSART,pred:cogPrediction,err:cogErrorAware,nb:cogNBack,seq:cogSequence,bimanual:cogBimanual,focus_point:function(b,pp){cogFocusPoint(b,pp,_fpDuration);}};
+  if(id==='conf'){closeCogEx();openCogDetail('conf');return;}
+  if(fns[id])fns[id](body,p);
+}
+function launchFocusPoint(){launchCogEx('focus_point');}
+function launchIntuitionGame(gid){
+  _stopAllCogTimers();window._intuitGid=gid;_cogExId='conf';
+  var p=cgP('conf'),k=gid==='direction'?'dir':gid,body=cgExOpen(p,CT('in_'+k));if(!body)return;
+  var fns={number:cogIntuitNumber,direction:cogIntuitDirection,spy:cogIntuitSpy,color:cogIntuitColor};
+  if(fns[gid])fns[gid](body,p);
+}
+function closeCogEx(){
+  var el=document.getElementById('cog-exercise');if(el)el.classList.remove('on');
+  _stopAllCogTimers();
+  var b=document.getElementById('cog-ex-body');if(b)b.innerHTML='';
+  window._cogState=null;
+  var det=document.getElementById('cog-detail');if(det&&det.classList.contains('on')&&_cogExId)openCogDetail(_cogExId,true);
+  renderCognitive();
+}
+function cogShowResult(body,p,score,max,extra){
+  _stopAllCogTimers();
+  var pct=max>0?Math.max(0,Math.min(100,Math.round(score/max*100))):0;
+  var prev=getCogScores()[p.id],isBest=saveCogScore(p.id,pct,100)&&prev&&prev.best>=0;
+  var retry=(p.id==='conf'&&window._intuitGid)?"launchIntuitionGame('"+window._intuitGid+"')":"launchCogEx('"+p.id+"')";
+  body.innerHTML='<div class="cg-res" id="cg-result">'+
+    '<div class="cg-hero-ico" style="color:'+p.color+';background:'+hexA(p.color,.1)+';border-color:'+hexA(p.color,.22)+'">'+p.icon+'</div>'+
+    '<div class="cg-res-lbl">'+cogT('cog_result')+'</div>'+
+    '<div class="cg-res-pct" style="color:'+p.color+'">'+pct+'%</div>'+
+    '<div class="cg-res-x">'+(extra||score+' / '+max)+'</div>'+
+    (isBest?'<div class="cg-res-best">'+CT('new_best')+'</div>':'')+
+    '<div class="cg-res-bar"><i style="width:'+pct+'%;background:'+p.color+'"></i></div>'+
+    '<div class="cg-res-btns"><button class="cg-btn2" id="cg-again" onclick="'+retry+'">'+cogT('cog_again')+'</button>'+
+    '<button class="cg-btn1" id="cg-done" style="background:'+p.color+'" onclick="closeCogEx()">'+cogT('cog_done')+'</button></div></div>';
+  window._cogState={result:pct,score:score,max:max};
+}
+function cgFlash(el,ok){if(!el)return;el.classList.remove('cg-ok','cg-bad');void el.offsetWidth;el.classList.add(ok?'cg-ok':'cg-bad');cogPlayFeedback(ok);}
+function cgShuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ═══ Visual search ═══ */
+function cogVisualSearch(body,p){
+  var diff=_cogDiff(),ROUNDS=5,cols=[8,10,12][diff],rows=[9,11,13][diff],d0=[0.30,0.20,0.12][diff];
+  var score=0,round=0,times=[];
+  function next(){
+    if(round>=ROUNDS){var avg=times.length?times.reduce(function(a,b){return a+b;},0)/times.length:0;
+      cogShowResult(body,p,score,ROUNDS,CT('vs_res',{a:score,b:ROUNDS,t:cgFmtS(avg)}));return;}
+    var n=cols*rows,tp=Math.floor(Math.random()*n),delta=d0*(1-round*0.12),base=0.5,top=base+(Math.random()<0.5?-1:1)*delta;
+    var h='<div class="cg-pad">'+cgCnt(round+1,ROUNDS)+'<div class="cg-q">'+CT('vs_q')+'</div><div class="cg-vs" id="vs-grid" style="grid-template-columns:repeat('+cols+',1fr)">';
+    for(var i=0;i<n;i++)h+='<button data-i="'+i+'"'+(i===tp?' data-t="1"':'')+' onclick="cogVSClick('+i+')"><i style="background:'+p.color+';opacity:'+(i===tp?top:base).toFixed(3)+'"></i></button>';
+    body.innerHTML=h+'</div></div>';
+    var ts=Date.now(),done=false;
+    window._cogState={game:'visual_search',round:round,target:tp,n:n};
+    window.cogVSClick=function(i){
+      if(done)return;done=true;
+      var c=document.querySelectorAll('#vs-grid button'),ok=i===tp;
+      if(ok){score++;times.push(Date.now()-ts);}
+      cgFlash(c[i],ok);if(!ok&&c[tp])c[tp].classList.add('cg-ring');
+      _cogTimer(function(){round++;next();},ok?320:900);
+    };
+  }
+  next();
+}
+
+/* ═══ MOT ═══ */
+function cogMOT(body,p){
+  var diff=_cogDiff(),nOrbs=[5,7,9][diff],nT=[2,3,4][diff],speed=[1.3,1.8,2.4][diff],TRIALS=3;
+  var orbs=[],phase='show',score=0,trial=0,W=0,H=0,sel=0,raf=null,_sess=_cogSess;
+  body.innerHTML='<div class="cg-pad"><div id="mot-cnt">'+cgCnt(1,TRIALS)+'</div><div class="cg-q" id="mot-msg"></div>'+
+    '<canvas id="cog-mot-cv" class="cg-canvas"></canvas></div>';
+  var cv=document.getElementById('cog-mot-cv'),ctx=cv.getContext('2d'),msg=document.getElementById('mot-msg'),dpr=Math.min(2,window.devicePixelRatio||1);
+  W=cv.parentElement.clientWidth-32;H=Math.min(Math.round(W*1.05),400);
+  cv.width=W*dpr;cv.height=H*dpr;cv.style.height=H+'px';ctx.setTransform(dpr,0,0,dpr,0,0);
+  function init(){
+    orbs=[];var R=15,tries=0;
+    while(orbs.length<nOrbs&&tries<500){tries++;
+      var x=R+6+Math.random()*(W-2*R-12),y=R+6+Math.random()*(H-2*R-12),okp=true;
+      orbs.forEach(function(o){if(Math.hypot(o.x-x,o.y-y)<2*R+10)okp=false;});
+      if(!okp)continue;var a=Math.random()*Math.PI*2,sp=speed*(0.8+Math.random()*0.4);
+      orbs.push({x:x,y:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:R,t:false,s:false});
+    }
+    cgShuffle(orbs.map(function(o,i){return i;})).slice(0,nT).forEach(function(i){orbs[i].t=true;});
+    sel=0;
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    orbs.forEach(function(o){
+      ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,Math.PI*2);
+      var fill='rgba(255,255,255,.14)',stroke=null;
+      if(phase==='show'&&o.t){fill=hexA(p.color,.85);}
+      if(phase==='select'&&o.s)fill='rgba(255,255,255,.5)';
+      if(phase==='reveal'){if(o.s&&o.t)fill='rgba(56,192,104,.8)';else if(o.s)fill='rgba(240,96,64,.75)';else if(o.t)stroke='rgba(56,192,104,.9)';}
+      ctx.fillStyle=fill;ctx.fill();
+      if(stroke){ctx.lineWidth=2;ctx.strokeStyle=stroke;ctx.stroke();}
+    });
+  }
+  function move(){
+    orbs.forEach(function(o){o.x+=o.vx;o.y+=o.vy;
+      if(o.x<o.r){o.x=o.r;o.vx=Math.abs(o.vx);}if(o.x>W-o.r){o.x=W-o.r;o.vx=-Math.abs(o.vx);}
+      if(o.y<o.r){o.y=o.r;o.vy=Math.abs(o.vy);}if(o.y>H-o.r){o.y=H-o.r;o.vy=-Math.abs(o.vy);}});
+    for(var i=0;i<orbs.length;i++)for(var j=i+1;j<orbs.length;j++){var a=orbs[i],b=orbs[j],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy);
+      if(d>0&&d<a.r+b.r){var nx=dx/d,ny=dy/d,pen=(a.r+b.r-d)/2;a.x-=nx*pen;a.y-=ny*pen;b.x+=nx*pen;b.y+=ny*pen;
+        var va=a.vx*nx+a.vy*ny,vb=b.vx*nx+b.vy*ny;a.vx+=(vb-va)*nx;a.vy+=(vb-va)*ny;b.vx+=(va-vb)*nx;b.vy+=(va-vb)*ny;}}
+  }
+  function loop(){if(_sess!==_cogSess)return;if(phase==='move')move();draw();raf=requestAnimationFrame(loop);}
+  function start(){
+    phase='show';init();document.getElementById('mot-cnt').innerHTML=cgCnt(trial+1,TRIALS);msg.textContent=CT('mot_mem');
+    window._cogState={game:'mot',trial:trial,phase:phase,orbs:orbs,W:W,H:H,nT:nT};
+    _cogTimer(function(){phase='move';window._cogState.phase=phase;msg.textContent=CT('mot_track');
+      _cogTimer(function(){phase='select';window._cogState.phase=phase;orbs.forEach(function(o){o.vx=o.vy=0;});msg.textContent=CT('mot_pick')+' · '+CT('mot_sel',{a:0,b:nT});},[3500,4500,5000][diff]);
+    },2200);
+  }
+  cv.addEventListener('pointerdown',function(e){
+    if(phase!=='select')return;
+    var r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*(W/r.width),y=(e.clientY-r.top)*(H/r.height),best=null,bd=1e9;
+    orbs.forEach(function(o){var d=Math.hypot(x-o.x,y-o.y);if(!o.s&&d<o.r+12&&d<bd){bd=d;best=o;}});
+    if(!best)return;best.s=true;sel++;if(best.t)score++;
+    msg.textContent=CT('mot_pick')+' · '+CT('mot_sel',{a:sel,b:nT});
+    if(sel>=nT){phase='reveal';window._cogState.phase=phase;
+      _cogTimer(function(){trial++;if(trial>=TRIALS){cancelAnimationFrame(raf);cogShowResult(body,p,score,nT*TRIALS,CT('mot_res',{a:score,b:nT*TRIALS}));}else start();},1200);}
+  });
+  loop();start();
+}
+
+/* ═══ Stroop ═══ */
+function cogStroop(body,p){
+  var diff=_cogDiff(),total=[12,20,30][diff],limit=[5000,3500,2500][diff],nC=[4,5,5][diff];
+  var COL=['#e05555','#4f8ff0','#46b860','#d8c23a','#a066e0'].slice(0,nC),W=CT('st_words'),B=CT('st_btn');
+  var cur=0,correct=0,rt=[];
+  function tick(){try{var ac=_cogAC();if(!ac)return;var o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.value=600;g.gain.setValueAtTime(0.08,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+0.06);o.start();o.stop(ac.currentTime+0.07);}catch(e){}}
+  function next(){
+    if(cur>=total){var avg=rt.length?Math.round(rt.reduce(function(a,b){return a+b;},0)/rt.length):0;
+      cogShowResult(body,p,correct,total,CT('st_res',{a:correct,b:total,t:avg}));return;}
+    var wi=Math.floor(Math.random()*nC),ci;do{ci=Math.floor(Math.random()*nC);}while(ci===wi);
+    var h='<div class="cg-pad cg-center">'+cgCnt(cur+1,total)+'<div class="cg-q">'+CT('st_q')+'</div>'+
+      '<div class="cg-tbar"><i id="stroop-bar" style="background:'+p.color+'"></i></div>'+
+      '<div id="stroop-word" class="cg-word" style="color:'+COL[ci]+'">'+W[wi]+'</div><div class="cg-colors n'+nC+'" id="stroop-btns">';
+    for(var i=0;i<nC;i++)h+='<button data-i="'+i+'" onclick="cogStroopAns('+i+')"><i style="background:'+COL[i]+'"></i><span>'+B[i]+'</span></button>';
+    body.innerHTML=h+'</div><div class="cg-fb" id="stroop-fb"></div></div>';
+    var bar=document.getElementById('stroop-bar');bar.style.transition='none';bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+limit+'ms linear';bar.style.width='0%';
+    var ts=Date.now(),done=false,secs=Math.ceil(limit/1000);
+    window._cogState={game:'stroop',cur:cur,ink:ci,word:wi,total:total};
+    for(var k=1;k<secs;k++)_cogTimer(function(){if(!done)tick();},k*1000);
+    _cogTimer(function(){if(done)return;done=true;var fb=document.getElementById('stroop-fb');if(fb){fb.textContent=CT('timeout');fb.className='cg-fb bad';}
+      var bs=document.querySelectorAll('#stroop-btns button');if(bs[ci])bs[ci].classList.add('cg-ring');cogPlayFeedback(false);
+      _cogTimer(function(){cur++;next();},700);},limit);
+    window.cogStroopAns=function(i){
+      if(done)return;done=true;var ok=i===ci,bs=document.querySelectorAll('#stroop-btns button');
+      if(ok){correct++;rt.push(Date.now()-ts);}else if(bs[ci])bs[ci].classList.add('cg-ring');
+      cgFlash(bs[i],ok);_cogTimer(function(){cur++;next();},ok?250:650);
+    };
+  }
+  next();
+}
+
+/* ═══ SART ═══ */
+function cogSART(body,p){
+  var diff=_cogDiff(),ms=[1500,1150,900][diff],F=3,total=30,cur=0,correct=0,comm=0,omit=0;
+  var items=[];for(var i=0;i<26;i++){var n;do{n=Math.floor(Math.random()*9)+1;}while(n===F);items.push(n);}
+  for(i=0;i<4;i++)items.splice(4+Math.floor(Math.random()*(items.length-4)),0,F);
+  function show(){
+    if(cur>=total){cogShowResult(body,p,correct,total,CT('sart_res',{a:correct,b:total,n:F,c:comm,d:omit}));return;}
+    var n=items[cur],forb=n===F,tapped=false;
+    body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(cur+1,total)+'<div class="cg-q">'+CT('sart_rule',{n:'<b class="cg-warn">'+F+'</b>'})+'</div>'+
+      '<button id="sart-num" class="cg-bigtap" onclick="cogSARTtap()">'+n+'</button></div>';
+    window._cogState={game:'sart',cur:cur,n:n};
+    window.cogSARTtap=function(){
+      if(tapped)return;tapped=true;var el=document.getElementById('sart-num');
+      if(forb)comm++;else correct++;cgFlash(el,!forb);
+    };
+    _cogTimer(function(){if(!tapped){if(forb)correct++;else omit++;}cur++;show();},ms);
+  }
+  show();
+}
+
+/* ═══ Focus point (+ final location check) ═══ */
+function cogFocusPoint(body,p,holdSec){
+  var diff=_cogDiff(),nP=[12,20,30][diff],spd=[0.8,1.8,3.2][diff],R=[4,3.5,3][diff],stopDelay=3000+Math.random()*4000;
+  var W=0,H=0,pts=[],phase='moving',_sess=_cogSess,raf,t0=Date.now(),holdT=null,tgt=null;
+  body.innerHTML='<div class="cg-pad"><div class="cg-q" id="focus-msg">'+CT('fp_watch')+'</div><canvas id="focus-cv" class="cg-canvas dark"></canvas><div id="focus-timer" class="cg-timer"></div></div>';
+  var cv=document.getElementById('focus-cv'),ctx=cv.getContext('2d'),dpr=Math.min(2,window.devicePixelRatio||1);
+  W=cv.parentElement.clientWidth-32;H=Math.min(Math.round(W*1.2),440);cv.width=W*dpr;cv.height=H*dpr;cv.style.height=H+'px';ctx.setTransform(dpr,0,0,dpr,0,0);
+  for(var i=0;i<nP;i++){var a=Math.random()*Math.PI*2;pts.push({x:30+Math.random()*(W-60),y:30+Math.random()*(H-60),vx:Math.cos(a)*spd,vy:Math.sin(a)*spd,t:false});}
+  tgt=pts[Math.floor(Math.random()*nP)];tgt.t=true;
+  var msg=document.getElementById('focus-msg'),tm=document.getElementById('focus-timer');
+  window._cogState={game:'focus_point',phase:phase,target:tgt,W:W,H:H};
+  function draw(){ctx.clearRect(0,0,W,H);pts.forEach(function(q){ctx.beginPath();ctx.arc(q.x,q.y,R,0,Math.PI*2);
+    if(q.t&&phase!=='check'){ctx.shadowBlur=14;ctx.shadowColor='#38c068';ctx.fillStyle='#38c068';}else{ctx.shadowBlur=6;ctx.shadowColor='rgba(255,255,255,.4)';ctx.fillStyle='rgba(255,255,255,.75)';}
+    ctx.fill();ctx.shadowBlur=0;});}
+  function loop(){
+    if(_sess!==_cogSess)return;
+    if(phase!=='check')pts.forEach(function(q){if(q.t&&phase==='hold')return;q.x+=q.vx;q.y+=q.vy;if(q.x<R||q.x>W-R)q.vx*=-1;if(q.y<R||q.y>H-R)q.vy*=-1;});
+    draw();var now=Date.now();
+    if(phase==='moving'&&now-t0>stopDelay){phase='hold';holdT=now;msg.textContent=CT('fp_hold');window._cogState.phase=phase;}
+    if(phase==='hold'){var left=Math.max(0,holdSec*1000-(now-holdT));tm.textContent=Math.ceil(left/1000)+' '+CT('s');
+      if(left<=0){phase='check';window._cogState.phase=phase;tm.textContent='';msg.textContent=CT('fp_where');draw();return;}}
+    raf=requestAnimationFrame(loop);
+  }
+  cv.addEventListener('pointerdown',function(e){
+    if(phase!=='check')return;phase='done';
+    var r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*(W/r.width),y=(e.clientY-r.top)*(H/r.height),d=Math.hypot(x-tgt.x,y-tgt.y);
+    var pct=d<=22?100:Math.max(0,Math.round(100-(d-22)*1.5));
+    ctx.beginPath();ctx.arc(tgt.x,tgt.y,R+8,0,Math.PI*2);ctx.strokeStyle='#38c068';ctx.lineWidth=2;ctx.stroke();
+    ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle=pct>=50?'#38c068':'#f06040';ctx.fill();
+    _cogTimer(function(){cogShowResult(body,p,pct,100,CT('fp_res',{s:holdSec,p:pct}));},900);
+  });
+  loop();
+}
+
+/* ═══ Two hands ═══ */
+function cogBimanual(body,p){
+  _bimSetupDocGuard();
+  var diff=_cogDiff(),limit=[9000,7000,5000][diff],guide=[0.35,0.22,0.12][diff],ROUNDS=4,cur=0,scores=[];
+  function pair(){var a=cgShuffle(SHAPE_TYPES);return [a[0],a[1]];}
+  function round(){
+    if(cur>=ROUNDS){var avg=Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);cogShowResult(body,p,avg,100,CT('bim_res',{p:avg}));return;}
+    var pr=pair();
+    body.innerHTML='<div class="cg-pad">'+cgCnt(cur+1,ROUNDS)+'<div class="cg-q" id="bim-msg">'+CT('bim_ready')+'</div>'+
+      '<div class="cg-bim"><div><canvas id="bim-l"></canvas><div class="cg-cap">'+CT('bim_l')+'</div></div><div><canvas id="bim-r"></canvas><div class="cg-cap">'+CT('bim_r')+'</div></div></div>'+
+      '<div class="cg-tbar"><i id="bim-bar" style="background:'+p.color+';width:100%"></i></div><div id="bim-timer" class="cg-timer sm"></div></div>';
+    var res={},started=false,doneR=false,t0=0;
+    function setup(id,shape){
+      var cv=document.getElementById(id),size=Math.floor(Math.min(cv.parentElement.getBoundingClientRect().width-2,220));
+      cv.width=size;cv.height=size;cv.style.width=size+'px';cv.style.height=size+'px';
+      var ctx=cv.getContext('2d'),c=size/2,r=size*0.32,ideal=buildShapePoints(shape,c,c,r,64),drawn=[],act=null,strokes=0;
+      function draw(){ctx.clearRect(0,0,size,size);ctx.beginPath();ideal.forEach(function(q,i){i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y);});ctx.closePath();
+        ctx.strokeStyle='rgba(255,255,255,'+guide+')';ctx.lineWidth=1.5;ctx.setLineDash([4,4]);ctx.stroke();ctx.setLineDash([]);
+        if(drawn.length>1){ctx.beginPath();drawn.forEach(function(q,i){i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y);});ctx.strokeStyle=p.color;ctx.lineWidth=2.5;ctx.lineCap='round';ctx.lineJoin='round';ctx.stroke();}}
+      draw();
+      function pos(x,y){var rc=cv.getBoundingClientRect();return {x:(x-rc.left)*(size/rc.width),y:(y-rc.top)*(size/rc.height)};}
+      function begin(){if(!started||doneR)return false;return true;}
+      cv.addEventListener('touchstart',function(e){e.preventDefault();e.stopPropagation();if(!begin()||act!==null)return;var t=e.changedTouches[0];act=t.identifier;drawn=[pos(t.clientX,t.clientY)];draw();window._bimDrawingActive=true;},{passive:false,capture:true});
+      cv.addEventListener('touchmove',function(e){e.preventDefault();e.stopPropagation();for(var i=0;i<e.changedTouches.length;i++){var t=e.changedTouches[i];if(t.identifier===act){drawn.push(pos(t.clientX,t.clientY));}}draw();},{passive:false,capture:true});
+      function end(e){if(e)e.preventDefault();if(act===null)return;act=null;window._bimDrawingActive=false;if(drawn.length>=12)strokes++;check();}
+      cv.addEventListener('touchend',end,{passive:false,capture:true});cv.addEventListener('touchcancel',end,{passive:false,capture:true});
+      var md=false;
+      cv.addEventListener('mousedown',function(e){if(!begin())return;md=true;drawn=[pos(e.clientX,e.clientY)];draw();});
+      cv.addEventListener('mousemove',function(e){if(md){drawn.push(pos(e.clientX,e.clientY));draw();}});
+      window.addEventListener('mouseup',function(){if(md){md=false;if(drawn.length>=12)strokes++;check();}});
+      res[id]={score:function(){return scoreDrawing(drawn,ideal,r);},done:function(){return strokes>0;},ideal:ideal,size:size};
+    }
+    setup('bim-l',pr[0]);setup('bim-r',pr[1]);
+    window._cogState={game:'bimanual',round:cur,shapes:pr,canv:res,started:false};
+    function check(){if(started&&!doneR&&res['bim-l'].done()&&res['bim-r'].done())_cogTimer(finish,250);}
+    var bar=document.getElementById('bim-bar'),tm=document.getElementById('bim-timer');
+    _cogTimer(function(){
+      started=true;t0=Date.now();window._cogState.started=true;document.getElementById('bim-msg').textContent=cogT('bimanual_s');
+      bar.style.transition='width '+limit+'ms linear';bar.style.width='0%';
+      (function tk(){if(doneR)return;var left=limit-(Date.now()-t0);if(tm)tm.textContent=cgFmtS(Math.max(0,left))+' '+CT('s');if(left<=0){finish();return;}_cogTimer(tk,100);})();
+    },1200);
+    function finish(){
+      if(doneR)return;doneR=true;window._bimDrawingActive=false;
+      var sL=res['bim-l'].score(),sR=res['bim-r'].score(),rs=Math.round((sL+sR)/2);scores.push(rs);
+      body.innerHTML='<div class="cg-pad cg-center"><div class="cg-q">'+CT('bim_round',{n:cur+1,p:rs})+'</div>'+
+        '<div class="cg-split"><div><div class="cg-cap">'+CT('bim_l')+'</div><div class="cg-num" style="color:'+p.color+'">'+sL+'%</div></div>'+
+        '<div><div class="cg-cap">'+CT('bim_r')+'</div><div class="cg-num" style="color:'+p.color+'">'+sR+'%</div></div></div></div>';
+      window._cogState={game:'bimanual',round:cur,between:true,last:[sL,sR]};
+      _cogTimer(function(){cur++;round();},1400);
+    }
+  }
+  round();
+}
+
+/* ═══ Memory (words) ═══ */
+function cgNorm(s){s=String(s).toLowerCase().replace(/ё/g,'е').replace(/ß/g,'ss');try{s=s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');}catch(e){}return s;}
+function cogPrediction(body,p){
+  var count=8;
+  body.innerHTML='<div class="cg-pad cg-center"><div class="cg-h">'+CT('pred_q')+'</div><div class="cg-q">'+CT('pred_pick')+'</div>'+
+    '<div class="cg-big" id="pred-val" style="color:'+p.color+'">'+count+'</div>'+
+    '<input type="range" class="cg-range" min="5" max="15" value="'+count+'" style="accent-color:'+p.color+'" oninput="document.getElementById(\'pred-val\').textContent=this.value;window._predCount=parseInt(this.value)">'+
+    '<button class="cg-btn1 wide" style="background:'+p.color+'" onclick="cogPredPhase1()">'+CT('pred_go')+'</button></div>';
+  window._predCount=count;window._cogState={game:'pred',setup:true};
+  window.cogPredPhase1=function(){
+    var n=window._predCount||8,W=cgShuffle(CT('pred_words')).slice(0,n),i=0;window._predWords=W;
+    window._cogState={game:'pred',words:W};
+    (function show(){
+      if(i>=W.length){recall();return;}
+      body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(i+1,W.length)+'<div class="cg-card-word" id="pred-word">'+hbEsc(W[i])+'</div></div>';
+      i++;_cogTimer(show,1400);
+    })();
+  };
+  function recall(){
+    body.innerHTML='<div class="cg-pad"><div class="cg-h">'+CT('pred_recall')+'</div><div class="cg-q">'+CT('pred_hint')+'</div>'+
+      '<textarea id="pred-ta" class="cg-ta" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="'+hbEsc(CT('pred_ph'))+'"></textarea>'+
+      '<button class="cg-btn1 wide" id="pred-check" style="background:'+p.color+'" onclick="cogPredFinish()">'+CT('pred_check')+'</button></div>';
+    window._cogState={game:'pred',words:window._predWords,recall:true};
+    window.cogPredFinish=function(){
+      var raw=cgNorm((document.getElementById('pred-ta')||{}).value||''),toks=raw.split(/[\s,;.，、。；]+/).filter(Boolean),W=window._predWords||[],got=[];
+      W.forEach(function(w){var nw=cgNorm(w);if(toks.indexOf(nw)>=0||(curLang==='zh'&&raw.indexOf(nw)>=0))got.push(w);});
+      var list='<div class="cg-words">'+W.map(function(w){return '<span class="'+(got.indexOf(w)>=0?'ok':'')+'">'+hbEsc(w)+'</span>';}).join('')+'</div>';
+      cogShowResult(body,p,got.length,W.length,CT('pred_res',{a:got.length,b:W.length})+list);
+    };
+  }
+}
+
+/* ═══ Intuition ═══ */
+function cgIntuit(body,p,cfg){
+  var rounds=5,cur=0,ok=0;
+  function next(){
+    if(cur>=rounds){cogShowResult(body,p,ok,rounds,CT('in_res',{a:ok,b:rounds,c:Math.round(100/cfg.n)}));return;}
+    var st=cfg.make(),picked=false;
+    body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(cur+1,rounds)+'<div class="cg-q">'+st.q+'</div>'+(st.top||'')+
+      '<div class="cg-ig '+cfg.cls+'" id="'+cfg.grid+'">'+st.cells.map(function(c,i){return '<button data-i="'+i+'" onclick="cgIntPick('+i+')">'+c+'</button>';}).join('')+'</div><div class="cg-fb" id="in-fb"></div></div>';
+    window._cogState={game:'conf',sub:cfg.grid,win:st.win,cur:cur};
+    window.cgIntPick=function(i){
+      if(picked)return;picked=true;var cs=document.querySelectorAll('#'+cfg.grid+' button'),good=i===st.win;if(good)ok++;
+      st.reveal(cs,i);cgFlash(cs[i],good);if(!good&&cs[st.win])cs[st.win].classList.add('cg-ring');
+      var fb=document.getElementById('in-fb');if(fb){fb.textContent=good?CT('ok'):CT('miss');fb.className='cg-fb '+(good?'good':'bad');}
+      _cogTimer(function(){cur++;next();},1100);
+    };
+  }
+  next();
+}
+function cogIntuitNumber(body,p){
+  cgIntuit(body,p,{n:4,grid:'num-grid',cls:'g2',make:function(){
+    var tg=1+Math.floor(Math.random()*9),win=Math.floor(Math.random()*4),pool=cgShuffle([1,2,3,4,5,6,7,8,9].filter(function(x){return x!==tg;})),nums=[],j=0;
+    for(var k=0;k<4;k++)nums.push(k===win?tg:pool[j++]);
+    return {q:CT('in_number_q',{n:tg}),top:'<div class="cg-big" style="color:'+p.color+'">'+tg+'</div>',cells:['?','?','?','?'],win:win,
+      reveal:function(cs){for(var k=0;k<cs.length;k++)cs[k].textContent=nums[k];}};
+  }});
+}
+function cogIntuitDirection(body,p){
+  var D=['left','up','down','right'];
+  cgIntuit(body,p,{n:4,grid:'dir-grid',cls:'g4',make:function(){
+    var win=Math.floor(Math.random()*4);
+    return {q:CT('in_dir_q'),top:'<div class="cg-env" id="env-icon" style="color:'+p.color+'">'+CG_IC.envelope+'</div>',cells:D.map(function(k){return cgArrow(k);}),win:win,
+      reveal:function(){var e=document.getElementById('env-icon');if(e){e.innerHTML=cgArrow(D[win],56);e.setAttribute('data-dir',D[win]);}}};
+  }});
+}
+function cogIntuitSpy(body,p){
+  cgIntuit(body,p,{n:9,grid:'spy-grid',cls:'g3',make:function(){
+    var win=Math.floor(Math.random()*9),cells=[];for(var i=0;i<9;i++)cells.push(CG_IC.agent);
+    return {q:CT('in_spy_q'),cells:cells,win:win,reveal:function(cs){if(cs[win])cs[win].innerHTML=CG_IC.spy;}};
+  }});
+}
+function cogIntuitColor(body,p){
+  var C=['#e05555','#4f8ff0','#46b860','#d8c23a'];
+  cgIntuit(body,p,{n:4,grid:'col-grid',cls:'g2',make:function(){
+    var order=cgShuffle(C),win=Math.floor(Math.random()*4);
+    return {q:CT('in_color_q'),top:'<div class="cg-swatch" style="background:'+order[win]+'"></div>',cells:['','','',''],win:win,
+      reveal:function(cs){for(var k=0;k<cs.length;k++){cs[k].style.background=order[k];}}};
+  }});
+}
+
+/* ═══ Math (timed) ═══ */
+function cogErrorAware(body,p){
+  var diff=_cogDiff(),rounds=10,cur=0,ok=0,times=[],limit=[12000,10000,8000][diff];
+  function gen(){var a,b,op,t;
+    if(diff===0){a=1+Math.floor(Math.random()*15);b=1+Math.floor(Math.random()*15);op=Math.random()<.5?'+':'−';}
+    else if(diff===1){op=['+','−','×'][Math.floor(Math.random()*3)];if(op==='×'){a=2+Math.floor(Math.random()*11);b=2+Math.floor(Math.random()*11);}else{a=10+Math.floor(Math.random()*70);b=10+Math.floor(Math.random()*70);}}
+    else{op=['+','−','×'][Math.floor(Math.random()*3)];if(op==='×'){a=6+Math.floor(Math.random()*14);b=6+Math.floor(Math.random()*14);}else{a=100+Math.floor(Math.random()*400);b=100+Math.floor(Math.random()*400);}}
+    if(op==='−'&&b>a){t=a;a=b;b=t;}
+    return {a:a,b:b,op:op,ans:op==='+'?a+b:op==='−'?a-b:a*b};}
+  function next(){
+    if(cur>=rounds){var avg=times.length?times.reduce(function(a,b){return a+b;},0)/times.length:0;cogShowResult(body,p,ok,rounds,CT('math_res',{a:ok,b:rounds,t:cgFmtS(avg)}));return;}
+    var pr=gen(),opts=[pr.ans],g=0;
+    while(opts.length<4&&g<60){g++;var d=Math.max(1,Math.round(pr.ans*0.12))+Math.floor(Math.random()*4)+(pr.op==='×'&&Math.random()<.5?pr.b:0),f=pr.ans+(Math.random()<.5?-1:1)*d;if(f>=0&&opts.indexOf(f)<0)opts.push(f);}
+    for(var k=1;opts.length<4;k++)if(opts.indexOf(pr.ans+k)<0)opts.push(pr.ans+k);
+    opts=cgShuffle(opts);var win=opts.indexOf(pr.ans),done=false,ts=Date.now();
+    body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(cur+1,rounds)+'<div class="cg-tbar"><i id="math-bar" style="background:'+p.color+'"></i></div>'+
+      '<div class="cg-expr" id="math-q">'+pr.a+' '+pr.op+' '+pr.b+'</div><div class="cg-ig g2 wide" id="math-grid">'+
+      opts.map(function(o,i){return '<button data-v="'+o+'" onclick="cogMathPick('+i+')">'+o+'</button>';}).join('')+'</div><div class="cg-fb" id="math-fb"></div></div>';
+    var bar=document.getElementById('math-bar');bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+limit+'ms linear';bar.style.width='0%';
+    window._cogState={game:'err',cur:cur,ans:pr.ans,win:win};
+    function end(i){if(done)return;done=true;var cs=document.querySelectorAll('#math-grid button'),good=i===win;
+      if(good){ok++;times.push(Date.now()-ts);}if(i>=0)cgFlash(cs[i],good);else{cogPlayFeedback(false);var fb=document.getElementById('math-fb');if(fb){fb.textContent=CT('timeout');fb.className='cg-fb bad';}}
+      if(!good&&cs[win])cs[win].classList.add('cg-ring');_cogTimer(function(){cur++;next();},good?450:1000);}
+    window.cogMathPick=end;_cogTimer(function(){end(-1);},limit);
+  }
+  next();
+}
+
+/* ═══ N-back ═══ */
+function cogNBack(body,p){
+  var diff=_cogDiff(),N=[1,2,3][diff],S=['A','B','C','D','E','F','G','H'],total=20,step=[2200,2000,1800][diff];
+  var hist=[],cur=0,hits=0,miss=0,fa=0,cr=0;
+  function next(){
+    if(cur>=total){cogShowResult(body,p,hits+cr,Math.max(1,total-N),CT('nb_res',{h:hits,f:fa,m:miss}));return;}
+    var s=S[Math.floor(Math.random()*S.length)];if(cur>=N&&Math.random()<0.33)s=hist[cur-N];
+    hist.push(s);var match=cur>=N&&s===hist[cur-N],ans=false;
+    var trail='';for(var k=Math.max(0,cur-N-1);k<cur;k++)trail+='<i class="'+(k===cur-N?'tg':'')+'"></i>';
+    body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(cur+1,total)+'<div class="cg-q">'+(N===1?CT('nb_q1'):CT('nb_qn',{n:N}))+'</div>'+
+      '<div class="cg-trail" style="--c:'+p.color+'">'+trail+'<b></b></div>'+
+      '<div class="cg-letter" id="nb-sym" style="color:'+p.color+';border-color:'+hexA(p.color,.5)+'">'+s+'</div>'+
+      '<button class="cg-match" id="nb-match" style="--c:'+p.color+'" onclick="cogNBMatch()">'+CT('nb_match')+'</button><div class="cg-hint">'+CT('nb_hint')+'</div></div>';
+    window._cogState={game:'nb',cur:cur,N:N,match:match,sym:s};
+    window.cogNBMatch=function(){if(ans)return;ans=true;if(match)hits++;else fa++;cgFlash(document.getElementById('nb-match'),match);};
+    _cogTimer(function(){if(!ans){if(match)miss++;else if(cur>=N)cr++;}cur++;next();},step);
+  }
+  next();
+}
+
+/* ═══ Sequence ═══ */
+function cogSequence(body,p){
+  var diff=_cogDiff(),C=['#60A5FA','#f06040','#38c068','#A78BFA'],start=[3,4,5][diff],sp=[650,520,400][diff],maxR=[10,12,14][diff];
+  var seq=[],pl=[],round=1,lock=true;
+  function grid(m){
+    body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(round,maxR)+'<div class="cg-q" id="seq-msg">'+m+'</div><div class="cg-seq">'+
+      C.map(function(c,i){return '<button id="seq-btn-'+i+'" style="--c:'+c+'" onclick="cogSeqTap('+i+')">'+(i+1)+'</button>';}).join('')+'</div></div>';
+  }
+  function lit(i,on){var b=document.getElementById('seq-btn-'+i);if(b)b.classList.toggle('lit',on);}
+  function play(i){
+    if(i>=seq.length){lock=false;var m=document.getElementById('seq-msg');if(m)m.textContent=CT('seq_go',{n:seq.length});window._cogState.phase='input';return;}
+    _cogTimer(function(){lit(seq[i],true);_cogTimer(function(){lit(seq[i],false);play(i+1);},sp*0.65);},sp*0.35);
+  }
+  function next(){
+    var add=round===1?start:1;for(var k=0;k<add;k++)seq.push(Math.floor(Math.random()*4));
+    pl=[];lock=true;grid(CT('seq_watch'));window._cogState={game:'seq',seq:seq.slice(),round:round,phase:'show'};
+    _cogTimer(function(){play(0);},500);
+  }
+  window.cogSeqTap=function(i){
+    if(lock)return;lit(i,true);_cogTimer(function(){lit(i,false);},160);
+    pl.push(i);var k=pl.length-1,m=document.getElementById('seq-msg');
+    if(pl[k]!==seq[k]){lock=true;if(m)m.textContent=CT('seq_err');cogPlayFeedback(false);
+      var done=round-1,len=done?seq.length-1:0;_cogTimer(function(){cogShowResult(body,p,done,maxR,CT('seq_res',{a:done,b:maxR,l:len}));},800);return;}
+    if(pl.length===seq.length){lock=true;cogPlayFeedback(true);
+      if(round>=maxR){_cogTimer(function(){cogShowResult(body,p,maxR,maxR,CT('seq_all')+' · '+CT('seq_res',{a:maxR,b:maxR,l:seq.length}));},500);return;}
+      if(m)m.textContent=CT('seq_ok');round++;_cogTimer(next,700);}
+  };
+  next();
+}
+
+/* ═══════════════════════════════════════════════════════
+   v102 — Keep the screen awake while the app is open
+   1) Screen Wake Lock API: requested on start, on every user gesture
+      (if not held) and again whenever the page becomes visible.
+   2) Fallback (no API, e.g. iOS Safari < 16.4, or request refused):
+      a muted, looping, 16x16 inline video started from a user gesture
+      (NoSleep.js technique). Embedded as data URIs — no external files.
+   The lock is kept for as long as the app is open (sessions included).
+═══════════════════════════════════════════════════════ */
+var NF_WAKE={lock:null,state:'idle',mode:null,video:null,err:null,acquired:0,pending:false};
+var _NF_NOSLEEP_MP4='data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAbAbW9vdgAAAGxtdmhkAAAAAAAAAAAAAAAAAAAD6AAAB9AAAQAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAy50cmFrAAAAXHRraGQAAAADAAAAAAAAAAAAAAABAAAAAAAAB9AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAABAAAAAQAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAAfQAAAAAAABAAAAAAKmbWRpYQAAACBtZGhkAAAAAAAAAAAAAAAAAAAoAAAAUABVxAAAAAAALWhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAABWaWRlb0hhbmRsZXIAAAACUW1pbmYAAAAUdm1oZAAAAAEAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQAAAhFzdGJsAAAAuXN0c2QAAAAAAAAAAQAAAKlhdmMxAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAABAAEABIAAAASAAAAAAAAAABFUxhdmM2MS4xOS4xMDEgbGlieDI2NAAAAAAAAAAAAAAAGP//AAAAL2F2Y0MBQsAK/+EAFmdCwArZHsBEAAADAAQAAAMAUDxImSABAAZoy4BlEyAAAAAQcGFzcAAAAAEAAAABAAAAFGJ0cnQAAAAAAAANHAAAAAAAAAAYc3R0cwAAAAAAAAABAAAAFAAABAAAAAAUc3RzcwAAAAAAAAABAAAAAQAAAHBzdHNjAAAAAAAAAAgAAAABAAAAAQAAAAEAAAAFAAAAAgAAAAEAAAAGAAAAAQAAAAEAAAAJAAAAAgAAAAEAAAAKAAAAAQAAAAEAAAAMAAAAAgAAAAEAAAANAAAAAQAAAAEAAAAQAAAAAgAAAAEAAABkc3RzegAAAAAAAAAAAAAAFAAAAocAAAALAAAACwAAAAoAAAAKAAAACgAAAAoAAAAKAAAACgAAAAoAAAAKAAAACgAAAAoAAAAKAAAACgAAAAoAAAAKAAAACgAAAAoAAAAKAAAAUHN0Y28AAAAAAAAAEAAABwUAAAmQAAAJnwAACa4AAAm8AAAJ1AAACeIAAAnwAAAJ/gAAChYAAAokAAAKMgAACkoAAApYAAAKZgAACnQAAAK9dHJhawAAAFx0a2hkAAAAAwAAAAAAAAAAAAAAAgAAAAAAAAfQAAAAAAAAAAAAAAABAQAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAJGVkdHMAAAAcZWxzdAAAAAAAAAABAAAH0AAABAAAAQAAAAACNW1kaWEAAAAgbWRoZAAAAAAAAAAAAAAAAAAAH0AAAEKAVcQAAAAAAC1oZGxyAAAAAAAAAABzb3VuAAAAAAAAAAAAAAAAU291bmRIYW5kbGVyAAAAAeBtaW5mAAAAEHNtaGQAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQAAAaRzdGJsAAAAfnN0c2QAAAAAAAAAAQAAAG5tcDRhAAAAAAAAAAEAAAAAAAAAAAABABAAAAAAH0AAAAAAADZlc2RzAAAAAAOAgIAlAAIABICAgBdAFQAAAAAAH0AAAAE/BYCAgAUViFblAAaAgIABAgAAABRidHJ0AAAAAAAAH0AAAAE/AAAAIHN0dHMAAAAAAAAAAgAAABAAAAQAAAAAAQAAAoAAAAAcc3RzYwAAAAAAAAABAAAAAQAAAAEAAAABAAAAWHN0c3oAAAAAAAAAAAAAABEAAAAVAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAFRzdGNvAAAAAAAAABEAAAbwAAAJjAAACZsAAAmqAAAJuAAACdAAAAneAAAJ7AAACfoAAAoSAAAKIAAACi4AAApGAAAKVAAACmIAAApwAAAKiAAAABpzZ3BkAQAAAHJvbGwAAAACAAAAAf//AAAAHHNiZ3AAAAAAcm9sbAAAAAEAAAARAAAAAQAAAGF1ZHRhAAAAWW1ldGEAAAAAAAAAIWhkbHIAAAAAAAAAAG1kaXJhcHBsAAAAAAAAAAAAAAAALGlsc3QAAAAkqXRvbwAAABxkYXRhAAAAAQAAAABMYXZmNjEuNy4xMDMAAAAIZnJlZQAAA6RtZGF03gIATGF2YzYxLjE5LjEwMQACMEAOAAACcwYF//9v3EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE2NCByMzEwOCAzMWUxOWY5IC0gSC4yNjQvTVBFRy00IEFWQyBjb2RlYyAtIENvcHlsZWZ0IDIwMDMtMjAyMyAtIGh0dHA6Ly93d3cudmlkZW9sYW4ub3JnL3gyNjQuaHRtbCAtIG9wdGlvbnM6IGNhYmFjPTAgcmVmPTMgZGVibG9jaz0xOi0zOi0zIGFuYWx5c2U9MHgxOjB4MTExIG1lPWhleCBzdWJtZT03IHBzeT0xIHBzeV9yZD0yLjAwOjAuNzAgbWl4ZWRfcmVmPTEgbWVfcmFuZ2U9MTYgY2hyb21hX21lPTEgdHJlbGxpcz0xIDh4OGRjdD0wIGNxbT0wIGRlYWR6b25lPTIxLDExIGZhc3RfcHNraXA9MSBjaHJvbWFfcXBfb2Zmc2V0PS00IHRocmVhZHM9MSBsb29rYWhlYWRfdGhyZWFkcz0xIHNsaWNlZF90aHJlYWRzPTAgbnI9MCBkZWNpbWF0ZT0xIGludGVybGFjZWQ9MCBibHVyYXlfY29tcGF0PTAgY29uc3RyYWluZWRfaW50cmE9MCBiZnJhbWVzPTAgd2VpZ2h0cD0wIGtleWludD0yNTAga2V5aW50X21pbj0xMCBzY2VuZWN1dD00MCBpbnRyYV9yZWZyZXNoPTAgcmNfbG9va2FoZWFkPTQwIHJjPWNyZiBtYnRyZWU9MSBjcmY9NTEuMCBxY29tcD0wLjYwIHFwbWluPTAgcXBtYXg9NjkgcXBzdGVwPTQgaXBfcmF0aW89MS40MCBhcT0xOjEuMjAAgAAAAAxliIQEM5yYoAAgh4ABGCAHAAAAB0GaOAhnOoABGCAHAAAAB0GaVAIZzqABGCAHAAAABkGaYBDOdQEYIAcAAAAGQZqAEM51AAAABkGaoBDOdQEYIAcAAAAGQZrAEM51ARggBwAAAAZBmuAQznUBGCAHAAAABkGbABDOdQEYIAcAAAAGQZsgEM51AAAABkGbQBDOdQEYIAcAAAAGQZtgEM51ARggBwAAAAZBm4AQznUBGCAHAAAABkGboBDOdQAAAAZBm8AQznUBGCAHAAAABkGb4D851AEYIAcAAAAGQZoAPznUARggBwAAAAZBmiA/OdQBGCAHAAAABkGaQD851AAAAAZBmmA7OdQBGCAH';
+var _NF_NOSLEEP_WEBM='data:video/webm;base64,GkXfo59ChoEBQveBAULygQRC84EIQoKEd2VibUKHgQJChYECGFOAZwEAAAAAAAOcEU2bdLpNu4tTq4QVSalmU6yBoU27i1OrhBZUrmtTrIHWTbuMU6uEElTDZ1OsggEjTbuMU6uEHFO7a1OsggOG7AEAAAAAAABZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVSalmsCrXsYMPQkBNgIxMYXZmNjEuNy4xMDNXQYxMYXZmNjEuNy4xMDNEiYhAn0AAAAAAABZUrmvIrgEAAAAAAAA/14EBc8WI9wANs86hk9ScgQAitZyDdW5kiIEAhoVWX1ZQOIOBASPjg4QF9eEA4JCwgRC6gRCagQJVsIRVuYEBElTDZ/tzc59jwIBnyJlFo4dFTkNPREVSRIeMTGF2ZjYxLjcuMTAzc3PWY8CLY8WI9wANs86hk9RnyKFFo4dFTkNPREVSRIeUTGF2YzYxLjE5LjEwMSBsaWJ2cHhnyKFFo4hEVVJBVElPTkSHkzAwOjAwOjAyLjAwMDAwMDAwMAAfQ7Z1Qd3ngQCjo4EAAIAQAgCdASoQABAAAEcIhYWIhYSIAgIADA1gAP7/q1CAo5WBAGQAsQEAARAQABgAGFgv9AAIAACjlYEAyACxAQABEBAAGAAYWC/0AAgAAKOVgQEsALEBAAEQEAAYABhYL/QACAAAo5WBAZAAsQEAARAQABgAGFgv9AAIAACjlYEB9ACxAQABEBAAGAAYWC/0AAgAAKOVgQJYALEBAAEQEAAYABhYL/QACAAAo5WBArwAsQEAARAQFGAAYWC/0AAgAACjlYEDIACxAQABEBAAGAAYWC/0AAgAAKOVgQOEALEBAAEQEAAYABhYL/QACAAAo5WBA+gAsQEAARAQABgAGFgv9AAIAACjlYEETACxAQABEBAAGAAYWC/0AAgAAKOVgQSwALEBAAEQEAAYABhYL/QACAAAo5WBBRQAsQEAARAQABgAGFgv9AAIAACjlYEFeACxAQABEBAAGAAYWC/0AAgAAKOVgQXcALEBAAEQEAAYABhYL/QACAAAo5WBBkAAsQEAARAQABgAGFgv9AAIAACjlYEGpACxAQABEBAAGAAYWC/0AAgAAKOVgQcIALEBAAEQEBRgAGFgv9AAIAAAo5WBB2wAsQEAARAQABgAGFgv9AAIAAAcU7trkbuPs4EAt4r3gQHxggGj8IED';
+function nfWakeApi(){return !!(navigator.wakeLock&&typeof navigator.wakeLock.request==='function');}
+function nfWakeHeld(){
+  if(NF_WAKE.mode==='api')return !!(NF_WAKE.lock&&!NF_WAKE.lock.released);
+  if(NF_WAKE.mode==='video')return !!(NF_WAKE.video&&!NF_WAKE.video.paused);
+  return false;
+}
+function nfWakeVideo(){
+  try{
+    var v=NF_WAKE.video;
+    if(!v){
+      v=document.createElement('video');
+      v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');v.setAttribute('muted','');
+      v.muted=true;v.loop=true;v.preload='auto';v.setAttribute('aria-hidden','true');v.setAttribute('title','');
+      v.style.cssText='position:fixed;left:0;top:0;width:1px;height:1px;opacity:0.01;pointer-events:none;z-index:-1;';
+      var s1=document.createElement('source');s1.src=_NF_NOSLEEP_WEBM;s1.type='video/webm';
+      var s2=document.createElement('source');s2.src=_NF_NOSLEEP_MP4;s2.type='video/mp4';
+      v.appendChild(s1);v.appendChild(s2);
+      /* keep the playhead from reaching the end on old iOS (loop sometimes pauses) */
+      v.addEventListener('timeupdate',function(){if(v.duration&&v.currentTime>v.duration-0.5)v.currentTime=0.1;});
+      document.body.appendChild(v);NF_WAKE.video=v;
+    }
+    if(!v.paused)return Promise.resolve(true);
+    var p=v.play();
+    return (p&&p.then?p:Promise.resolve()).then(function(){NF_WAKE.mode='video';NF_WAKE.state='active';NF_WAKE.acquired++;return true;})
+      .catch(function(e){NF_WAKE.err='video:'+(e&&e.name||e);NF_WAKE.state='failed';return false;});
+  }catch(e){NF_WAKE.err='video:'+e;return Promise.resolve(false);}
+}
+function nfWakeRequest(fromGesture){
+  if(document.visibilityState&&document.visibilityState!=='visible')return Promise.resolve(false);
+  if(nfWakeHeld())return Promise.resolve(true);
+  if(NF_WAKE.pending)return NF_WAKE.pending;
+  var pr;
+  if(nfWakeApi()){
+    pr=navigator.wakeLock.request('screen').then(function(l){
+      NF_WAKE.lock=l;NF_WAKE.mode='api';NF_WAKE.state='active';NF_WAKE.acquired++;NF_WAKE.err=null;
+      l.addEventListener('release',function(){if(NF_WAKE.lock===l)NF_WAKE.state='released';});
+      return true;
+    }).catch(function(e){
+      NF_WAKE.err='api:'+(e&&e.name||e);
+      /* refused (no user activation, battery saver, permissions policy) — use the video only from a gesture */
+      return fromGesture?nfWakeVideo():false;
+    });
+  } else {
+    pr=fromGesture?nfWakeVideo():Promise.resolve(false);
+  }
+  NF_WAKE.pending=pr.then(function(r){NF_WAKE.pending=false;return r;},function(){NF_WAKE.pending=false;return false;});
+  return NF_WAKE.pending;
+}
+function nfWakeInit(){
+  if(window._nfWakeInit)return;window._nfWakeInit=1;
+  nfWakeRequest(false);
+  var g=function(){nfWakeRequest(true);};
+  ['pointerdown','touchend','click','keydown'].forEach(function(ev){document.addEventListener(ev,g,{capture:true,passive:true});});
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='visible'){
+      if(NF_WAKE.mode==='video'&&NF_WAKE.video&&NF_WAKE.video.paused){NF_WAKE.video.play().catch(function(){});}
+      nfWakeRequest(false);
+    }
+  });
+  window.addEventListener('pageshow',function(){nfWakeRequest(false);});
+  window.addEventListener('focus',function(){nfWakeRequest(false);});
+}
+
+/* keep the screen on for practices and meditations (gesture-initiated) */
+(function(){var _l=launch;launch=function(){nfWakeRequest(true);return _l.apply(this,arguments);};var _m=launchMedSession;launchMedSession=function(){nfWakeRequest(true);return _m.apply(this,arguments);};})();
 /* v100: run init only after every function/var in this script is defined */
 init();
+nfWakeInit();
 </script>
 
 </body>
