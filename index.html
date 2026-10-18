@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v104.1">
+<meta name="nf-version" content="v104.2">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -1931,6 +1931,12 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 #practice.whm-hold .whm-cap{opacity:1;}
 .whm-cap .once{display:block;margin-top:6px;font-size:13px;color:rgba(255,255,255,.55);opacity:0;transition:opacity .25s;}
 .whm-cap.ping .once{opacity:1;}
+/* ═══ v104.2 — breathing player: no timer over the sphere; compact hold row below it ═══ */
+#practice .p-timer-wrap{display:none!important;}
+.p-hold{position:absolute;z-index:12;left:50%;transform:translateX(-50%);width:min(320px,calc(100% - 40px));height:48px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:opacity .25s,visibility 0s .25s;pointer-events:none;}
+.p-hold.on{opacity:1;visibility:visible;transition:opacity .25s;}
+.p-hold-l{flex:1;min-width:0;font:500 15px/1.2 'DM Sans',sans-serif;color:rgba(255,255,255,.92);letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.p-hold-t{flex-shrink:0;font:300 26px/1 'DM Sans',sans-serif;color:#fff;font-variant-numeric:tabular-nums;font-feature-settings:'tnum' 1;letter-spacing:-.01em;}
 
 </style>
 </head>
@@ -12353,7 +12359,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v104.1</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v104.2</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -12436,6 +12442,46 @@ function whmOpenHold(lbl,startNow,cb){
   var _sp=stopPractice;stopPractice=function(){whmHoldOff();return _sp.apply(this,arguments);};
   if(typeof endP==='function'){var _ep=endP;endP=function(){whmHoldOff();return _ep.apply(this,arguments);};}
   document.addEventListener('pointerdown',function(e){var p=document.getElementById('practice');if(p&&p.contains(e.target))whmTapIn(e);},true);
+})();
+
+/* ═══ v104.2 — breathing player (v103 sphere + sounds unchanged):
+   • the big timer over the sphere is gone for every phase (no timer while breathing in/out);
+   • during breath holds only, a compact row sits below the sphere, just above the rounds/cycles line:
+     left the instruction, right the stopwatch/countdown (mirrors the original timer text);
+   • Wim Hof: preparation pause before the next round 5 s (was 8 s). ═══ */
+var PH_T={
+ ru:{ex:'Задержите дыхание',inh:'Держите вдох'},
+ en:{ex:'Hold your breath',inh:'Hold the inhale'},
+ de:{ex:'Atem anhalten',inh:'Einatmung halten'},
+ es:{ex:'Retén la respiración',inh:'Mantén el aire'},
+ zh:{ex:'屏住呼吸',inh:'保持吸气'}};
+var PH_ROW={mode:'',seq:0,obs:null};
+function phRowEl(){var p=document.getElementById('practice');if(!p)return null;var r=document.getElementById('pHoldRow');
+  if(!r){var b=document.getElementById('pBelow');var h='<div class="p-hold" id="pHoldRow" aria-live="off"><span class="p-hold-l" id="pHoldL"></span><span class="p-hold-t" id="pHoldT"></span></div>';
+    if(b)b.insertAdjacentHTML('beforebegin',h);else p.insertAdjacentHTML('beforeend',h);r=document.getElementById('pHoldRow');
+    var t=document.getElementById('pTim');
+    if(t&&window.MutationObserver){PH_ROW.obs=new MutationObserver(phRowSync);PH_ROW.obs.observe(t,{childList:true,characterData:true,subtree:true});}
+    phRowPlace();}
+  return r;}
+function phRowSync(){var t=document.getElementById('pTim'),o=document.getElementById('pHoldT');if(t&&o&&PH_ROW.mode)o.textContent=t.textContent;}
+function phRowSet(mode){PH_ROW.mode=mode||'';var r=phRowEl();if(!r)return;
+  if(mode){var L=PH_T[curLang]||PH_T.ru;document.getElementById('pHoldL').textContent=mode==='inh'?L.inh:L.ex;phRowSync();r.classList.add('on');}
+  else r.classList.remove('on');}
+/* layout: row just below the sphere, rounds/cycles line moved down to make room (v103 had it at cy+R+32) */
+function phRowPlace(){var H=window.innerHeight,W=window.innerWidth,R=Math.min(W,H)*0.33,cy=H/2;
+  var r=document.getElementById('pHoldRow'),b=document.getElementById('pBelow');
+  var top=cy+R+26;if(r)r.style.top=top+'px';if(b)b.style.top=(top+48+14)+'px';}
+(function(){
+  var _pos=positionPracticeUI;positionPracticeUI=function(){_pos.apply(this,arguments);phRowEl();phRowPlace();};
+  var _bp=beginPh;beginPh=function(ph,now){var s0=PH_ROW.seq;var r=_bp.apply(this,arguments);
+    if(PH_ROW.seq===s0&&pRun&&curTc){var v=curTc.pattern[pPh];phRowSet(pPh===1&&v>0?'inh':(pPh===3&&v>0?'ex':''));}
+    return r;};
+  var _dph=doPostHold;doPostHold=function(dur,labelKey,startNow,cb){PH_ROW.seq++;phRowSet(labelKey==='hold_inhale_post'?'inh':'ex');return _dph.apply(this,arguments);};
+  var _rec=doRecovery;doRecovery=function(){PH_ROW.seq++;phRowSet('');return _rec.apply(this,arguments);};
+  var _lp=launch;launch=function(){phRowSet('');return _lp.apply(this,arguments);};
+  var _sp=stopPractice;stopPractice=function(){phRowSet('');return _sp.apply(this,arguments);};
+  if(typeof endP==='function'){var _ep=endP;endP=function(){phRowSet('');return _ep.apply(this,arguments);};}
+  if(ALL_TC&&ALL_TC.wim_hof)ALL_TC.wim_hof.restSec=5;
 })();
 
 /* v100: run init only after every function/var in this script is defined */
