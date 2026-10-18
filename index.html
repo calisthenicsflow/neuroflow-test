@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v104.2">
+<meta name="nf-version" content="v104.3">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -1926,7 +1926,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 
 /* ═══ v104.1 — Wim Hof: v103 practice player, open-ended retention ended by double tap ═══ */
 #practice.whm-hold{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
-#practice.whm-hold .p-play{visibility:hidden;pointer-events:none;}
+#practice.whm-hold .pbtn{visibility:hidden;pointer-events:none;}
 .whm-cap{position:absolute;left:24px;right:24px;bottom:calc(env(safe-area-inset-bottom,0px) + 34px);z-index:6;text-align:center;font:500 15px 'DM Sans',sans-serif;color:rgba(255,255,255,.78);letter-spacing:.01em;pointer-events:none;opacity:0;transition:opacity .3s;}
 #practice.whm-hold .whm-cap{opacity:1;}
 .whm-cap .once{display:block;margin-top:6px;font-size:13px;color:rgba(255,255,255,.55);opacity:0;transition:opacity .25s;}
@@ -1937,6 +1937,53 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 .p-hold.on{opacity:1;visibility:visible;transition:opacity .25s;}
 .p-hold-l{flex:1;min-width:0;font:500 15px/1.2 'DM Sans',sans-serif;color:rgba(255,255,255,.92);letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .p-hold-t{flex-shrink:0;font:300 26px/1 'DM Sans',sans-serif;color:#fff;font-variant-numeric:tabular-nums;font-feature-settings:'tnum' 1;letter-spacing:-.01em;}
+/* ═══ v104.3 — breathing player as a flex column: header / sphere stage (flex:1) / hold row / rounds+dots / pause / caption.
+   No positions computed from innerHeight; nothing can overlap at any viewport height. ═══ */
+#practice{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;bottom:auto;height:100vh;height:-webkit-fill-available;height:100dvh;padding-bottom:calc(var(--sb) + 12px);background:rgb(2,2,10);}
+#practice>.p-close{position:absolute;top:0;left:0;}
+#practice #pAbove{position:relative;top:auto!important;bottom:auto!important;left:auto;right:auto;flex:0 0 auto;padding:calc(var(--st) + 46px) 24px 0;gap:4px;}
+#practice #pAbove .p-nm{line-height:1.2;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#practice #pAbove .p-phase{height:62px;min-height:62px;line-height:31px;overflow:hidden;display:flex;align-items:flex-start;justify-content:center;text-align:center;}
+#practice .p-stage{position:relative;flex:1 1 auto;min-height:96px;margin:6px 0 10px;}
+#practice .p-stage #pc{position:absolute;inset:0;width:100%;height:100%;}
+#practice #pHoldRow{position:relative;left:auto;top:auto!important;transform:none;margin:0 auto;flex:0 0 48px;display:none;}
+#practice.has-hold #pHoldRow{display:flex;}
+#practice #pBelow{position:relative;top:auto!important;left:auto;right:auto;flex:0 0 auto;margin-top:12px;}
+#practice .p-play{position:relative;left:auto;bottom:auto;transform:none;flex:0 0 54px;height:54px;margin:14px 0 0;width:100%;}
+#practice .p-play .whm-cap{position:absolute;left:16px;right:16px;top:50%;bottom:auto;transform:translateY(-50%);}
+/* WHM custom rounds / breaths sliders */
+.nf-sl{margin:14px 0 4px;padding:16px 16px 10px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.03);text-align:left;}
+.nf-sl-h{font:500 12px 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:6px;}
+.nf-sl-r{padding:8px 0 4px;}
+.nf-sl-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;}
+.nf-sl-l{font:500 15px 'DM Sans',sans-serif;color:rgba(255,255,255,.9);}
+.nf-sl-v{font:400 22px 'DM Sans',sans-serif;color:#fff;font-variant-numeric:tabular-nums;}
+.nf-sl input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:40px;background:transparent;margin:2px 0 0;touch-action:pan-y;}
+.nf-sl input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--slc,#e86040) var(--slp,50%),rgba(255,255,255,.14) var(--slp,50%));}
+.nf-sl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;margin-top:-12px;background:#fff;border:0;box-shadow:0 2px 10px rgba(0,0,0,.45);}
+.nf-sl input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:rgba(255,255,255,.14);}
+.nf-sl input[type=range]::-moz-range-progress{height:6px;border-radius:3px;background:var(--slc,#e86040);}
+.nf-sl input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:#fff;border:0;}
+.nf-sl-sc{display:flex;justify-content:space-between;font:400 12px 'DM Mono',monospace;color:rgba(255,255,255,.5);}
+.nf-sl-d{margin-top:6px;font:400 13px 'DM Sans',sans-serif;color:rgba(255,255,255,.66);text-align:right;}
+/* short viewports (iOS Safari with toolbars + large text zoom): compact header and gaps, same order */
+@media (max-height:600px){
+#practice #pAbove{padding:calc(var(--st) + 2px) 64px 0;}
+#practice #pAbove .p-nm{font-size:17px;}
+#practice #pAbove .p-phase{font-size:22px;height:54px;min-height:54px;line-height:27px;}
+#practice .p-stage{min-height:56px;margin:4px 0 8px;}
+#practice #pBelow{margin-top:10px;gap:8px;}
+#practice .p-play{margin-top:10px;}
+#practice{padding-bottom:calc(var(--sb) + 6px);}
+}
+@media (max-height:480px){
+#practice #pAbove{padding:calc(var(--st) + 2px) 58px 0;}
+#practice #pAbove .p-phase{font-size:17px;height:63px;min-height:63px;line-height:21px;}
+#practice #pHoldRow{flex-basis:42px;height:42px;}
+#practice .p-hold-t{font-size:22px;}
+#practice .pbtn{width:48px;height:48px;}
+#practice .p-play{flex-basis:48px;height:48px;}
+}
 
 </style>
 </head>
@@ -12359,7 +12406,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v104.2</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v104.3</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -12390,7 +12437,7 @@ function whmT(k){return (WHM_T[curLang]||WHM_T.ru)[k];}
 function whmFmt(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60);}
 var WHM_H={on:false,cb:null,t0:0,last:null,rets:[],pingT:0};
 function whmCapEl(){var p=document.getElementById('practice');if(!p)return null;var c=document.getElementById('whmCap');
-  if(!c){p.insertAdjacentHTML('beforeend','<div class="whm-cap" id="whmCap"><span class="t"></span><span class="once"></span></div>');c=document.getElementById('whmCap');}
+  if(!c){(p.querySelector('.p-play')||p).insertAdjacentHTML('beforeend','<div class="whm-cap" id="whmCap"><span class="t"></span><span class="once"></span></div>');c=document.getElementById('whmCap');}
   c.querySelector('.t').textContent=whmT('cap');c.querySelector('.once').textContent=whmT('once');return c;}
 function whmHoldOff(){WHM_H.on=false;WHM_H.cb=null;WHM_H.last=null;var p=document.getElementById('practice');if(p)p.classList.remove('whm-hold');
   var c=document.getElementById('whmCap');if(c)c.classList.remove('ping');}
@@ -12483,6 +12530,112 @@ function phRowPlace(){var H=window.innerHeight,W=window.innerWidth,R=Math.min(W,
   if(typeof endP==='function'){var _ep=endP;endP=function(){phRowSet('');return _ep.apply(this,arguments);};}
   if(ALL_TC&&ALL_TC.wim_hof)ALL_TC.wim_hof.restSec=5;
 })();
+
+/* ═══ v104.3 — breathing player layout + sphere state + WHM custom rounds/breaths ═══ */
+/* 1. Stable flex layout. The DOM is regrouped once; the canvas is sized to its stage via ResizeObserver. */
+var NF_PL={done:false,ro:null,w:0,h:0,dpr:0};
+function nfPlayerLayout(){
+  var pr=document.getElementById('practice');if(!pr)return;
+  if(!NF_PL.done){
+    var cv=document.getElementById('pc'),ab=document.getElementById('pAbove'),tw=document.getElementById('pTimerWrap'),
+        be=document.getElementById('pBelow'),pl=pr.querySelector('.p-play'),po=document.getElementById('postOv');
+    phRowEl();var hr=document.getElementById('pHoldRow');
+    var stg=document.createElement('div');stg.className='p-stage';stg.id='pStage';
+    if(cv)stg.appendChild(cv);
+    [ab,stg,tw,hr,be,pl,po].forEach(function(e){if(e)pr.appendChild(e);});
+    var cap=document.getElementById('whmCap');if(cap&&pl)pl.appendChild(cap);
+    if(window.ResizeObserver){NF_PL.ro=new ResizeObserver(function(){resizeCnv();});NF_PL.ro.observe(stg);}
+    NF_PL.done=true;
+  }
+  ['pAbove','pTimerWrap','pBelow','pHoldRow'].forEach(function(id){var e=document.getElementById(id);if(e){e.style.top='';e.style.bottom='';e.style.transform='';}});
+  resizeCnv();
+}
+resizeCnv=function(){
+  if(!cnv)return;var stg=cnv.parentNode,dpr=window.devicePixelRatio||1;
+  var w=stg&&stg.id==='pStage'?stg.clientWidth:window.innerWidth,h=stg&&stg.id==='pStage'?stg.clientHeight:window.innerHeight;
+  if(!w||!h)return;
+  if(w===NF_PL.w&&h===NF_PL.h&&dpr===NF_PL.dpr&&cnv.width)return;   /* same box: keep the canvas, no flicker */
+  NF_PL.w=w;NF_PL.h=h;NF_PL.dpr=dpr;
+  cnv.width=Math.round(w*dpr);cnv.height=Math.round(h*dpr);cnv.style.width='';cnv.style.height='';
+  if(ctx)ctx.setTransform(dpr,0,0,dpr,0,0);
+  try{if(pRun)drawP(performance.now());}catch(e){}
+};
+positionPracticeUI=function(){nfPlayerLayout();};
+phRowPlace=function(){};
+function nfHasHold(tc){var p=(tc&&tc.pattern)||[];return !!(p[1]||p[3]||p[4]||p[5]);}
+
+/* 2. Sphere size follows the action: an inhale hold stays expanded, an exhale hold stays contracted.
+   The v103 post-round holds always froze the sphere contracted; now the in-breath hold expands first
+   (recovery inhale) and stays large, and the following pause contracts it (release). */
+var NF_VIS=null;
+function nfVisAnim(ph,ms){setPT(ph);NF_VIS={t0:performance.now(),dur:ms};}
+(function(){
+  var _dp=drawP;drawP=function(now){
+    if(NF_VIS){var t=Math.min(1,((now||performance.now())-NF_VIS.t0)/NF_VIS.dur),e=t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      parts.forEach(function(p){p.r=p.sR+(p.tR-p.sR)*e;p.op=p.sOp+(p.tOp-p.sOp)*e;});if(t>=1)NF_VIS=null;}
+    return _dp.apply(this,arguments);};
+  var _bp=beginPh;beginPh=function(){NF_VIS=null;return _bp.apply(this,arguments);};
+  var _dph=doPostHold;doPostHold=function(dur,labelKey,startNow,cb){var r=_dph.apply(this,arguments);
+    if(labelKey==='hold_inhale_post'){pPh=1;nfVisAnim(0,Math.min(2200,dur*1000*0.4));}
+    return r;};
+  var _rec=doRecovery;doRecovery=function(){var r=_rec.apply(this,arguments);nfVisAnim(3,1600);return r;};
+  var _lp=launch;launch=function(tc){NF_VIS=null;var pr=document.getElementById('practice');if(pr)pr.classList.toggle('has-hold',nfHasHold(tc));
+    var r=_lp.apply(this,arguments);nfPlayerLayout();return r;};
+  var _sp=stopPractice;stopPractice=function(){NF_VIS=null;return _sp.apply(this,arguments);};
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)requestAnimationFrame(function(){resizeCnv();});});
+  if(window.visualViewport)visualViewport.addEventListener('resize',function(){resizeCnv();});
+})();
+
+/* 3. Wim Hof: custom rounds (1-10) and breaths per round (10-60, step 5), defaults from the chosen level, saved. */
+var WS_T={
+ ru:{h:'Свои настройки',r:'Раунды',b:'Вдохов в раунде'},
+ en:{h:'Custom session',r:'Rounds',b:'Breaths per round'},
+ de:{h:'Eigene Einstellung',r:'Runden',b:'Atemzüge pro Runde'},
+ es:{h:'Sesión personalizada',r:'Rondas',b:'Respiraciones por ronda'},
+ zh:{h:'自定义',r:'轮数',b:'每轮呼吸次数'}};
+function wsT(k){return (WS_T[curLang]||WS_T.ru)[k];}
+function whmCfg(){var c=dbGet('whm_cfg');var L=ALL_TC.wim_hof.levels;
+  if(c&&c.rounds>=1&&c.rounds<=10&&c.cycles>=10&&c.cycles<=60)return c;
+  var lv=L[typeof selLv==='number'&&L[selLv]?selLv:1];return {lv:selLv,rounds:lv.rounds,cycles:lv.cycles};}
+function whmSlHTML(px){var c=whmCfg(),col=ALL_TC.wim_hof.color||'#e86040';
+  function row(k,lbl,min,max,step,v){return '<div class="nf-sl-r"><div class="nf-sl-top"><span class="nf-sl-l">'+lbl+'</span><span class="nf-sl-v" id="'+px+k+'V">'+v+'</span></div>'+
+    '<input type="range" id="'+px+k+'" min="'+min+'" max="'+max+'" step="'+step+'" value="'+v+'" style="--slc:'+col+';--slp:'+((v-min)/(max-min)*100)+'%" aria-label="'+lbl+'" oninput="whmSlInput(\''+px+'\')">'+
+    '<div class="nf-sl-sc"><span>'+min+'</span><span>'+max+'</span></div></div>';}
+  return '<div class="nf-sl" id="'+px+'Box"><div class="nf-sl-h">'+wsT('h')+'</div>'+row('R',wsT('r'),1,10,1,c.rounds)+row('B',wsT('b'),10,60,5,c.cycles)+'<div class="nf-sl-d" id="'+px+'D"></div></div>';}
+function whmSlPaint(px,c){var r=document.getElementById(px+'R'),b=document.getElementById(px+'B');if(!r||!b)return;
+  r.value=c.rounds;b.value=c.cycles;
+  r.style.setProperty('--slp',((c.rounds-1)/9*100)+'%');b.style.setProperty('--slp',((c.cycles-10)/50*100)+'%');
+  document.getElementById(px+'RV').textContent=c.rounds;document.getElementById(px+'BV').textContent=c.cycles;
+  var d=document.getElementById(px+'D');if(d){var tc=ALL_TC.wim_hof;try{d.textContent=c.rounds+' × '+c.cycles+' · ~'+calcDurFull(tc.pattern,c.cycles,c.rounds,tc)+'m';}catch(e){d.textContent=c.rounds+' × '+c.cycles;}}
+  var L=ALL_TC.wim_hof.levels,m=-1;L.forEach(function(l,i){if(l.rounds===c.rounds&&l.cycles===c.cycles)m=i;});
+  var sel=px==='whmD'?'.d-rb':'.lv';document.querySelectorAll(sel).forEach(function(e,j){e.classList.toggle('sel',j===m);});
+  if(m>=0)selLv=m;}
+function whmSlInput(px){var c={lv:-1,rounds:parseInt(document.getElementById(px+'R').value,10),cycles:parseInt(document.getElementById(px+'B').value,10)};
+  dbSet('whm_cfg',c);whmSlPaint(px,c);}
+function whmPreset(px,i){var l=ALL_TC.wim_hof.levels[i];if(!l)return;var c={lv:i,rounds:l.rounds,cycles:l.cycles};dbSet('whm_cfg',c);whmSlPaint(px,c);}
+function whmIsCur(){return curTc&&curTc.id==='wim_hof';}
+function whmStart(){if(!audioCtx){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}else if(audioCtx.state==='suspended'){audioCtx.resume();}
+  var c=whmCfg();launch(curTc,c.cycles,c.rounds);}
+(function(){
+  var _o=openTD;openTD=function(id){var r=_o.apply(this,arguments);
+    if(id==='wim_hof'){var rr=document.querySelector('#dBody .d-rounds');if(rr&&!document.getElementById('whmDBox')){rr.insertAdjacentHTML('afterend',whmSlHTML('whmD'));whmSlPaint('whmD',whmCfg());}}
+    return r;};
+  var _p=pickLvTD;pickLvTD=function(i){var r=_p.apply(this,arguments);if(whmIsCur()&&document.getElementById('whmDBox'))whmPreset('whmD',i);return r;};
+  var _sd=startFromDetail;startFromDetail=function(){if(whmIsCur()&&document.getElementById('whmDBox'))return whmStart();return _sd.apply(this,arguments);};
+  var _os=openSetup;openSetup=function(){var r=_os.apply(this,arguments);var old=document.getElementById('whmSBox');if(old)old.remove();
+    if(whmIsCur()){var row=document.getElementById('lvRow');if(row){row.insertAdjacentHTML('afterend',whmSlHTML('whmS'));whmSlPaint('whmS',whmCfg());}}
+    return r;};
+  var _pl=pickLv;pickLv=function(i){var r=_pl.apply(this,arguments);if(whmIsCur()&&document.getElementById('whmSBox'))whmPreset('whmS',i);return r;};
+  var _ss=startFromSetup;startFromSetup=function(){if(whmIsCur()&&document.getElementById('whmSBox')){closeSetup();return whmStart();}return _ss.apply(this,arguments);};
+  var sg=document.getElementById('shGo');if(sg&&sg.onclick===_ss)sg.onclick=startFromSetup;
+})();
+/* the phase label never clips: shrink its font only when the text does not fit its fixed box */
+function nfFitPhase(){var e=document.getElementById('pLbl');if(!e)return;e.style.fontSize='';e.style.lineHeight='';
+  var cs=parseFloat(getComputedStyle(e).fontSize)||26,n=0;
+  while((e.scrollHeight>e.clientHeight+1||e.scrollWidth>e.clientWidth+1)&&cs>12&&n<16){cs-=1;n++;e.style.fontSize=cs+'px';e.style.lineHeight=Math.round(cs*1.18)+'px';}
+}
+(function(){var e=document.getElementById('pLbl');if(e&&window.MutationObserver){new MutationObserver(function(){nfFitPhase();}).observe(e,{childList:true,characterData:true,subtree:true});}
+  window.addEventListener('resize',nfFitPhase);})();
 
 /* v100: run init only after every function/var in this script is defined */
 init();
