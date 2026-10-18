@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v102">
+<meta name="nf-version" content="v103">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ── Habit calendar grid ── */
@@ -1789,6 +1789,92 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 /* v102: cognition list had no side padding (cards touched the screen edges) */
 #cog-body{padding-left:16px;padding-right:16px;box-sizing:border-box;}
 
+/* ═══════════ v103 ═══════════ */
+/* shared back / close button */
+.back,.back.nf-back,.med-ov-close.nf-back{width:40px;height:40px;min-width:40px;border-radius:50%;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
+  color:#EDEFF4;display:flex;align-items:center;justify-content:center;opacity:1;visibility:visible;font-size:0;line-height:0;padding:0;cursor:pointer;flex-shrink:0;z-index:20;}
+.back svg,.med-ov-close svg{width:20px;height:20px;flex:none;display:block;stroke:currentColor;overflow:visible;}
+.back:active,.med-ov-close:active{background:rgba(255,255,255,.18);transform:scale(.94);}
+.nf-abs-back{position:absolute;top:calc(var(--st,16px) + 4px);left:16px;}
+.post-c,.med-done-card{position:relative;}
+.post-ov .nf-abs-back{position:absolute;top:calc(var(--st,16px) + 8px);left:16px;}
+
+/* bottom navigation: readable inactive items, clear active accent */
+.bnav{background:#0b0c14 !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important;border-top:1px solid rgba(255,255,255,.10) !important;padding-left:4px !important;padding-right:4px !important;}
+.bnav .ni{flex:1 1 0;min-width:0 !important;padding:6px 2px !important;gap:5px;}
+.bnav .ni svg{opacity:1 !important;stroke:#A6ADBB !important;width:22px;height:22px;}
+.bnav .ni svg polygon,.bnav .ni svg rect{fill:#A6ADBB !important;}
+.bnav .nl{font-size:11px;font-weight:500 !important;letter-spacing:0 !important;text-transform:none !important;color:#A6ADBB !important;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bnav .ni.on{background:rgba(255,255,255,.07);}
+.bnav .ni.on svg{stroke:var(--nav-acc,#E9ECF5) !important;}
+.bnav .ni.on svg polygon,.bnav .ni.on svg rect{fill:var(--nav-acc,#E9ECF5) !important;}
+.bnav .ni.on .nl{color:var(--nav-acc,#FFFFFF) !important;font-weight:600 !important;}
+.bnav .ni.on::after{background:var(--nav-acc,#E9ECF5) !important;box-shadow:none !important;width:20px;height:3px;}
+#nav-cog.on,#lnav-cog.on,#mnav-cog.on,#rnav-cog.on,#snav-cog.on,#tnav-cog.on,#cnav-cog.on,#kgnav-cog.on{--nav-acc:#B9A4FF;}
+
+/* settings sheet */
+.nf-set{position:fixed;inset:0;z-index:700;background:#07070e;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1);visibility:hidden;}
+.nf-set.on{transform:none;visibility:visible;}
+.nf-set-bar{display:flex;align-items:center;gap:12px;padding:calc(var(--st,16px) + 6px) 16px 10px;}
+.nf-set-t{font-size:17px;font-weight:400;color:var(--t1);}
+.nf-set-body{flex:1;overflow-y:auto;padding:0 16px 40px;-webkit-overflow-scrolling:touch;}
+.nf-sec{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#8E95A3;margin:22px 4px 8px;}
+.nf-group{border:1px solid var(--br1);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.025);}
+.nf-lang-row,.nf-sw-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:54px;padding:10px 16px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.06);color:var(--t1);font-size:15px;font-weight:300;}
+.nf-group>div:last-child{border-bottom:0;}
+.nf-lang-row svg{width:18px;height:18px;color:#38c068;}
+.nf-lang-row.on{color:#fff;font-weight:400;}
+.nf-sw-txt{min-width:0;}.nf-sw-t{font-size:15px;font-weight:300;}.nf-sw-d{font-size:12px;color:#8E95A3;margin-top:3px;line-height:1.4;}
+.nf-sw{flex:none;width:50px;height:30px;border-radius:15px;background:rgba(255,255,255,.14);position:relative;transition:background .2s;}
+.nf-sw i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s;}
+.nf-sw.on{background:#38c068;}.nf-sw.on i{transform:translateX(20px);}
+
+/* habits: weekday schedule */
+.hb-presets{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:10px;}
+.hb-presets button{height:44px;border-radius:12px;border:1px solid var(--br0);background:rgba(255,255,255,.03);color:var(--t2);font:400 12.5px 'DM Sans',sans-serif;cursor:pointer;padding:0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hb-presets button.on{border-color:var(--hb-acc,#38c068);color:var(--t1);background:rgba(56,192,104,.1);}
+.hb-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+.hb-days button{height:48px;border-radius:14px;border:1px solid var(--br1);background:rgba(255,255,255,.03);color:var(--t3);font:500 13px 'DM Sans',sans-serif;cursor:pointer;transition:all .18s;padding:0;}
+.hb-days button.we{color:#8E95A3;}
+.hb-days button.on{background:var(--hb-acc,#38c068);border-color:var(--hb-acc,#38c068);color:#06110a;}
+.hb-sched{color:var(--t2);}
+.hb-none{font-size:13px;font-weight:300;color:var(--t3);padding:14px 4px;}
+.hb-off-tg{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;margin-top:14px;padding:0 6px;border:0;background:transparent;color:#8E95A3;font:500 11px 'DM Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;}
+.hb-off-tg span:first-child{flex:1;text-align:left;}
+.hb-off-n{font-family:'DM Mono',monospace;letter-spacing:0;}
+.hb-off-tg svg{width:18px;height:18px;transition:transform .25s;}
+.hb-off-tg.open svg{transform:rotate(180deg);}
+.hb-off{display:none;}.hb-off.open{display:flex;}
+.hb-off .hb-row,.hb-dim .hb-row{opacity:.72;}
+.hb-day.none .trk{stroke:rgba(255,255,255,.04);stroke-dasharray:2 3;}
+.hb-day.none span{color:var(--t4);}
+
+/* cognition: what it develops, level labels */
+.cog-card-dev{font-size:11px;font-weight:500;line-height:1.3;margin:2px 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.95;}
+.cg-dev{margin:4px 0 14px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--br0);}
+.cg-dev-1{display:flex;gap:10px;font-size:13.5px;font-weight:400;color:var(--t1);line-height:1.45;}
+.cg-dev-1 i{flex:none;width:6px;height:6px;border-radius:50%;margin-top:7px;}
+.cg-dev-2{font-size:12.5px;font-weight:300;color:#A6ADBB;line-height:1.45;margin:6px 0 0 16px;}
+.cg-sub-dev{font-size:11.5px;color:#A6ADBB;margin-top:4px;line-height:1.35;}
+.cg-seg.cg-lv button{height:auto;min-height:56px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;}
+.cg-lv-n{font-size:13px;}
+.cg-lv-i{font-size:10.5px;color:#8E95A3;line-height:1.25;text-align:center;}
+.cg-seg.cg-lv button.on .cg-lv-i{color:var(--t2);}
+.cg-expr.sm{font-size:32px;}
+/* N-back: blank gap + entry animation + progress dots */
+.cg-letter.blank{border-color:rgba(255,255,255,.08) !important;}
+.cg-letter.cg-in{animation:nfIn .22s cubic-bezier(.2,.9,.3,1.2);}
+@keyframes nfIn{from{opacity:0;transform:scale(.82);}to{opacity:1;transform:none;}}
+.cg-pdots{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;max-width:300px;min-height:6px;}
+.cg-pdots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.12);}
+.cg-pdots i.p{background:var(--c);opacity:.55;}.cg-pdots i.c{background:var(--c);}
+/* Two hands: big canvases, no scrolling/zooming while drawing */
+#cog-exercise .cg-bim-pad,.cg-bim,.cg-bim canvas{touch-action:none;overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
+.cg-bim{gap:10px;}
+#cog-ex-body{overscroll-behavior:contain;}
+.hb-txt{min-width:0;flex:1;}
+.hb-meta{white-space:normal !important;overflow:visible !important;text-overflow:clip !important;line-height:1.5;}
+
 </style>
 </head>
 <body>
@@ -1799,6 +1885,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
     <span class="logo">Neuro · Flow</span>
     <div class="dh-r">
       <!-- Кнопка смены языка (глобальная) -->
+      <div class="icon-btn" id="setBtn" onclick="nfOpenSettings()" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.72)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></div>
       <div class="icon-btn" id="langGlobal" onclick="cycleLang()" title="Language">
         <svg viewBox="0 0 20 20" fill="none" stroke="rgba(255,255,255,.52)" stroke-width="1.5" stroke-linecap="round">
           <circle cx="10" cy="10" r="8"/>
@@ -1844,7 +1931,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 <!-- ═══ STATE MENU ════════════════════════════════════════ -->
 <div id="statemenu" class="scr">
   <div class="sm-hdr">
-    <div class="back" onclick="goBack()">←</div>
+    <div class="back" onclick="goBack()"></div>
     <div class="sm-info">
       <div class="sm-nm" id="smNm"></div>
       <div class="sm-gl" id="smGl"></div>
@@ -1880,7 +1967,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 <div id="techdetail" class="scr">
   <div id="dbg"></div>
   <div class="dh2">
-    <div class="back" onclick="goBack()">←</div>
+    <div class="back" onclick="goBack()"></div>
     <div class="d-cat" id="dCat"></div>
     <div style="width:36px"></div>
   </div>
@@ -1963,6 +2050,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
     </div>
   </div>
   <div class="post-ov" id="postOv">
+    <div class="back nf-close nf-abs-back" id="postClose" onclick="finishSession()"></div>
     <div class="post-c">
       <div class="pb-star"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M12 3l7 9-7 9-7-9z"/></svg></div>
       <div class="pb-t" data-i18n="session_done">Сессия завершена</div>
@@ -2008,7 +2096,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 <!-- ═══ CUSTOM TIMER (с Drag-and-Drop) ═══════════════════ -->
 <div id="customtimer" class="scr">
   <div class="hdr">
-    <div class="back" onclick="goBack()">←</div>
+    <div class="back" onclick="goBack()"></div>
     <div class="ct-ti">
       <div class="ct-t" data-i18n="custom_title">Своя практика</div>
       <div class="ct-s" data-i18n="custom_sub">Настрой ритм дыхания под себя</div>
@@ -2164,6 +2252,10 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 
 
 
+<div id="nfSet" class="nf-set" role="dialog" aria-modal="true">
+  <div class="nf-set-bar"><div class="back" id="nfSetBack" onclick="nfCloseSettings()"></div><div class="nf-set-t" id="nfSetTitle">Настройки</div></div>
+  <div class="nf-set-body" id="nfSetBody"></div>
+</div>
 <div id="cognitive" class="scr">
   <div class="lh">
     <div class="lt" data-i18n="cog_title">Когнитивный тренинг</div>
@@ -7822,7 +7914,7 @@ function completeMedSession(){
   ov.setAttribute('data-done-color',color);
   ov.innerHTML=
     '<div class="med-done-wrap">'+
-      '<div class="med-done-card">'+
+      '<div class="med-done-card"><div class="back nf-close nf-abs-back" id="medDoneClose" style="top:12px;left:12px" onclick="saveMedDone(true)"></div>'+
         '<div class="med-done-icon" style="color:'+color+'">'+((mData.icon)||'')+'</div>'+
         '<div class="med-done-title">'+t('med_done_title')+'</div>'+
         '<div class="med-done-name">'+nm+'</div>'+
@@ -10076,6 +10168,227 @@ function openDaySheet(k){hbOpenDay(k);}
 function closeDaySheet(){hbCloseSheet();}
 function deleteHabitDirect(id){var s=hbState();s.habits=s.habits.filter(function(h){return h.id!==id;});hbSave();hbRender();}
 
+/* ═══════════════════════════════════════════════════════
+   v103 — HABITS: schedule by weekdays (Mon..Sun chips + presets)
+   Store v3: habits[].days = [0..6] (0 = Monday). Streaks, % and the
+   calendar ring count scheduled days only. v2 targets are migrated.
+═══════════════════════════════════════════════════════ */
+var HB_ALL=[0,1,2,3,4,5,6],HB_WD=[0,1,2,3,4],HB_WE=[5,6];
+var HB_MAP={7:HB_ALL,6:[0,1,2,3,4,5],5:HB_WD,4:[0,1,3,4],3:[0,2,4],2:[1,3],1:[0]};
+var HB_T3={
+ ru:{days:'Дни',p_all:'Каждый день',p_wd:'Будни',p_we:'Выходные',p_cu:'Свои дни',wd:['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],days_err:'Выберите хотя бы один день',
+     off:'Не по плану сегодня',off_n:'{n}',none_today:'Сегодня по плану ничего нет',unsched:'Не по плану',no_plan_day:'В этот день ничего не запланировано'},
+ en:{days:'Days',p_all:'Every day',p_wd:'Weekdays',p_we:'Weekends',p_cu:'Custom',wd:['Mo','Tu','We','Th','Fr','Sa','Su'],days_err:'Pick at least one day',
+     off:'Not scheduled today',off_n:'{n}',none_today:'Nothing scheduled for today',unsched:'Not scheduled',no_plan_day:'Nothing was scheduled for this day'},
+ de:{days:'Tage',p_all:'Jeden Tag',p_wd:'Werktags',p_we:'Wochenende',p_cu:'Eigene',wd:['Mo','Di','Mi','Do','Fr','Sa','So'],days_err:'Wähle mindestens einen Tag',
+     off:'Heute nicht geplant',off_n:'{n}',none_today:'Für heute ist nichts geplant',unsched:'Nicht geplant',no_plan_day:'An diesem Tag war nichts geplant'},
+ es:{days:'Días',p_all:'Cada día',p_wd:'Laborables',p_we:'Fin de semana',p_cu:'Personalizado',wd:['Lu','Ma','Mi','Ju','Vi','Sá','Do'],days_err:'Elige al menos un día',
+     off:'Hoy no toca',off_n:'{n}',none_today:'Hoy no hay nada planificado',unsched:'No planificado',no_plan_day:'Este día no había nada planificado'},
+ zh:{days:'日期',p_all:'每天',p_wd:'工作日',p_we:'周末',p_cu:'自定义',wd:['一','二','三','四','五','六','日'],days_err:'请至少选择一天',
+     off:'今天不在计划内',off_n:'{n}',none_today:'今天没有计划的习惯',unsched:'不在计划内',no_plan_day:'这一天没有计划'}
+};
+Object.keys(HB_T3).forEach(function(l){HB_T[l]=HB_T[l]||{};for(var k in HB_T3[l])HB_T[l][k]=HB_T3[l][k];});
+var _hbOffOpen=false;
+function hbWd(k){return (hbParse(k).getDay()+6)%7;}
+function hbDays(h){var d=Array.isArray(h.days)&&h.days.length?h.days:(HB_MAP[h.target||7]||HB_ALL);return d;}
+function hbOn(h,k){return hbDays(h).indexOf(hbWd(k))>=0;}
+function hbNormDays(a){var o=[];HB_ALL.forEach(function(i){if(a.indexOf(i)>=0)o.push(i);});return o;}
+function hbSameSet(a,b){return a.length===b.length&&a.every(function(x){return b.indexOf(x)>=0;});}
+function hbSchedLabel(h){
+  var d=hbNormDays(hbDays(h));
+  if(d.length===7)return HT('p_all');if(hbSameSet(d,HB_WD))return HT('p_wd');if(hbSameSet(d,HB_WE))return HT('p_we');
+  var w=HT('wd');return d.map(function(i){return w[i];}).join(' ');
+}
+function hbState(){
+  if(_hbS)return _hbS;
+  var s=null;try{s=JSON.parse(localStorage.getItem(HB_KEY)||'null');}catch(e){}
+  if(!s||(s.v!==2&&s.v!==3)||!Array.isArray(s.habits))s=hbMigrate();
+  if(s.v!==3){
+    s.habits.forEach(function(h){if(!Array.isArray(h.days))h.days=(HB_MAP[h.target||7]||HB_ALL).slice();delete h.target;});
+    s.v=3;s.migratedV2=true;_hbS=s;hbSave();
+  }
+  if(!s.done||typeof s.done!=='object')s.done={};
+  _hbS=s;return s;
+}
+/* stats over scheduled days only (today counts once it is done) */
+function hbStats(h){
+  var today=todayKey(),first=hbFirst(h),cur=0,best=0,run=0,k,guard=0;
+  k=today;if(hbOn(h,today)&&!hbIsDone(h.id,today))k=hbAdd(today,-1);
+  while(k>=first&&guard++<4000){if(hbOn(h,k)){if(hbIsDone(h.id,k))cur++;else break;}k=hbAdd(k,-1);}
+  for(k=first;k<=today;k=hbAdd(k,1)){if(!hbOn(h,k))continue;if(hbIsDone(h.id,k)){run++;if(run>best)best=run;}else if(k!==today)run=0;}
+  if(cur>best)best=cur;
+  var start=hbAdd(today,-29);if(first>start)start=first;
+  var den=0,num=0;
+  for(k=start;k<=today;k=hbAdd(k,1)){if(!hbOn(h,k))continue;var dn=hbIsDone(h.id,k);if(k===today&&!dn)continue;den++;if(dn)num++;}
+  return {cur:cur,best:best,pct:den?Math.round(num/den*100):0,den:den,unit:HT('ud')};
+}
+function hbMeta(h){
+  var s=hbStats(h);
+  return '<span class="hb-sched">'+hbEsc(hbSchedLabel(h))+'</span> · '+HT('streak')+' <b>'+s.cur+s.unit+'</b> · '+HT('best')+' <b>'+s.best+s.unit+'</b> · <b>'+s.pct+'%</b>';
+}
+function hbRowHtml(x,today){
+  var dn=hbIsDone(x.id,today);
+  return '<div class="hb-row'+(dn?' done':'')+'" role="checkbox" aria-checked="'+dn+'" tabindex="0" data-id="'+x.id+'" onclick="hbTapToday(\''+x.id+'\',this)">'+
+    hbCheckSvg()+'<div class="hb-txt"><div class="hb-name">'+hbEsc(hbName(x))+'</div><div class="hb-meta">'+hbMeta(x)+'</div></div></div>';
+}
+function hbTodayHtml(){
+  var s=hbState(),today=todayKey(),loc=HB_LOC[curLang]||'ru-RU';
+  var dstr=new Date().toLocaleDateString(loc,{weekday:'long',day:'numeric',month:'long'});
+  var h='<div class="hb-head"><div><div class="hb-h1">'+HT('today')+'</div><div class="hb-date">'+hbEsc(dstr)+'</div></div>'+
+    '<div class="hb-actions">'+
+      (s.habits.length?'<button class="hb-tbtn'+(_hbEdit?' on':'')+'" id="hbEditBtn" onclick="hbToggleEdit()">'+(_hbEdit?HT('done'):HT('edit'))+'</button>':'')+
+      '<button class="hb-ibtn" id="hbAddBtn" aria-label="'+hbEsc(HT('add'))+'" onclick="hbOpenAdd()">'+HB_IC.plus+'</button>'+
+    '</div></div>';
+  if(!s.habits.length){
+    return h+'<div class="hb-empty"><div class="hb-empty-t">'+HT('empty')+'</div><div class="hb-empty-s">'+HT('empty_sub')+'</div>'+
+      '<button class="hb-primary" onclick="hbOpenAdd()">'+HT('add')+'</button></div>';
+  }
+  if(_hbEdit){
+    h+='<div class="hb-hint">'+HT('edit_hint')+'</div><div class="hb-list" id="hbList">';
+    s.habits.forEach(function(x,i){
+      h+='<div class="hb-row hb-editing" data-id="'+x.id+'">'+
+        '<div class="hb-txt" onclick="hbOpenEdit(\''+x.id+'\')"><div class="hb-name">'+hbEsc(hbName(x))+'</div><div class="hb-meta"><span class="hb-sched">'+hbEsc(hbSchedLabel(x))+'</span></div></div>'+
+        '<button class="hb-mini" aria-label="'+HT('up')+'" '+(i===0?'disabled':'')+' onclick="hbMove(\''+x.id+'\',-1)">'+HB_IC.up+'</button>'+
+        '<button class="hb-mini" aria-label="'+HT('down')+'" '+(i===s.habits.length-1?'disabled':'')+' onclick="hbMove(\''+x.id+'\',1)">'+HB_IC.down+'</button>'+
+        '<button class="hb-mini" aria-label="'+HT('edit_h')+'" onclick="hbOpenEdit(\''+x.id+'\')">'+HB_IC.pen+'</button></div>';
+    });
+    return h+'</div>';
+  }
+  var on=s.habits.filter(function(x){return hbOn(x,today);}),off=s.habits.filter(function(x){return !hbOn(x,today);});
+  h+=hbProgHtml();
+  h+='<div class="hb-list" id="hbList">';
+  if(!on.length)h+='<div class="hb-none" id="hbNone">'+HT('none_today')+'</div>';
+  on.forEach(function(x){h+=hbRowHtml(x,today);});
+  h+='</div>';
+  if(off.length){
+    var nd=off.filter(function(x){return hbIsDone(x.id,today);}).length;
+    h+='<button class="hb-off-tg'+(_hbOffOpen?' open':'')+'" id="hbOffTg" aria-expanded="'+_hbOffOpen+'" onclick="hbToggleOff()"><span>'+HT('off')+'</span><span class="hb-off-n">'+(nd?nd+' / ':'')+off.length+'</span>'+HB_IC.down+'</button>'+
+       '<div class="hb-list hb-off'+(_hbOffOpen?' open':'')+'" id="hbOffList">';
+    off.forEach(function(x){h+=hbRowHtml(x,today);});
+    h+='</div>';
+  }
+  return h;
+}
+function hbToggleOff(){_hbOffOpen=!_hbOffOpen;var t=document.getElementById('hbOffTg'),l=document.getElementById('hbOffList');
+  if(t){t.classList.toggle('open',_hbOffOpen);t.setAttribute('aria-expanded',_hbOffOpen);}if(l)l.classList.toggle('open',_hbOffOpen);}
+function hbProgHtml(){
+  var s=hbState(),today=todayKey(),n=0,on=s.habits.filter(function(x){return hbOn(x,today);});
+  on.forEach(function(x){if(hbIsDone(x.id,today))n++;});
+  var tot=on.length,pct=tot?Math.round(n/tot*100):0;
+  return '<div class="hb-prog" id="hbProg"><div class="hb-bar"><i style="width:'+pct+'%"></i></div><div class="hb-cnt">'+(n===tot&&tot?HT('all_done')+' · ':'')+n+' / '+tot+'</div></div>';
+}
+function hbTapToday(id,el){
+  var today=todayKey(),on=!hbIsDone(id,today);
+  hbSet(id,today,on);
+  if(el){
+    el.classList.toggle('done',on);el.setAttribute('aria-checked',on);
+    el.classList.remove('hb-pop');void el.offsetWidth;if(on)el.classList.add('hb-pop');
+    var h=hbFind(id),m=el.querySelector('.hb-meta');if(h&&m)m.innerHTML=hbMeta(h);
+  }
+  if(typeof nfUx==='function')nfUx(on?'check':'uncheck');
+  var tg=document.getElementById('hbOffTg');
+  if(tg){var s=hbState(),off=s.habits.filter(function(x){return !hbOn(x,today);}),nd=off.filter(function(x){return hbIsDone(x.id,today);}).length;var n=tg.querySelector('.hb-off-n');if(n)n.textContent=(nd?nd+' / ':'')+off.length;}
+  hbUpdateProg();hbRenderCal();
+}
+function hbDayInfo(k){
+  var s=hbState(),sch=s.habits.filter(function(x){return hbOn(x,k)&&hbFirst(x)<=k;}),n=0;
+  sch.forEach(function(x){if(hbIsDone(x.id,k))n++;});return {tot:sch.length,n:n};
+}
+function hbCalHtml(){
+  var s=hbState(),today=todayKey(),loc=HB_LOC[curLang]||'ru-RU';
+  if(!_hbMonth){var n0=new Date();_hbMonth=new Date(n0.getFullYear(),n0.getMonth(),1);}
+  var y=_hbMonth.getFullYear(),m=_hbMonth.getMonth();
+  var title=curLang==='zh'?y+'年'+(m+1)+'月':(function(){var t2=_hbMonth.toLocaleDateString(loc,{month:'long'});return t2.charAt(0).toUpperCase()+t2.slice(1)+' '+y;})();
+  var now=new Date(),isCur=(y===now.getFullYear()&&m===now.getMonth());
+  var h='<div class="hb-cal-head"><button class="hb-ibtn sm" id="hbPrev" aria-label="'+HT('prev')+'" onclick="hbMonthNav(-1)">'+HB_IC.left+'</button>'+
+    '<div class="hb-cal-title" id="hbCalTitle">'+hbEsc(title)+'</div>'+
+    '<button class="hb-ibtn sm" id="hbNext" aria-label="'+HT('next')+'" '+(isCur?'disabled':'')+' onclick="hbMonthNav(1)">'+HB_IC.right+'</button></div>';
+  var w=HT('wd');h+='<div class="hb-cal-grid" id="hbCalGrid">';
+  for(var i=0;i<7;i++)h+='<div class="hb-dow">'+hbEsc(w[i])+'</div>';
+  var off=(new Date(y,m,1).getDay()+6)%7,dim=new Date(y,m+1,0).getDate(),sumF=0,cnt=0,full=0,R=16,C=2*Math.PI*R;
+  for(i=0;i<off;i++)h+='<div></div>';
+  for(var d=1;d<=dim;d++){
+    var k=dateKey(new Date(y,m,d)),fut=k>today,inf=hbDayInfo(k),f=inf.tot?inf.n/inf.tot:0,none=!inf.tot;
+    if(!fut&&!none){sumF+=f;cnt++;if(f>=1)full++;}
+    var cls='hb-day'+(fut?' future':'')+(k===today?' today':'')+(none?' none':'')+(!none&&f>=1?' full':'')+(f>0&&f<1?' part':'');
+    h+='<button class="'+cls+'" data-date="'+k+'" data-frac="'+f.toFixed(2)+'" data-tot="'+inf.tot+'" '+(fut?'disabled':'')+' onclick="hbOpenDay(\''+k+'\')">'+
+      '<svg viewBox="0 0 40 40" aria-hidden="true"><circle class="trk" cx="20" cy="20" r="'+R+'"/>'+
+      (f>0?'<circle class="arc" cx="20" cy="20" r="'+R+'" stroke-dasharray="'+(C*f).toFixed(2)+' '+C.toFixed(2)+'"/>':'')+'</svg><span>'+d+'</span></button>';
+  }
+  h+='</div>';
+  var pct=cnt?Math.round(sumF/cnt*100):0;
+  h+='<div class="hb-cal-foot"><span id="hbMonthSum">'+HT('month_sum',{p:pct,d:full})+'</span><span class="hb-legend"><i class="l0"></i><i class="l1"></i><i class="l2"></i></span></div>';
+  return '<div class="hb-h2">'+HT('calendar')+'</div>'+h;
+}
+function hbDayHtml(k){
+  var s=hbState(),loc=HB_LOC[curLang]||'ru-RU';
+  var d=hbParse(k),title=d.toLocaleDateString(loc,{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  var h='<div class="hb-sh-head"><div class="hb-sh-title" id="hbDayTitle">'+hbEsc(title.charAt(0).toUpperCase()+title.slice(1))+'</div>'+
+    '<button class="hb-ibtn sm nf-close" aria-label="'+HT('close')+'" onclick="hbCloseSheet()">'+HB_IC.close+'</button></div>';
+  if(k>todayKey())return h+'<div class="hb-empty-s" style="padding:24px 0">'+HT('future')+'</div>';
+  if(!s.habits.length)return h+'<div class="hb-empty-s" style="padding:24px 0">'+HT('empty')+'</div>';
+  function row(x){var dn=hbIsDone(x.id,k);return '<div class="hb-row'+(dn?' done':'')+'" role="checkbox" aria-checked="'+dn+'" data-id="'+x.id+'" onclick="hbTapDay(\''+x.id+'\',\''+k+'\',this)">'+hbCheckSvg()+
+      '<div class="hb-txt"><div class="hb-name">'+hbEsc(hbName(x))+'</div><div class="hb-meta"><span class="hb-sched">'+hbEsc(hbSchedLabel(x))+'</span></div></div></div>';}
+  var on=s.habits.filter(function(x){return hbOn(x,k);}),off=s.habits.filter(function(x){return !hbOn(x,k);});
+  h+='<div class="hb-list" id="hbDayOn">';if(!on.length)h+='<div class="hb-none">'+HT('no_plan_day')+'</div>';on.forEach(function(x){h+=row(x);});h+='</div>';
+  if(off.length){h+='<div class="hb-lbl" style="margin-top:18px">'+HT('unsched')+'</div><div class="hb-list hb-dim" id="hbDayOff">';off.forEach(function(x){h+=row(x);});h+='</div>';}
+  return h;
+}
+function hbTapDay(id,k,el){
+  var on=!hbIsDone(id,k);hbSet(id,k,on);
+  if(el){el.classList.toggle('done',on);el.setAttribute('aria-checked',on);el.classList.remove('hb-pop');void el.offsetWidth;if(on)el.classList.add('hb-pop');}
+  if(typeof nfUx==='function')nfUx(on?'check':'uncheck');
+  var t2=document.getElementById('hbToday');if(t2&&!_hbEdit)t2.innerHTML=hbTodayHtml();
+  hbRenderCal();
+}
+function hbOpenAdd(){_hbSheet={type:'form',id:null,days:HB_ALL.slice()};hbSheetOpen(hbFormHtml(null));setTimeout(function(){var i=document.getElementById('hbNameIn');if(i)try{i.focus({preventScroll:true});}catch(e){}},280);}
+function hbOpenEdit(id){var h=hbFind(id);if(!h)return;_hbSheet={type:'form',id:id,days:hbNormDays(hbDays(h))};hbSheetOpen(hbFormHtml(h));}
+function hbPresetOf(d){if(d.length===7)return 'all';if(hbSameSet(d,HB_WD))return 'wd';if(hbSameSet(d,HB_WE))return 'we';return 'cu';}
+function hbFormHtml(h){
+  var dd=_hbSheet.days,pr=hbPresetOf(dd),w=HT('wd');
+  var html='<div class="hb-sh-head"><div class="hb-sh-title" id="hbFormTitle">'+(h?HT('edit_h'):HT('new_h'))+'</div>'+
+    '<button class="hb-ibtn sm nf-close" aria-label="'+HT('close')+'" onclick="hbCloseSheet()">'+HB_IC.close+'</button></div>'+
+    '<label class="hb-lbl" for="hbNameIn">'+HT('name')+'</label>'+
+    '<input id="hbNameIn" class="hb-input" maxlength="40" autocomplete="off" placeholder="'+hbEsc(HT('name_ph'))+'" value="'+(h?hbEsc(hbName(h)):'')+'" oninput="this.classList.remove(\'bad\');var e=document.getElementById(\'hbNameErr\');if(e)e.textContent=\'\'" onkeydown="if(event.key===\'Enter\')hbSaveForm()">'+
+    '<div class="hb-err" id="hbNameErr"></div>'+
+    '<div class="hb-lbl">'+HT('days')+'</div>'+
+    '<div class="hb-presets" id="hbPresets">';
+  [['all','p_all'],['wd','p_wd'],['we','p_we'],['cu','p_cu']].forEach(function(p){html+='<button data-p="'+p[0]+'" class="'+(pr===p[0]?'on':'')+'" onclick="hbPreset(\''+p[0]+'\')">'+HT(p[1])+'</button>';});
+  html+='</div><div class="hb-days" id="hbDaysSeg">';
+  for(var i=0;i<7;i++)html+='<button data-d="'+i+'" class="'+(dd.indexOf(i)>=0?'on':'')+(i>4?' we':'')+'" aria-pressed="'+(dd.indexOf(i)>=0)+'" onclick="hbToggleDay('+i+')">'+w[i]+'</button>';
+  html+='</div><div class="hb-err" id="hbDaysErr"></div>'+
+    '<div class="hb-btns"><button class="hb-sec-btn" onclick="hbCloseSheet()">'+HT('cancel')+'</button><button class="hb-primary" id="hbSaveBtn" onclick="hbSaveForm()">'+HT('save')+'</button></div>';
+  if(h)html+='<div id="hbDelZone"><button class="hb-del" id="hbDelBtn" onclick="hbAskDelete()">'+HT('del')+'</button></div>';
+  return html;
+}
+function hbSyncDays(customClicked){
+  var d=_hbSheet.days,pr=customClicked?'cu':hbPresetOf(d);
+  var b=document.querySelectorAll('#hbDaysSeg button');for(var i=0;i<b.length;i++){var on=d.indexOf(+b[i].dataset.d)>=0;b[i].classList.toggle('on',on);b[i].setAttribute('aria-pressed',on);}
+  var p=document.querySelectorAll('#hbPresets button');for(i=0;i<p.length;i++)p[i].classList.toggle('on',p[i].dataset.p===pr);
+  var e=document.getElementById('hbDaysErr');if(e&&d.length)e.textContent='';
+}
+function hbPreset(p){
+  if(!_hbSheet)return;
+  if(p==='all')_hbSheet.days=HB_ALL.slice();else if(p==='wd')_hbSheet.days=HB_WD.slice();else if(p==='we')_hbSheet.days=HB_WE.slice();
+  hbSyncDays(p==='cu');
+}
+function hbToggleDay(i){
+  if(!_hbSheet)return;var d=_hbSheet.days,j=d.indexOf(i);
+  if(j>=0)d.splice(j,1);else d.push(i);_hbSheet.days=hbNormDays(d);hbSyncDays(false);
+}
+function hbSaveForm(){
+  if(!_hbSheet||_hbSheet.type!=='form')return;
+  var inp=document.getElementById('hbNameIn'),nm=(inp?inp.value:'').replace(/\s+/g,' ').trim().slice(0,40),bad=false;
+  if(!nm){var e=document.getElementById('hbNameErr');if(e)e.textContent=HT('name_err');if(inp)inp.classList.add('bad');bad=true;}
+  if(!_hbSheet.days.length){var e2=document.getElementById('hbDaysErr');if(e2)e2.textContent=HT('days_err');bad=true;}
+  if(bad)return;
+  var s=hbState(),days=hbNormDays(_hbSheet.days);
+  if(_hbSheet.id){var h=hbFind(_hbSheet.id);if(h){if(nm!==hbName(h)){h.name=nm;delete h.key;}h.days=days;delete h.target;}}
+  else s.habits.push({id:hbNewId(),name:nm,days:days,created:todayKey()});
+  hbSave();hbCloseSheet();hbRender();
+}
+function getHabits(){return hbState().habits.map(function(h){return {id:h.id,name:hbName(h),icon:'',color:HB_ACC,builtin:!!h.key,enabled:false,notify:false,time:'',days:hbDays(h).map(function(i){return (i+1)%7;})};});}
+
 /* ═══ v102 — cognition: full translations (de/es/zh were falling back to Russian) + new UI strings ═══ */
 (function(){
 var base={
@@ -10209,6 +10522,116 @@ var CG_T={
   seq_watch:'观察',seq_go:'重复：{n}',seq_ok:'正确',seq_err:'错误',seq_all:'全部通关',seq_res:'完成 {a} / {b} 轮 · 序列长度 {l}'}
 };
 function CT(k,v){var s=(CG_T[curLang]||CG_T.ru)[k];if(s==null)s=CG_T.ru[k];if(s==null)return k;if(v&&typeof s==='string')for(var x in v)s=s.split('{'+x+'}').join(v[x]);return s;}
+
+/* ═══ v103 — cognition texts: "what this develops", level labels, new Focus point ═══ */
+(function(){
+var X={
+ru:{dev_lbl:'Что развивает',
+ dev_visual_search:'Избирательное внимание',dev_mot:'Распределённое внимание',dev_stroop:'Контроль импульсов',dev_sart:'Устойчивое внимание',dev_focus_point:'Слежение взглядом',dev_bimanual:'Координация рук',dev_pred:'Кратковременная память',dev_conf:'Решения без подсказок',dev_err:'Счёт в уме',dev_nb:'Рабочая память',dev_seq:'Память на порядок',
+ dev1_visual_search:'Тренирует избирательное внимание: быстро находить нужное среди похожего.',dev2_visual_search:'Где пригодится: поиск в тексте и таблицах, на полке в магазине, на дороге.',
+ dev1_mot:'Тренирует распределённое внимание: удерживать в фокусе несколько движущихся объектов сразу.',dev2_mot:'Где пригодится: за рулём, в командном спорте, в толпе.',
+ dev1_stroop:'Тренирует торможение: не поддаваться автоматической реакции и игнорировать отвлекающее.',dev2_stroop:'Где пригодится: работа в шуме и с уведомлениями, сдержанные ответы вместо импульсивных.',
+ dev1_sart:'Тренирует устойчивое внимание: замечать моменты, когда действуешь на автопилоте.',dev2_sart:'Где пригодится: монотонная работа, долгое чтение, длинная дорога.',
+ dev1_focus_point:'Тренирует плавное слежение взглядом и удержание внимания на движущейся цели.',dev2_focus_point:'Где пригодится: спорт с мячом, вождение, чтение без потери строки.',
+ dev1_bimanual:'Тренирует координацию рук и разделение внимания между двумя разными движениями.',dev2_bimanual:'Где пригодится: музыкальные инструменты, спорт, рисование, набор текста.',
+ dev1_pred:'Тренирует кратковременную память и умение реалистично оценивать свои силы.',dev2_pred:'Где пригодится: списки покупок, имена, устные инструкции.',
+ dev1_conf:'Тренирует наблюдение за своими решениями в неопределённости: заметить первый импульс и выбрать без колебаний.',dev2_conf:'Это не тест способностей: результат сравнивается со случайным уровнем.',
+ dev1_err:'Тренирует счёт в уме и скорость обработки информации при ограничении времени.',dev2_err:'Где пригодится: цены и сдача, проценты, расчёт времени.',
+ dev1_nb:'Тренирует рабочую память: удерживать и постоянно обновлять информацию.',dev2_nb:'Где пригодится: разговор, планирование, задачи из нескольких шагов.',
+ dev1_seq:'Тренирует память на последовательности: запомнить порядок и воспроизвести его.',dev2_seq:'Где пригодится: номера и коды, маршруты, порядок действий.',
+ dev_in_number:'Выбор без подсказок: заметь первый импульс.',dev_in_dir:'Быстрое решение о направлении без подсказок.',dev_in_spy:'Выбор из многих вариантов: наблюдай, как ты решаешь.',dev_in_color:'Удержи образ цвета и выбери по первому впечатлению.',
+ lv_visual_search:['6×7 · без лимита','9×10 · 10 с','12×13 · 5 с'],lv_mot:['5 шаров · 2 цели','8 шаров · 3 цели','11 шаров · 5 целей'],lv_stroop:['3 цвета · 4 с','4 цвета · 2,5 с','5 цветов · 1,5 с'],
+ lv_sart:['1,4 с на число','1,0 с на число','0,7 с на число'],lv_focus_point:['медленно · яркая','быстрее · тусклее','очень быстро · едва видна'],lv_bimanual:['одна фигура · 10 с','разные · 7 с','сложные · 4,5 с · без контура'],
+ lv_pred:['1,8 с на слово','1,2 с на слово','0,7 с на слово'],lv_conf:['3–4 варианта','4–9 вариантов','6–16 вариантов · 3 с'],lv_err:['+ − · 15 с','+ − × · 10 с','в 2 действия · 6 с'],
+ lv_nb:['1-back · 2,5 с','2-back · 2 с','3-back · 1,5 с'],lv_seq:['с 3 · медленно','с 4 · быстрее','с 6 · быстро'],
+ fp_track:'Следи за зелёной точкой',fp_res:'Средняя точность {p}%',fp_round:'Раунд {a}: {p}%',bim_mem:'Запомни фигуры — контур исчезнет',in_fast:'Отвечай за 3 с'},
+en:{dev_lbl:'What it trains',
+ dev_visual_search:'Selective attention',dev_mot:'Divided attention',dev_stroop:'Impulse control',dev_sart:'Sustained attention',dev_focus_point:'Visual tracking',dev_bimanual:'Hand coordination',dev_pred:'Short-term memory',dev_conf:'Choices without cues',dev_err:'Mental arithmetic',dev_nb:'Working memory',dev_seq:'Memory for order',
+ dev1_visual_search:'Trains selective attention: quickly finding what you need among similar things.',dev2_visual_search:'Useful for: scanning text and tables, store shelves, the road.',
+ dev1_mot:'Trains divided attention: keeping several moving objects in focus at once.',dev2_mot:'Useful for: driving, team sports, crowds.',
+ dev1_stroop:'Trains inhibition: resisting the automatic response and ignoring distractions.',dev2_stroop:'Useful for: working amid noise and notifications, calm replies instead of impulsive ones.',
+ dev1_sart:'Trains sustained attention: noticing moments when you act on autopilot.',dev2_sart:'Useful for: repetitive work, long reading, long drives.',
+ dev1_focus_point:'Trains smooth eye tracking and keeping attention on a moving target.',dev2_focus_point:'Useful for: ball sports, driving, reading without losing the line.',
+ dev1_bimanual:'Trains hand coordination and splitting attention between two different movements.',dev2_bimanual:'Useful for: musical instruments, sports, drawing, typing.',
+ dev1_pred:'Trains short-term memory and judging your own abilities realistically.',dev2_pred:'Useful for: shopping lists, names, spoken instructions.',
+ dev1_conf:'Trains observing your own decisions under uncertainty: noticing the first impulse and choosing without hesitation.',dev2_conf:'Not an ability test: your score is compared with chance level.',
+ dev1_err:'Trains mental arithmetic and processing speed under time pressure.',dev2_err:'Useful for: prices and change, percentages, time estimates.',
+ dev1_nb:'Trains working memory: holding information and constantly updating it.',dev2_nb:'Useful for: conversations, planning, multi-step tasks.',
+ dev1_seq:'Trains memory for sequences: remembering an order and reproducing it.',dev2_seq:'Useful for: numbers and codes, routes, step-by-step procedures.',
+ dev_in_number:'Choosing without cues: notice your first impulse.',dev_in_dir:'A quick decision about direction, without cues.',dev_in_spy:'Choosing among many options: watch how you decide.',dev_in_color:'Hold the colour in mind and go with your first impression.',
+ lv_visual_search:['6×7 · no limit','9×10 · 10 s','12×13 · 5 s'],lv_mot:['5 balls · 2 targets','8 balls · 3 targets','11 balls · 5 targets'],lv_stroop:['3 colours · 4 s','4 colours · 2.5 s','5 colours · 1.5 s'],
+ lv_sart:['1.4 s per digit','1.0 s per digit','0.7 s per digit'],lv_focus_point:['slow · bright','faster · dimmer','very fast · faint'],lv_bimanual:['same shape · 10 s','different · 7 s','complex · 4.5 s · no outline'],
+ lv_pred:['1.8 s per word','1.2 s per word','0.7 s per word'],lv_conf:['3–4 options','4–9 options','6–16 options · 3 s'],lv_err:['+ − · 15 s','+ − × · 10 s','two-step · 6 s'],
+ lv_nb:['1-back · 2.5 s','2-back · 2 s','3-back · 1.5 s'],lv_seq:['from 3 · slow','from 4 · faster','from 6 · fast'],
+ fp_track:'Follow the green dot',fp_res:'Average accuracy {p}%',fp_round:'Round {a}: {p}%',bim_mem:'Memorise the shapes — the outline will disappear',in_fast:'Answer within 3 s'},
+de:{dev_lbl:'Was es trainiert',
+ dev_visual_search:'Selektive Aufmerksamkeit',dev_mot:'Geteilte Aufmerksamkeit',dev_stroop:'Impulskontrolle',dev_sart:'Daueraufmerksamkeit',dev_focus_point:'Blickverfolgung',dev_bimanual:'Handkoordination',dev_pred:'Kurzzeitgedächtnis',dev_conf:'Entscheiden ohne Hinweise',dev_err:'Kopfrechnen',dev_nb:'Arbeitsgedächtnis',dev_seq:'Gedächtnis für Reihenfolgen',
+ dev1_visual_search:'Trainiert selektive Aufmerksamkeit: Gesuchtes schnell unter Ähnlichem finden.',dev2_visual_search:'Hilft bei: Suche in Texten und Tabellen, im Supermarktregal, im Straßenverkehr.',
+ dev1_mot:'Trainiert geteilte Aufmerksamkeit: mehrere bewegte Objekte gleichzeitig im Blick behalten.',dev2_mot:'Hilft bei: Autofahren, Mannschaftssport, Menschenmengen.',
+ dev1_stroop:'Trainiert Hemmung: der automatischen Reaktion nicht nachgeben und Ablenkungen ausblenden.',dev2_stroop:'Hilft bei: Arbeit trotz Lärm und Benachrichtigungen, ruhigen statt impulsiven Antworten.',
+ dev1_sart:'Trainiert Daueraufmerksamkeit: Momente bemerken, in denen du auf Autopilot handelst.',dev2_sart:'Hilft bei: eintöniger Arbeit, langem Lesen, langen Fahrten.',
+ dev1_focus_point:'Trainiert ruhige Blickfolge und Aufmerksamkeit auf einem bewegten Ziel.',dev2_focus_point:'Hilft bei: Ballsport, Autofahren, Lesen ohne die Zeile zu verlieren.',
+ dev1_bimanual:'Trainiert Handkoordination und das Aufteilen der Aufmerksamkeit auf zwei Bewegungen.',dev2_bimanual:'Hilft bei: Musikinstrumenten, Sport, Zeichnen, Tippen.',
+ dev1_pred:'Trainiert das Kurzzeitgedächtnis und eine realistische Selbsteinschätzung.',dev2_pred:'Hilft bei: Einkaufslisten, Namen, mündlichen Anweisungen.',
+ dev1_conf:'Trainiert, eigene Entscheidungen unter Unsicherheit zu beobachten: den ersten Impuls bemerken und ohne Zögern wählen.',dev2_conf:'Kein Fähigkeitstest: das Ergebnis wird mit dem Zufallsniveau verglichen.',
+ dev1_err:'Trainiert Kopfrechnen und Verarbeitungstempo unter Zeitdruck.',dev2_err:'Hilft bei: Preisen und Wechselgeld, Prozenten, Zeitplanung.',
+ dev1_nb:'Trainiert das Arbeitsgedächtnis: Informationen halten und laufend aktualisieren.',dev2_nb:'Hilft bei: Gesprächen, Planung, Aufgaben mit mehreren Schritten.',
+ dev1_seq:'Trainiert das Gedächtnis für Abfolgen: eine Reihenfolge merken und wiedergeben.',dev2_seq:'Hilft bei: Nummern und Codes, Wegen, Arbeitsabläufen.',
+ dev_in_number:'Wählen ohne Hinweise: achte auf den ersten Impuls.',dev_in_dir:'Schnelle Entscheidung über die Richtung, ohne Hinweise.',dev_in_spy:'Wahl aus vielen Optionen: beobachte, wie du entscheidest.',dev_in_color:'Halte die Farbe im Kopf und folge dem ersten Eindruck.',
+ lv_visual_search:['6×7 · ohne Limit','9×10 · 10 s','12×13 · 5 s'],lv_mot:['5 Kugeln · 2 Ziele','8 Kugeln · 3 Ziele','11 Kugeln · 5 Ziele'],lv_stroop:['3 Farben · 4 s','4 Farben · 2,5 s','5 Farben · 1,5 s'],
+ lv_sart:['1,4 s pro Ziffer','1,0 s pro Ziffer','0,7 s pro Ziffer'],lv_focus_point:['langsam · hell','schneller · blasser','sehr schnell · kaum sichtbar'],lv_bimanual:['gleiche Form · 10 s','verschieden · 7 s','komplex · 4,5 s · ohne Kontur'],
+ lv_pred:['1,8 s pro Wort','1,2 s pro Wort','0,7 s pro Wort'],lv_conf:['3–4 Optionen','4–9 Optionen','6–16 Optionen · 3 s'],lv_err:['+ − · 15 s','+ − × · 10 s','zweistufig · 6 s'],
+ lv_nb:['1-back · 2,5 s','2-back · 2 s','3-back · 1,5 s'],lv_seq:['ab 3 · langsam','ab 4 · schneller','ab 6 · schnell'],
+ fp_track:'Folge dem grünen Punkt',fp_res:'Durchschnittliche Genauigkeit {p}%',fp_round:'Runde {a}: {p}%',bim_mem:'Merke dir die Formen — die Kontur verschwindet',in_fast:'Antworte in 3 s'},
+es:{dev_lbl:'Qué entrena',
+ dev_visual_search:'Atención selectiva',dev_mot:'Atención dividida',dev_stroop:'Control de impulsos',dev_sart:'Atención sostenida',dev_focus_point:'Seguimiento visual',dev_bimanual:'Coordinación de manos',dev_pred:'Memoria a corto plazo',dev_conf:'Decidir sin pistas',dev_err:'Cálculo mental',dev_nb:'Memoria de trabajo',dev_seq:'Memoria del orden',
+ dev1_visual_search:'Entrena la atención selectiva: encontrar rápido lo que buscas entre cosas parecidas.',dev2_visual_search:'Útil para: buscar en textos y tablas, en el estante del súper, en la carretera.',
+ dev1_mot:'Entrena la atención dividida: seguir varios objetos en movimiento a la vez.',dev2_mot:'Útil para: conducir, deportes de equipo, multitudes.',
+ dev1_stroop:'Entrena la inhibición: no ceder a la reacción automática e ignorar distracciones.',dev2_stroop:'Útil para: trabajar con ruido y notificaciones, responder con calma en vez de por impulso.',
+ dev1_sart:'Entrena la atención sostenida: notar los momentos en que actúas en piloto automático.',dev2_sart:'Útil para: trabajo repetitivo, lecturas largas, viajes largos.',
+ dev1_focus_point:'Entrena el seguimiento visual suave y la atención en un objetivo en movimiento.',dev2_focus_point:'Útil para: deportes de pelota, conducir, leer sin perder la línea.',
+ dev1_bimanual:'Entrena la coordinación de las manos y repartir la atención entre dos movimientos distintos.',dev2_bimanual:'Útil para: instrumentos musicales, deporte, dibujo, escribir a máquina.',
+ dev1_pred:'Entrena la memoria a corto plazo y valorar tus capacidades de forma realista.',dev2_pred:'Útil para: listas de la compra, nombres, instrucciones orales.',
+ dev1_conf:'Entrena a observar tus decisiones con incertidumbre: notar el primer impulso y elegir sin dudar.',dev2_conf:'No es un test de capacidad: el resultado se compara con el nivel del azar.',
+ dev1_err:'Entrena el cálculo mental y la velocidad de procesamiento con límite de tiempo.',dev2_err:'Útil para: precios y cambio, porcentajes, calcular tiempos.',
+ dev1_nb:'Entrena la memoria de trabajo: mantener información y actualizarla sin parar.',dev2_nb:'Útil para: conversaciones, planificar, tareas de varios pasos.',
+ dev1_seq:'Entrena la memoria de secuencias: recordar un orden y reproducirlo.',dev2_seq:'Útil para: números y códigos, rutas, pasos de un procedimiento.',
+ dev_in_number:'Elegir sin pistas: nota tu primer impulso.',dev_in_dir:'Una decisión rápida sobre la dirección, sin pistas.',dev_in_spy:'Elegir entre muchas opciones: observa cómo decides.',dev_in_color:'Retén el color y elige por la primera impresión.',
+ lv_visual_search:['6×7 · sin límite','9×10 · 10 s','12×13 · 5 s'],lv_mot:['5 bolas · 2 objetivos','8 bolas · 3 objetivos','11 bolas · 5 objetivos'],lv_stroop:['3 colores · 4 s','4 colores · 2,5 s','5 colores · 1,5 s'],
+ lv_sart:['1,4 s por número','1,0 s por número','0,7 s por número'],lv_focus_point:['lento · brillante','más rápido · más tenue','muy rápido · apenas visible'],lv_bimanual:['misma figura · 10 s','distintas · 7 s','complejas · 4,5 s · sin contorno'],
+ lv_pred:['1,8 s por palabra','1,2 s por palabra','0,7 s por palabra'],lv_conf:['3–4 opciones','4–9 opciones','6–16 opciones · 3 s'],lv_err:['+ − · 15 s','+ − × · 10 s','dos pasos · 6 s'],
+ lv_nb:['1-back · 2,5 s','2-back · 2 s','3-back · 1,5 s'],lv_seq:['desde 3 · lento','desde 4 · más rápido','desde 6 · rápido'],
+ fp_track:'Sigue el punto verde',fp_res:'Precisión media {p}%',fp_round:'Ronda {a}: {p}%',bim_mem:'Memoriza las figuras: el contorno desaparecerá',in_fast:'Responde en 3 s'},
+zh:{dev_lbl:'训练什么',
+ dev_visual_search:'选择性注意',dev_mot:'分配性注意',dev_stroop:'冲动控制',dev_sart:'持续注意',dev_focus_point:'视觉追踪',dev_bimanual:'双手协调',dev_pred:'短时记忆',dev_conf:'无提示决策',dev_err:'心算',dev_nb:'工作记忆',dev_seq:'顺序记忆',
+ dev1_visual_search:'训练选择性注意：在相似的事物中快速找到目标。',dev2_visual_search:'用在：查找文字和表格、超市货架、道路上。',
+ dev1_mot:'训练分配性注意：同时关注多个移动的物体。',dev2_mot:'用在：开车、团队运动、人群中。',
+ dev1_stroop:'训练抑制能力：不被自动反应带走，忽略干扰。',dev2_stroop:'用在：在噪音和通知中工作，冷静回应而不冲动。',
+ dev1_sart:'训练持续注意：察觉自己进入“自动驾驶”的时刻。',dev2_sart:'用在：重复性工作、长时间阅读、长途驾驶。',
+ dev1_focus_point:'训练平稳的视觉追踪，把注意力保持在移动目标上。',dev2_focus_point:'用在：球类运动、开车、阅读时不串行。',
+ dev1_bimanual:'训练双手协调，在两个不同动作之间分配注意。',dev2_bimanual:'用在：乐器、运动、绘画、打字。',
+ dev1_pred:'训练短时记忆，以及对自己能力的现实估计。',dev2_pred:'用在：购物清单、记名字、口头指示。',
+ dev1_conf:'训练在不确定中观察自己的决定：留意第一反应，果断选择。',dev2_conf:'这不是能力测试：结果会与随机水平比较。',
+ dev1_err:'训练心算和限时下的信息处理速度。',dev2_err:'用在：价格和找零、百分比、估算时间。',
+ dev1_nb:'训练工作记忆：保持信息并不断更新。',dev2_nb:'用在：对话、计划、多步骤任务。',
+ dev1_seq:'训练顺序记忆：记住顺序并复现。',dev2_seq:'用在：号码和密码、路线、操作步骤。',
+ dev_in_number:'无提示选择：留意第一反应。',dev_in_dir:'无提示地快速判断方向。',dev_in_spy:'在很多选项中选择：观察自己如何决定。',dev_in_color:'记住颜色，凭第一印象选择。',
+ lv_visual_search:['6×7 · 不限时','9×10 · 10 秒','12×13 · 5 秒'],lv_mot:['5 球 · 2 目标','8 球 · 3 目标','11 球 · 5 目标'],lv_stroop:['3 色 · 4 秒','4 色 · 2.5 秒','5 色 · 1.5 秒'],
+ lv_sart:['每个数字 1.4 秒','每个数字 1.0 秒','每个数字 0.7 秒'],lv_focus_point:['慢 · 明亮','更快 · 较暗','很快 · 几乎看不见'],lv_bimanual:['相同图形 · 10 秒','不同图形 · 7 秒','复杂 · 4.5 秒 · 无轮廓'],
+ lv_pred:['每词 1.8 秒','每词 1.2 秒','每词 0.7 秒'],lv_conf:['3–4 个选项','4–9 个选项','6–16 个选项 · 3 秒'],lv_err:['+ − · 15 秒','+ − × · 10 秒','两步运算 · 6 秒'],
+ lv_nb:['1-back · 2.5 秒','2-back · 2 秒','3-back · 1.5 秒'],lv_seq:['从 3 个 · 慢','从 4 个 · 较快','从 6 个 · 快'],
+ fp_track:'追踪绿点',fp_res:'平均准确度 {p}%',fp_round:'第 {a} 轮：{p}%',bim_mem:'记住图形——轮廓将消失',in_fast:'3 秒内作答'}
+};
+Object.keys(X).forEach(function(l){CG_T[l]=CG_T[l]||{};for(var k in X[l])CG_T[l][k]=X[l][k];});
+var FP={
+ ru:{s:'Следи за движущейся точкой',i:'Зелёная точка непрерывно движется среди других. Веди её взглядом, не отрываясь. В конце раунда все точки исчезнут — нажми туда, где была зелёная. 3 раунда.'},
+ en:{s:'Follow the moving dot',i:'The green dot keeps moving among the others. Follow it with your eyes without looking away. At the end of each round all dots vanish — tap where the green one was. 3 rounds.'},
+ de:{s:'Folge dem bewegten Punkt',i:'Der grüne Punkt bewegt sich ständig zwischen den anderen. Folge ihm mit dem Blick. Am Ende jeder Runde verschwinden alle Punkte — tippe dorthin, wo der grüne war. 3 Runden.'},
+ es:{s:'Sigue el punto en movimiento',i:'El punto verde se mueve sin parar entre los demás. Síguelo con la mirada sin apartarla. Al final de cada ronda todos desaparecen: toca donde estaba el verde. 3 rondas.'},
+ zh:{s:'追踪移动的点',i:'绿点在其他点之间不停移动。用目光一直跟住它。每轮结束时所有点会消失——点出绿点最后的位置。共 3 轮。'}
+};
+Object.keys(FP).forEach(function(l){if(COG_T[l]){COG_T[l].focus_point_s=FP[l].s;COG_T[l].focus_point_i=FP[l].i;}});
+})();
 
 /* ═══════════════════════════════════════════════════════
    v102 — COGNITION: line icons, localized UI, game fixes
@@ -10368,7 +10791,8 @@ function cgShuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor
 
 /* ═══ Visual search ═══ */
 function cogVisualSearch(body,p){
-  var diff=_cogDiff(),ROUNDS=5,cols=[8,10,12][diff],rows=[9,11,13][diff],d0=[0.30,0.20,0.12][diff];
+  var diff=_cogDiff(),ROUNDS=[5,6,8][diff],cols=[6,9,12][diff],rows=[7,10,13][diff],d0=[0.30,0.16,0.07][diff],LIM=[0,10000,5000][diff];
+  window._cogParams={game:'visual_search',d:diff,grid:cols+'x'+rows,delta:d0,limitMs:LIM,rounds:ROUNDS};
   var score=0,round=0,times=[];
   function next(){
     if(round>=ROUNDS){var avg=times.length?times.reduce(function(a,b){return a+b;},0)/times.length:0;
@@ -10379,6 +10803,7 @@ function cogVisualSearch(body,p){
     body.innerHTML=h+'</div></div>';
     var ts=Date.now(),done=false;
     window._cogState={game:'visual_search',round:round,target:tp,n:n};
+    if(LIM)_cogTimer(function(){if(done)return;done=true;var c=document.querySelectorAll('#vs-grid button');if(c[tp])c[tp].classList.add('cg-ring');cogPlayFeedback(false);_cogTimer(function(){round++;next();},900);},LIM);
     window.cogVSClick=function(i){
       if(done)return;done=true;
       var c=document.querySelectorAll('#vs-grid button'),ok=i===tp;
@@ -10392,7 +10817,8 @@ function cogVisualSearch(body,p){
 
 /* ═══ MOT ═══ */
 function cogMOT(body,p){
-  var diff=_cogDiff(),nOrbs=[5,7,9][diff],nT=[2,3,4][diff],speed=[1.3,1.8,2.4][diff],TRIALS=3;
+  var diff=_cogDiff(),nOrbs=[5,8,11][diff],nT=[2,3,5][diff],speed=[1.2,2.0,3.0][diff],TRACK=[3000,5000,7000][diff],TRIALS=3;
+  window._cogParams={game:'mot',d:diff,orbs:nOrbs,targets:nT,speed:speed,trackMs:TRACK};
   var orbs=[],phase='show',score=0,trial=0,W=0,H=0,sel=0,raf=null,_sess=_cogSess;
   body.innerHTML='<div class="cg-pad"><div id="mot-cnt">'+cgCnt(1,TRIALS)+'</div><div class="cg-q" id="mot-msg"></div>'+
     '<canvas id="cog-mot-cv" class="cg-canvas"></canvas></div>';
@@ -10400,7 +10826,7 @@ function cogMOT(body,p){
   W=cv.parentElement.clientWidth-32;H=Math.min(Math.round(W*1.05),400);
   cv.width=W*dpr;cv.height=H*dpr;cv.style.height=H+'px';ctx.setTransform(dpr,0,0,dpr,0,0);
   function init(){
-    orbs=[];var R=15,tries=0;
+    orbs=[];var R=nOrbs>9?13:15,tries=0;
     while(orbs.length<nOrbs&&tries<500){tries++;
       var x=R+6+Math.random()*(W-2*R-12),y=R+6+Math.random()*(H-2*R-12),okp=true;
       orbs.forEach(function(o){if(Math.hypot(o.x-x,o.y-y)<2*R+10)okp=false;});
@@ -10435,7 +10861,7 @@ function cogMOT(body,p){
     phase='show';init();document.getElementById('mot-cnt').innerHTML=cgCnt(trial+1,TRIALS);msg.textContent=CT('mot_mem');
     window._cogState={game:'mot',trial:trial,phase:phase,orbs:orbs,W:W,H:H,nT:nT};
     _cogTimer(function(){phase='move';window._cogState.phase=phase;msg.textContent=CT('mot_track');
-      _cogTimer(function(){phase='select';window._cogState.phase=phase;orbs.forEach(function(o){o.vx=o.vy=0;});msg.textContent=CT('mot_pick')+' · '+CT('mot_sel',{a:0,b:nT});},[3500,4500,5000][diff]);
+      _cogTimer(function(){phase='select';window._cogState.phase=phase;orbs.forEach(function(o){o.vx=o.vy=0;});msg.textContent=CT('mot_pick')+' · '+CT('mot_sel',{a:0,b:nT});},TRACK);
     },2200);
   }
   cv.addEventListener('pointerdown',function(e){
@@ -10452,14 +10878,15 @@ function cogMOT(body,p){
 
 /* ═══ Stroop ═══ */
 function cogStroop(body,p){
-  var diff=_cogDiff(),total=[12,20,30][diff],limit=[5000,3500,2500][diff],nC=[4,5,5][diff];
+  var diff=_cogDiff(),total=[12,20,30][diff],limit=[4000,2500,1500][diff],nC=[3,4,5][diff],INC=[0.5,0.75,1][diff];
+  window._cogParams={game:'stroop',d:diff,colors:nC,windowMs:limit,incongruent:INC,trials:total};
   var COL=['#e05555','#4f8ff0','#46b860','#d8c23a','#a066e0'].slice(0,nC),W=CT('st_words'),B=CT('st_btn');
   var cur=0,correct=0,rt=[];
   function tick(){try{var ac=_cogAC();if(!ac)return;var o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.value=600;g.gain.setValueAtTime(0.08,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+0.06);o.start();o.stop(ac.currentTime+0.07);}catch(e){}}
   function next(){
     if(cur>=total){var avg=rt.length?Math.round(rt.reduce(function(a,b){return a+b;},0)/rt.length):0;
       cogShowResult(body,p,correct,total,CT('st_res',{a:correct,b:total,t:avg}));return;}
-    var wi=Math.floor(Math.random()*nC),ci;do{ci=Math.floor(Math.random()*nC);}while(ci===wi);
+    var wi=Math.floor(Math.random()*nC),ci=wi;if(Math.random()<INC){do{ci=Math.floor(Math.random()*nC);}while(ci===wi);}
     var h='<div class="cg-pad cg-center">'+cgCnt(cur+1,total)+'<div class="cg-q">'+CT('st_q')+'</div>'+
       '<div class="cg-tbar"><i id="stroop-bar" style="background:'+p.color+'"></i></div>'+
       '<div id="stroop-word" class="cg-word" style="color:'+COL[ci]+'">'+W[wi]+'</div><div class="cg-colors n'+nC+'" id="stroop-btns">';
@@ -10483,9 +10910,10 @@ function cogStroop(body,p){
 
 /* ═══ SART ═══ */
 function cogSART(body,p){
-  var diff=_cogDiff(),ms=[1500,1150,900][diff],F=3,total=30,cur=0,correct=0,comm=0,omit=0;
-  var items=[];for(var i=0;i<26;i++){var n;do{n=Math.floor(Math.random()*9)+1;}while(n===F);items.push(n);}
-  for(i=0;i<4;i++)items.splice(4+Math.floor(Math.random()*(items.length-4)),0,F);
+  var diff=_cogDiff(),ms=[1400,1000,700][diff],F=3,total=[30,36,45][diff],NG=[4,5,7][diff],cur=0,correct=0,comm=0,omit=0;
+  window._cogParams={game:'sart',d:diff,intervalMs:ms,items:total,nogo:NG};
+  var items=[];for(var i=0;i<total-NG;i++){var n;do{n=Math.floor(Math.random()*9)+1;}while(n===F);items.push(n);}
+  for(i=0;i<NG;i++)items.splice(4+Math.floor(Math.random()*(items.length-4)),0,F);
   function show(){
     if(cur>=total){cogShowResult(body,p,correct,total,CT('sart_res',{a:correct,b:total,n:F,c:comm,d:omit}));return;}
     var n=items[cur],forb=n===F,tapped=false;
@@ -10597,14 +11025,14 @@ function cogPrediction(body,p){
     '<div class="cg-big" id="pred-val" style="color:'+p.color+'">'+count+'</div>'+
     '<input type="range" class="cg-range" min="5" max="15" value="'+count+'" style="accent-color:'+p.color+'" oninput="document.getElementById(\'pred-val\').textContent=this.value;window._predCount=parseInt(this.value)">'+
     '<button class="cg-btn1 wide" style="background:'+p.color+'" onclick="cogPredPhase1()">'+CT('pred_go')+'</button></div>';
-  window._predCount=count;window._cogState={game:'pred',setup:true};
+  window._predCount=count;window._cogState={game:'pred',setup:true};window._cogParams={game:'pred',d:_cogDiff(),wordMs:[1800,1200,700][_cogDiff()]};
   window.cogPredPhase1=function(){
     var n=window._predCount||8,W=cgShuffle(CT('pred_words')).slice(0,n),i=0;window._predWords=W;
     window._cogState={game:'pred',words:W};
     (function show(){
       if(i>=W.length){recall();return;}
       body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(i+1,W.length)+'<div class="cg-card-word" id="pred-word">'+hbEsc(W[i])+'</div></div>';
-      i++;_cogTimer(show,1400);
+      i++;_cogTimer(show,[1800,1200,700][_cogDiff()]);
     })();
   };
   function recall(){
@@ -10672,13 +11100,19 @@ function cogIntuitColor(body,p){
 
 /* ═══ Math (timed) ═══ */
 function cogErrorAware(body,p){
-  var diff=_cogDiff(),rounds=10,cur=0,ok=0,times=[],limit=[12000,10000,8000][diff];
-  function gen(){var a,b,op,t;
-    if(diff===0){a=1+Math.floor(Math.random()*15);b=1+Math.floor(Math.random()*15);op=Math.random()<.5?'+':'−';}
-    else if(diff===1){op=['+','−','×'][Math.floor(Math.random()*3)];if(op==='×'){a=2+Math.floor(Math.random()*11);b=2+Math.floor(Math.random()*11);}else{a=10+Math.floor(Math.random()*70);b=10+Math.floor(Math.random()*70);}}
-    else{op=['+','−','×'][Math.floor(Math.random()*3)];if(op==='×'){a=6+Math.floor(Math.random()*14);b=6+Math.floor(Math.random()*14);}else{a=100+Math.floor(Math.random()*400);b=100+Math.floor(Math.random()*400);}}
-    if(op==='−'&&b>a){t=a;a=b;b=t;}
-    return {a:a,b:b,op:op,ans:op==='+'?a+b:op==='−'?a-b:a*b};}
+  var diff=_cogDiff(),rounds=10,cur=0,ok=0,times=[],limit=[15000,10000,6000][diff];
+  window._cogParams={game:'err',d:diff,limitMs:limit,ops:['+−','+−×','±(3-digit) × two-step'][diff]};
+  function R(a,b){return a+Math.floor(Math.random()*(b-a+1));}
+  function gen(){var a,b,c,op,t,q;
+    if(diff===0){a=R(2,20);b=R(2,20);op=Math.random()<.5?'+':'−';if(op==='−'&&b>a){t=a;a=b;b=t;}return {q:a+' '+op+' '+b,ans:op==='+'?a+b:a-b,op:op,b:b};}
+    if(diff===1){op=['+','−','×'][R(0,2)];if(op==='×'){a=R(3,9);b=R(3,9);}else{a=R(10,99);b=R(10,99);if(op==='−'&&b>a){t=a;a=b;b=t;}}
+      return {q:a+' '+op+' '+b,ans:op==='+'?a+b:op==='−'?a-b:a*b,op:op,b:b};}
+    var k=R(0,3);
+    if(k===0){a=R(120,899);b=R(120,899);op=Math.random()<.5?'+':'−';if(op==='−'&&b>a){t=a;a=b;b=t;}return {q:a+' '+op+' '+b,ans:op==='+'?a+b:a-b,op:op,b:b};}
+    if(k===1){a=R(12,25);b=R(3,9);return {q:a+' × '+b,ans:a*b,op:'×',b:b};}
+    a=R(4,12);b=R(3,9);c=R(5,40);if(k===2)return {q:a+' × '+b+' + '+c,ans:a*b+c,op:'×',b:b};
+    if(c>a*b)c=R(1,a*b-1);return {q:a+' × '+b+' − '+c,ans:a*b-c,op:'×',b:b};
+  }
   function next(){
     if(cur>=rounds){var avg=times.length?times.reduce(function(a,b){return a+b;},0)/times.length:0;cogShowResult(body,p,ok,rounds,CT('math_res',{a:ok,b:rounds,t:cgFmtS(avg)}));return;}
     var pr=gen(),opts=[pr.ans],g=0;
@@ -10686,7 +11120,7 @@ function cogErrorAware(body,p){
     for(var k=1;opts.length<4;k++)if(opts.indexOf(pr.ans+k)<0)opts.push(pr.ans+k);
     opts=cgShuffle(opts);var win=opts.indexOf(pr.ans),done=false,ts=Date.now();
     body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(cur+1,rounds)+'<div class="cg-tbar"><i id="math-bar" style="background:'+p.color+'"></i></div>'+
-      '<div class="cg-expr" id="math-q">'+pr.a+' '+pr.op+' '+pr.b+'</div><div class="cg-ig g2 wide" id="math-grid">'+
+      '<div class="cg-expr'+(pr.q.length>12?' sm':'')+'" id="math-q">'+pr.q+'</div><div class="cg-ig g2 wide" id="math-grid">'+
       opts.map(function(o,i){return '<button data-v="'+o+'" onclick="cogMathPick('+i+')">'+o+'</button>';}).join('')+'</div><div class="cg-fb" id="math-fb"></div></div>';
     var bar=document.getElementById('math-bar');bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+limit+'ms linear';bar.style.width='0%';
     window._cogState={game:'err',cur:cur,ans:pr.ans,win:win};
@@ -10700,7 +11134,8 @@ function cogErrorAware(body,p){
 
 /* ═══ N-back ═══ */
 function cogNBack(body,p){
-  var diff=_cogDiff(),N=[1,2,3][diff],S=['A','B','C','D','E','F','G','H'],total=20,step=[2200,2000,1800][diff];
+  var diff=_cogDiff(),N=[1,2,3][diff],S=['A','B','C','D','E','F','G','H'],total=[20,24,30][diff],step=[2500,2000,1500][diff];
+  window._cogParams={game:'nb',d:diff,N:N,stepMs:step,items:total};
   var hist=[],cur=0,hits=0,miss=0,fa=0,cr=0;
   function next(){
     if(cur>=total){cogShowResult(body,p,hits+cr,Math.max(1,total-N),CT('nb_res',{h:hits,f:fa,m:miss}));return;}
@@ -10720,7 +11155,8 @@ function cogNBack(body,p){
 
 /* ═══ Sequence ═══ */
 function cogSequence(body,p){
-  var diff=_cogDiff(),C=['#60A5FA','#f06040','#38c068','#A78BFA'],start=[3,4,5][diff],sp=[650,520,400][diff],maxR=[10,12,14][diff];
+  var diff=_cogDiff(),C=['#60A5FA','#f06040','#38c068','#A78BFA'],start=[3,4,6][diff],sp=[750,500,300][diff],maxR=[10,12,14][diff];
+  window._cogParams={game:'seq',d:diff,start:start,flashMs:sp,maxRounds:maxR};
   var seq=[],pl=[],round=1,lock=true;
   function grid(m){
     body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(round,maxR)+'<div class="cg-q" id="seq-msg">'+m+'</div><div class="cg-seq">'+
@@ -10745,6 +11181,286 @@ function cogSequence(body,p){
       if(round>=maxR){_cogTimer(function(){cogShowResult(body,p,maxR,maxR,CT('seq_all')+' · '+CT('seq_res',{a:maxR,b:maxR,l:seq.length}));},500);return;}
       if(m)m.textContent=CT('seq_ok');round++;_cogTimer(next,700);}
   };
+  next();
+}
+
+/* ═══════════════════════════════════════════════════════
+   v103 — COGNITION: "what this develops", clearer levels,
+   new Focus point (continuous motion), robust Two hands input,
+   Intuition difficulty, N-back blank gap between letters.
+═══════════════════════════════════════════════════════ */
+function renderCognitive(){
+  var el=document.getElementById('cog-body');if(!el)return;
+  var scores=getCogScores(),html='';
+  COG_CATS.forEach(function(cat){
+    html+='<div class="cog-cat-hdr" style="color:'+cat.color+'">'+cogT('cat_'+cat.id)+'</div><div class="cog-grid">';
+    COG_PRACTICES.filter(function(p){return p.cat===cat.id;}).forEach(function(p){
+      var sc=scores[p.id];
+      html+='<div class="cog-card" onclick="openCogDetail(\''+p.id+'\')" style="border-color:'+hexA(p.color,.18)+'">'+
+        '<div class="cog-card-top"><div class="cog-card-ico" style="background:'+hexA(p.color,.12)+';color:'+p.color+'">'+p.icon+'</div>'+
+        (sc&&sc.best>=0?'<span class="cog-card-score">'+sc.best+'%</span>':'')+'</div>'+
+        '<div class="cog-card-name">'+cogT(p.id+'_t')+'</div>'+
+        '<div class="cog-card-dev" style="color:'+p.color+'">'+CT('dev_'+p.id)+'</div>'+
+        '<div class="cog-card-sub">'+cogT(p.id+'_s')+'</div>'+
+        '<div class="cog-card-btn" style="background:'+hexA(p.color,.12)+';color:'+p.color+'">'+cogT('cog_start')+'</div></div>';
+    });
+    html+='</div>';
+  });
+  el.innerHTML=html;
+  var c=document.getElementById('cognitive');
+  if(c){var a=c.querySelector('.lt'),b=c.querySelector('.ls');if(a)a.textContent=cogT('cog_title');if(b)b.textContent=cogT('cog_sub');}
+}
+function cgDiffHtml(color,id){
+  var l=[CT('easy'),CT('mid'),CT('hard')],inf=CT('lv_'+id),h='<div class="cg-lbl">'+CT('diff')+'</div><div class="cg-seg cg-lv" id="diff-btns">';
+  for(var i=0;i<3;i++)h+='<button data-d="'+i+'" class="'+(i===_cogDifficulty?'on':'')+'" style="--c:'+color+'" onclick="cogSetDiff(this,'+i+')"><span class="cg-lv-n">'+l[i]+'</span>'+(Array.isArray(inf)?'<span class="cg-lv-i">'+inf[i]+'</span>':'')+'</button>';
+  return h+'</div>';
+}
+function cgDevHtml(id,color){
+  return '<div class="cg-dev" id="cg-dev"><div class="cg-lbl" style="margin:0 0 8px">'+CT('dev_lbl')+'</div>'+
+    '<div class="cg-dev-1"><i style="background:'+color+'"></i>'+CT('dev1_'+id)+'</div><div class="cg-dev-2">'+CT('dev2_'+id)+'</div></div>';
+}
+function openCogDetail(id,keep){
+  if(!keep)_cogDifficulty=1;
+  var p=cgP(id),el=document.getElementById('cog-detail');if(!p||!el)return;
+  var h=cgBar(cogT(id+'_t'))+'<div class="cog-det-body cg-det">'+cgHero(p,id)+cgDevHtml(id,p.color);
+  if(id==='conf'){
+    h+='<div class="cg-info">'+cogT('conf_i')+'</div>'+cgDiffHtml(p.color,id);
+    [['number','number'],['direction','envelope'],['spy','agent'],['color','palette']].forEach(function(g){
+      var k=g[0]==='direction'?'dir':g[0];
+      h+='<div class="cg-sub" onclick="launchIntuitionGame(\''+g[0]+'\')" data-gid="'+g[0]+'">'+
+        '<div class="cg-sub-ico" style="color:'+p.color+';background:'+hexA(p.color,.1)+'">'+CG_IC[g[1]]+'</div>'+
+        '<div class="cg-sub-txt"><div class="cg-sub-t">'+CT('in_'+k)+'</div><div class="cg-sub-d">'+CT('in_'+k+'_d')+'</div><div class="cg-sub-dev">'+CT('dev_in_'+k)+'</div></div>'+CG_IC.chev+'</div>';
+    });
+  } else {
+    h+='<div class="cg-info"><div class="cg-lbl" style="margin:0 0 8px">'+cogT('cog_instructions')+'</div>'+cogT(id+'_i')+'</div>';
+    h+=cgDiffHtml(p.color,id);
+    h+=cgStartBtn(p,'launchCogEx(\''+id+'\')');
+  }
+  el.innerHTML=h+'</div>';el.classList.add('on');
+}
+function launchFocusPoint(){launchCogEx('focus_point');}
+function launchCogEx(id){
+  _stopAllCogTimers();window._intuitGid=null;_cogExId=id;window._cogParams=null;
+  var p=cgP(id),body=cgExOpen(p,cogT(id+'_t'));if(!body||!p)return;
+  var fns={visual_search:cogVisualSearch,mot:cogMOT,stroop:cogStroop,sart:cogSART,pred:cogPrediction,err:cogErrorAware,nb:cogNBack,seq:cogSequence,bimanual:cogBimanual,focus_point:cogFocusPoint};
+  if(id==='conf'){closeCogEx();openCogDetail('conf');return;}
+  if(fns[id])fns[id](body,p);
+}
+
+/* ═══ Focus point v103: the dot never stops; levels = speed + visibility ═══ */
+function cogFocusPoint(body,p){
+  var diff=_cogDiff(),ROUNDS=3,
+      SPD=[70,165,290][diff],RAD=[8,5.5,3.5][diff],ALPHA=[1,0.68,0.4][diff],ND=[5,9,14][diff],DUR=[8000,10000,12000][diff],WANDER=[0,0.9,2.6][diff];
+  window._cogParams={game:'focus_point',d:diff,speedPxS:SPD,radius:RAD,alpha:ALPHA,distractors:ND,roundMs:DUR,wander:WANDER,stops:false};
+  var W=0,H=0,pts=[],tgt=null,phase='track',round=0,scores=[],_sess=_cogSess,last=0,t0=0,raf=null;
+  body.innerHTML='<div class="cg-pad">'+'<div id="fp-cnt">'+cgCnt(1,ROUNDS)+'</div><div class="cg-q" id="focus-msg">'+CT('fp_track')+'</div><canvas id="focus-cv" class="cg-canvas dark"></canvas><div class="cg-tbar"><i id="focus-bar" style="background:'+p.color+';width:100%"></i></div></div>';
+  var cv=document.getElementById('focus-cv'),ctx=cv.getContext('2d'),dpr=Math.min(2,window.devicePixelRatio||1),msg=document.getElementById('focus-msg'),bar=document.getElementById('focus-bar');
+  W=cv.parentElement.clientWidth-32;H=Math.min(Math.round(W*1.2),460);cv.width=W*dpr;cv.height=H*dpr;cv.style.height=H+'px';ctx.setTransform(dpr,0,0,dpr,0,0);
+  function mk(isT){var a=Math.random()*Math.PI*2;return {x:RAD+20+Math.random()*(W-2*RAD-40),y:RAD+20+Math.random()*(H-2*RAD-40),a:a,w:0,t:isT};}
+  function start(){
+    pts=[];tgt=mk(true);pts.push(tgt);for(var i=0;i<ND;i++)pts.push(mk(false));
+    phase='track';t0=performance.now();last=t0;msg.textContent=CT('fp_track');
+    document.getElementById('fp-cnt').innerHTML=cgCnt(round+1,ROUNDS);
+    bar.style.transition='none';bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+DUR+'ms linear';bar.style.width='0%';
+    window._cogState={game:'focus_point',phase:'track',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};
+    raf=requestAnimationFrame(loop);
+  }
+  function step(q,dt){
+    if(WANDER){q.w+=(Math.random()-0.5)*WANDER*dt*6;q.w=Math.max(-WANDER,Math.min(WANDER,q.w));q.a+=q.w*dt;}
+    q.x+=Math.cos(q.a)*SPD*dt;q.y+=Math.sin(q.a)*SPD*dt;
+    if(q.x<RAD){q.x=RAD;q.a=Math.PI-q.a;}if(q.x>W-RAD){q.x=W-RAD;q.a=Math.PI-q.a;}
+    if(q.y<RAD){q.y=RAD;q.a=-q.a;}if(q.y>H-RAD){q.y=H-RAD;q.a=-q.a;}
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(function(q){ctx.beginPath();ctx.arc(q.x,q.y,RAD,0,Math.PI*2);
+      if(q.t){ctx.shadowBlur=diff===0?14:diff===1?8:0;ctx.shadowColor='#38c068';ctx.fillStyle='rgba(56,192,104,'+ALPHA+')';}
+      else{ctx.shadowBlur=0;ctx.fillStyle='rgba(255,255,255,'+(ALPHA*0.75).toFixed(2)+')';}
+      ctx.fill();ctx.shadowBlur=0;});
+  }
+  function loop(now){
+    if(_sess!==_cogSess||phase!=='track')return;
+    var dt=Math.min(0.05,Math.max(0,(now-last)/1000));last=now;
+    pts.forEach(function(q){step(q,dt);});draw();
+    if(window._cogState&&window._cogState.target){window._cogState.target.x=tgt.x;window._cogState.target.y=tgt.y;}
+    if(now-t0>=DUR){phase='check';ctx.clearRect(0,0,W,H);msg.textContent=CT('fp_where');window._cogState={game:'focus_point',phase:'check',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};return;}
+    raf=requestAnimationFrame(loop);
+  }
+  cv.addEventListener('pointerdown',function(e){
+    if(phase!=='check')return;phase='done';
+    var r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*(W/r.width),y=(e.clientY-r.top)*(H/r.height),d=Math.hypot(x-tgt.x,y-tgt.y),tol=RAD+18;
+    var pct=d<=tol?100:Math.max(0,Math.round(100-(d-tol)*1.2));scores.push(pct);
+    ctx.beginPath();ctx.arc(tgt.x,tgt.y,RAD+8,0,Math.PI*2);ctx.strokeStyle='#38c068';ctx.lineWidth=2;ctx.stroke();
+    ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle=pct>=50?'#38c068':'#f06040';ctx.fill();
+    msg.textContent=CT('fp_round',{a:round+1,p:pct});
+    _cogTimer(function(){round++;
+      if(round>=ROUNDS){var avg=Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);cogShowResult(body,p,avg,100,CT('fp_res',{p:avg}));}
+      else start();},1100);
+  });
+  start();
+}
+
+/* ═══ Two hands v103: Pointer Events per finger, no gaps, bigger canvases ═══ */
+function cgScoreDraw(strokes,ideal,r){
+  var pts=[];strokes.forEach(function(s){pts=pts.concat(s);});
+  if(pts.length<4)return 0;
+  var stp=Math.max(1,Math.floor(pts.length/240)),sm=[];for(var i=0;i<pts.length;i+=stp)sm.push(pts[i]);
+  var dev=0;sm.forEach(function(q){var b=1e9;ideal.forEach(function(s){var d=(q.x-s.x)*(q.x-s.x)+(q.y-s.y)*(q.y-s.y);if(d<b)b=d;});dev+=Math.sqrt(b);});
+  var md=dev/sm.length,devS=Math.max(0,100-(md/r)*100),cov=0;
+  ideal.forEach(function(s){var b=1e9;sm.forEach(function(q){var d=Math.hypot(q.x-s.x,q.y-s.y);if(d<b)b=d;});if(b<r*0.45)cov++;});
+  return Math.round(0.55*devS+0.45*cov/ideal.length*100);
+}
+function cogBimanual(body,p){
+  _bimSetupDocGuard();
+  var diff=_cogDiff(),limit=[10000,7000,4500][diff],ROUNDS=4,cur=0,scores=[];
+  var POOL=[['circle','square'],['circle','square','triangle','diamond'],['star','triangle','diamond']][diff];
+  window._cogParams={game:'bimanual',d:diff,limitMs:limit,shapes:POOL.join(','),sameShape:diff===0,guideHidden:diff===2,guideAlpha:[0.45,0.3,0][diff]};
+  function pair(){var a=cgShuffle(POOL);return diff===0?[a[0],a[0]]:[a[0],a[1]];}
+  function round(){
+    if(cur>=ROUNDS){var avg=Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);cogShowResult(body,p,avg,100,CT('bim_res',{p:avg}));return;}
+    var pr=pair();
+    body.innerHTML='<div class="cg-pad cg-bim-pad">'+cgCnt(cur+1,ROUNDS)+'<div class="cg-q" id="bim-msg">'+(diff===2?CT('bim_mem'):CT('bim_ready'))+'</div>'+
+      '<div class="cg-bim" id="bim-wrap"><div><canvas id="bim-l"></canvas><div class="cg-cap">'+CT('bim_l')+'</div></div><div><canvas id="bim-r"></canvas><div class="cg-cap">'+CT('bim_r')+'</div></div></div>'+
+      '<div class="cg-tbar"><i id="bim-bar" style="background:'+p.color+';width:100%"></i></div><div id="bim-timer" class="cg-timer sm"></div></div>';
+    var res={},started=false,doneR=false,t0=0,active=0,showGuide=true;
+    var wrap=document.getElementById('bim-wrap'),cw=Math.floor((wrap.clientWidth-10)/2),avail=Math.max(220,window.innerHeight-330),ch=Math.floor(Math.min(cw*1.45,avail));
+    function setup(id,shape){
+      var cv=document.getElementById(id),dpr=Math.min(3,window.devicePixelRatio||1);
+      cv.style.width=cw+'px';cv.style.height=ch+'px';cv.width=Math.round(cw*dpr);cv.height=Math.round(ch*dpr);
+      var ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);
+      var cx=cw/2,cy=ch/2,r=Math.min(cw,ch)*0.40,ideal=buildShapePoints(shape,cx,cy,r,96),strokes=[],curS=null,pid=null,cancelled=false,len=0,per=0;
+      for(var i=1;i<ideal.length;i++)per+=Math.hypot(ideal[i].x-ideal[i-1].x,ideal[i].y-ideal[i-1].y);
+      function draw(){ctx.clearRect(0,0,cw,ch);
+        var ga=window._cogParams.guideAlpha;if(showGuide&&!(diff===2&&started)){ctx.beginPath();ideal.forEach(function(q,i){i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y);});ctx.closePath();
+          ctx.strokeStyle='rgba(255,255,255,'+(ga||0.45)+')';ctx.lineWidth=3;ctx.setLineDash([6,6]);ctx.stroke();ctx.setLineDash([]);}
+        ctx.strokeStyle=p.color;ctx.lineWidth=4;ctx.lineCap='round';ctx.lineJoin='round';
+        strokes.forEach(function(s){if(s.length<2){if(s.length){ctx.beginPath();ctx.arc(s[0].x,s[0].y,2,0,7);ctx.fillStyle=p.color;ctx.fill();}return;}ctx.beginPath();s.forEach(function(q,i){i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y);});ctx.stroke();});}
+      draw();
+      function pos(e){var rc=cv.getBoundingClientRect();return {x:(e.clientX-rc.left)*(cw/rc.width),y:(e.clientY-rc.top)*(ch/rc.height)};}
+      function add(q){if(!curS)return;var l=curS[curS.length-1];if(l){var d=Math.hypot(q.x-l.x,q.y-l.y);if(d<0.5)return;var n=Math.floor(d/3);for(var k=1;k<n;k++)curS.push({x:l.x+(q.x-l.x)*k/n,y:l.y+(q.y-l.y)*k/n});len+=d;}curS.push(q);}
+      cv.addEventListener('pointerdown',function(e){
+        e.preventDefault();if(!started||doneR)return;
+        if(pid!==null&&!cancelled)return;
+        pid=e.pointerId;cancelled=false;try{cv.setPointerCapture(e.pointerId);}catch(x){}
+        curS=[];strokes.push(curS);add(pos(e));active++;window._bimDrawingActive=true;draw();
+      },{passive:false});
+      cv.addEventListener('pointermove',function(e){
+        if(e.pointerId!==pid||!curS)return;e.preventDefault();
+        var evs=(e.getCoalescedEvents&&e.getCoalescedEvents())||[];if(!evs.length)evs=[e];
+        evs.forEach(function(ev){add(pos(ev));});draw();
+      },{passive:false});
+      function end(e){if(e.pointerId!==pid)return;pid=null;curS=null;active=Math.max(0,active-1);if(!active)window._bimDrawingActive=false;draw();check();}
+      cv.addEventListener('pointerup',end);
+      /* gesture-caused cancel: keep the stroke, allow the finger to resume */
+      cv.addEventListener('pointercancel',function(e){if(e.pointerId===pid)cancelled=true;});
+      ['touchstart','touchmove'].forEach(function(t){cv.addEventListener(t,function(e){e.preventDefault();},{passive:false});});
+      res[id]={score:function(){return cgScoreDraw(strokes,ideal,r);},done:function(){return len>=per*0.7&&pid===null;},
+        ideal:ideal,cw:cw,ch:ch,strokes:function(){return strokes;},redraw:draw,gapMax:function(){var g=0;strokes.forEach(function(s){for(var i=1;i<s.length;i++){var d=Math.hypot(s[i].x-s[i-1].x,s[i].y-s[i-1].y);if(d>g)g=d;}});return g;}};
+    }
+    setup('bim-l',pr[0]);setup('bim-r',pr[1]);
+    window._cogState={game:'bimanual',round:cur,shapes:pr,canv:res,started:false};
+    function check(){if(started&&!doneR&&res['bim-l'].done()&&res['bim-r'].done())_cogTimer(finish,250);}
+    var bar=document.getElementById('bim-bar'),tm=document.getElementById('bim-timer');
+    _cogTimer(function(){
+      started=true;t0=Date.now();window._cogState.started=true;document.getElementById('bim-msg').textContent=cogT('bimanual_s');
+      res['bim-l'].redraw();res['bim-r'].redraw();
+      bar.style.transition='width '+limit+'ms linear';bar.style.width='0%';
+      (function tk(){if(doneR)return;var left=limit-(Date.now()-t0);if(tm)tm.textContent=cgFmtS(Math.max(0,left))+' '+CT('s');if(left<=0){finish();return;}_cogTimer(tk,100);})();
+    },diff===2?2000:1200);
+    function finish(){
+      if(doneR)return;doneR=true;window._bimDrawingActive=false;
+      var sL=res['bim-l'].score(),sR=res['bim-r'].score(),rs=Math.round((sL+sR)/2);scores.push(rs);
+      window._bimLastGap=Math.max(res['bim-l'].gapMax(),res['bim-r'].gapMax());
+      body.innerHTML='<div class="cg-pad cg-center"><div class="cg-q">'+CT('bim_round',{n:cur+1,p:rs})+'</div>'+
+        '<div class="cg-split"><div><div class="cg-cap">'+CT('bim_l')+'</div><div class="cg-num" style="color:'+p.color+'">'+sL+'%</div></div>'+
+        '<div><div class="cg-cap">'+CT('bim_r')+'</div><div class="cg-num" style="color:'+p.color+'">'+sR+'%</div></div></div></div>';
+      window._cogState={game:'bimanual',round:cur,between:true,last:[sL,sR],gap:window._bimLastGap};
+      _cogTimer(function(){cur++;round();},1400);
+    }
+  }
+  round();
+}
+
+/* ═══ Intuition v103: option count by level, Hard = 3 s to answer ═══ */
+function cgIntuit(body,p,cfg){
+  var diff=_cogDiff(),rounds=5,cur=0,ok=0,LIM=diff===2?3000:0;
+  function next(){
+    if(cur>=rounds){cogShowResult(body,p,ok,rounds,CT('in_res',{a:ok,b:rounds,c:Math.round(100/cfg.n)}));return;}
+    var st=cfg.make(),picked=false;
+    body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(cur+1,rounds)+'<div class="cg-q">'+st.q+'</div>'+(LIM?'<div class="cg-tbar"><i id="in-bar" style="background:'+p.color+';width:100%"></i></div>':'')+(st.top||'')+
+      '<div class="cg-ig '+cfg.cls+'" id="'+cfg.grid+'">'+st.cells.map(function(c,i){return '<button data-i="'+i+'" onclick="cgIntPick('+i+')">'+c+'</button>';}).join('')+'</div><div class="cg-fb" id="in-fb"></div></div>';
+    window._cogState={game:'conf',sub:cfg.grid,win:st.win,cur:cur,n:cfg.n};
+    function res(i){
+      if(picked)return;picked=true;var cs=document.querySelectorAll('#'+cfg.grid+' button'),good=i===st.win;if(good)ok++;
+      st.reveal(cs,i);if(i>=0)cgFlash(cs[i],good);else cogPlayFeedback(false);if(!good&&cs[st.win])cs[st.win].classList.add('cg-ring');
+      var fb=document.getElementById('in-fb');if(fb){fb.textContent=good?CT('ok'):(i<0?CT('timeout'):CT('miss'));fb.className='cg-fb '+(good?'good':'bad');}
+      _cogTimer(function(){cur++;next();},1100);
+    }
+    window.cgIntPick=res;
+    if(LIM){var b=document.getElementById('in-bar');void b.offsetWidth;b.style.transition='width '+LIM+'ms linear';b.style.width='0%';_cogTimer(function(){res(-1);},LIM);}
+  }
+  next();
+}
+function cgIntParams(gid){
+  var d=_cogDiff(),n={number:[3,4,6],direction:[2,4,8],spy:[4,9,16],color:[3,4,6]}[gid][d];
+  window._cogParams={game:'conf',sub:gid,d:d,options:n,answerMs:d===2?3000:0};return n;
+}
+function cogIntuitNumber(body,p){
+  var N=cgIntParams('number');
+  cgIntuit(body,p,{n:N,grid:'num-grid',cls:N>4?'g3':N===3?'g3':'g2',make:function(){
+    var tg=1+Math.floor(Math.random()*9),win=Math.floor(Math.random()*N),pool=cgShuffle([1,2,3,4,5,6,7,8,9].filter(function(x){return x!==tg;})),nums=[],j=0,cells=[];
+    for(var k=0;k<N;k++){nums.push(k===win?tg:pool[j++]);cells.push('?');}
+    return {q:CT('in_number_q',{n:tg}),top:'<div class="cg-big" style="color:'+p.color+'">'+tg+'</div>',cells:cells,win:win,
+      reveal:function(cs){for(var k=0;k<cs.length;k++)cs[k].textContent=nums[k];}};
+  }});
+}
+function cgArrowA(deg,sz){return '<svg viewBox="0 0 24 24" width="'+(sz||26)+'" height="'+(sz||26)+'" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate('+deg+' 12 12)"><path d="M5 12h14M13 6l6 6-6 6"/></g></svg>';}
+function cogIntuitDirection(body,p){
+  var N=cgIntParams('direction'),A=N===2?[180,0]:N===4?[180,270,90,0]:[180,225,270,315,0,45,90,135];
+  cgIntuit(body,p,{n:N,grid:'dir-grid',cls:'g4',make:function(){
+    var win=Math.floor(Math.random()*N);
+    return {q:CT('in_dir_q'),top:'<div class="cg-env" id="env-icon" style="color:'+p.color+'">'+CG_IC.envelope+'</div>',cells:A.map(function(a){return cgArrowA(a);}),win:win,
+      reveal:function(){var e=document.getElementById('env-icon');if(e){e.innerHTML=cgArrowA(A[win],56);e.setAttribute('data-dir',A[win]);}}};
+  }});
+}
+function cogIntuitSpy(body,p){
+  var N=cgIntParams('spy');
+  cgIntuit(body,p,{n:N,grid:'spy-grid',cls:N===16?'g4':N===4?'g2':'g3',make:function(){
+    var win=Math.floor(Math.random()*N),cells=[];for(var i=0;i<N;i++)cells.push(CG_IC.agent);
+    return {q:CT('in_spy_q').replace(/девяти|nine|neun|nueve|九/,String(N)),cells:cells,win:win,reveal:function(cs){if(cs[win])cs[win].innerHTML=CG_IC.spy;}};
+  }});
+}
+function cogIntuitColor(body,p){
+  var N=cgIntParams('color'),C=['#e05555','#4f8ff0','#46b860','#d8c23a','#a066e0','#e08a3c'].slice(0,N);
+  cgIntuit(body,p,{n:N,grid:'col-grid',cls:N===4?'g2':'g3',make:function(){
+    var order=cgShuffle(C),win=Math.floor(Math.random()*N),cells=[];for(var i=0;i<N;i++)cells.push('');
+    return {q:CT('in_color_q'),top:'<div class="cg-swatch" style="background:'+order[win]+'"></div>',cells:cells,win:win,
+      reveal:function(cs){for(var k=0;k<cs.length;k++){cs[k].style.background=order[k];}}};
+  }});
+}
+
+/* ═══ N-back v103: blank gap between letters, fade-in, progress dots ═══ */
+function cogNBack(body,p){
+  var diff=_cogDiff(),N=[1,2,3][diff],S=['A','B','C','D','E','F','G','H'],total=[20,24,30][diff],step=[2500,2000,1500][diff],GAP=[500,400,300][diff];
+  window._cogParams={game:'nb',d:diff,N:N,stepMs:step,gapMs:GAP,items:total};
+  var hist=[],cur=0,hits=0,miss=0,fa=0,cr=0,ans=false,match=false;
+  function dots(){var h='';for(var i=0;i<total;i++)h+='<i class="'+(i<cur?'p':i===cur?'c':'')+'"></i>';return h;}
+  body.innerHTML='<div class="cg-pad cg-center"><div id="nb-cnt"></div><div class="cg-q">'+(N===1?CT('nb_q1'):CT('nb_qn',{n:N}))+'</div>'+
+    '<div class="cg-pdots" id="nb-dots" style="--c:'+p.color+'"></div>'+
+    '<div class="cg-letter" id="nb-sym" style="color:'+p.color+';border-color:'+hexA(p.color,.5)+'"></div>'+
+    '<button class="cg-match" id="nb-match" style="--c:'+p.color+'" onclick="cogNBMatch()">'+CT('nb_match')+'</button><div class="cg-hint">'+CT('nb_hint')+'</div></div>';
+  var sym=document.getElementById('nb-sym');
+  window.cogNBMatch=function(){if(ans||cur>=total)return;ans=true;if(match)hits++;else fa++;cgFlash(document.getElementById('nb-match'),match);};
+  function next(){
+    if(cur>=total){cogShowResult(body,p,hits+cr,Math.max(1,total-N),CT('nb_res',{h:hits,f:fa,m:miss}));return;}
+    var s=S[Math.floor(Math.random()*S.length)];if(cur>=N&&Math.random()<0.33)s=hist[cur-N];
+    hist.push(s);match=cur>=N&&s===hist[cur-N];ans=false;
+    document.getElementById('nb-cnt').innerHTML=cgCnt(cur+1,total);document.getElementById('nb-dots').innerHTML=dots();
+    sym.textContent=s;sym.classList.remove('blank','cg-in');void sym.offsetWidth;sym.classList.add('cg-in');
+    window._cogState={game:'nb',cur:cur,N:N,match:match,sym:s,phase:'show'};
+    _cogTimer(function(){sym.textContent='';sym.classList.remove('cg-in');sym.classList.add('blank');if(window._cogState)window._cogState.phase='gap';},step-GAP);
+    _cogTimer(function(){if(!ans){if(match)miss++;else if(cur>=N)cr++;}cur++;next();},step);
+  }
   next();
 }
 
@@ -10825,9 +11541,158 @@ function nfWakeInit(){
 
 /* keep the screen on for practices and meditations (gesture-initiated) */
 (function(){var _l=launch;launch=function(){nfWakeRequest(true);return _l.apply(this,arguments);};var _m=launchMedSession;launchMedSession=function(){nfWakeRequest(true);return _m.apply(this,arguments);};})();
+/* ═══════════════════════════════════════════════════════
+   v103 — UI sounds + haptics, Settings sheet, shared back button
+═══════════════════════════════════════════════════════ */
+var NF_BACK_SVG='<svg class="nf-chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg>';
+var NF_CLOSE_SVG='<svg class="nf-chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>';
+var UX_T={
+ ru:{set_title:'Настройки',lang:'Язык',ux_sec:'Интерфейс',prac_sec:'Практики',ux_sound:'Звуки интерфейса',ux_sound_d:'Тихие звуки нажатий и ответов. Во время практик молчат.',ux_haptic:'Вибрация',ux_haptic_d:'Короткий отклик при нажатиях',back:'Назад',close:'Закрыть',open_set:'Настройки'},
+ en:{set_title:'Settings',lang:'Language',ux_sec:'Interface',prac_sec:'Practices',ux_sound:'Interface sounds',ux_sound_d:'Quiet taps and answer sounds. Silent during practices.',ux_haptic:'Haptics',ux_haptic_d:'A short tactile response on taps',back:'Back',close:'Close',open_set:'Settings'},
+ de:{set_title:'Einstellungen',lang:'Sprache',ux_sec:'Oberfläche',prac_sec:'Übungen',ux_sound:'Oberflächentöne',ux_sound_d:'Leise Töne für Tippen und Antworten. Während Übungen stumm.',ux_haptic:'Haptik',ux_haptic_d:'Kurzes Vibrationsfeedback beim Tippen',back:'Zurück',close:'Schließen',open_set:'Einstellungen'},
+ es:{set_title:'Ajustes',lang:'Idioma',ux_sec:'Interfaz',prac_sec:'Prácticas',ux_sound:'Sonidos de la interfaz',ux_sound_d:'Sonidos suaves al tocar y responder. En silencio durante las prácticas.',ux_haptic:'Vibración',ux_haptic_d:'Una respuesta táctil breve al tocar',back:'Atrás',close:'Cerrar',open_set:'Ajustes'},
+ zh:{set_title:'设置',lang:'语言',ux_sec:'界面',prac_sec:'练习',ux_sound:'界面音效',ux_sound_d:'轻柔的点击和答题音效，练习时静音。',ux_haptic:'触感反馈',ux_haptic_d:'点击时短暂震动',back:'返回',close:'关闭',open_set:'设置'}
+};
+function UT(k){var s=(UX_T[curLang]||UX_T.ru)[k];return s==null?UX_T.ru[k]:s;}
+
+/* ── settings state ── */
+function nfSoundOn(){return dbGet('ux_sound')!==false;}
+function nfHapticOn(){return dbGet('ux_haptic')!==false;}
+/* an audio session (breathing / meditation) is running → UI sounds stay silent */
+function nfBusy(){try{if(typeof pRun!=='undefined'&&pRun)return true;if(typeof medSession!=='undefined'&&medSession&&medSession.active)return true;}catch(e){}return false;}
+
+/* ── synthesized sounds (shared AudioContext of the app) ── */
+var NF_UX_STAT={played:0,skipped:0,last:null,hapt:0};
+function _nfTone(ac,t,f1,f2,dur,type,g,out){
+  var o=ac.createOscillator(),gn=ac.createGain();o.type=type||'sine';
+  o.frequency.setValueAtTime(f1,t);if(f2&&f2!==f1)o.frequency.exponentialRampToValueAtTime(f2,t+dur*0.9);
+  gn.gain.setValueAtTime(0.0001,t);gn.gain.linearRampToValueAtTime(g,t+Math.min(0.012,dur*0.2));gn.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  o.connect(gn);gn.connect(out);o.start(t);o.stop(t+dur+0.03);
+}
+var NF_SND={
+  tap:function(ac,t,o){_nfTone(ac,t,2400,1800,0.035,'sine',0.018,o);},
+  check:function(ac,t,o){_nfTone(ac,t,660,660,0.16,'sine',0.045,o);_nfTone(ac,t+0.075,990,990,0.24,'sine',0.04,o);},
+  uncheck:function(ac,t,o){_nfTone(ac,t,620,620,0.12,'sine',0.032,o);_nfTone(ac,t+0.06,440,440,0.18,'sine',0.028,o);},
+  correct:function(ac,t,o){_nfTone(ac,t,1046,1046,0.5,'sine',0.04,o);_nfTone(ac,t+0.05,1568,1568,0.42,'sine',0.022,o);_nfTone(ac,t,2093,2093,0.25,'triangle',0.008,o);},
+  wrong:function(ac,t,o){_nfTone(ac,t,170,110,0.22,'sine',0.07,o);},
+  count:function(ac,t,o){_nfTone(ac,t,880,880,0.09,'sine',0.03,o);},
+  start:function(ac,t,o){_nfTone(ac,t,523,523,0.12,'sine',0.03,o);_nfTone(ac,t+0.12,659,659,0.12,'sine',0.03,o);_nfTone(ac,t+0.24,784,784,0.3,'sine',0.035,o);},
+  result:function(ac,t,o){[523,659,784,1046].forEach(function(f,i){_nfTone(ac,t+i*0.09,f,f,0.45,'sine',0.03,o);});},
+  session_start:function(ac,t,o){_nfTone(ac,t,392,392,0.9,'sine',0.035,o);_nfTone(ac,t+0.02,587,587,0.9,'sine',0.02,o);},
+  session_end:function(ac,t,o){_nfTone(ac,t,587,587,0.9,'sine',0.03,o);_nfTone(ac,t+0.18,392,392,1.1,'sine',0.03,o);}
+};
+function nfSound(name,force){
+  if(!nfSoundOn()||!NF_SND[name])return false;
+  if(nfBusy()&&!force){NF_UX_STAT.skipped++;return false;}
+  try{var ac=_cogAC();if(!ac)return false;var o=ac.createGain();o.gain.value=0.9;o.connect(ac.destination);
+    NF_SND[name](ac,ac.currentTime+0.005,o);NF_UX_STAT.played++;NF_UX_STAT.last=name;return true;}catch(e){return false;}
+}
+/* ── haptics: Vibration API; iOS 17.4+ fallback = hidden <input type=checkbox switch> toggled via its label ── */
+var NF_HAPT={tap:10,check:14,uncheck:10,correct:[12,60,12],wrong:40,start:12,result:[10,50,10],count:8};
+var _nfSw=null;
+function nfIOSHaptic(){
+  try{
+    if(!_nfSw){var l=document.createElement('label');l.setAttribute('aria-hidden','true');l.style.cssText='position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;';
+      var i=document.createElement('input');i.type='checkbox';i.setAttribute('switch','');i.tabIndex=-1;l.appendChild(i);document.body.appendChild(l);_nfSw=l;}
+    _nfSw.click();return true;
+  }catch(e){return false;}
+}
+function nfHaptic(name){
+  if(!nfHapticOn())return false;var p=NF_HAPT[name];if(p==null)return false;
+  try{if(navigator.vibrate&&navigator.vibrate(p)){NF_UX_STAT.hapt++;return true;}}catch(e){}
+  if(/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)){if(nfIOSHaptic()){NF_UX_STAT.hapt++;return true;}}
+  return false;
+}
+function nfUx(name,force){nfSound(name,force);nfHaptic(name);}
+/* games: answer feedback */
+function cogPlayFeedback(ok){nfUx(ok?'correct':'wrong');}
+
+/* ── global subtle tap feedback ── */
+var NF_TAP_SEL='button,.ni,.back,.med-ov-close,.cog-card,.med-card,.cg-sub,.icon-btn,.nf-sw-row,.nf-lang-row,.tc-card,.lib-card,.sm-card';
+function nfTapInit(){
+  document.addEventListener('pointerdown',function(e){
+    var el=e.target&&e.target.closest?e.target.closest(NF_TAP_SEL):null;if(!el)return;
+    if(el.closest('#cog-ex-body')||el.closest('.hb-row')||el.disabled)return;   /* game answers + habit checks have their own sounds */
+    nfUx('tap');
+  },{capture:true,passive:true});
+}
+
+/* ── hooks: results, game start, sessions ── */
+(function(){
+  var _r=cogShowResult;cogShowResult=function(){var x=_r.apply(this,arguments);nfUx('result');return x;};
+  var _l=launchCogEx;launchCogEx=function(id){var x=_l.apply(this,arguments);if(id!=='conf')nfUx('start');return x;};
+  var _i=launchIntuitionGame;launchIntuitionGame=function(){var x=_i.apply(this,arguments);nfUx('start');return x;};
+  var _p=launch;launch=function(){nfSound('session_start',true);nfHaptic('start');return _p.apply(this,arguments);};
+  var _m=launchMedSession;launchMedSession=function(){nfSound('session_start',true);nfHaptic('start');return _m.apply(this,arguments);};
+  var _e=endP;endP=function(){var x=_e.apply(this,arguments);nfSound('session_end',true);nfHaptic('result');return x;};
+  var _c=completeMedSession;completeMedSession=function(){var x=_c.apply(this,arguments);nfSound('session_end',true);nfHaptic('result');return x;};
+})();
+
+/* ── Settings sheet ── */
+function nfSwHtml(id,on,label,desc,fn){
+  return '<div class="nf-sw-row" id="'+id+'Row" role="switch" aria-checked="'+on+'" tabindex="0" onclick="'+fn+'"><div class="nf-sw-txt"><div class="nf-sw-t">'+label+'</div>'+(desc?'<div class="nf-sw-d">'+desc+'</div>':'')+'</div>'+
+    '<div class="nf-sw'+(on?' on':'')+'" id="'+id+'"><i></i></div></div>';
+}
+function nfRenderSettings(){
+  var b=document.getElementById('nfSetBody');if(!b)return;
+  var L=[['ru','Русский'],['en','English'],['de','Deutsch'],['es','Español'],['zh','中文']],h='';
+  h+='<div class="nf-sec">'+UT('lang')+'</div><div class="nf-group">';
+  L.forEach(function(x){h+='<div class="nf-lang-row'+(curLang===x[0]?' on':'')+'" data-l="'+x[0]+'" onclick="nfSetLang(\''+x[0]+'\')"><span>'+x[1]+'</span>'+(curLang===x[0]?NF_IC.check:'')+'</div>';});
+  h+='</div><div class="nf-sec">'+UT('ux_sec')+'</div><div class="nf-group">'+
+    nfSwHtml('nfSwSound',nfSoundOn(),UT('ux_sound'),UT('ux_sound_d'),'nfToggleUx(\'ux_sound\')')+
+    nfSwHtml('nfSwHaptic',nfHapticOn(),UT('ux_haptic'),UT('ux_haptic_d'),'nfToggleUx(\'ux_haptic\')')+'</div>'+
+    '<div class="nf-sec">'+UT('prac_sec')+'</div><div class="nf-group">'+
+    nfSwHtml('nfSwPrac',dbGet('sound_on')!==false,t('sound'),'','nfTogglePrac(\'sound_on\')')+
+    nfSwHtml('nfSwVoice',dbGet('voice_on')!==false,t('voice_cues'),'','nfTogglePrac(\'voice_on\')')+
+    nfSwHtml('nfSwAmb',dbGet('ambient_on')!==false,t('ambient_music'),'','nfTogglePrac(\'ambient_on\')')+'</div>';
+  b.innerHTML=h;
+  var tt=document.getElementById('nfSetTitle');if(tt)tt.textContent=UT('set_title');
+  var bk=document.getElementById('nfSetBack');if(bk)bk.setAttribute('aria-label',UT('back'));
+}
+function nfOpenSettings(){var ov=document.getElementById('nfSet');if(!ov)return;var lm=document.getElementById('langMenu');if(lm)lm.remove();nfRenderSettings();ov.classList.add('on');}
+function nfCloseSettings(){var ov=document.getElementById('nfSet');if(ov)ov.classList.remove('on');}
+function nfToggleUx(k){var on=dbGet(k)===false;dbSet(k,on);nfRenderSettings();if(on)nfUx(k==='ux_sound'?'check':'tap');}
+function nfTogglePrac(k){
+  var on=dbGet(k)===false;dbSet(k,on);
+  if(k==='ambient_on'){if(on&&typeof pRun!=='undefined'&&pRun)startAmbient();else if(!on)stopAmbient();}
+  nfRenderSettings();
+}
+function nfSetLang(l){setLang(l);try{if(document.querySelector('.scr.active#reminders'))hbRender();if(document.querySelector('.scr.active#cognitive'))renderCognitive();}catch(e){}nfRenderSettings();}
+
+/* ── shared back button: every .back gets the same SVG chevron (glyphs like ← failed on iOS) ── */
+function nfFixBacks(root){
+  var r=root||document;
+  r.querySelectorAll('.back').forEach(function(b){
+    var txt=(b.textContent||'').trim(),isClose=b.classList.contains('nf-close')||/^[×xX]$/.test(txt)||(b.getAttribute('onclick')||'').indexOf('stopPractice')>=0;
+    if(!b.querySelector('svg.nf-chev')){b.innerHTML=isClose?NF_CLOSE_SVG:NF_BACK_SVG;}
+    b.classList.add('nf-back');if(!b.getAttribute('role'))b.setAttribute('role','button');
+    if(!b.getAttribute('aria-label'))b.setAttribute('aria-label',isClose?UT('close'):UT('back'));
+  });
+  r.querySelectorAll('.med-ov-close').forEach(function(b){if(!b.querySelector('svg.nf-chev'))b.innerHTML=NF_CLOSE_SVG;b.classList.add('nf-back');});
+}
+var _nfFixQ=false;
+function nfBackInit(){
+  nfFixBacks();
+  try{new MutationObserver(function(){if(_nfFixQ)return;_nfFixQ=true;(window.requestAnimationFrame||setTimeout)(function(){_nfFixQ=false;nfFixBacks();});}).observe(document.body,{childList:true,subtree:true});}catch(e){}
+}
+function nfUxInit(){nfTapInit();nfBackInit();}
+/* bottom nav: long labels (de/es) shrink a little instead of being cut */
+function nfFitNav(){
+  document.querySelectorAll('.bnav .nl').forEach(function(l){
+    l.style.fontSize='';var fs=11;
+    while(l.scrollWidth>l.clientWidth+0.5&&fs>9){fs-=0.5;l.style.fontSize=fs+'px';}
+  });
+}
+(function(){
+  var _s=setLang;setLang=function(){var x=_s.apply(this,arguments);try{nfFitNav();}catch(e){}return x;};
+  var _n=navTo;navTo=function(){var x=_n.apply(this,arguments);try{nfFitNav();}catch(e){}return x;};
+  var _u=nfUxInit;nfUxInit=function(){_u();nfFitNav();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(nfFitNav);window.addEventListener('resize',nfFitNav);};
+})();
+
 /* v100: run init only after every function/var in this script is defined */
 init();
 nfWakeInit();
+nfUxInit();
 </script>
 
 </body>
