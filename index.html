@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v104">
+<meta name="nf-version" content="v104.1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -1937,8 +1937,8 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 .whm-orb{position:relative;width:min(64vw,280px);height:min(64vw,280px);margin:28px 0;display:flex;align-items:center;justify-content:center;}
 .whm-orb i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 45%,rgba(232,96,64,.55),rgba(232,96,64,.16) 62%,rgba(232,96,64,0) 72%);border:1.5px solid rgba(232,96,64,.55);transform:scale(.55);transition-property:transform;transition-timing-function:cubic-bezier(.45,.05,.4,1);}
 .whm-orb.hold i{border-color:rgba(255,255,255,.35);background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.12),rgba(255,255,255,.03) 62%,rgba(255,255,255,0) 72%);}
-.whm-num{position:relative;font:300 64px/1 'DM Mono',monospace;color:#fff;font-variant-numeric:tabular-nums;}
-.whm-num.sm{font-size:52px;}
+.whm-num{position:relative;font:300 min(60px,15vw)/1 'DM Sans',sans-serif;color:#fff;font-variant-numeric:tabular-nums;font-feature-settings:'tnum' 1;letter-spacing:-.01em;white-space:nowrap;}
+.whm-num.sm{font-size:min(48px,12vw);}
 .whm-sub{font:400 15px 'DM Sans',sans-serif;color:rgba(255,255,255,.72);text-align:center;min-height:22px;}
 .whm-hint{position:absolute;left:24px;right:24px;bottom:calc(env(safe-area-inset-bottom,0px) + 34px);display:flex;flex-direction:column;align-items:center;gap:10px;font:500 15px 'DM Sans',sans-serif;color:rgba(255,255,255,.88);text-align:center;transition:opacity .3s;}
 .whm-hint svg{opacity:.85;}
@@ -12377,7 +12377,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v104</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v104.1</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -12501,7 +12501,7 @@ function whmBreaths(){
 }
 function whmToHold(){
   var st=WHM.st;if(st.phase==='hold')return;WHM.tok++;st.phase='hold';st.holdT0=performance.now();_whmLast=null;
-  whmOrb(0.5,1200,true);whmSet(WT('hold'),'0:00',WT('hold_s'),WT('hint_hold'));
+  whmOrb(0.92,1200,true);whmSet(WT('hold'),'0:00',WT('hold_s'),WT('hint_hold'));
   whmUx('session_end','start');
   var tk=WHM.tok;
   (function tick(){if(tk!==WHM.tok||st.phase!=='hold')return;var s=(performance.now()-st.holdT0)/1000;var n=whmEl('whmNum');if(n)n.textContent=whmFmt(Math.floor(s));st.holdSec=s;
