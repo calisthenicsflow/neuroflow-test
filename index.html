@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v104.3">
+<meta name="nf-version" content="v104.4">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -1984,6 +1984,12 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 #practice .pbtn{width:48px;height:48px;}
 #practice .p-play{flex-basis:48px;height:48px;}
 }
+/* ═══ v104.4 — Wim Hof pace selector (3 segmented buttons in the custom block) ═══ */
+.nf-pace{padding-top:12px;}
+.nf-seg{display:flex;gap:6px;margin-top:10px;padding:4px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);}
+.nf-seg-b{flex:1;min-width:0;min-height:44px;padding:8px 4px;border:0;border-radius:10px;background:transparent;color:rgba(255,255,255,.66);font:500 15px 'DM Sans',sans-serif;cursor:pointer;transition:background .16s,color .16s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-webkit-tap-highlight-color:transparent;}
+.nf-seg-b.sel{background:rgba(232,96,64,.22);color:#fff;box-shadow:inset 0 0 0 1px rgba(232,96,64,.55);}
+.nf-seg-b:active{transform:scale(.97);}
 
 </style>
 </head>
@@ -12406,7 +12412,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v104.3</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v104.4</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -12636,6 +12642,114 @@ function nfFitPhase(){var e=document.getElementById('pLbl');if(!e)return;e.style
 }
 (function(){var e=document.getElementById('pLbl');if(e&&window.MutationObserver){new MutationObserver(function(){nfFitPhase();}).observe(e,{childList:true,characterData:true,subtree:true});}
   window.addEventListener('resize',nfFitPhase);})();
+
+/* ═══ v104.4 — Wim Hof breathing pace: Fast / Medium / Slow (as in the official WHM app).
+   Medium = the pace of v104.3 (1.5 s in + 1.5 s out). Fast is ~23% quicker, Slow ~27% slower.
+   Each difficulty preset has a default pace (Novice=Slow, Medium=Medium, Pro=Fast); the pace can be
+   changed in the custom block (3 segmented buttons), is saved in whm_cfg.pace and used by the session.
+   Sounds: the ORIGINAL v103 inhale/exhale breath recordings, time-stretched with pitch preserved
+   (ffmpeg atempo / WSOLA) to exactly the inhale and exhale length of every pace and stored as WAV
+   (sample-exact length, no MP3/AAC padding; plays the same on iOS Safari). Each one starts with its
+   phase, ends exactly at the phase boundary with a 15 ms ramp, so consecutive breaths never overlap. ═══ */
+var WHM_PACE={fast:{i:1.15,e:1.15},medium:{i:1.5,e:1.5},slow:{i:1.9,e:1.9}};
+var WHM_PACES=['fast','medium','slow'];
+var WHM_LV_PACE=['slow','medium','fast'];
+var WHM_PT={
+ ru:{p:'Темп дыхания',fast:'Быстро',medium:'Средне',slow:'Медленно'},
+ en:{p:'Breathing pace',fast:'Fast',medium:'Medium',slow:'Slow'},
+ de:{p:'Atemtempo',fast:'Schnell',medium:'Mittel',slow:'Langsam'},
+ es:{p:'Ritmo',fast:'Rápido',medium:'Medio',slow:'Lento'},
+ zh:{p:'呼吸节奏',fast:'快',medium:'中',slow:'慢'}};
+function whmPT(k){return (WHM_PT[curLang]||WHM_PT.ru)[k];}
+function whmPaceTc(p){var b=ALL_TC.wim_hof,q=WHM_PACE[p]||WHM_PACE.medium,pat=b.pattern.slice();pat[0]=q.i;pat[2]=q.e;
+  return Object.assign({},b,{pattern:pat,whmPace:WHM_PACE[p]?p:'medium'});}
+whmCfg=function(){var c=dbGet('whm_cfg'),L=ALL_TC.wim_hof.levels;
+  if(c&&c.rounds>=1&&c.rounds<=10&&c.cycles>=10&&c.cycles<=60){
+    if(!WHM_PACE[c.pace])c.pace=(c.lv>=0&&WHM_LV_PACE[c.lv])||'medium';return c;}
+  var i=typeof selLv==='number'&&L[selLv]?selLv:1;return {lv:i,rounds:L[i].rounds,cycles:L[i].cycles,pace:WHM_LV_PACE[i]};};
+(function(){
+  var _html=whmSlHTML;whmSlHTML=function(px){var h=_html(px),c=whmCfg();
+    var seg='<div class="nf-sl-r nf-pace"><div class="nf-sl-top"><span class="nf-sl-l">'+whmPT('p')+'</span></div>'+
+      '<div class="nf-seg" id="'+px+'P" role="radiogroup" aria-label="'+whmPT('p')+'">'+WHM_PACES.map(function(p){
+        return '<button type="button" class="nf-seg-b'+(c.pace===p?' sel':'')+'" data-p="'+p+'" role="radio" aria-checked="'+(c.pace===p)+'" onclick="whmPaceSet(\''+px+'\',\''+p+'\')">'+whmPT(p)+'</button>';}).join('')+'</div></div>';
+    return h.replace('<div class="nf-sl-d"',seg+'<div class="nf-sl-d"');};
+  whmSlPaint=function(px,c){var r=document.getElementById(px+'R'),b=document.getElementById(px+'B');if(!r||!b)return;
+    if(!WHM_PACE[c.pace])c.pace='medium';
+    r.value=c.rounds;b.value=c.cycles;
+    r.style.setProperty('--slp',((c.rounds-1)/9*100)+'%');b.style.setProperty('--slp',((c.cycles-10)/50*100)+'%');
+    document.getElementById(px+'RV').textContent=c.rounds;document.getElementById(px+'BV').textContent=c.cycles;
+    document.querySelectorAll('#'+px+'P .nf-seg-b').forEach(function(e){var on=e.getAttribute('data-p')===c.pace;e.classList.toggle('sel',on);e.setAttribute('aria-checked',on);});
+    var tc=whmPaceTc(c.pace),d=document.getElementById(px+'D');
+    if(d){try{d.textContent=c.rounds+' × '+c.cycles+' · '+whmPT(c.pace)+' · ~'+calcDurFull(tc.pattern,c.cycles,c.rounds,tc)+'m';}catch(e){d.textContent=c.rounds+' × '+c.cycles;}}
+    var L=ALL_TC.wim_hof.levels,m=-1;L.forEach(function(l,i){if(l.rounds===c.rounds&&l.cycles===c.cycles&&WHM_LV_PACE[i]===c.pace)m=i;});
+    var sel=px==='whmD'?'.d-rb':'.lv';document.querySelectorAll(sel).forEach(function(e,j){e.classList.toggle('sel',j===m);});
+    if(m>=0)selLv=m;
+    whmPaceCards(px);};
+  whmSlInput=function(px){var o=whmCfg(),c={lv:-1,rounds:parseInt(document.getElementById(px+'R').value,10),cycles:parseInt(document.getElementById(px+'B').value,10),pace:o.pace};
+    dbSet('whm_cfg',c);whmSlPaint(px,c);};
+  whmPreset=function(px,i){var l=ALL_TC.wim_hof.levels[i];if(!l)return;var c={lv:i,rounds:l.rounds,cycles:l.cycles,pace:WHM_LV_PACE[i]};dbSet('whm_cfg',c);whmSlPaint(px,c);};
+  whmStart=function(){if(!audioCtx){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}else if(audioCtx.state==='suspended'){audioCtx.resume();}
+    var c=whmCfg();launch(whmPaceTc(c.pace),c.cycles,c.rounds);};
+  /* any other entry point into Wim Hof (home, recommendations, repeat) also runs at the saved pace */
+  var _lp=launch;launch=function(tc,cy,rn){
+    if(tc&&tc.id==='wim_hof'&&!tc.whmPace)tc=whmPaceTc(whmCfg().pace);
+    if(tc&&tc.id==='wim_hof'){whmSndFetch();whmSndDecode(getAC());}
+    return _lp.call(this,tc,cy,rn);};
+  var _o=openTD;openTD=function(id){var r=_o.apply(this,arguments);if(id==='wim_hof'){whmSndFetch();whmPaceCards('whmD');}return r;};
+  var _os=openSetup;openSetup=function(){var r=_os.apply(this,arguments);if(curTc&&curTc.id==='wim_hof'){whmSndFetch();whmPaceCards('whmS');}return r;};
+})();
+/* preset cards: duration at the preset's own pace + the pace name */
+function whmPaceCards(px){var L=ALL_TC.wim_hof.levels;
+  var cards=document.querySelectorAll(px==='whmD'?'#dBody .d-rb':'#lvRow .lv');
+  cards.forEach(function(e,i){var l=L[i];if(!l)return;var tc=whmPaceTc(WHM_LV_PACE[i]),d=e.querySelector(px==='whmD'?'.d-rb-dur':'.lv-t');
+    if(d)d.textContent='~'+calcDurFull(tc.pattern,l.cycles,l.rounds,tc)+'m · '+whmPT(WHM_LV_PACE[i]).toLowerCase();});
+  var c=whmCfg(),q=WHM_PACE[c.pace]||WHM_PACE.medium,pn=document.querySelectorAll('#dBody .dpat .dpn');
+  if(px==='whmD'&&pn.length>=2){pn[0].textContent=q.i;pn[1].textContent=q.e;}
+  var sp=document.getElementById('sPat');if(px==='whmS'&&sp){try{sp.textContent=psStr(whmPaceTc(c.pace).pattern);}catch(e){}}}
+function whmPaceSet(px,p){if(!WHM_PACE[p])return;var c=Object.assign({},whmCfg(),{pace:p,lv:-1});dbSet('whm_cfg',c);whmSlPaint(px,c);
+  try{if(typeof nfHaptic==='function')nfHaptic('tap');}catch(_){}}
+
+/* ── pace-matched breath sounds ── */
+var _WHM_PACE_SND={"fast_in": "assets/whm_fast_in.wav", "fast_out": "assets/whm_fast_out.wav", "medium_in": "assets/whm_medium_in.wav", "medium_out": "assets/whm_medium_out.wav", "slow_in": "assets/whm_slow_in.wav", "slow_out": "assets/whm_slow_out.wav"};
+var WHM_SND={raw:{},bufs:{},fetching:false,decoding:false,failed:false,ac:null,wait:[]};
+function whmSndFetch(){if(WHM_SND.fetching)return;WHM_SND.fetching=true;
+  Object.keys(_WHM_PACE_SND).forEach(function(k){var v=_WHM_PACE_SND[k];
+    if(/^assets\//.test(v)){fetch(v).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){WHM_SND.raw[k]=ab;whmSndDecode(WHM_SND.ac);})
+      .catch(function(){WHM_SND.raw[k]=null;whmSndCheck();});}
+    else{try{var bin=atob(v),u=new Uint8Array(bin.length);for(var j=0;j<bin.length;j++)u[j]=bin.charCodeAt(j);WHM_SND.raw[k]=u.buffer;}catch(e){WHM_SND.raw[k]=null;}}
+  });whmSndDecode(WHM_SND.ac);}
+function whmSndCheck(){var ks=Object.keys(_WHM_PACE_SND),miss=ks.filter(function(k){return WHM_SND.raw[k]===null&&!WHM_SND.bufs[k];});
+  if(miss.length)WHM_SND.failed=true;}
+function whmSndDecode(ac){if(!ac)return;WHM_SND.ac=ac;
+  Object.keys(WHM_SND.raw).forEach(function(k){var ab=WHM_SND.raw[k];if(!ab||WHM_SND.bufs[k])return;WHM_SND.raw[k]=0;
+    try{ac.decodeAudioData(ab,function(b){WHM_SND.bufs[k]=b;var w=WHM_SND.wait;WHM_SND.wait=[];w.forEach(function(f){if(!f())WHM_SND.wait.push(f);});},function(){WHM_SND.raw[k]=null;whmSndCheck();});}catch(e){WHM_SND.raw[k]=null;whmSndCheck();}});}
+function whmBreathKey(kind,d){if(!curTc||curTc.id!=='wim_hof')return null;
+  for(var p in WHM_PACE){if(Math.abs((kind==='in'?WHM_PACE[p].i:WHM_PACE[p].e)-d)<1e-6)return p+'_'+kind;}return null;}
+/* plays the stretched breath for the CURRENT phase: starts at the phase start (offset if the buffer
+   arrived late) and is cut exactly at the phase end. Returns false -> caller plays the v103 sound. */
+function whmPlayBreath(kind,d){var key=whmBreathKey(kind,d);if(!key||WHM_SND.failed)return false;
+  if(dbGet('sound_on')===false)return true;
+  vib(kind==='in'?VIB.inhale:VIB.exhale);
+  var ac=getAC();if(!ac)return true;
+  stopBreathSound();whmSndFetch();whmSndDecode(ac);
+  var ph=pPh,st=pPhSt;
+  function go(){var buf=WHM_SND.bufs[key];if(!buf)return false;
+    if(!pRun||pPh!==ph||pPhSt!==st)return true;
+    var el=Math.max(0,(performance.now()-st)/1000),len=Math.min(d,buf.duration),off=el,dur=len-el;  /* the sound timeline stays locked to the phase timeline */
+    if(dur<0.06)return true;
+    try{var src=ac.createBufferSource();src.buffer=buf;var g=ac.createGain(),t0=ac.currentTime,t1=t0+dur;
+      g.gain.setValueAtTime(0.40,t0);g.gain.setValueAtTime(0.40,Math.max(t0,t1-0.015));g.gain.linearRampToValueAtTime(0,t1);
+      src.connect(g);g.connect(ac.destination);src.start(t0,off,dur+0.002);src.stop(t1+0.004);
+      _breathSrc=src;_breathGain=g;
+      if(window.__nfSndLog)window.__nfSndLog.push({k:key,ph:ph,phSt:st,callAt:performance.now(),ac0:t0,off:off,dur:dur});
+    }catch(e){}
+    return true;}
+  if(!go()){WHM_SND.wait.push(go);}
+  return true;}
+(function(){
+  var _pi=playInhaleSound;playInhaleSound=function(d){if(whmPlayBreath('in',d))return;return _pi.apply(this,arguments);};
+  var _pe=playExhaleSound;playExhaleSound=function(d){if(whmPlayBreath('out',d))return;return _pe.apply(this,arguments);};
+})();
 
 /* v100: run init only after every function/var in this script is defined */
 init();
