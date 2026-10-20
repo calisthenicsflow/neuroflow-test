@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v104.4">
+<meta name="nf-version" content="v105">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -2654,12 +2654,12 @@ var LANGS={
     back:'Volver',pause:'Pausa',resume:'Continuar',
     morning:'Buenos días',afternoon:'Buenas tardes',evening:'Buenas noches',
     greeting:'¿Cómo quieres sentirte?',
-    beginner:'Principiante',intermediate:'Medio',advanced:'Pro',
+    beginner:'Principiante',intermediate:'Medio',advanced:'Avanzado',
     cal_months:['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
     cal_days:['Lu','Ma','Mi','Ju','Vi','Sá','Do'],
     recent:'Sesiones recientes',no_sessions:'Sin sesiones aún',week_activity:'Actividad semanal',
     states_cloud:'Estados',today:'Hoy',yesterday:'Ayer',
-    name_ph:'Tu nombre',email_ph:'Email',
+    name_ph:'Tu nombre',email_ph:'Correo electrónico',
     words:['Calma','Claridad','Fuerza','Ligereza','Enfoque','Silencio','Energía','Paz'],
     start_first:'Empieza tu primera sesión',days_in_row:'días seguidos',
     edit:'Editar',saved_ok:'Guardado',
@@ -2670,7 +2670,7 @@ var LANGS={
     hold_after_exhale:'Retención tras exhalar',hold_after_inhale:'Retención tras inhalar',
   hold_after_inhale:'Retener tras inhalar',nav_rem:'Hábitos',rem_recovery:'Prepárate para la próxima ronda',med_start_session:'Comenzar meditación',vup_title:'Instrucciones de voz',vup_upload:'Subir',vup_delete:'Eliminar',vup_play:'Escuchar',vup_loading:'...',vup_saving:'Guardando...',vup_uploaded:'subidos',vup_clear_all:'Borrar todo',vup_hint:'MP3 o WAV. Guardados en el navegador.',med_lv_easy:'Suave',med_desc_effect:'Efecto',med_done_title:'Sesión completada',med_done_duration:'Duración',med_done_mood:'¿Cómo te sientes?',med_done_note:'Notas',med_done_note_ph:'Escribe tus observaciones...',med_done_save:'Guardar',med_done_skip:'Omitir',med_stat_title:'Mis Meditaciones',med_stat_today:'Hoy',med_stat_total:'Total',med_stat_empty:'Sin registros',med_stat_min:'min',med_desc_practice:'Práctica',med_desc_focus:'Enfoque',med_lv_mid:'Medio',med_lv_hard:'Profundo',med_time_elapsed:'Transcurrido',med_time_total:'Total',med_stop_session:'Terminar',med_session_title:'Sesión de meditación',med_voice_preparing:'Preparando...',rem_recovery:'Prepárate para la próxima ronda',rem_title:'Hábitos',rem_sub_rem:'Recordatorios',rem_sub_hab:'Hábitos',rem_add_reminder:'+ Añadir recordatorio',rem_add_habit:'+ Añadir hábito',rem_time:'Hora',rem_label:'Título',rem_days:'Días',rem_save:'Guardar',rem_cancel:'Cancelar',rem_delete:'Eliminar',rem_edit:'Editar',rem_empty_rem:'Sin recordatorios. Añade el primero.',rem_empty_hab:'Sin hábitos. Añade el primero.',rem_done_today:'Hecho hoy',rem_streak:'Racha',rem_days_short:'Lu,Ma,Mi,Ju,Vi,Sa,Do',rem_every_day:'Cada día',rem_custom_days:'Elegir días',rem_cal_export:'Al Calendario',rem_notif_hint:'Las notificaciones funcionan con la app abierta',med_sub:'Conciencia y Meditación',med_how:'Cómo practicar',med_sci:'Ciencia',med_breath:'Respiración recomendada',
     phase_inhale:'Inhalar',phase_hold_in:'Retener inhal.',phase_exhale:'Exhalar',phase_hold_ex:'Retener exhal.',
-    settings:'Configuración',sound:'Sonido',sound_on:'ON',sound_off:'OFF',
+    settings:'Configuración',sound:'Sonido',sound_on:'SÍ',sound_off:'NO',
     calendar:'Calendario',avatar_hint:'Toca para cambiar foto',
     drag_hint:'Mantén y arrastra para reordenar',
     breath_cycle_lbl:'Un ciclo de respiración',    after_round_lbl:'Pausa después de la ronda',    structure_lbl:'Estructura',
@@ -5050,12 +5050,12 @@ function toggleSound(el) {
 function toggleVoice(el) {
   var on = (dbGet('voice_on') === false) ? true : false;
   dbSet('voice_on', on);
-  var s = document.getElementById('voiceStatus'); if (s) s.textContent = on ? 'ВКЛ' : 'ВЫКЛ';
+  var s = document.getElementById('voiceStatus'); if (s) s.textContent = on ? t('sound_on') : t('sound_off');
 }
 function toggleAmbient(el) {
   var on = (dbGet('ambient_on') === false) ? true : false;
   dbSet('ambient_on', on);
-  var s = document.getElementById('ambientStatus'); if (s) s.textContent = on ? 'ВКЛ' : 'ВЫКЛ';
+  var s = document.getElementById('ambientStatus'); if (s) s.textContent = on ? t('sound_on') : t('sound_off');
   if (on && pRun) startAmbient();
   else if (!on) stopAmbient();
 }
@@ -5406,7 +5406,7 @@ var MEDS=[
    name:{ru:'Осознанность',en:'Mindfulness',de:'Achtsamkeit',es:'Atención Plena',zh:'正念'},
    tag:{ru:'Присутствие в моменте',en:'Present-moment awareness',de:'Gegenwartsbewusstsein',es:'Conciencia del momento',zh:'当下觉知'},
    desc:{ru:'Наблюдай ощущения тела, звуки, мысли — без оценок. Просто замечай всё, что есть прямо сейчас. Самая изученная форма медитации.',en:'Observe body sensations, sounds, thoughts without judgment. Notice what is here right now. The most researched form of meditation.',de:'Beobachte Körperempfindungen, Geräusche, Gedanken ohne Bewertung. Die am meisten erforschte Meditationsform.',es:'Observa sensaciones, sonidos, pensamientos sin juzgar. La forma de meditación más investigada.',zh:'观察身体感觉、声音、思想——不加评判。研究最深入的冥想形式。'},
-   how:{ru:'1. Найди тихое место, сядь прямо — на стул, подушку или пол. Ноги удобно, руки на коленях ладонями вверх или вниз.\n2. Закрой глаза. Сделай 3 глубоких вдоха, чтобы тело расслабилось.\n3. Переведи внимание на дыхание. Замечай где ощущается сильнее — ноздри, грудь или живот.\n4. Просто наблюдай каждый вдох и выдох, не управляя ими. Дыхание само знает как дышать.\n5. Когда ум уходит в мысли (это нормально!) — заметь это и мягко верни внимание обратно к дыханию. Без раздражения.\n6. Начни с 5 минут. Каждую неделю добавляй по 2-3 минуты, цель — 20 минут.',en:'1. Find a quiet place, sit upright — on a chair, cushion or floor. Legs comfortable, hands on knees palms up or down.\n2. Close eyes. Take 3 deep breaths to var the body settle.\n3. Bring attention to your breath. Notice where you feel it most — nostrils, chest or belly.\n4. Simply observe each inhale and exhale without controlling them. The breath knows how to breathe.\n5. When the mind wanders (totally normal!) — notice it and gently return attention to breath. No frustration.\n6. Start with 5 minutes. Add 2-3 minutes each week, aiming for 20 minutes.',de:'1. Finde einen ruhigen Ort, setze dich aufrecht — auf einen Stuhl, ein Kissen oder den Boden. Beine bequem, Hände auf den Knien.\n2. Augen schließen. 3 tiefe Atemzüge nehmen, damit der Körper zur Ruhe kommt.\n3. Aufmerksamkeit auf den Atem lenken. Spüre, wo du ihn am stärksten fühlst — Nasenlöcher, Brust oder Bauch.\n4. Jeden Ein- und Ausatem einfach beobachten, ohne ihn zu kontrollieren.\n5. Wenn der Geist wandert (völlig normal!) — bemerke es und kehre sanft zum Atem zurück. Ohne Frustration.\n6. Mit 5 Minuten beginnen. Jede Woche 2-3 Minuten hinzufügen, Ziel: 20 Minuten.',es:'1. Encuentra un lugar tranquilo, siéntate erguido — en silla, cojín o suelo. Piernas cómodas, manos sobre las rodillas.\n2. Cierra los ojos. Haz 3 respiraciones profundas para que el cuerpo se asiente.\n3. Lleva la atención a la respiración. Nota dónde la sientes más — fosas nasales, pecho o vientre.\n4. Simplemente observa cada inhalación y exhalación sin controlarlas.\n5. Cuando la mente divaga (¡totalmente normal!) — nótalo y vuelve suavemente a la respiración.\n6. Empieza con 5 minutos. Añade 2-3 minutos cada semana, objetivo: 20 minutos.',zh:'1. 找一个安静的地方，坐直——在椅子、垫子或地板上。双腿舒适，双手放在膝盖上掌心朝上或朝下。\n2. 闭上眼睛。做3次深呼吸让身体安定下来。\n3. 将注意力带到呼吸上。注意在哪里感觉最明显——鼻孔、胸部还是腹部。\n4. 只是观察每次吸气和呼气，不加控制。呼吸自己知道如何呼吸。\n5. 当思绪游荡时（完全正常！）——注意到它，温和地将注意力带回呼吸。不要沮丧。\n6. 从5分钟开始。每周增加2-3分钟，目标是20分钟。'},
+   how:{ru:'1. Найди тихое место, сядь прямо — на стул, подушку или пол. Ноги удобно, руки на коленях ладонями вверх или вниз.\n2. Закрой глаза. Сделай 3 глубоких вдоха, чтобы тело расслабилось.\n3. Переведи внимание на дыхание. Замечай где ощущается сильнее — ноздри, грудь или живот.\n4. Просто наблюдай каждый вдох и выдох, не управляя ими. Дыхание само знает как дышать.\n5. Когда ум уходит в мысли (это нормально!) — заметь это и мягко верни внимание обратно к дыханию. Без раздражения.\n6. Начни с 5 минут. Каждую неделю добавляй по 2-3 минуты, цель — 20 минут.',en:'1. Find a quiet place, sit upright — on a chair, cushion or floor. Legs comfortable, hands on knees palms up or down.\n2. Close eyes. Take 3 deep breaths to let the body settle.\n3. Bring attention to your breath. Notice where you feel it most — nostrils, chest or belly.\n4. Simply observe each inhale and exhale without controlling them. The breath knows how to breathe.\n5. When the mind wanders (totally normal!) — notice it and gently return attention to breath. No frustration.\n6. Start with 5 minutes. Add 2-3 minutes each week, aiming for 20 minutes.',de:'1. Finde einen ruhigen Ort, setze dich aufrecht — auf einen Stuhl, ein Kissen oder den Boden. Beine bequem, Hände auf den Knien.\n2. Augen schließen. 3 tiefe Atemzüge nehmen, damit der Körper zur Ruhe kommt.\n3. Aufmerksamkeit auf den Atem lenken. Spüre, wo du ihn am stärksten fühlst — Nasenlöcher, Brust oder Bauch.\n4. Jeden Ein- und Ausatem einfach beobachten, ohne ihn zu kontrollieren.\n5. Wenn der Geist wandert (völlig normal!) — bemerke es und kehre sanft zum Atem zurück. Ohne Frustration.\n6. Mit 5 Minuten beginnen. Jede Woche 2-3 Minuten hinzufügen, Ziel: 20 Minuten.',es:'1. Encuentra un lugar tranquilo, siéntate erguido — en silla, cojín o suelo. Piernas cómodas, manos sobre las rodillas.\n2. Cierra los ojos. Haz 3 respiraciones profundas para que el cuerpo se asiente.\n3. Lleva la atención a la respiración. Nota dónde la sientes más — fosas nasales, pecho o vientre.\n4. Simplemente observa cada inhalación y exhalación sin controlarlas.\n5. Cuando la mente divaga (¡totalmente normal!) — nótalo y vuelve suavemente a la respiración.\n6. Empieza con 5 minutos. Añade 2-3 minutos cada semana, objetivo: 20 minutos.',zh:'1. 找一个安静的地方，坐直——在椅子、垫子或地板上。双腿舒适，双手放在膝盖上掌心朝上或朝下。\n2. 闭上眼睛。做3次深呼吸让身体安定下来。\n3. 将注意力带到呼吸上。注意在哪里感觉最明显——鼻孔、胸部还是腹部。\n4. 只是观察每次吸气和呼气，不加控制。呼吸自己知道如何呼吸。\n5. 当思绪游荡时（完全正常！）——注意到它，温和地将注意力带回呼吸。不要沮丧。\n6. 从5分钟开始。每周增加2-3分钟，目标是20分钟。'},
    effects:{ru:['↓ Стресс','↑ Фокус','↑ Осознанность','↓ Тревога','↑ ВСР'],en:['↓ Stress','↑ Focus','↑ Awareness','↓ Anxiety','↑ HRV'],de:['↓ Stress','↑ Fokus','↑ Bewusstsein','↓ Angst','↑ HRV'],es:['↓ Estrés','↑ Enfoque','↑ Conciencia','↓ Ansiedad','↑ VFC'],zh:['↓ 压力','↑ 专注','↑ 觉知','↓ 焦虑','↑ HRV']},
    sci:{ru:'Снижение объёма амигдалы после 8 недель MBSR (Hölzel et al., 2011). Рост толщины префронтальной коры.',en:'Amygdala volume reduction after 8 weeks MBSR (Hölzel et al., 2011). Prefrontal cortex thickness increase.',de:'Amygdala-Volumenreduktion nach 8 Wochen MBSR (Hölzel et al., 2011).',es:'Reducción del volumen de la amígdala tras 8 semanas de MBSR (Hölzel et al., 2011).',zh:'8周MBSR后杏仁核体积减少（Hölzel等人，2011）。前额叶皮质厚度增加。'},
    breathId:'coherent',
@@ -5417,7 +5417,7 @@ var MEDS=[
    name:{ru:'Сканирование тела',en:'Body Scan',de:'Körperscan',es:'Escaneo Corporal',zh:'身体扫描'},
    tag:{ru:'Расслабление · Осознание тела',en:'Relaxation · Body awareness',de:'Entspannung · Körperbewusstsein',es:'Relajación · Conciencia corporal',zh:'放松 · 身体觉知'},
    desc:{ru:'Методично переводи внимание от пальцев ног к макушке, замечая все ощущения без попытки их изменить. Лучшая практика перед сном.',en:'Methodically move attention from toes to crown, noticing all sensations without trying to change them. Best before sleep.',de:'Aufmerksamkeit methodisch von den Zehen bis zum Scheitel bewegen. Ideal vor dem Schlaf.',es:'Mueve la atención de los pies a la coronilla. Ideal antes de dormir.',zh:'有条理地将注意力从脚趾移向头顶，注意所有感觉而不试图改变它们。睡前最佳练习。'},
-   how:{ru:'1. Ляг на спину на ровную поверхность. Руки вдоль тела, ноги слегка расставлены. Можно укрыться пледом.\n2. Закрой глаза. Сделай 5 медленных выдохов, позволь телу стать тяжёлым.\n3. Переведи внимание на кончики пальцев ног. Что ощущаешь? Тепло, холод, покалывание, пульсацию или ничего — всё нормально.\n4. Медленно поднимайся вверх: стопы → голени → колени → бёдра. Задерживайся 20-30 сек на каждой части.\n5. Продолжай: таз → живот → грудь → плечи → руки → шея → лицо → макушка.\n6. Если найдёшь напряжение — на выдохе мысленно отпускай его. Не борись, просто замечай.\n7. В конце — 2 минуты тишины. Вставай медленно.',en:'1. Lie on your back on a flat surface. Arms alongside body, legs slightly apart. A blanket is fine.\n2. Close eyes. Take 5 slow exhales, var the body become heavy.\n3. Bring attention to tips of toes. What do you feel? Warmth, cold, tingling, pulsing, or nothing — all fine.\n4. Slowly move up: feet → calves → knees → thighs. Stay 20-30 sec on each area.\n5. Continue: pelvis → belly → chest → shoulders → arms → neck → face → crown.\n6. If you find tension — on each exhale mentally release it. Don\'t fight, just notice.\n7. End with 2 minutes of stillness. Rise slowly.',de:'1. Lege dich auf den Rücken auf eine ebene Fläche. Arme seitlich, Beine leicht geöffnet. Eine Decke ist in Ordnung.\n2. Augen schließen. 5 langsame Ausatemzüge — lass den Körper schwer werden.\n3. Aufmerksamkeit zu den Zehenspitzen bringen. Was spürst du? Wärme, Kälte, Kribbeln, Pulsieren, oder nichts — alles ist in Ordnung.\n4. Langsam nach oben: Füße → Schienbeine → Knie → Oberschenkel. 20-30 Sek pro Bereich.\n5. Weiter: Becken → Bauch → Brust → Schultern → Arme → Hals → Gesicht → Scheitel.\n6. Bei Verspannungen — beim Ausatem mental loslassen. Nicht kämpfen, nur bemerken.\n7. Am Ende 2 Minuten Stille. Langsam aufstehen.',es:'1. Acuéstate boca arriba en una superficie plana. Brazos a los lados, piernas ligeramente separadas.\n2. Cierra los ojos. Haz 5 exhalaciones lentas, deja que el cuerpo se vuelva pesado.\n3. Lleva la atención a las puntas de los dedos de los pies. ¿Qué sientes? Calor, frío, hormigueo, pulsación, o nada — todo está bien.\n4. Sube lentamente: pies → pantorrillas → rodillas → muslos. 20-30 seg en cada zona.\n5. Continúa: pelvis → vientre → pecho → hombros → brazos → cuello → cara → coronilla.\n6. Si encuentras tensión — en cada exhalación suéltala mentalmente. No luches, solo observa.\n7. Termina con 2 minutos de quietud. Levántate despacio.',zh:'1. 仰卧在平坦的表面上。手臂放在身体两侧，双腿略微分开。可以盖一条毯子。\n2. 闭上眼睛。做5次缓慢呼气，让身体变得沉重。\n3. 将注意力带到脚趾尖。你感觉到什么？温暖、寒冷、刺痛、跳动，或者什么都没有——都很正常。\n4. 缓慢向上移动：脚→小腿→膝盖→大腿。每个部位停留20-30秒。\n5. 继续：骨盆→腹部→胸部→肩膀→手臂→颈部→脸→头顶。\n6. 如果发现紧张——在每次呼气时在心里放开它。不要对抗，只是注意。\n7. 最后静静地躺2分钟。慢慢起身。'},
+   how:{ru:'1. Ляг на спину на ровную поверхность. Руки вдоль тела, ноги слегка расставлены. Можно укрыться пледом.\n2. Закрой глаза. Сделай 5 медленных выдохов, позволь телу стать тяжёлым.\n3. Переведи внимание на кончики пальцев ног. Что ощущаешь? Тепло, холод, покалывание, пульсацию или ничего — всё нормально.\n4. Медленно поднимайся вверх: стопы → голени → колени → бёдра. Задерживайся 20-30 сек на каждой части.\n5. Продолжай: таз → живот → грудь → плечи → руки → шея → лицо → макушка.\n6. Если найдёшь напряжение — на выдохе мысленно отпускай его. Не борись, просто замечай.\n7. В конце — 2 минуты тишины. Вставай медленно.',en:'1. Lie on your back on a flat surface. Arms alongside body, legs slightly apart. A blanket is fine.\n2. Close eyes. Take 5 slow exhales, let the body become heavy.\n3. Bring attention to tips of toes. What do you feel? Warmth, cold, tingling, pulsing, or nothing — all fine.\n4. Slowly move up: feet → calves → knees → thighs. Stay 20-30 sec on each area.\n5. Continue: pelvis → belly → chest → shoulders → arms → neck → face → crown.\n6. If you find tension — on each exhale mentally release it. Don\'t fight, just notice.\n7. End with 2 minutes of stillness. Rise slowly.',de:'1. Lege dich auf den Rücken auf eine ebene Fläche. Arme seitlich, Beine leicht geöffnet. Eine Decke ist in Ordnung.\n2. Augen schließen. 5 langsame Ausatemzüge — lass den Körper schwer werden.\n3. Aufmerksamkeit zu den Zehenspitzen bringen. Was spürst du? Wärme, Kälte, Kribbeln, Pulsieren, oder nichts — alles ist in Ordnung.\n4. Langsam nach oben: Füße → Schienbeine → Knie → Oberschenkel. 20-30 Sek pro Bereich.\n5. Weiter: Becken → Bauch → Brust → Schultern → Arme → Hals → Gesicht → Scheitel.\n6. Bei Verspannungen — beim Ausatem mental loslassen. Nicht kämpfen, nur bemerken.\n7. Am Ende 2 Minuten Stille. Langsam aufstehen.',es:'1. Acuéstate boca arriba en una superficie plana. Brazos a los lados, piernas ligeramente separadas.\n2. Cierra los ojos. Haz 5 exhalaciones lentas, deja que el cuerpo se vuelva pesado.\n3. Lleva la atención a las puntas de los dedos de los pies. ¿Qué sientes? Calor, frío, hormigueo, pulsación, o nada — todo está bien.\n4. Sube lentamente: pies → pantorrillas → rodillas → muslos. 20-30 seg en cada zona.\n5. Continúa: pelvis → vientre → pecho → hombros → brazos → cuello → cara → coronilla.\n6. Si encuentras tensión — en cada exhalación suéltala mentalmente. No luches, solo observa.\n7. Termina con 2 minutos de quietud. Levántate despacio.',zh:'1. 仰卧在平坦的表面上。手臂放在身体两侧，双腿略微分开。可以盖一条毯子。\n2. 闭上眼睛。做5次缓慢呼气，让身体变得沉重。\n3. 将注意力带到脚趾尖。你感觉到什么？温暖、寒冷、刺痛、跳动，或者什么都没有——都很正常。\n4. 缓慢向上移动：脚→小腿→膝盖→大腿。每个部位停留20-30秒。\n5. 继续：骨盆→腹部→胸部→肩膀→手臂→颈部→脸→头顶。\n6. 如果发现紧张——在每次呼气时在心里放开它。不要对抗，只是注意。\n7. 最后静静地躺2分钟。慢慢起身。'},
    effects:{ru:['↓ Кортизол','↓ Напряжение','↑ Сон','↓ Боль','↑ Телесная осознанность'],en:['↓ Cortisol','↓ Tension','↑ Sleep','↓ Pain','↑ Body awareness'],de:['↓ Kortisol','↓ Spannung','↑ Schlaf','↓ Schmerz','↑ Körperbewusstsein'],es:['↓ Cortisol','↓ Tensión','↑ Sueño','↓ Dolor','↑ Conciencia corporal'],zh:['↓ 皮质醇','↓ 紧张','↑ 睡眠','↓ 疼痛','↑ 身体觉知']},
    sci:{ru:'Снижение кортизола на 24%, улучшение сна и снижение хронической боли (Ditto et al., 2006).',en:'24% cortisol reduction, improved sleep and chronic pain relief (Ditto et al., 2006).',de:'24% Kortisolreduktion, verbesserter Schlaf (Ditto et al., 2006).',es:'Reducción de cortisol del 24%, mejora del sueño (Ditto et al., 2006).',zh:'皮质醇降低24%，改善睡眠，减轻慢性疼痛（Ditto等人，2006）。'},
    breathId:'extended_48',
@@ -6572,6 +6572,39 @@ var MED_VOICE = {
   }
 };
 
+/* v105: MED_VOICE guidance lines for de/es/zh */
+(function(){var X={
+mindfulness:{
+de:["Finde eine bequeme Haltung. Schließe sanft die Augen.","Atme langsam ein. Spüre, wie der Körper weich wird.","Richte die Aufmerksamkeit auf den Atem. Beobachte einfach.","Gedanken werden kommen. Bemerke sie sanft und kehre zurück.","Du bist hier. In diesem Moment. Alles ist gut.","Atme. Beobachte. Lass alles sein."],
+es:["Busca una postura cómoda. Cierra suavemente los ojos.","Respira despacio. Siente cómo el cuerpo se suaviza.","Lleva la atención a la respiración. Solo observa.","Surgirán pensamientos. Obsérvalos con suavidad y vuelve.","Estás aquí. En este momento. Todo está bien.","Respira. Observa. Deja que todo sea."],
+zh:["找一个舒适的姿势，轻轻闭上眼睛。","慢慢吸一口气，感受身体变得柔软。","把注意力带到呼吸上，只是观察。","念头会出现。温柔地留意它们，然后回来。","你在这里，在此刻。一切都好。","呼吸。观察。允许一切如其所是。"]},
+body_scan:{
+de:["Lege oder setze dich bequem hin. Lass den Körper entspannen.","Beginne bei den Zehen. Spüre Wärme, Kribbeln.","Wandere langsam den Körper hinauf. Ohne Eile.","Bemerke jede Empfindung mit Neugier.","Wenn da Anspannung ist, lass sie mit dem Ausatmen los.","Der Körper ist dein Zuhause. Danke ihm."],
+es:["Acuéstate o siéntate cómodamente. Deja que el cuerpo se relaje.","Empieza por los dedos de los pies. Siente el calor, el hormigueo.","Sube despacio por el cuerpo. Sin prisa.","Observa cada sensación con curiosidad.","Si hay tensión, suéltala al exhalar.","El cuerpo es tu hogar. Agradécele."],
+zh:["舒适地躺下或坐好，让身体放松。","从脚趾开始，感受温暖和微微的刺痒。","慢慢沿着身体向上移动，不必着急。","带着好奇留意每一种感觉。","如果有紧张，就在呼气时把它放下。","身体是你的家。感谢它。"]},
+loving_kindness:{
+de:["Setz dich bequem hin. Lege eine Hand auf dein Herz.","Spüre Wärme in der Brust. Lass sie wachsen.","Wünsche dir selbst Glück und Gesundheit. Aufrichtig.","Denke an einen Menschen, den du liebst. Schicke ihm Wärme.","Weite dieses Licht auf alle um dich herum aus.","Mögen alle Wesen glücklich sein."],
+es:["Siéntate cómodamente. Pon una mano sobre el corazón.","Siente calor en el pecho. Deja que crezca.","Deséate felicidad y salud. Con sinceridad.","Piensa en alguien a quien quieres. Envíale calor.","Extiende esta luz a todos los que te rodean.","Que todos los seres sean felices."],
+zh:["舒适地坐好，把一只手放在心口。","感受胸口的温暖，让它慢慢扩大。","真诚地祝愿自己幸福、健康。","想一个你爱的人，把温暖送给他。","把这份光扩展到身边的每一个人。","愿一切众生幸福。"]},
+visualization:{
+de:["Schließe die Augen. Atme tief und gleichmäßig.","Stell dir einen Ort vor, an dem du völlig ruhig bist.","Was siehst du um dich herum? Füge Details hinzu.","Welche Geräusche? Gerüche? Körperempfindungen?","Du bist hier. Sicher. In Ruhe.","Kehre hierher zurück, wann immer du es brauchst."],
+es:["Cierra los ojos. Respira profunda y uniformemente.","Imagina un lugar donde te sientas completamente en calma.","¿Qué ves a tu alrededor? Añade detalles.","¿Qué sonidos? ¿Olores? ¿Sensaciones del cuerpo?","Estás aquí. A salvo. En paz.","Vuelve aquí siempre que lo necesites."],
+zh:["闭上眼睛，深长而均匀地呼吸。","想象一个让你完全平静的地方。","你看到周围有什么？添加一些细节。","有什么声音？什么气味？身体有什么感觉？","你在这里。安全。平静。","需要时，随时回到这里。"]},
+mantra:{
+de:["Sitz aufrecht. Schließe die Augen. Entspanne dein Gesicht.","Wähle ein Wort oder einen Klang. Zum Beispiel: Om.","Wiederhole das Mantra innerlich, mühelos.","Denke nicht an die Bedeutung. Nur der Klang.","Wenn der Geist abschweift, kehre sanft zurück.","Lass den Klang zur Stille werden."],
+es:["Siéntate erguido. Cierra los ojos. Relaja el rostro.","Elige una palabra o un sonido. Por ejemplo: Om.","Repite el mantra en silencio, sin esfuerzo.","No pienses en el significado. Solo el sonido.","Cuando la mente se distraiga, vuelve con suavidad.","Deja que el sonido se convierta en silencio."],
+zh:["坐直，闭上眼睛，放松面部。","选择一个词或一个声音，例如：唵。","在心中默念咒语，毫不费力。","不去想它的含义，只有声音。","当思绪飘走时，温柔地回来。","让声音化为寂静。"]},
+open_monitoring:{
+de:["Sitz bequem. Der Rücken aufrecht, aber weich.","Beginne mit ein paar Minuten Atembeobachtung.","Dann öffne deine Aufmerksamkeit weit, wie der Himmel.","Lass alles von selbst kommen und gehen.","Du bist der Zeuge. Lass dich nicht hineinziehen. Beobachte nur.","In diesem Raum ist schon alles vollkommen."],
+es:["Siéntate cómodamente. La espalda recta pero suave.","Empieza con unos minutos observando la respiración.","Luego abre la atención, amplia como el cielo.","Deja que todo llegue y se vaya por sí solo.","Eres el testigo. No te involucres. Solo observa.","En este espacio, todo ya está completo."],
+zh:["舒适地坐好，背部挺直但柔和。","先用几分钟观察呼吸。","然后把觉知打开，像天空一样广阔。","允许一切自行来去。","你是见证者。不卷入，只是观察。","在这个空间里，一切本已圆满。"]},
+breath_focus:{
+de:["Komm zur Ruhe. Du kannst hier nichts falsch machen.","Spüre den ganzen Körper – sein Gewicht und seinen Halt.","Bemerke, wie der Körper von selbst atmet: Brust und Bauch.","Verenge den Strahl: nur die Hände und Handflächen.","Die Nasenspitze: kühles Einatmen, warmes Ausatmen.","Ein Punkt – die Fingerspitze. Dann wieder der ganze Körper."],
+es:["Acomódate. No puedes hacerlo mal.","Siente todo el cuerpo: su peso y su apoyo.","Nota cómo el cuerpo respira solo: pecho y vientre.","Estrecha el haz: solo las manos y las palmas.","La punta de la nariz: inhalación fresca, exhalación cálida.","Un punto: la yema del dedo. Luego, de nuevo todo el cuerpo."],
+zh:["安顿下来。这里没有做错这回事。","感受整个身体——它的重量和支撑。","留意身体自己在呼吸：胸部和腹部。","收窄光束：只关注双手和掌心。","鼻尖：清凉的吸气，温暖的呼气。","一个点——指尖。然后再回到整个身体。"]}
+};for(var k in X)for(var l in X[k])if(MED_VOICE[k])MED_VOICE[k][l]=X[k][l];})();
+var _NF_SPEECH_LANG={ru:'ru-RU',en:'en-US',de:'de-DE',es:'es-ES',zh:'zh-CN'};
+
 // ── Particle class ──
 function MedParticle(W, H, color) {
   this.W = W; this.H = H;
@@ -6767,7 +6800,8 @@ function medStopAudio(){
 // ── Voice intro ──
 function medSpeakIntro(medId, onDone) {
   var lang=(curLang==='ru')?'ru':'en';
-  var lines=(MED_VOICE[medId]||MED_VOICE.mindfulness)[lang]||MED_VOICE.mindfulness.en;
+  var tl=(MED_VOICE[medId]||MED_VOICE.mindfulness)[curLang]?curLang:lang;
+  var lines=(MED_VOICE[medId]||MED_VOICE.mindfulness)[tl]||MED_VOICE.mindfulness.en;
   var total=lines.length; var idx=0;
   medSession.speechActive=true;
   if(typeof speechSynthesis!=='undefined'){try{speechSynthesis.getVoices();}catch(e){}}
@@ -6786,7 +6820,7 @@ function medSpeakIntro(medId, onDone) {
 
   function speakLine(text, phraseIdx){
     // Try custom audio first
-    voicePlayCustom(medId, lang, phraseIdx, function(played){
+    (tl===lang?voicePlayCustom:function(a,b,c,cb){cb(false);})(medId, lang, phraseIdx, function(played){
       if(played){
         setTimeout(nextLine, 1400);
         return;
@@ -6795,12 +6829,12 @@ function medSpeakIntro(medId, onDone) {
       if(typeof speechSynthesis!=='undefined'&&typeof SpeechSynthesisUtterance!=='undefined'){
         window.speechSynthesis.cancel();
         var u=new SpeechSynthesisUtterance(text);
-        u.lang=(lang==='ru')?'ru-RU':'en-US';
+        u.lang=_NF_SPEECH_LANG[tl]||'en-US';
         u.rate=0.78; u.pitch=1.05; u.volume=0.88;
         var voices=window.speechSynthesis.getVoices();
-        var pref=voices.filter(function(v){return v.lang.startsWith(lang==='ru'?'ru':'en');})
+        var pref=voices.filter(function(v){return v.lang.startsWith(tl);})
           .find(function(v){var n=v.name.toLowerCase();return n.includes('samantha')||n.includes('karen')||n.includes('victoria')||n.includes('milena')||n.includes('irina')||n.includes('alena');});
-        if(!pref) pref=voices.find(function(v){return v.lang.startsWith(lang==='ru'?'ru':'en');});
+        if(!pref) pref=voices.find(function(v){return v.lang.startsWith(tl);});
         if(pref) u.voice=pref;
         u.onend=function(){setTimeout(nextLine,1800);};
         u.onerror=function(){setTimeout(nextLine,2200);};
@@ -7025,6 +7059,27 @@ var _visualBufFinalCache=[null];
 /* v101: Луч внимания — single full-length track (voice + own music), no separate FINAL */
 var _BREATH_B64_START="";
 var _breathBufStartCache=[null];
+/* v105: per-language meditation voice tracks. ru = original (embedded / assets/), others from assets/<lang>/, fallback en, then ru */
+var NF_MED_LANGS=['en','de','es','zh'];
+function _nfMedLang(){return curLang==='ru'?'ru':(NF_MED_LANGS.indexOf(curLang)>=0?curLang:'en');}
+function _nfMedFile(cache){var m=[[_mfulBufStartCache,'mful_b64_start.mp3'],[_mfulBufFinalCache,'mful_b64_final.mp3'],[_skanBufStartCache,'skan_b64_start.mp3'],[_skanBufFinalCache,'skan_b64_final.wav'],[_loveBufStartCache,'love_b64_start.mp3'],[_loveBufFinalCache,'love_b64_final.mp3'],[_mantBufStartCache,'mant_b64_start.mp3'],[_mantBufFinalCache,'mant_b64_final.mp3'],[_openBufStartCache,'open_b64_start.mp3'],[_openBufFinalCache,'open_b64_final.mp3'],[_visualBufStartCache,'visual_b64_start.mp3'],[_visualBufFinalCache,'visual_b64_final.mp3'],[_breathBufStartCache,'breath_b64_start.mp3']];for(var i=0;i<m.length;i++)if(m[i][0]===cache)return m[i][1];return null;}
+var _nfMedLog=[];
+var _nfMedDecodeRu=medDecodeB64;
+medDecodeB64=function(b64,cache,cb){
+  var L=_nfMedLang(),fn=_nfMedFile(cache);
+  if(!fn){return _nfMedDecodeRu(b64,cache,cb);}
+  if(cache._lang!==L){cache[0]=null;cache._lang=L;cache._lq=null;cache._p=null;}
+  if(L==='ru')return _nfMedDecodeRu(b64,cache,cb);
+  if(cache[0]){cb(cache[0]);return;}
+  if(cache._lq){cache._lq.push(cb);return;}
+  cache._lq=[cb];
+  var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
+  function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=105';
+    if(!ac){next();return;}
+    fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
+  get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
+};
 
 function medPlayAudioBuf(buf, vol, onEnd){
   var ms=medSession;
@@ -12412,7 +12467,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v104.4</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v105</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
