@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v105.1">
+<meta name="nf-version" content="v106">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -481,12 +481,12 @@ html, body {
 .lv-t { font-family:'DM Mono',monospace; font-size:10px; color:var(--t4); margin-top:1px; }
 .sh-go {
   width:100%; height:52px; border-radius:var(--r-ctrl);
-  background:rgba(255,255,255,.10); border:1px solid var(--br2);
-  font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500;
-  letter-spacing:.18em; color:var(--t1); text-transform:uppercase;
+  background:#eef1f8; border:1px solid #fff;
+  font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
+  letter-spacing:.14em; color:#07070e; text-transform:uppercase;
   cursor:pointer; transition:all .18s;
 }
-.sh-go:active { transform:scale(.99); background:rgba(255,255,255,.15); }
+.sh-go:active { transform:scale(.99); background:#d6dbe8; }
 
 /* ═══════════════════════════════════════════════════════════
    TECH DETAIL
@@ -1992,6 +1992,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 .nf-seg-b:active{transform:scale(.97);}
 
 </style>
+<style>#setBtn,#langGlobal,.back.nf-back,#postClose,#hbPrev,#hbNext,#nfSetBack{min-width:48px!important;min-height:48px!important;box-sizing:border-box;} /* v106 tap targets */</style>
 </head>
 <body>
 
@@ -2727,6 +2728,13 @@ Object.assign(LANGS.es,{nav_cog:'Cognición',cog_title:'Entrenamiento cognitivo'
 Object.assign(LANGS.zh,{nav_cog:'认知',cog_title:'认知训练',cog_sub:'训练注意力、记忆与元认知'});
 var curLang=dbGet('lang')||'ru';
 function t(k){return(LANGS[curLang]||LANGS.ru)[k]||LANGS.en[k]||LANGS.ru[k]||k;}
+/* v106 i18n */
+(function(){var X={ru:{nf_round:'Раунд',nf_min:'мин',nf_err_best:'Ошибка! Раунд {n} — лучший результат'},
+ en:{nf_round:'Round',nf_min:'min',nf_err_best:'Mistake! Round {n} — best result'},
+ de:{nf_round:'Runde',nf_min:'Min.',nf_err_best:'Fehler! Runde {n} — bestes Ergebnis'},
+ es:{nf_round:'Ronda',nf_min:'min',nf_err_best:'¡Error! Ronda {n}: mejor resultado'},
+ zh:{nf_round:'回合',nf_min:'分钟',nf_err_best:'出错！第 {n} 回合为最佳成绩'}};
+ for(var l in X)if(LANGS[l])for(var k in X[l])LANGS[l][k]=X[l][k];})();
 /* ─── curSmState: track which state is open in statemenu ─── */
 var curSmState = null;
 var _origOpenStateMenu = null; /* patched below after definition */
@@ -4140,13 +4148,13 @@ function beginPh(ph,now){
       var pat=curTc.pattern;
       var ah1=pat[4]||0; // hold after exhale (post-round)
       var ah2=pat[5]||0; // hold after inhale (post-round)
-      pRound++;
+      /* v106: pRound++ moved into _next (after the holds) so the counter shows the current round during retention */
       /* v100: the retention/holds belong to EVERY round (Wim Hof, Kapalabhati, Tummo...).
          Before, the last round ended without its hold. Recovery only between rounds. */
-      var _last=pRound>=pTotRounds;
+      var _last=(pRound+1)>=pTotRounds;
       var _rest=curTc.restSec||8;
-      var _next=function(tn){ if(_last){endP();return;} doRecovery(_rest,tn,function(t4){beginPh(0,t4);}); };
-      if(!_last){pCy=0;updateProgUI();updateDotsUI();} // show new round counter during post-hold pause
+      var _next=function(tn){ pRound++; if(_last){endP();return;} pCy=0;updateProgUI();updateDotsUI(); doRecovery(_rest,tn,function(t4){beginPh(0,t4);}); };
+      if(!_last){pCy=pTotCy-1;updateProgUI();updateDotsUI();} // v106: current round stays shown during the hold
       if(ah1>0){doPostHold(ah1,'hold_exhale_post',now,function(t2){
         if(ah2>0){doPostHold(ah2,'hold_inhale_post',t2,_next);}else{_next(t2);}
       });}else if(ah2>0){doPostHold(ah2,'hold_inhale_post',now,_next);}
@@ -4287,9 +4295,9 @@ function updateProgUI(){
   var el=document.getElementById('pRoundsLbl');
   if(!el)return;
   var L=LANGS[curLang]||LANGS.ru;
-  var cycStr=(pCy+1)+'/'+pTotCy+' '+(L.cycles_lbl||'цикл.');
+  var cycStr=(pCy+1)+'/'+pTotCy+' '+(L.cycles_lbl||t('cycles_lbl'));
   if(pTotRounds>1){
-    var rndStr=(pRound+1)+'/'+pTotRounds+' '+(L.rounds_lbl||'кр.');
+    var rndStr=(pRound+1)+'/'+pTotRounds+' '+(L.rounds_lbl||t('rounds_lbl'));
     el.textContent=rndStr+'  ·  '+cycStr;
   }else{
     el.textContent=cycStr;
@@ -4722,7 +4730,7 @@ function drawP(now){
     }
 
     // Dot
-    var dotR=Math.max(0.32,sz*0.85);
+    var dotR=Math.max(0.6,sz*0.85);
     ctx.beginPath();
     ctx.arc(px,py,dotR,0,Math.PI*2);
     ctx.fillStyle='rgba('+rr+','+gg+','+bb+','+Math.min(1,al)+')';
@@ -5500,7 +5508,7 @@ function renderMeditation(){
     html+='<div class="med-card" onclick="openMedDet(\''+m.id+'\')">'+
         '<div class="med-hd">'+
           '<div class="med-ico" style="background:'+hexA(m.color,.15)+';color:'+m.color+'">'+m.icon+'</div>'+
-          '<div><div class="med-name">'+nm+'</div><div class="med-tag">'+tg+(m.trackSec?' · '+medFmtSec(m.trackSec):'')+'</div></div>'+
+          '<div><div class="med-name">'+nm+'</div><div class="med-tag">'+tg+(m.trackSec?' · '+medFmtSec(_nfMedSession(m.id,Math.ceil(m.trackSec),true)):'')+'</div></div>'+
         '</div>'+
         '<div class="med-desc">'+ds+'</div>'+
         '<div class="med-pills">'+
@@ -5636,7 +5644,7 @@ function openMedDet(medId,skipPush){
     lvHtml+='<div class="med-lv-opt'+lvOn+' med-lv-'+li+'" style="--lc:'+m.color+'"'+
       ' onclick="setMedLv('+li+',\''+m.id+'\',\''+m.color+'\')">'+
       '<div class="med-lv-name">'+t(lvs[li])+'</div>'+
-      '<div class="med-lv-time">'+lvMins[li]+'</div></div>';
+      '<div class="med-lv-time">'+Math.round(_nfMedSession(m.id,MED_DURATIONS[li]||MED_DURATIONS[0],false)/60)+' '+t('nf_min')+'</div></div>'; /* v106: real length */
   }
   if(m.trackSec){ lvHtml=''; } /* v102: fixed-length track — no option card, Start plays the full recording */
   var remSvg='<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="9" r="6"/><path d="M10 6v3l2 2"/><path d="M4 17l2-2M16 17l-2-2"/></svg>';
@@ -5651,7 +5659,7 @@ function openMedDet(medId,skipPush){
       '<div style="display:flex;flex-direction:column;align-items:center;padding:20px 20px 0;gap:6px">'+
         '<div class="mdet-ico" style="background:'+hexA(m.color,.15)+';color:'+m.color+'">'+m.icon+'</div>'+
         '<div class="mdet-title">'+nm+'</div>'+
-        '<div class="mdet-tag">'+tg+(m.trackSec?' · '+medFmtSec(m.trackSec):'')+'</div>'+
+        '<div class="mdet-tag">'+tg+(m.trackSec?' · '+medFmtSec(_nfMedSession(m.id,Math.ceil(m.trackSec),true)):'')+'</div>'+
       '</div>'+
       descHtml+
       tcBlock+
@@ -6692,9 +6700,9 @@ MedParticle.prototype.draw = function(ctx) {
   gg.addColorStop(1,'rgba('+this.r1+','+this.g1+','+this.b1+',0)');
   ctx.fillStyle=gg;
   ctx.fillRect(this.x-gw,this.y-gw,gw*2,gw*2);
-  // Tiny square core
+  // v106: round core (was fillRect -> squares)
   ctx.fillStyle='rgba('+this.r1+','+this.g1+','+this.b1+','+this.a+')';
-  ctx.fillRect(this.x-s,this.y-s,s*2,s*2);
+  ctx.beginPath();ctx.arc(this.x,this.y,Math.max(0.9,s),0,6.2832);ctx.fill();
 };
 
 // ── Formation builder ──
@@ -6767,6 +6775,8 @@ function medReleaseFormation(particles){
 }
 
 // ── Ambient audio ──
+/* v106: session-scoped timers — every meditation timer is tied to a session token and cleared on stop */
+function _medTO(fn,d){var tok=medSession.token||0;var id=setTimeout(function(){if((medSession.token||0)!==tok)return;fn();},d);(medSession._timers||(medSession._timers=[])).push(id);if(medSession._timers.length>400)medSession._timers.splice(0,200);return id;}
 function medStartAudio(color) {
   if(medSession.audioOn) return;
   if(!medSession.audioCtx){
@@ -6806,12 +6816,14 @@ function medSpeakIntro(medId, onDone) {
   medSession.speechActive=true;
   if(typeof speechSynthesis!=='undefined'){try{speechSynthesis.getVoices();}catch(e){}}
 
+  var _tok=medSession.token;
   function updateCard(text,stepNum){
+    if(medSession.token!==_tok||!medSession.active)return; /* v106 */
     var instrEl=document.getElementById('med-instr-text');
     var stepEl=document.getElementById('med-instr-step');
     var card=document.getElementById('med-instr-card');
     if(instrEl){instrEl.style.opacity='0';
-      setTimeout(function(){
+      _medTO(function(){
         instrEl.textContent=text; instrEl.style.opacity='1';
         if(card){var r=card.getBoundingClientRect();medSession.textZone={x:r.left,y:r.top,w:r.width,h:r.height};}
       },350);}
@@ -6822,7 +6834,7 @@ function medSpeakIntro(medId, onDone) {
     // Try custom audio first
     (tl===lang?voicePlayCustom:function(a,b,c,cb){cb(false);})(medId, lang, phraseIdx, function(played){
       if(played){
-        setTimeout(nextLine, 1400);
+        _medTO(nextLine, 1400);
         return;
       }
       // Fallback to TTS
@@ -6836,11 +6848,11 @@ function medSpeakIntro(medId, onDone) {
           .find(function(v){var n=v.name.toLowerCase();return n.includes('samantha')||n.includes('karen')||n.includes('victoria')||n.includes('milena')||n.includes('irina')||n.includes('alena');});
         if(!pref) pref=voices.find(function(v){return v.lang.startsWith(tl);});
         if(pref) u.voice=pref;
-        u.onend=function(){setTimeout(nextLine,1800);};
-        u.onerror=function(){setTimeout(nextLine,2200);};
+        u.onend=function(){_medTO(nextLine,1800);};
+        u.onerror=function(){_medTO(nextLine,2200);};
         window.speechSynthesis.speak(u);
       } else {
-        setTimeout(nextLine,Math.max(3000,text.split(' ').length*520)+1400);
+        _medTO(nextLine,Math.max(3000,text.split(' ').length*520)+1400);
       }
     });
   }
@@ -6854,9 +6866,9 @@ function medSpeakIntro(medId, onDone) {
     if(medSession._fullTrack){
       var interval=Math.floor((medSession._fullDuration*1000)/total);
       if(idx<total){
-        setTimeout(nextLine, interval);
+        _medTO(nextLine, interval);
       } else {
-        setTimeout(function(){if(onDone)onDone();}, interval);
+        _medTO(function(){if(onDone)onDone();}, interval);
       }
     } else {
       speakLine(text,phraseIdx);
@@ -6876,7 +6888,7 @@ function medStartOngoingGuidance(medId){
   function scheduleNext(){
     if(!ms.active||!ms.speechActive) return;
     var delay=baseInterval+(Math.random()-0.5)*40000;
-    setTimeout(function(){
+    _medTO(function(){
       if(!ms.active||!ms.speechActive) return;
       if(ms.paused){scheduleNext();return;}
       var line=lines[idx%lines.length]; idx++;
@@ -6884,7 +6896,7 @@ function medStartOngoingGuidance(medId){
       var card=document.getElementById('med-instr-card');
       if(card){card.style.display='flex';card.style.opacity='0';card.style.transition='opacity 1.2s';requestAnimationFrame(function(){card.style.opacity='1';});}
       if(instrEl){instrEl.style.opacity='0';
-        setTimeout(function(){instrEl.textContent=line;instrEl.style.opacity='1';},350);}
+        _medTO(function(){instrEl.textContent=line;instrEl.style.opacity='1';},350);}
       var stepEl=document.getElementById('med-instr-step');if(stepEl)stepEl.textContent='';
       if(typeof speechSynthesis!=='undefined'&&typeof SpeechSynthesisUtterance!=='undefined'){
         window.speechSynthesis.cancel();
@@ -6897,17 +6909,17 @@ function medStartOngoingGuidance(medId){
         if(!pref) pref=voices.find(function(v){return v.lang.startsWith(lang==='ru'?'ru':'en');});
         if(pref) u.voice=pref;
         u.onend=function(){
-          if(card){card.style.opacity='0';setTimeout(function(){if(card)card.style.display='none';},1200);}
+          if(card){card.style.opacity='0';_medTO(function(){if(card)card.style.display='none';},1200);}
           scheduleNext();
         };
         u.onerror=function(){
-          if(card){card.style.opacity='0';setTimeout(function(){if(card)card.style.display='none';},1200);}
+          if(card){card.style.opacity='0';_medTO(function(){if(card)card.style.display='none';},1200);}
           scheduleNext();
         };
         window.speechSynthesis.speak(u);
       } else {
-        setTimeout(function(){
-          if(card){card.style.opacity='0';setTimeout(function(){if(card)card.style.display='none';},1200);}
+        _medTO(function(){
+          if(card){card.style.opacity='0';_medTO(function(){if(card)card.style.display='none';},1200);}
           scheduleNext();
         },4000);
       }
@@ -6944,7 +6956,7 @@ function _stopSynthAmbient(){
   try{
     var n=_synthAmbientNodes, ct=n.g.context.currentTime;
     n.g.gain.linearRampToValueAtTime(0, ct+0.8);
-    setTimeout(function(){try{n.o1.stop();n.o2.stop();}catch(e){}},900);
+    _medTO(function(){try{n.o1.stop();n.o2.stop();}catch(e){}},900);
   }catch(e){}
   _synthAmbientNodes=null;
 }
@@ -7003,12 +7015,12 @@ function stopAmbientTrack(fadeTime){
   gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + fadeTime);
   var src = _ambientSrc;
   if(src){
-    setTimeout(function(){
+    _medTO(function(){
       try{ src.stop(); }catch(e){}
       _ambientSrc = null;
     }, (fadeTime + 0.5) * 1000);
   }
-  setTimeout(function(){
+  _medTO(function(){
     _ambientGain = null;
     _ambientAC = null;
   }, (fadeTime + 1) * 1000);
@@ -7075,7 +7087,7 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1051';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=106';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
@@ -7130,7 +7142,7 @@ function medScheduleGenericFinal(finalB64, finalCache, offsetSec){
   if(finalOffset<1)finalOffset=1;
   medDecodeB64(finalB64, finalCache, function(){});
   if(ms._finalTimer)clearTimeout(ms._finalTimer);
-  ms._finalTimer=setTimeout(function(){
+  ms._finalTimer=_medTO(function(){
     if(!ms.active)return;
     medDecodeB64(finalB64, finalCache, function(buf){
       if(!ms.active)return;
@@ -7161,7 +7173,7 @@ function medScheduleFinalAudio(){
   medDecodeB64(_MFUL_B64_FINAL, _mfulBufFinalCache, function(){});
   // Schedule via timeout
   if(ms._finalTimer)clearTimeout(ms._finalTimer);
-  ms._finalTimer=setTimeout(function(){
+  ms._finalTimer=_medTO(function(){
     if(!ms.active)return;
     medDecodeB64(_MFUL_B64_FINAL, _mfulBufFinalCache, function(buf){
       if(!ms.active)return;
@@ -7189,7 +7201,7 @@ function medScheduleSkanFinal(){
   if(finalOffset<1)finalOffset=1;
   medDecodeB64(_SKAN_B64_FINAL, _skanBufFinalCache, function(){});
   if(ms._finalTimer)clearTimeout(ms._finalTimer);
-  ms._finalTimer=setTimeout(function(){
+  ms._finalTimer=_medTO(function(){
     if(!ms.active)return;
     medDecodeB64(_SKAN_B64_FINAL, _skanBufFinalCache, function(buf){
       if(!ms.active)return;
@@ -7230,7 +7242,7 @@ function medScheduleLoveFinal(){
   if(finalOffset<1)finalOffset=1;
   medDecodeB64(_LOVE_B64_FINAL,_loveBufFinalCache,function(){});
   if(ms._finalTimer)clearTimeout(ms._finalTimer);
-  ms._finalTimer=setTimeout(function(){
+  ms._finalTimer=_medTO(function(){
     if(!ms.active)return;
     medDecodeB64(_LOVE_B64_FINAL,_loveBufFinalCache,function(buf){
       if(!ms.active)return;
@@ -7241,157 +7253,148 @@ function medScheduleLoveFinal(){
 
 // ── Touch / mouse interaction on meditation canvas ──
 function medInitTouch(cv, ms){
-  var holdTimer=null;
-  // Single-finger state
-  var touches1={down:false, x:0, y:0, lx:0, ly:0, startT:0, moved:false};
-  // Multi-touch state: array of {x,y,lx,ly,id}
-  var mtouches=[];
-
-  // ── Particle forces ──
-  function explosion(cx,cy){
-    var ps=ms.particles;
+  /* v106: multitouch tracked by identifier; per-finger vortices (alternating spin), pinch compress/expand + twist,
+     free-flight connection lines (spatial grid), swipe trails with sparks, release burst scaled by hold time. */
+  var F={}, nF=0, spinFlip=1, sparks=[], pinch=null;
+  ms._fingers=F;
+  function explosion(cx,cy,k){
+    k=k||1;var R=120*Math.min(1.8,0.8+k*0.4),ps=ms.particles;
     for(var i=0;i<ps.length;i++){
       var p=ps[i],dx=p.x-cx,dy=p.y-cy,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<120){var s=(1-d/120)*5.5;p.vx+=(dx/Math.max(d,.1))*s;p.vy+=(dy/Math.max(d,.1))*s;}
+      if(d<R){var s=(1-d/R)*5.5*k;p.vx+=(dx/Math.max(d,.1))*s;p.vy+=(dy/Math.max(d,.1))*s;}
     }
   }
-
   function fluid(cx,cy,fx,fy){
     var ps=ms.particles;
     for(var i=0;i<ps.length;i++){
-      var p=ps[i],dx=p.x-cx,dy=p.y-cy,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<110){
-        var s=(1-d/110)*0.8,nd=Math.max(d,1);
-        p.vx+=fx*s+(-dy/nd)*s*0.45;
-        p.vy+=fy*s+(dx/nd)*s*0.45;
-      }
+      var p=ps[i],dx=p.x-cx,dy=p.y-cy,d2=dx*dx+dy*dy;
+      if(d2<12100){var d=Math.sqrt(d2),s=(1-d/110)*0.8,nd=Math.max(d,1);
+        p.vx+=fx*s+(-dy/nd)*s*0.45;p.vy+=fy*s+(dx/nd)*s*0.45;}
     }
   }
-
-  // Called every frame from medRender when hold is active
-  ms._holdActive=false;
-  ms._holdX=0;
-  ms._holdY=0;
-
-  function holdVortex(){
-    if(!ms._holdActive)return;
-    var cx=ms._holdX,cy=ms._holdY;
-    var ps=ms.particles;
-    for(var i=0;i<ps.length;i++){
-      var p=ps[i],dx=p.x-cx,dy=p.y-cy,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<300){
-        var nd=Math.max(d,1),f=Math.pow((1-d/300),0.5);
-        // Extreme tangential spin force
-        p.vx+=(-dy/nd)*f*4.0;
-        p.vy+=(dx/nd)*f*4.0;
-        // Centripetal pull
-        p.vx-=(dx/nd)*f*0.5;
-        p.vy-=(dy/nd)*f*0.5;
-        p.a=Math.min(0.99,p.a+f*0.2);
-      }
+  function addSparks(x,y,vx,vy,n){
+    for(var i=0;i<n&&sparks.length<160;i++){
+      sparks.push({x:x,y:y,vx:vx*0.15+(Math.random()-0.5)*1.6,vy:vy*0.15+(Math.random()-0.5)*1.6,life:1,r:0.8+Math.random()*1.4});
     }
   }
-  ms._holdVortexFn=holdVortex;
+  function startHold(f){
+    if(f.holdTimer)clearTimeout(f.holdTimer);
+    f.holdTimer=setTimeout(function(){if(F[f.id]===f&&!f.moved){f.hold=true;f.holdT=performance.now();f.dir=spinFlip;spinFlip=-spinFlip;}},900);
+  }
+  function down(id,x,y){
+    var f={id:id,x:x,y:y,lx:x,ly:y,sx:x,sy:y,startT:performance.now(),moved:false,hold:false,holdT:0,dir:1,trail:[{x:x,y:y,t:performance.now()}]};
+    F[id]=f;nF++;startHold(f);pinch=null;
+  }
+  function move(id,x,y){
+    var f=F[id];if(!f)return;
+    var dx=x-f.lx,dy=y-f.ly;
+    if(nF<2)fluid(x,y,dx*0.9,dy*0.9);
+    if(!f.moved&&((x-f.sx)*(x-f.sx)+(y-f.sy)*(y-f.sy))>100){f.moved=true;if(!f.hold&&f.holdTimer){clearTimeout(f.holdTimer);f.holdTimer=null;}}
+    if(f.hold&&nF<2&&((x-f.sx)*(x-f.sx)+(y-f.sy)*(y-f.sy))>900){/* dragging a vortex keeps it */}
+    var sp=Math.sqrt(dx*dx+dy*dy);
+    f.trail.push({x:x,y:y,t:performance.now()});if(f.trail.length>14)f.trail.shift();
+    if(sp>6)addSparks(x,y,dx,dy,sp>20?2:1);
+    f.lx=x;f.ly=y;f.x=x;f.y=y;
+  }
+  function up(id,x,y){
+    var f=F[id];if(!f)return;
+    if(f.holdTimer)clearTimeout(f.holdTimer);
+    var now=performance.now();
+    if(f.hold){
+      var k=Math.min(3,0.6+(now-f.holdT)/1000);
+      explosion(f.x,f.y,k);addSparks(f.x,f.y,0,0,Math.round(10+k*8));
+      try{if(navigator.vibrate)navigator.vibrate(Math.round(10+k*8));}catch(e){}
+      try{if(typeof nfUx==='function')nfUx('tap');}catch(e){}
+    }else if(!f.moved&&now-f.startT<250){explosion(x,y,1);}
+    delete F[id];nF--;if(nF<0)nF=0;pinch=null;
+  }
+  function getXY(t,r){return{x:t.clientX-r.left,y:t.clientY-r.top};}
+  function each(e,fn){var r=cv.getBoundingClientRect();for(var i=0;i<e.changedTouches.length;i++){var t=e.changedTouches[i],xy=getXY(t,r);fn(t.identifier,xy.x,xy.y);}}
+  cv.addEventListener('touchstart',function(e){e.preventDefault();each(e,down);},{passive:false});
+  cv.addEventListener('touchmove',function(e){e.preventDefault();each(e,move);},{passive:false});
+  cv.addEventListener('touchend',function(e){e.preventDefault();each(e,up);},{passive:false});
+  cv.addEventListener('touchcancel',function(e){each(e,function(id){var f=F[id];if(f){if(f.holdTimer)clearTimeout(f.holdTimer);delete F[id];nF=Math.max(0,nF-1);}});pinch=null;},{passive:false});
+  // Mouse fallback (id 'm')
+  cv.addEventListener('mousedown',function(e){down('m',e.offsetX,e.offsetY);});
+  cv.addEventListener('mousemove',function(e){if(e.buttons&&F.m)move('m',e.offsetX,e.offsetY);});
+  cv.addEventListener('mouseup',function(e){up('m',e.offsetX,e.offsetY);});
+  cv.addEventListener('mouseleave',function(e){if(F.m)up('m',e.offsetX,e.offsetY);});
 
-  // ── Touch helpers ──
-  function getXY(touch,r){return{x:touch.clientX-r.left,y:touch.clientY-r.top};}
-
-  // ── Single touch ──
-  cv.addEventListener('touchstart',function(e){
-    e.preventDefault();
-    var r=cv.getBoundingClientRect();
-    // Multi-touch: process all new touches
-    for(var i=0;i<e.changedTouches.length;i++){
-      var t=e.changedTouches[i],xy=getXY(t,r);
-      mtouches.push({id:t.identifier,x:xy.x,y:xy.y,lx:xy.x,ly:xy.y,startT:performance.now(),moved:false});
+  // Per-frame forces
+  ms._holdVortexFn=function(){
+    var ps=ms.particles,ids=Object.keys(F),i,j;
+    for(j=0;j<ids.length;j++){
+      var f=F[ids[j]];if(!f.hold)continue;
+      var cx=f.x,cy=f.y,dir=f.dir;
+      for(i=0;i<ps.length;i++){
+        var p=ps[i],dx=p.x-cx,dy=p.y-cy,d2=dx*dx+dy*dy;
+        if(d2<90000){var d=Math.sqrt(d2),nd=Math.max(d,1),s=Math.sqrt(1-d/300);
+          p.vx+=(-dy/nd)*s*4.0*dir;p.vy+=(dx/nd)*s*4.0*dir;
+          p.vx-=(dx/nd)*s*0.5;p.vy-=(dy/nd)*s*0.5;
+          p.a=Math.min(0.99,p.a+s*0.2);}
+      }
     }
-    // Primary finger hold setup
-    if(!touches1.down&&e.changedTouches.length>0){
-      var t0=e.changedTouches[0],xy0=getXY(t0,r);
-      touches1={down:true,x:xy0.x,y:xy0.y,lx:xy0.x,ly:xy0.y,startT:performance.now(),moved:false};
-      ms._holdActive=false;
-      if(holdTimer)clearTimeout(holdTimer);
-      holdTimer=setTimeout(function(){
-        if(touches1.down&&!touches1.moved){
-          ms._holdActive=true;
-          ms._holdX=touches1.x;
-          ms._holdY=touches1.y;
+    // Pinch / twist with two fingers
+    if(ids.length>=2){
+      var a=F[ids[0]],b=F[ids[1]];
+      var mx=(a.x+b.x)/2,my=(a.y+b.y)/2,dd=Math.max(20,Math.hypot(b.x-a.x,b.y-a.y)),ang=Math.atan2(b.y-a.y,b.x-a.x);
+      if(!pinch){pinch={d:dd,ang:ang};}
+      var dScale=(dd-pinch.d)/pinch.d,dAng=ang-pinch.ang;
+      if(dAng>Math.PI)dAng-=2*Math.PI;if(dAng<-Math.PI)dAng+=2*Math.PI;
+      pinch.d=dd;pinch.ang=ang;
+      var R=Math.max(220,dd*0.9);
+      var radial=Math.max(-0.6,Math.min(0.6,dScale))*14, twist=Math.max(-0.3,Math.min(0.3,dAng))*40;
+      for(i=0;i<ps.length;i++){
+        var q=ps[i],qx=q.x-mx,qy=q.y-my,q2=qx*qx+qy*qy;
+        if(q2<R*R){var qd=Math.max(Math.sqrt(q2),1),w=1-qd/R;
+          q.vx+=(qx/qd)*radial*w+(-qy/qd)*twist*w*0.2;
+          q.vy+=(qy/qd)*radial*w+(qx/qd)*twist*w*0.2;
+          // gentle orbit between fingers
+          q.vx+=(-qy/qd)*w*0.35;q.vy+=(qx/qd)*w*0.35;
+          q.vx-=(qx/qd)*w*0.06;q.vy-=(qy/qd)*w*0.06;}
+      }
+    }
+    // cap speeds (keeps it smooth)
+    for(i=0;i<ps.length;i++){var v=ps[i],sp=v.vx*v.vx+v.vy*v.vy;if(sp>64){sp=8/Math.sqrt(sp);v.vx*=sp;v.vy*=sp;}}
+  };
+
+  // Overlay drawing: connection lines (grid), trails, sparks
+  var CELL=48,MAXL=420;
+  ms._fxDrawFn=function(ctx){
+    var ps=ms.particles,now=performance.now(),i,j;
+    ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+    if(ms.formationStrength<0.35){
+      var g={},n=ps.length;
+      for(i=0;i<n;i++){var p=ps[i];if(p.a<0.12)continue;var k=((p.x/CELL)|0)+','+((p.y/CELL)|0);(g[k]||(g[k]=[])).push(p);}
+      var lines=0;ctx.lineWidth=0.6;ctx.strokeStyle='rgb(168,196,255)';
+      for(var key in g){
+        if(lines>MAXL)break;
+        var c=g[key],cs=key.split(','),gx=+cs[0],gy=+cs[1];
+        for(var ox=0;ox<=1;ox++)for(var oy=-1;oy<=1;oy++){
+          if(ox===0&&oy<0)continue;
+          var c2=(ox===0&&oy===0)?c:g[(gx+ox)+','+(gy+oy)];if(!c2)continue;
+          for(i=0;i<c.length;i++){var A=c[i];
+            for(j=(c2===c?i+1:0);j<c2.length;j++){var B=c2[j],dx=A.x-B.x,dy=A.y-B.y,d2=dx*dx+dy*dy;
+              if(d2<CELL*CELL){ctx.globalAlpha=0.16*(1-Math.sqrt(d2)/CELL)*Math.min(A.a,B.a);
+                ctx.beginPath();ctx.moveTo(A.x,A.y);ctx.lineTo(B.x,B.y);ctx.stroke();if(++lines>MAXL)break;}}
+            if(lines>MAXL)break;}
         }
-      },900);
-    }
-  },{passive:false});
-
-  cv.addEventListener('touchmove',function(e){
-    e.preventDefault();
-    var r=cv.getBoundingClientRect();
-    for(var i=0;i<e.changedTouches.length;i++){
-      var t=e.changedTouches[i],xy=getXY(t,r);
-      // Find in mtouches
-      for(var j=0;j<mtouches.length;j++){
-        if(mtouches[j].id===t.identifier){
-          var dx=xy.x-mtouches[j].lx,dy=xy.y-mtouches[j].ly;
-          fluid(xy.x,xy.y,dx*0.9,dy*0.9);
-          if(Math.sqrt(dx*dx+dy*dy)>8)mtouches[j].moved=true;
-          mtouches[j].lx=xy.x;mtouches[j].ly=xy.y;
-          mtouches[j].x=xy.x;mtouches[j].y=xy.y;
-          break;
-        }
-      }
-      // Primary finger
-      if(touches1.down&&e.changedTouches[0].identifier===t.identifier){
-        var ddx=xy.x-touches1.lx,ddy=xy.y-touches1.ly;
-        if(Math.sqrt(ddx*ddx+ddy*ddy)>10){touches1.moved=true;ms._holdActive=false;}
-        touches1.lx=xy.x;touches1.ly=xy.y;touches1.x=xy.x;touches1.y=xy.y;
-        if(ms._holdActive){ms._holdX=xy.x;ms._holdY=xy.y;}
       }
     }
-  },{passive:false});
-
-  cv.addEventListener('touchend',function(e){
-    e.preventDefault();
-    var r=cv.getBoundingClientRect();
-    for(var i=0;i<e.changedTouches.length;i++){
-      var t=e.changedTouches[i],xy=getXY(t,r);
-      // Explosion on quick tap
-      for(var j=0;j<mtouches.length;j++){
-        if(mtouches[j].id===t.identifier){
-          var dur=performance.now()-mtouches[j].startT;
-          if(!mtouches[j].moved&&dur<250)explosion(xy.x,xy.y);
-          mtouches.splice(j,1);
-          break;
-        }
-      }
-      // Primary
-      if(touches1.down&&(e.touches.length===0||e.changedTouches[0].identifier===t.identifier)){
-        touches1.down=false;
-        ms._holdActive=false;
-        if(holdTimer){clearTimeout(holdTimer);holdTimer=null;}
-      }
+    // trails
+    for(var id in F){var tr=F[id].trail;
+      while(tr.length&&now-tr[0].t>450)tr.shift();
+      for(i=1;i<tr.length;i++){var age=1-(now-tr[i].t)/450;if(age<=0)continue;
+        ctx.globalAlpha=0.45*age*(i/tr.length);ctx.lineWidth=1+5*age*(i/tr.length);ctx.strokeStyle='rgb(190,212,255)';
+        ctx.beginPath();ctx.moveTo(tr[i-1].x,tr[i-1].y);ctx.lineTo(tr[i].x,tr[i].y);ctx.stroke();}
     }
-  },{passive:false});
-
-  // Mouse fallback
-  cv.addEventListener('mousedown',function(e){
-    var xy={x:e.offsetX,y:e.offsetY};
-    touches1={down:true,x:xy.x,y:xy.y,lx:xy.x,ly:xy.y,startT:performance.now(),moved:false};
-    ms._holdActive=false;
-    if(holdTimer)clearTimeout(holdTimer);
-    holdTimer=setTimeout(function(){
-      if(touches1.down&&!touches1.moved){ms._holdActive=true;ms._holdX=touches1.x;ms._holdY=touches1.y;}
-    },900);
-  });
-  cv.addEventListener('mousemove',function(e){
-    if(!e.buttons)return;
-    var dx=e.offsetX-touches1.lx,dy=e.offsetY-touches1.ly;
-    if(Math.sqrt(dx*dx+dy*dy)>10){touches1.moved=true;ms._holdActive=false;}
-    fluid(e.offsetX,e.offsetY,dx*0.9,dy*0.9);
-    touches1.lx=e.offsetX;touches1.ly=e.offsetY;
-  });
-  cv.addEventListener('mouseup',function(e){
-    touches1.down=false;ms._holdActive=false;
-    if(holdTimer){clearTimeout(holdTimer);holdTimer=null;}
-    if(!touches1.moved&&performance.now()-touches1.startT<250)explosion(e.offsetX,e.offsetY);
-  });
+    // sparks
+    ctx.fillStyle='rgb(220,232,255)';
+    for(i=sparks.length-1;i>=0;i--){var s=sparks[i];s.x+=s.vx;s.y+=s.vy;s.vx*=0.95;s.vy*=0.95;s.life-=0.025;
+      if(s.life<=0){sparks.splice(i,1);continue;}
+      ctx.globalAlpha=s.life*0.8;ctx.beginPath();ctx.arc(s.x,s.y,Math.max(0.6,s.r*s.life),0,6.2832);ctx.fill();}
+    ctx.restore();
+  };
 }
 
 // ── Main render loop ──
@@ -7402,8 +7405,9 @@ function medRender(){
   ms.t+=0.016;
 
   var cv=ms.canvas, ctx=ms.ctx;
-  ctx.fillStyle='rgba(6,6,10,0.13)';
-  ctx.fillRect(0,0,ms.W,ms.H);
+  /* v106: fade alpha instead of painting grey (8-bit rounding left permanent smears); overlay bg shows through */
+  ctx.save();ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,0.16)';ctx.fillRect(0,0,ms.W,ms.H);
+  ms._fr=(ms._fr||0)+1; if(ms._fr%90===0){ctx.fillStyle='rgba(0,0,0,0.5)';ctx.fillRect(0,0,ms.W,ms.H);} ctx.restore();
 
   // Formation strength smooth
   ms.formationStrength+=(ms.formationTarget-ms.formationStrength)*0.007;
@@ -7415,7 +7419,7 @@ function medRender(){
     ms.formationIdx=(ms.formationIdx+1)%ms.formations.length;
     var nextF=ms.formations[ms.formationIdx];
     ms.formationTarget=0;
-    setTimeout(function(){
+    _medTO(function(){
       medReleaseFormation(ms.particles);
       ms.formation=nextF;
       if(nextF!=='drift'){
@@ -7454,6 +7458,7 @@ function medRender(){
     ms.particles[i].update(ms.formationStrength);
     ms.particles[i].draw(ctx);
   }
+  if(ms._fxDrawFn) ms._fxDrawFn(ctx); /* v106 lines, trails, sparks */
 
   // Connection lines
   if(ms.formationStrength>0.35){
@@ -7533,46 +7538,47 @@ function setMedLv(lv, medId, color){
 function launchMedSession(medId, color, lv) {
   if(medSession.active) stopMedSession();
   var ms=medSession;
+  ms.token=(ms.token||0)+1; ms._timers=[]; /* v106 */
   ms.medId=medId; ms.color=color||'#4a7fff';
   // Pre-decode mindfulness audio in background
   if(medId==='mindfulness'){
-    setTimeout(function(){
+    _medTO(function(){
       medDecodeB64(_MFUL_B64_START,_mfulBufStartCache,function(){});
       medDecodeB64(_MFUL_B64_FINAL,_mfulBufFinalCache,function(){});
     },50);
   }
   if(medId==='body_scan'){
-    setTimeout(function(){
+    _medTO(function(){
       medDecodeB64(_SKAN_B64_START,_skanBufStartCache,function(){});
       medDecodeB64(_SKAN_B64_FINAL,_skanBufFinalCache,function(){});
     },50);
   }
   if(medId==='loving_kindness'){
-    setTimeout(function(){
+    _medTO(function(){
       medDecodeB64(_LOVE_B64_START,_loveBufStartCache,function(){});
       medDecodeB64(_LOVE_B64_FINAL,_loveBufFinalCache,function(){});
     },50);
   }
   if(medId==='mantra'){
-    setTimeout(function(){
+    _medTO(function(){
       medDecodeB64(_MANT_B64_START,_mantBufStartCache,function(){});
       medDecodeB64(_MANT_B64_FINAL,_mantBufFinalCache,function(){});
     },50);
   }
   if(medId==='open_monitoring'){
-    setTimeout(function(){
+    _medTO(function(){
       medDecodeB64(_OPEN_B64_START,_openBufStartCache,function(){});
       medDecodeB64(_OPEN_B64_FINAL,_openBufFinalCache,function(){});
     },50);
   }
   if(medId==='visualization'){
-    setTimeout(function(){
+    _medTO(function(){
       medDecodeB64(_VISUAL_B64_START,_visualBufStartCache,function(){});
       medDecodeB64(_VISUAL_B64_FINAL,_visualBufFinalCache,function(){});
     },50);
   }
   if(medId==='breath_focus'){
-    setTimeout(function(){
+    _medTO(function(){
       medDecodeB64(_BREATH_B64_START,_breathBufStartCache,function(){});
     },50);
   }
@@ -7677,7 +7683,7 @@ function launchMedSession(medId, color, lv) {
   requestAnimationFrame(function(){
     overlay.classList.add('on');
     medInitTouch(cv, ms);  // Register touch AFTER .on so pointer-events:all is active
-    setTimeout(function(){
+    _medTO(function(){
       var card=document.getElementById('med-instr-card');
       if(card){var r=card.getBoundingClientRect();medSession.textZone={x:r.left,y:r.top,w:r.width,h:r.height};}
     },120);
@@ -7738,18 +7744,18 @@ function launchMedSession(medId, color, lv) {
   medRender();
 
   // Start voice after 800ms
-  setTimeout(function(){
+  _medTO(function(){
     var vlbl=document.getElementById('med-voice-lbl');
     if(vlbl) vlbl.textContent='';
     medSpeakIntro(medId, function(){
       // Voice intro done — hide card
       var card=document.getElementById('med-instr-card');
       if(card){card.style.transition='opacity 2s';card.style.opacity='0';
-        setTimeout(function(){if(card)card.style.display='none';medSession.textZone=null;},2200);}
+        _medTO(function(){if(card)card.style.display='none';medSession.textZone=null;},2200);}
       // Start ongoing guidance (re-shows card periodically)
       medStartOngoingGuidance(medId);
       // Start formations
-      setTimeout(function(){
+      _medTO(function(){
         if(!ms.active)return;
         medBuildFormation('circle',ms.particles,ms.W,ms.H);
         ms.formationTarget=1;
@@ -7765,10 +7771,11 @@ function stopMedSession(){
   if(!ms.active)return;
   ms.active=false;
   ms.speechActive=false;
+  ms.token=(ms.token||0)+1; if(ms._timers){ms._timers.forEach(function(x){clearTimeout(x);});ms._timers=[];} /* v106 */
   if(typeof speechSynthesis!=='undefined'){try{speechSynthesis.cancel();}catch(e){}}
   voiceStopCustom();
   if(ms._fullAudioSrc){try{ms._fullAudioSrc.stop();}catch(e){}} ms._fullAudioSrc=null;
-  ms._fullAudioSrc=null; ms._fullAudioEl=null; ms._fullTrack=false;
+  ms._fullAudioEl=null; ms._fullTrack=false;
   if(ms._finalTimer){clearTimeout(ms._finalTimer);ms._finalTimer=null;}
   if(ms.raf){cancelAnimationFrame(ms.raf);ms.raf=null;}
   if(ms.timerInterval){clearInterval(ms.timerInterval);ms.timerInterval=null;}
@@ -7777,7 +7784,7 @@ function stopMedSession(){
   var ov=document.getElementById('med-session-ov');
   if(ov){
     ov.classList.remove('on');
-    setTimeout(function(){if(ov&&ov.parentNode)ov.parentNode.removeChild(ov);},500);
+    if(ov.parentNode)ov.parentNode.removeChild(ov); /* v106: remove immediately (duplicate ids caused stale card text) */
   }
 }
 
@@ -8075,7 +8082,7 @@ function completeMedSession(){
   var dur=ms.elapsedSec||0;
   var color=ms.color||'#4a7fff';
   // Stop everything except show the post screen
-  ms.active=false;
+  ms.active=false; ms.token=(ms.token||0)+1; if(ms._timers){ms._timers.forEach(function(x){clearTimeout(x);});ms._timers=[];} /* v106 */
   ms.speechActive=false;
   if(typeof speechSynthesis!=='undefined'){try{speechSynthesis.cancel();}catch(e){}}
   voiceStopCustom();
@@ -8165,7 +8172,7 @@ function saveMedDone(skip){
   // Close overlay
   if(ov){
     ov.classList.remove('on');
-    setTimeout(function(){if(ov&&ov.parentNode)ov.parentNode.removeChild(ov);},500);
+    if(ov.parentNode)ov.parentNode.removeChild(ov); /* v106: remove immediately (duplicate ids caused stale card text) */
   }
   window._medDoneMood=-1;
   renderMedStatWidget();
@@ -8982,7 +8989,7 @@ function cogBimanual(body,p){
     var pair=pickPair();
     body.innerHTML=
       '<div style="padding:12px;">'+
-        '<div style="text-align:center;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:8px;">Раунд '+(cur+1)+'/'+rounds+'</div>'+
+        '<div style="text-align:center;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:8px;">'+t('nf_round')+' '+(cur+1)+'/'+rounds+'</div>'+
         '<div style="display:flex;gap:8px;touch-action:none;">'+
           '<div style="flex:1;text-align:center;"><canvas id="bim-l" style="width:100%;border-radius:14px;background:rgba(255,255,255,.03);touch-action:none;"></canvas><div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:6px;">Левая рука</div></div>'+
           '<div style="flex:1;text-align:center;"><canvas id="bim-r" style="width:100%;border-radius:14px;background:rgba(255,255,255,.03);touch-action:none;"></canvas><div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:6px;">Правая рука</div></div>'+
@@ -9075,7 +9082,7 @@ function cogBimanual(body,p){
       scores.push(roundScore);
       body.innerHTML=
         '<div style="text-align:center;padding:40px 20px;">'+
-          '<div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:14px;">Раунд '+(cur+1)+': '+roundScore+'%</div>'+
+          '<div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:14px;">'+t('nf_round')+' '+(cur+1)+': '+roundScore+'%</div>'+
           '<div style="display:flex;justify-content:center;gap:28px;">'+
             '<div><div style="font-size:11px;color:rgba(255,255,255,.4);">Левая</div><div style="font-size:24px;font-weight:700;color:'+p.color+';">'+sL+'%</div></div>'+
             '<div><div style="font-size:11px;color:rgba(255,255,255,.4);">Правая</div><div style="font-size:24px;font-weight:700;color:'+p.color+';">'+sR+'%</div></div>'+
@@ -9588,7 +9595,7 @@ function cogVisualSearch(body,p){
     body.innerHTML=
       '<div style="padding:14px 8px;">'+
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">'+
-          '<div style="font-size:11px;color:rgba(255,255,255,.4);">Раунд '+(round+1)+'/'+ROUNDS+'</div>'+
+          '<div style="font-size:11px;color:rgba(255,255,255,.4);">'+t('nf_round')+' '+(round+1)+'/'+ROUNDS+'</div>'+
           '<div style="font-size:12px;color:rgba(255,255,255,.55);">Найди отличающийся круг</div>'+
         '</div>'+
         '<div style="display:grid;grid-template-columns:repeat('+cols+',1fr);gap:2px;">'+
@@ -9889,8 +9896,8 @@ function cogSequence(body,p){
     if(player[pos]!==sequence[pos]){
       playing=true; /* v100: lock input */
       var m=document.getElementById('seq-msg');
-      if(m)m.textContent='Ошибка! Раунд '+(round-1)+' — лучший результат';
-      _cogTimer(function(){cogShowResult(body,p,round-1,maxRound,'Раунд '+(round-1)+'/'+maxRound+'</div>');},800);
+      if(m)m.textContent=t('nf_err_best').replace('{n}',round-1);
+      _cogTimer(function(){cogShowResult(body,p,round-1,maxRound,t('nf_round')+' '+(round-1)+'/'+maxRound+'</div>');},800);
       return;
     }
     if(player.length===sequence.length){
@@ -12483,7 +12490,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v105.1</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v106</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
