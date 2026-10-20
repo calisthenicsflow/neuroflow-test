@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v105">
+<meta name="nf-version" content="v105.1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -7075,11 +7075,26 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=105';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1051';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
 };
+/* v105.1: per-language session length. Translated voice tracks may be longer than the Russian ones; the session
+   is extended so the opening voice finishes and the closing part never overlaps it. Russian: unchanged (returns base). */
+var NF_MED_DUR={"en": {"breath_b64_start.mp3": 479.71, "love_b64_final.mp3": 15.96, "love_b64_start.mp3": 277.17, "mant_b64_final.mp3": 18.8, "mant_b64_start.mp3": 130.29, "mful_b64_final.mp3": 15.35, "mful_b64_start.mp3": 104.54, "open_b64_final.mp3": 25.85, "open_b64_start.mp3": 123.09, "skan_b64_final.wav": 19.25, "skan_b64_start.mp3": 258.68, "visual_b64_final.mp3": 21.49, "visual_b64_start.mp3": 147.16}, "de": {"breath_b64_start.mp3": 479.71, "love_b64_final.mp3": 15.96, "love_b64_start.mp3": 287.41, "mant_b64_final.mp3": 18.8, "mant_b64_start.mp3": 137.68, "mful_b64_final.mp3": 16.07, "mful_b64_start.mp3": 108.12, "open_b64_final.mp3": 26.48, "open_b64_start.mp3": 137.52, "skan_b64_final.wav": 20.02, "skan_b64_start.mp3": 271.47, "visual_b64_final.mp3": 22.37, "visual_b64_start.mp3": 147.6}, "es": {"breath_b64_start.mp3": 479.71, "love_b64_final.mp3": 16.7, "love_b64_start.mp3": 296.5, "mant_b64_final.mp3": 20.03, "mant_b64_start.mp3": 145.43, "mful_b64_final.mp3": 16.84, "mful_b64_start.mp3": 116.54, "open_b64_final.mp3": 28.66, "open_b64_start.mp3": 144.4, "skan_b64_final.wav": 21.53, "skan_b64_start.mp3": 299.69, "visual_b64_final.mp3": 23.8, "visual_b64_start.mp3": 159.73}, "zh": {"breath_b64_start.mp3": 479.71, "love_b64_final.mp3": 15.96, "love_b64_start.mp3": 278.61, "mant_b64_final.mp3": 18.8, "mant_b64_start.mp3": 130.38, "mful_b64_final.mp3": 15.48, "mful_b64_start.mp3": 104.49, "open_b64_final.mp3": 26.14, "open_b64_start.mp3": 128.87, "skan_b64_final.wav": 18.65, "skan_b64_start.mp3": 256.6, "visual_b64_final.mp3": 21.49, "visual_b64_start.mp3": 146.78}};
+var _NF_MED_PFX={mindfulness:'mful',body_scan:'skan',loving_kindness:'love',mantra:'mant',open_monitoring:'open',visualization:'visual',breath_focus:'breath'};
+function _nfDurOf(fn){var L=_nfMedLang();var t=NF_MED_DUR[L]||NF_MED_DUR.en;return t&&t[fn];}
+function _nfFinalOff(cache,base){if(_nfMedLang()==='ru')return base;var fn=_nfMedFile(cache),d=fn&&_nfDurOf(fn);return d?Math.max(base,Math.ceil(d+0.5)):base;}
+function _nfMedSession(medId,sel,fixedTrack){
+  if(_nfMedLang()==='ru')return sel;
+  var p=_NF_MED_PFX[medId];if(!p)return sel;
+  var sd=_nfDurOf(p+'_b64_start.mp3');if(!sd)return sel;
+  if(fixedTrack)return Math.max(sel,Math.ceil(sd));
+  var base={mful:20,skan:20,love:16,mant:19,open:26,visual:22}[p]||20;
+  var fc={mful:_mfulBufFinalCache,skan:_skanBufFinalCache,love:_loveBufFinalCache,mant:_mantBufFinalCache,open:_openBufFinalCache,visual:_visualBufFinalCache}[p];
+  return Math.max(sel,Math.ceil(sd+_nfFinalOff(fc,base)+1.5));
+}
 
 function medPlayAudioBuf(buf, vol, onEnd){
   var ms=medSession;
@@ -7111,7 +7126,7 @@ function medScheduleGenericFinal(finalB64, finalCache, offsetSec){
   if(!finalCache)return; /* v101: tracks without a separate final part */
   var ms=medSession;
   var tot=ms.sessionDuration||300;
-  var finalOffset=tot-(offsetSec||25);
+  var finalOffset=tot-_nfFinalOff(finalCache,(offsetSec||25));
   if(finalOffset<1)finalOffset=1;
   medDecodeB64(finalB64, finalCache, function(){});
   if(ms._finalTimer)clearTimeout(ms._finalTimer);
@@ -7140,7 +7155,7 @@ function medPlayFullTrack(){
 function medScheduleFinalAudio(){
   var ms=medSession;
   var tot=ms.sessionDuration||300;
-  var finalOffset=tot-20; // 20s before end
+  var finalOffset=tot-_nfFinalOff(_mfulBufFinalCache,20); // 20s before end
   if(finalOffset<1)finalOffset=1;
   // Decode FINAL in background
   medDecodeB64(_MFUL_B64_FINAL, _mfulBufFinalCache, function(){});
@@ -7170,7 +7185,7 @@ function medPlaySkanTrack(){
 function medScheduleSkanFinal(){
   var ms=medSession;
   var tot=ms.sessionDuration||300;
-  var finalOffset=tot-20;
+  var finalOffset=tot-_nfFinalOff(_skanBufFinalCache,20);
   if(finalOffset<1)finalOffset=1;
   medDecodeB64(_SKAN_B64_FINAL, _skanBufFinalCache, function(){});
   if(ms._finalTimer)clearTimeout(ms._finalTimer);
@@ -7202,7 +7217,7 @@ function medPlayLoveTrack(){
     src.start(0);  // start FIRST
     // Then schedule stop 16s before session end (must be after start)
     var tot=ms.sessionDuration||300;
-    var stopAt=ac.currentTime+(tot-16);
+    var stopAt=ac.currentTime+(tot-_nfFinalOff(_loveBufFinalCache,16));
     if(stopAt>ac.currentTime) src.stop(stopAt);
     ms._fullAudioSrc=src;
     medScheduleLoveFinal();
@@ -7211,7 +7226,7 @@ function medPlayLoveTrack(){
 function medScheduleLoveFinal(){
   var ms=medSession;
   var tot=ms.sessionDuration||300;
-  var finalOffset=tot-16;
+  var finalOffset=tot-_nfFinalOff(_loveBufFinalCache,16);
   if(finalOffset<1)finalOffset=1;
   medDecodeB64(_LOVE_B64_FINAL,_loveBufFinalCache,function(){});
   if(ms._finalTimer)clearTimeout(ms._finalTimer);
@@ -7565,6 +7580,7 @@ function launchMedSession(medId, color, lv) {
   ms.sessionDuration=MED_DURATIONS[lv!==undefined?lv:medSelLv]||MED_DURATIONS[0];
   var _mT=MEDS.find(function(x){return x.id===medId;});
   if(_mT&&_mT.trackSec) ms.sessionDuration=Math.ceil(_mT.trackSec); /* v101: fixed-length guided track */
+  ms.sessionDuration=_nfMedSession(medId,ms.sessionDuration,!!(_mT&&_mT.trackSec)); /* v105.1 */
   ms.formationIdx=0; ms.formationStrength=0; ms.formationTarget=0; ms.formationTimer=0;
   ms.formation='drift'; ms.t=0;
   ms.startTs=performance.now(); ms.elapsedSec=0;
@@ -12467,7 +12483,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v105</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v105.1</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
