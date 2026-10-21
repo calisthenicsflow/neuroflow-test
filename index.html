@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v107.1">
+<meta name="nf-version" content="v108">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -1993,6 +1993,39 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 
 </style>
 <style>#setBtn,#langGlobal,.back.nf-back,#postClose,#hbPrev,#hbNext,#nfSetBack{min-width:48px!important;min-height:48px!important;box-sizing:border-box;} /* v106 tap targets */</style>
+<style>/* v108 */
+.sm-hdr{padding-bottom:6px;}
+.sm-hdr .back{width:48px;height:48px;min-width:48px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;}
+.sm-nm{font-size:18px;font-weight:400;}
+.sm-gl{font-size:10px;margin-top:2px;color:rgba(255,255,255,.62);}
+.nf8-hero{margin:6px 0 10px;padding:12px 14px 4px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid var(--br1);}
+.nf8-hero .sm-effect-row{margin-bottom:8px;}
+.nf8-desc{max-height:1.65em;overflow:hidden;transition:max-height .38s cubic-bezier(.2,.8,.2,1);position:relative;}
+.nf8-desc:not(.open) .nf8-desc-in{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+.nf8-desc .sm-how{font-size:13px;line-height:1.65;color:rgba(255,255,255,.72);}
+.nf8-desc .sm-how strong{color:#fff;}
+.nf8-more{display:flex;align-items:center;gap:6px;min-height:44px;padding:0 4px;border:0;background:transparent;color:#fff;font:500 13px 'DM Sans',sans-serif;letter-spacing:.02em;cursor:pointer;}
+.nf8-more svg{transition:transform .3s;}
+.nf8-more.open svg{transform:rotate(180deg);}
+html.nf8-bimlock,body.nf8-bimlock{overscroll-behavior:none;overflow:hidden;}
+#cog-ex-body.nf8-bimlock{overflow:hidden!important;overscroll-behavior:none;touch-action:none;}
+.cg-res-btns .nf8-next{flex:1.4;min-height:56px;font-size:16px;font-weight:600;color:#07070e;}
+.cg-res-btns .nf8-lv{min-height:56px;}
+/* habits: edit mode + drag */
+.hb-row.nf8-drag{position:relative;z-index:30;transform:scale(1.035);box-shadow:0 18px 40px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.22);transition:box-shadow .2s,transform .2s;background:#1a1a26;}
+.hb-row.nf8-shift{transition:transform .22s cubic-bezier(.2,.8,.2,1);}
+.hb-list.nf8-dragging .hb-row{user-select:none;-webkit-user-select:none;}
+.hb-mini.nf8-btn{width:48px;height:48px;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);margin-left:6px;}
+.hb-mini.nf8-trash{color:#ff8a78;border-color:rgba(255,120,100,.4);background:rgba(255,90,70,.1);}
+.nf8-grip{width:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);touch-action:none;}
+.nf8-modal{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;padding:16px;animation:fadeUp .2s ease;}
+.nf8-modal-b{width:100%;max-width:420px;background:#15151f;border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:20px;margin-bottom:calc(env(safe-area-inset-bottom) + 8px);}
+.nf8-modal-t{font-size:18px;color:#fff;font-weight:500;margin-bottom:6px;}
+.nf8-modal-s{font-size:14px;color:rgba(255,255,255,.75);line-height:1.5;margin-bottom:18px;}
+.nf8-modal-r{display:flex;gap:10px;}
+.nf8-modal-r button{flex:1;min-height:52px;border-radius:14px;font:500 15px 'DM Sans',sans-serif;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;}
+.nf8-modal-r .nf8-danger{background:#e0503c;border-color:#e0503c;color:#fff;}
+</style>
 </head>
 <body>
 
@@ -7087,7 +7120,7 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1071';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=108';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
@@ -10976,8 +11009,8 @@ function cogShowResult(body,p,score,max,extra){
     '<div class="cg-res-x">'+(extra||score+' / '+max)+'</div>'+
     (isBest?'<div class="cg-res-best">'+CT('new_best')+'</div>':'')+
     '<div class="cg-res-bar"><i style="width:'+pct+'%;background:'+p.color+'"></i></div>'+
-    '<div class="cg-res-btns"><button class="cg-btn2" id="cg-again" onclick="'+retry+'">'+cogT('cog_again')+'</button>'+
-    '<button class="cg-btn1" id="cg-done" style="background:'+p.color+'" onclick="closeCogEx()">'+cogT('cog_done')+'</button></div></div>';
+    '<div class="cg-res-btns"><button class="cg-btn2 nf8-lv" id="cg-levels" onclick="nf8Levels()">'+T8('levels')+'</button>'+
+    '<button class="cg-btn1 nf8-next" id="cg-next" style="background:'+p.color+'" onclick="nf8Next()">'+T8('next')+' →</button></div></div>'; /* v108 */
   window._cogState={result:pct,score:score,max:max};
 }
 function cgFlash(el,ok){if(!el)return;el.classList.remove('cg-ok','cg-bad');void el.offsetWidth;el.classList.add(ok?'cg-ok':'cg-bad');cogPlayFeedback(ok);}
@@ -11221,7 +11254,7 @@ function cogPrediction(body,p){
     '<button class="cg-btn1 wide" style="background:'+p.color+'" onclick="cogPredPhase1()">'+CT('pred_go')+'</button></div>';
   window._predCount=count;window._cogState={game:'pred',setup:true};window._cogParams={game:'pred',d:_cogDiff(),wordMs:[1800,1200,700][_cogDiff()]};
   window.cogPredPhase1=function(){
-    var n=window._predCount||8,W=cgShuffle(CT('pred_words')).slice(0,n),i=0;window._predWords=W;
+    var n=window._predCount||8,W=nfBagTake('pred_'+curLang,CT('pred_words'),n),i=0;window._predWords=W;
     window._cogState={game:'pred',words:W};
     (function show(){
       if(i>=W.length){recall();return;}
@@ -12007,7 +12040,7 @@ function cg4SetPredCount(v){v=parseInt(v,10)||8;dbSet('pred_count',v);var e=docu
 
 /* ═══ Memory: starts straight away with the count chosen on the detail screen ═══ */
 function cogPrediction(body,p){
-  var n=cg4PredCount(),MS=1500,W=cgShuffle(CT('pred_words')).slice(0,n),i=0;
+  var n=cg4PredCount(),MS=1500,W=nfBagTake('pred_'+curLang,CT('pred_words'),n),i=0;
   window._predWords=W;window._cogParams={game:'pred',count:n,wordMs:MS,levels:false};
   window._cogState={game:'pred',words:W};
   function recall(){
@@ -12353,7 +12386,7 @@ var CG5_SETS=[['circle','square','triangle','diamond','rect','line','vline'],
   ['pentagon','hexagon','star','zigzag','arrow','cross','check','house'],
   ['spiral','heart','infinity','star6','lightning','wave','moon']];
 var _cg5Bag={};
-function cg5Draw(d){var b=_cg5Bag[d];if(!b||!b.length){var prev=b&&b.last;b=_cg5Bag[d]=cgShuffle(CG5_SETS[d]);if(prev&&b[0]===prev)b.push(b.shift());}var s=b.shift();b.last=s;return s;}
+function cg5Draw(d){if(!_cg5Bag[d]){var sv=dbGet('bag_bim_'+d);if(sv&&sv.q){_cg5Bag[d]=sv.q.filter(function(x){return CG5_SETS[d].indexOf(x)>=0;});_cg5Bag[d].last=sv.last;}}var b=_cg5Bag[d];if(!b||!b.length){var prev=b&&b.last;b=_cg5Bag[d]=cgShuffle(CG5_SETS[d]);if(prev&&b[0]===prev)b.push(b.shift());}var s=b.shift();b.last=s;dbSet('bag_bim_'+d,{q:b.slice(),last:s});return s;}
 function cg5Pair(d){var a=cg5Draw(d),b=cg5Draw(d),g=0;while(b===a&&g++<10)b=cg5Draw(d);return [a,b];}
 /* strict score: resample both paths by arc length, mean distance both ways + 90th percentile, mapped exponentially */
 function cg5Resample(pts,n){if(pts.length<2)return pts.slice();var L=[0];for(var i=1;i<pts.length;i++)L.push(L[i-1]+Math.hypot(pts[i].x-pts[i-1].x,pts[i].y-pts[i-1].y));
@@ -12383,7 +12416,7 @@ function cg5BimDoc(){if(_cg5Doc)return;_cg5Doc=true;
   document.addEventListener('touchcancel',fw('e'),{passive:false,capture:true});
 }
 function cogBimanual(body,p){
-  cg4BimGuard();
+  cg4BimGuard();nf8BimLock(true);
   var diff=_cogDiff(),ROUNDS=4,cur=0,scores=[];
   var HAS_TOUCH=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
   window._cogParams={game:'bimanual',d:diff,shapes:CG5_SETS[diff].join(','),sameShape:false,timer:false,guideAlwaysVisible:true,input:HAS_TOUCH?'touch':'pointer',scoring:'strict-v107'};
@@ -12400,6 +12433,10 @@ function cogBimanual(body,p){
         '<button class="cg-btn2 wide cg4-done" id="bim-done" onclick="cogBimDone()">'+CT('bim_done')+'</button>'+
         '<div id="bim-res" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;background:rgba(7,7,14,.94);border-radius:16px;z-index:5;pointer-events:none"></div></div>';
       var w0=document.getElementById('bim-wrap');
+      /* v108: target-level non-passive listeners — iOS honours preventDefault reliably only here; stops the native
+         pull/overscroll that grabbed downward strokes and fired touchcancel */
+      ['bim-l','bim-r'].forEach(function(cid){var c=document.getElementById(cid);['touchstart','touchmove'].forEach(function(ev){c.addEventListener(ev,function(e){if(e.cancelable)e.preventDefault();},{passive:false});});});
+      w0.addEventListener('touchstart',function(e){if(e.cancelable)e.preventDefault();},{passive:false});
       ['pointerdown','pointermove','pointerup','pointercancel'].forEach(function(ev){w0.addEventListener(ev,function(e){var h=window._bimH;if(h&&h[ev])h[ev](e);});});
     }else{
       document.getElementById('bim-cnt').innerHTML=cgCnt(cur+1,ROUNDS);
@@ -12507,7 +12544,7 @@ var _mathKeyBound=false;
 function cogErrorAware(body,p){
   var diff=_cogDiff(),rounds=10,cur=0,ok=0,times=[],limit=[20000,25000,30000][diff];
   window._cogParams={game:'err',d:diff,limitMs:limit,input:'keypad',options:0,ops:['+−×÷ 1-digit','2-digit +−×÷, two-step, missing operand','2×2-digit, 3-digit ±, multi-step, brackets'][diff]};
-  var R=cg4Rand,_seen={},_lastK=-1;
+  var R=cg4Rand,_seen=nfRecentObj('math_'+diff),_lastK=-1;
   /* v107: richer generator — easy: one-digit/small; medium: two-digit operands; hard: occasional 2-digit×2-digit, multi-step. No repeats. */
   function gen1(){var a,b,c,t,k;
     if(diff===0){k=R(0,3);if(k===_lastK)k=(k+1+R(0,2))%4;
@@ -12534,7 +12571,7 @@ function cogErrorAware(body,p){
     if(k===6){b=R(6,14);c=R(12,30);return {q:'? × '+b+' = '+(b*c),ans:c,k:k,eq:true};}
     if(k===7){a=R(4,9);b=R(11,19);c=R(2,9);return {q:a+' × '+b+' + '+c+' × '+a,ans:a*b+c*a,k:k};}
     a=R(25,75);b=R(2,4);c=R(10,40);return {q:a+' × '+b+' + '+c,ans:a*b+c,k:k};}
-  function gen(){var g,i=0;do{g=gen1();i++;}while((_seen[g.q]||g.ans<0)&&i<40);_seen[g.q]=1;_lastK=g.k;return g;}
+  function gen(){var g,i=0;do{g=gen1();i++;}while((_seen[g.q]||g.ans<0)&&i<40);_seen[g.q]=1;nfRecentPush('math_'+diff,g.q);_lastK=g.k;return g;}
   var keys=['1','2','3','4','5','6','7','8','9','del','0','ok'];
   function next(){
     if(cur>=rounds){var avg=times.length?times.reduce(function(a,b){return a+b;},0)/times.length:0;window._mathActive=false;cogShowResult(body,p,ok,rounds,CT('math_res',{a:ok,b:rounds,t:cgFmtS(avg)}));return;}
@@ -12606,7 +12643,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v107.1</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -13011,6 +13048,157 @@ function motSpdInput(v){v=Math.max(50,Math.min(200,parseInt(v,10)||100));dbSet('
 (function(){var _o=openCogDetail;openCogDetail=function(id){var x=_o.apply(this,arguments);
   if(id==='mot'){var el=document.getElementById('cog-detail'),st=el&&el.querySelector('.cg-start');if(st&&!document.getElementById('motSpdBox'))st.insertAdjacentHTML('beforebegin',motSpdHTML());}
   return x;};})();
+
+/* ════════ v108 ════════ */
+var NF8_T={
+ ru:{more:'Развернуть',less:'Свернуть',next:'Далее',levels:'К уровням',del_t:'Удалить привычку?',del_s:'«{n}» и вся её история будут удалены.',del_y:'Удалить',cancel:'Отмена',drag_hint:'Удерживай карточку, чтобы перетащить',rename:'Изменить',trash:'Удалить',
+  whm:'30 мощных вдохов: полный вдох носом в живот и грудь, пассивный выдох без усилий. После серии — задержка на выдохе 60+ сек: 60 сек — желательный минимум, держи дольше, до первого позыва (часто 1–2 мин). Затем глубокий вдох и задержка 15 сек. Это один круг.'},
+ en:{more:'Expand',less:'Collapse',next:'Next',levels:'Levels',del_t:'Delete habit?',del_s:'“{n}” and all its history will be removed.',del_y:'Delete',cancel:'Cancel',drag_hint:'Hold a card to drag it',rename:'Edit',trash:'Delete',
+  whm:'30 power breaths: full inhale through the nose into belly and chest, passive exhale. After the series — hold on the exhale for 60+ sec: 60 sec is the desirable minimum, hold longer, until the first urge (often 1–2 min). Then a deep inhale and a 15-sec hold. This is one round.'},
+ de:{more:'Aufklappen',less:'Zuklappen',next:'Weiter',levels:'Zu den Stufen',del_t:'Gewohnheit löschen?',del_s:'„{n}“ und ihr gesamter Verlauf werden gelöscht.',del_y:'Löschen',cancel:'Abbrechen',drag_hint:'Karte gedrückt halten zum Verschieben',rename:'Bearbeiten',trash:'Löschen',
+  whm:'30 kraftvolle Atemzüge: voller Einatem durch die Nase in Bauch und Brust, passiver Ausatem. Nach der Serie — Atemanhalten nach dem Ausatmen 60+ Sek: 60 Sek sind das wünschenswerte Minimum, halte länger, bis zum ersten Drang (oft 1–2 Min). Dann tief einatmen und 15 Sek halten. Das ist eine Runde.'},
+ es:{more:'Desplegar',less:'Plegar',next:'Siguiente',levels:'A los niveles',del_t:'¿Eliminar hábito?',del_s:'Se eliminarán «{n}» y todo su historial.',del_y:'Eliminar',cancel:'Cancelar',drag_hint:'Mantén pulsada una tarjeta para moverla',rename:'Editar',trash:'Eliminar',
+  whm:'30 respiraciones potentes: inhalación completa por la nariz al abdomen y el pecho, exhalación pasiva. Tras la serie — retención tras exhalar 60+ s: 60 s es el mínimo deseable, aguanta más, hasta el primer impulso (a menudo 1–2 min). Luego inhala profundo y retén 15 s. Eso es una ronda.'},
+ zh:{more:'展开',less:'收起',next:'下一轮',levels:'返回难度',del_t:'删除习惯？',del_s:'“{n}”及其全部记录将被删除。',del_y:'删除',cancel:'取消',drag_hint:'长按卡片即可拖动排序',rename:'编辑',trash:'删除',
+  whm:'30次强力呼吸：用鼻子完全吸气至腹部和胸部，被动呼气。一组后——呼气后屏息60秒以上：60秒是理想的最低限度，尽量坚持更久，直到第一次想呼吸（通常1–2分钟）。然后深吸气并屏息15秒。这是一轮。'}};
+function T8(k,v){var s=(NF8_T[curLang]||NF8_T.en)[k];if(s==null)s=NF8_T.en[k]||k;if(v)for(var x in v)s=s.split('{'+x+'}').join(v[x]);return s;}
+
+/* 2. Wim Hof text: 60+ sec */
+(function(){var w=ALL_TC.wim_hof;if(w&&w.desc)['ru','en','de','es','zh'].forEach(function(l){w.desc[l]=NF8_T[l].whm;});
+  var _ps=psStr;psStr=function(pat){var s=_ps.apply(this,arguments);if(pat&&pat[4]===60&&pat[5]===15&&pat[0]<=2)s=s.replace(/ 60s/,' 60+s');return s;};})();
+
+/* 1. State page: compact header, description collapsed to one line, hero scrolls away with the list */
+function nf8SmBuild(){
+  var hero=document.getElementById('smHero'),list=document.getElementById('smList');if(!hero||!list)return;
+  var box=hero.querySelector('.sm-hero-box');if(!box)return;
+  var old=list.querySelector('.nf8-hero');if(old)old.remove();
+  var badges=box.querySelector('.sm-effect-row'),how=box.querySelector('.sm-how'),eff=how&&how.nextElementSibling;
+  var d=document.createElement('div');d.className='nf8-hero';
+  d.innerHTML=(badges?badges.outerHTML:'')+'<div class="nf8-desc" id="nf8Desc"><div class="nf8-desc-in">'+(how?how.outerHTML:'')+(eff?eff.outerHTML:'')+'</div></div>'+
+    '<button class="nf8-more" id="nf8More" aria-expanded="false" onclick="nf8SmToggle()"><span>'+T8('more')+'</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>';
+  list.insertBefore(d,list.firstChild);hero.style.display='none';list.scrollTop=0;
+}
+function nf8SmToggle(){var d=document.getElementById('nf8Desc'),b=document.getElementById('nf8More');if(!d||!b)return;
+  var open=!d.classList.contains('open');var inn=d.firstChild;
+  d.style.maxHeight=(open?inn.scrollHeight:d.scrollHeight)+'px';void d.offsetHeight;
+  d.classList.toggle('open',open);d.style.maxHeight=open?inn.scrollHeight+'px':'';
+  b.setAttribute('aria-expanded',open);b.classList.toggle('open',open);b.querySelector('span').textContent=T8(open?'less':'more');
+  if(window.nfUx)nfUx('tap');}
+(function(){
+  var mo=new MutationObserver(function(){mo.disconnect();try{nf8SmBuild();}catch(e){}obs();});
+  function obs(){var h=document.getElementById('smHero'),l=document.getElementById('smList');if(h)mo.observe(h,{childList:true});if(l)mo.observe(l,{childList:true});}
+  obs();
+})();
+
+/* 5. Results: 'Next' = new round, same difficulty, fresh content; 'Levels' = back to the difficulty menu */
+function nf8Next(){var id=_cogExId,g=window._intuitGid;if(window.nfUx)nfUx('tap');
+  if(id==='conf'&&g)launchIntuitionGame(g);else launchCogEx(id);}
+function nf8Levels(){if(window.nfUx)nfUx('tap');var id=_cogExId,d=_cogDifficulty;closeCogEx();
+  var det=document.getElementById('cog-detail');if(!(det&&det.classList.contains('on'))&&id){openCogDetail(id);}
+  var bs=document.querySelectorAll('#diff-btns > button');if(bs[d])cogSetDiff(bs[d],d);}
+/* shuffle-bag that survives across rounds and app restarts: items do not repeat until the pool is used up */
+function nfBagTake(key,pool,n){
+  var st=dbGet('bag_'+key)||{q:[],last:[]},out=[],guard=0;
+  st.q=(st.q||[]).filter(function(x){return pool.indexOf(x)>=0;});
+  while(out.length<n&&guard++<5){
+    if(!st.q.length){var rest=pool.filter(function(x){return out.indexOf(x)<0&&(st.last||[]).indexOf(x)<0;});
+      if(rest.length<n-out.length)rest=pool.filter(function(x){return out.indexOf(x)<0;});
+      st.q=cgShuffle(rest);}
+    while(out.length<n&&st.q.length){var x=st.q.shift();if(out.indexOf(x)<0)out.push(x);}
+  }
+  st.last=out.slice();dbSet('bag_'+key,st);return out;
+}
+function nfRecentObj(key){var a=dbGet('rec_'+key)||[],o={};a.forEach(function(q){o[q]=1;});return o;}
+function nfRecentPush(key,q){var a=dbGet('rec_'+key)||[];a.push(q);if(a.length>80)a=a.slice(-80);dbSet('rec_'+key,a);}
+
+/* 4. Two hands: lock scrolling/overscroll while the game is open (iOS rubber-band on a downward pull sent
+   touchcancel and cut the stroke) + target-level non-passive touchstart on each canvas */
+function nf8BimLock(on){document.documentElement.classList.toggle('nf8-bimlock',!!on);document.body.classList.toggle('nf8-bimlock',!!on);
+  var b=document.getElementById('cog-ex-body');if(b){if(on)b.scrollTop=0;b.classList.toggle('nf8-bimlock',!!on);}}
+(function(){var _c=closeCogEx;closeCogEx=function(){nf8BimLock(false);return _c.apply(this,arguments);};
+  var _r=cogShowResult;cogShowResult=function(){nf8BimLock(false);return _r.apply(this,arguments);};})();
+/* 3. Habits: edit mode with pencil + trash (confirm), long-press drag to reorder (touch + mouse) */
+(function(){
+  var _t=hbTodayHtml;
+  hbTodayHtml=function(){
+    var h=_t.apply(this,arguments);if(!_hbEdit)return h;
+    var s=hbState(),i0=h.indexOf('<div class="hb-hint">');if(i0<0)return h;
+    var out=h.slice(0,i0)+'<div class="hb-hint">'+hbEsc(T8('drag_hint'))+'</div><div class="hb-list" id="hbList">';
+    s.habits.forEach(function(x){
+      out+='<div class="hb-row hb-editing" data-id="'+x.id+'">'+
+        '<div class="nf8-grip" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></div>'+
+        '<div class="hb-txt"><div class="hb-name">'+hbEsc(hbName(x))+'</div><div class="hb-meta"><span class="hb-sched">'+hbEsc(hbSchedLabel(x))+'</span></div></div>'+
+        '<button class="hb-mini nf8-btn" aria-label="'+hbEsc(T8('rename'))+'" onclick="event.stopPropagation();hbOpenEdit(\''+x.id+'\')">'+HB_IC.pen+'</button>'+
+        '<button class="hb-mini nf8-btn nf8-trash" aria-label="'+hbEsc(T8('trash'))+'" onclick="event.stopPropagation();nf8AskDel(\''+x.id+'\')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div>';
+    });
+    return out+'</div>';
+  };
+})();
+function nf8AskDel(id){
+  var h=hbFind(id);if(!h)return;if(window.nfUx)nfUx('tap');
+  var m=document.createElement('div');m.className='nf8-modal';m.id='nf8Del';
+  m.innerHTML='<div class="nf8-modal-b" role="dialog" aria-modal="true"><div class="nf8-modal-t">'+hbEsc(T8('del_t'))+'</div><div class="nf8-modal-s">'+hbEsc(T8('del_s',{n:hbName(h)}))+'</div>'+
+    '<div class="nf8-modal-r"><button id="nf8DelNo">'+hbEsc(T8('cancel'))+'</button><button class="nf8-danger" id="nf8DelYes">'+hbEsc(T8('del_y'))+'</button></div></div>';
+  document.body.appendChild(m);
+  m.addEventListener('click',function(e){if(e.target===m)m.remove();});
+  document.getElementById('nf8DelNo').onclick=function(){m.remove();};
+  document.getElementById('nf8DelYes').onclick=function(){m.remove();window._hbSheet={id:id};
+    try{hbConfirmDelete();}catch(e){var s=hbState();s.habits=s.habits.filter(function(x){return x.id!==id;});hbSave();hbRender();}
+    if(window.nfUx)nfUx('uncheck');};
+}
+/* long-press drag */
+(function(){
+  var LP=420,st=null,blockClick=0;
+  function rowAt(t){var r=t&&t.closest?t.closest('#hbList > .hb-row'):null;if(!r)return null;if(t.closest('button'))return null;return r;}
+  function scroller(el){var e=el;while(e&&e!==document.body){var cs=getComputedStyle(e);if(/(auto|scroll)/.test(cs.overflowY)&&e.scrollHeight>e.clientHeight)return e;e=e.parentElement;}return document.scrollingElement;}
+  function begin(row,x,y){
+    st={row:row,y0:y,y:y,x0:x,active:false,timer:null,list:row.parentElement};
+    st.timer=setTimeout(function(){activate();},LP);
+  }
+  function activate(){
+    if(!st)return;st.active=true;var list=st.list;
+    st.rows=[].slice.call(list.querySelectorAll(':scope > .hb-row'));st.idx=st.rows.indexOf(st.row);st.to=st.idx;
+    st.tops=st.rows.map(function(r){return r.getBoundingClientRect().top;});
+    var rc=st.row.getBoundingClientRect();st.h=rc.height+parseFloat(getComputedStyle(st.row).marginBottom||0)+(st.rows[1]?Math.max(0,st.tops[1]-st.tops[0]-rc.height-parseFloat(getComputedStyle(st.row).marginBottom||0)):0);
+    if(st.rows.length>1)st.h=Math.abs(st.tops[1]-st.tops[0]);
+    st.sc=scroller(list);st.sc0=st.sc.scrollTop;
+    list.classList.add('nf8-dragging');st.row.classList.add('nf8-drag');
+    st.rows.forEach(function(r){if(r!==st.row)r.classList.add('nf8-shift');});
+    try{if(window.nfUx)nfUx('check');else if(navigator.vibrate)navigator.vibrate(14);}catch(e){}
+    loop();
+  }
+  function layout(){
+    var dy=st.y-st.y0+(st.sc.scrollTop-st.sc0);
+    st.row.style.transform='translateY('+dy+'px) scale(1.035)';
+    var to=Math.max(0,Math.min(st.rows.length-1,st.idx+Math.round(dy/st.h)));
+    if(to!==st.to){st.to=to;try{if(window.nfUx)nfUx('tap');}catch(e){}}
+    st.rows.forEach(function(r,i){if(r===st.row)return;var s=0;if(st.idx<st.to&&i>st.idx&&i<=st.to)s=-st.h;if(st.idx>st.to&&i<st.idx&&i>=st.to)s=st.h;r.style.transform=s?'translateY('+s+'px)':'';});
+  }
+  function loop(){if(!st||!st.active)return;
+    var vh=window.innerHeight,edge=70,v=0;if(st.y<edge+60)v=-Math.ceil((edge+60-st.y)/8);else if(st.y>vh-edge-90)v=Math.ceil((st.y-(vh-edge-90))/8);
+    if(v)st.sc.scrollTop+=v;layout();requestAnimationFrame(loop);}
+  function move(x,y,e){if(!st)return;st.y=y;
+    if(!st.active){if(Math.abs(y-st.y0)>8||Math.abs(x-st.x0)>8){clearTimeout(st.timer);st=null;}return;}
+    if(e&&e.cancelable)e.preventDefault();}
+  function end(){if(!st)return;clearTimeout(st.timer);var s=st;st=null;if(!s.active)return;
+    blockClick=performance.now();
+    s.list.classList.remove('nf8-dragging');s.rows.forEach(function(r){r.classList.remove('nf8-shift','nf8-drag');r.style.transform='';});
+    if(s.to!==s.idx){var ids=s.rows.map(function(r){return r.getAttribute('data-id');});var m=ids.splice(s.idx,1)[0];ids.splice(s.to,0,m);
+      var hs=hbState().habits,slots=[];hs.forEach(function(h,i){if(ids.indexOf(h.id)>=0)slots.push(i);});
+      var byId={};hs.forEach(function(h){byId[h.id]=h;});slots.forEach(function(si,k){hs[si]=byId[ids[k]];});
+      hbSave();var tdy=document.getElementById('hbToday');if(tdy)tdy.innerHTML=hbTodayHtml();}
+    try{if(window.nfUx)nfUx('uncheck');}catch(e){}
+  }
+  document.addEventListener('touchstart',function(e){if(e.touches.length!==1)return;var r=rowAt(e.target);if(r)begin(r,e.touches[0].clientX,e.touches[0].clientY);},{passive:true,capture:true});
+  document.addEventListener('touchmove',function(e){if(st)move(e.touches[0].clientX,e.touches[0].clientY,e);},{passive:false,capture:true});
+  document.addEventListener('touchend',end,{capture:true});document.addEventListener('touchcancel',end,{capture:true});
+  document.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse')return;var r=rowAt(e.target);if(r)begin(r,e.clientX,e.clientY);},true);
+  document.addEventListener('pointermove',function(e){if(e.pointerType==='mouse'&&st)move(e.clientX,e.clientY,e);},true);
+  document.addEventListener('pointerup',function(e){if(e.pointerType==='mouse')end();},true);
+  document.addEventListener('click',function(e){if(performance.now()-blockClick<450&&e.target.closest&&e.target.closest('#hbList')){e.stopPropagation();e.preventDefault();}},true);
+  document.addEventListener('contextmenu',function(e){if(e.target.closest&&e.target.closest('#hbList'))e.preventDefault();});
+  window._nf8DragState=function(){return st;};
+})();
 
 /* v100: run init only after every function/var in this script is defined */
 init();
