@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v107">
+<meta name="nf-version" content="v107.1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -7087,7 +7087,7 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=107';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1071';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
@@ -10902,7 +10902,7 @@ function cgDiffHtml(color){
   for(var i=0;i<3;i++)h+='<button data-d="'+i+'" class="'+(i===_cogDifficulty?'on':'')+'" style="--c:'+color+'" onclick="cogSetDiff(this,'+i+')">'+l[i]+'</button>';
   return h+'</div>';
 }
-function cogSetDiff(el,d){_cogDifficulty=d;var b=el.parentNode.children;for(var i=0;i<b.length;i++)b[i].classList.toggle('on',b[i]===el);}
+function cogSetDiff(el,d){_cogDifficulty=d;var b=el.parentNode.children;for(var i=0;i<b.length;i++)b[i].classList.toggle('on',b[i]===el);if(typeof motSpdPaint==='function')motSpdPaint();}
 function cgStartBtn(p,fn){return '<button class="cg-start" style="background:'+p.color+'" onclick="'+fn+'">'+CG_IC.play+'<span>'+cogT('cog_start')+'</span></button>';}
 function openCogDetail(id,keep){
   if(!keep)_cogDifficulty=1; /* v100: Средне pre-selected; kept when returning from a game */
@@ -12064,8 +12064,8 @@ function cogVisualSearch(body,p){
 
 /* ═══ MOT: slow everywhere, levels differ mainly by the number of targets ═══ */
 function cogMOT(body,p){
-  var diff=_cogDiff(),nOrbs=[8,10,12][diff],nT=[3,4,5][diff],SPD=[50,58,66][diff],TRACK=[6000,6500,7000][diff],SHOW=[2200,2600,3000][diff],TRIALS=3;
-  window._cogParams={game:'mot',d:diff,orbs:nOrbs,targets:nT,speedPxS:SPD,trackMs:TRACK,showMs:SHOW};
+  var diff=_cogDiff(),nOrbs=[8,10,12][diff],nT=[3,4,5][diff],SPD0=[50,58,66][diff],SPM=motSpd(diff)/100,SPD=SPD0*SPM,TRACK=[6000,6500,7000][diff],SHOW=[2200,2600,3000][diff],TRIALS=3;
+  window._cogParams={game:'mot',d:diff,orbs:nOrbs,targets:nT,speedPxS:SPD,speedMult:SPM,trackMs:TRACK,showMs:SHOW};
   var orbs=[],phase='show',score=0,trial=0,W=0,H=0,sel=0,_sess=_cogSess,last=0;
   body.innerHTML='<div class="cg-pad"><div id="mot-cnt">'+cgCnt(1,TRIALS)+'</div><div class="cg-q" id="mot-msg"></div>'+
     '<canvas id="cog-mot-cv" class="cg-canvas"></canvas></div>';
@@ -12096,6 +12096,10 @@ function cogMOT(body,p){
     });
   }
   function move(dt){
+    var vm=0;orbs.forEach(function(o){vm=Math.max(vm,Math.hypot(o.vx,o.vy));});
+    var n=Math.max(1,Math.min(8,Math.ceil(vm*dt/4)));for(var k=0;k<n;k++)move1(dt/n);
+  }
+  function move1(dt){
     orbs.forEach(function(o){o.x+=o.vx*dt;o.y+=o.vy*dt;
       if(o.x<o.r){o.x=o.r;o.vx=Math.abs(o.vx);}if(o.x>W-o.r){o.x=W-o.r;o.vx=-Math.abs(o.vx);}
       if(o.y<o.r){o.y=o.r;o.vy=Math.abs(o.vy);}if(o.y>H-o.r){o.y=H-o.r;o.vy=-Math.abs(o.vy);}});
@@ -12602,7 +12606,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v107</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v107.1</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -12992,6 +12996,21 @@ function nfScrollTop(scr){
  es:['montaña','bosque','ventana','reloj','llave','lámpara','nube','campo','piedra','pez','taza','camino','isla','flor'],
  zh:['山','森林','窗户','钟','钥匙','灯','云','田野','石头','鱼','杯子','道路','岛','花']};
  Object.keys(add).forEach(function(l){if(CG_T[l]&&CG_T[l].pred_words)add[l].forEach(function(w){if(CG_T[l].pred_words.indexOf(w)<0)CG_T[l].pred_words.push(w);});});})();
+
+/* v107.1: MOT ball-speed slider (50–200 % of the level default, per level, remembered) */
+var MOT_SPD_T={ru:'Скорость шаров',en:'Ball speed',de:'Ballgeschwindigkeit',es:'Velocidad de las bolas',zh:'小球速度'};
+var MOT_SPD_V={ru:'Скорость: {v}×',en:'Speed: {v}×',de:'Tempo: {v}×',es:'Velocidad: {v}×',zh:'速度：{v}×'};
+function motSpd(d){var v=parseInt(dbGet('mot_spd_'+d),10);return v>=50&&v<=200?v:100;}
+function motSpdTxt(v){return (MOT_SPD_V[curLang]||MOT_SPD_V.en).replace('{v}',(v/100).toFixed(v%10?2:1).replace(/0$/,'').replace(/\.$/,'.0'));}
+function motSpdHTML(){var d=_cogDiff(),v=motSpd(d),col='#A78BFA',lbl=MOT_SPD_T[curLang]||MOT_SPD_T.en;
+  return '<div class="nf-sl" id="motSpdBox" style="margin:14px 0 4px"><div class="nf-sl-r"><div class="nf-sl-top"><span class="nf-sl-l">'+lbl+'</span><span class="nf-sl-v" id="motSpdV">'+motSpdTxt(v)+'</span></div>'+
+  '<input type="range" id="motSpd" min="50" max="200" step="10" value="'+v+'" style="--slc:'+col+';--slp:'+((v-50)/150*100)+'%" aria-label="'+lbl+'" oninput="motSpdInput(this.value)">'+
+  '<div class="nf-sl-sc"><span>0.5×</span><span>2×</span></div></div></div>';}
+function motSpdPaint(){var r=document.getElementById('motSpd');if(!r)return;var v=motSpd(_cogDiff());r.value=v;r.style.setProperty('--slp',((v-50)/150*100)+'%');document.getElementById('motSpdV').textContent=motSpdTxt(v);}
+function motSpdInput(v){v=Math.max(50,Math.min(200,parseInt(v,10)||100));dbSet('mot_spd_'+_cogDiff(),v);motSpdPaint();}
+(function(){var _o=openCogDetail;openCogDetail=function(id){var x=_o.apply(this,arguments);
+  if(id==='mot'){var el=document.getElementById('cog-detail'),st=el&&el.querySelector('.cg-start');if(st&&!document.getElementById('motSpdBox'))st.insertAdjacentHTML('beforebegin',motSpdHTML());}
+  return x;};})();
 
 /* v100: run init only after every function/var in this script is defined */
 init();
