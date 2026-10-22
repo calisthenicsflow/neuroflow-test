@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v108.6">
+<meta name="nf-version" content="v108.7">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -7140,7 +7140,7 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1086';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1087';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
@@ -12667,7 +12667,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.6</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.7</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -13430,7 +13430,7 @@ function cogSART(body,p){
     var k='nf_reload_'+m[1];if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1');
     location.replace(location.pathname+'?v='+m[1].replace(/\D/g,'')+'&r='+Date.now());}).catch(function(){});}catch(e){}})();
 
-/* v108.6: binary scoring (hit / miss); v108.5: finger-tolerance zone 22 CSS px; v108.4: Focus point — the dot freezes, then the screen goes dark; the answer is EXACTLY the position of the last drawn frame */
+/* v108.7: hit radius 45 px; v108.6: binary scoring (hit / miss); v108.5: finger-tolerance zone 22 CSS px; v108.4: Focus point — the dot freezes, then the screen goes dark; the answer is EXACTLY the position of the last drawn frame */
 var FP86={ru:{hit:'Верно!',miss:'Мимо',res:'Попаданий: {a} из {b}'},en:{hit:'Correct!',miss:'Miss',res:'Hits: {a} of {b}'},de:{hit:'Richtig!',miss:'Daneben',res:'Treffer: {a} von {b}'},es:{hit:'¡Correcto!',miss:'Fallo',res:'Aciertos: {a} de {b}'},zh:{hit:'正确！',miss:'没点中',res:'命中：{a} / {b}'}};
 (function(){var st=document.createElement('style');st.textContent='.cog-card[onclick*="focus_point"] .cog-card-score{display:none}';document.head.appendChild(st);})();
 function cogFocusPoint(body,p){
@@ -13483,7 +13483,7 @@ function cogFocusPoint(body,p){
   }
   function onTap(cx,cy){
     if(phase!=='check')return;phase='done';
-    var r=cv.getBoundingClientRect(),x=(cx-r.left)*(W/(r.width||W)),y=(cy-r.top)*(H/(r.height||H)),d=Math.hypot(x-answer.x,y-answer.y),tol=22;
+    var r=cv.getBoundingClientRect(),x=(cx-r.left)*(W/(r.width||W)),y=(cy-r.top)*(H/(r.height||H)),d=Math.hypot(x-answer.x,y-answer.y),tol=45;
     var hit=d<=tol;if(hit)hits++;
     window._cogState.tap={tol:tol,x:x,y:y,d:d,hit:hit,marker:{x:answer.x,y:answer.y},cssW:r.width,cssH:r.height,W:W,H:H,dpr:dpr};window._cogState.hits=hits;
     if(!hit){ctx.fillStyle='#2ee6d0';ctx.beginPath();ctx.arc(answer.x,answer.y,RAD+1,0,Math.PI*2);ctx.fill();
