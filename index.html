@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v108.3">
+<meta name="nf-version" content="v108.4">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -7140,7 +7140,7 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1083';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1084';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
@@ -12667,7 +12667,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.3</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.4</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -13263,23 +13263,23 @@ function motSpdPaint(){var r=document.getElementById('motSpd');if(!r)return;var 
 function motSpdInput(s){var m=motPosToMult(parseInt(s,10)||0);dbSet('mot_spd_'+_cogDiff(),Math.round(m*100));motSpdPaint();}
 (function(){var _o=openCogDetail;openCogDetail=function(id){var x=_o.apply(this,arguments);if(id==='mot')setTimeout(motLvPaint,0);return x;};})();
 
-/* v108.3: Find the target (denser grids, tiny differences) — modes Colour / Shape / Rotation / Mix (vector SVG, one odd item per round) */
+/* v108.4: Find the target (denser grids, subtle but noticeable differences) — modes Colour / Shape / Rotation / Mix (vector SVG, one odd item per round) */
 var VS82={
  ru:{m:['Цвет','Форма','Поворот','Микс'],mode:'Режим',q:{color:'Найди круг другого оттенка',shape:'Найди фигуру другой формы',rot:'Найди повёрнутый символ'},
   i:{color:'Много одинаковых кругов, один другого оттенка. Нажми на него как можно быстрее.',shape:'Все фигуры одинаковые, кроме одной — у неё немного другая форма (овал среди кругов, скруглённые углы, другое число сторон). Найди и нажми.',rot:'Все символы смотрят в одну сторону, один повёрнут. Найди и нажми на него.',mix:'Каждый раунд случайно: цвет, форма или поворот.'},
-  lv:{color:['6×7 · заметная разница','9×10 · меньше разница','12×13 · очень тонкая'],shape:['5×6 · заметная','8×10 · тонкая','10×12 · едва заметная'],rot:['5×6 · 15–25°','8×10 · 7–10°','10×12 · 3–5°'],mix:['все режимы · легко','все режимы · средне','все режимы · сложно']}},
+  lv:{color:['6×7 · заметная разница','9×10 · меньше разница','12×13 · очень тонкая'],shape:['5×6 · заметная','8×10 · тонкая','9×11 · едва заметная'],rot:['5×6 · 20–30°','8×10 · 12–15°','9×11 · 7–9°'],mix:['все режимы · легко','все режимы · средне','все режимы · сложно']}},
  en:{m:['Colour','Shape','Rotation','Mix'],mode:'Mode',q:{color:'Find the circle with a different shade',shape:'Find the shape with a different form',rot:'Find the rotated symbol'},
   i:{color:'Many identical circles, one has a different shade. Tap it as fast as you can.',shape:'All shapes are identical except one with a slightly different form (an oval among circles, rounded corners, another number of sides). Find and tap it.',rot:'All symbols face the same way, one is rotated. Find and tap it.',mix:'Each round is random: colour, shape or rotation.'},
-  lv:{color:['6×7 · clear difference','9×10 · smaller difference','12×13 · very subtle'],shape:['5×6 · noticeable','8×10 · subtle','10×12 · barely visible'],rot:['5×6 · 15–25°','8×10 · 7–10°','10×12 · 3–5°'],mix:['all modes · easy','all modes · medium','all modes · hard']}},
+  lv:{color:['6×7 · clear difference','9×10 · smaller difference','12×13 · very subtle'],shape:['5×6 · noticeable','8×10 · subtle','9×11 · barely visible'],rot:['5×6 · 20–30°','8×10 · 12–15°','9×11 · 7–9°'],mix:['all modes · easy','all modes · medium','all modes · hard']}},
  de:{m:['Farbe','Form','Drehung','Mix'],mode:'Modus',q:{color:'Finde den Kreis mit anderem Farbton',shape:'Finde die Figur mit anderer Form',rot:'Finde das gedrehte Symbol'},
   i:{color:'Viele gleiche Kreise, einer hat einen anderen Farbton. Tippe ihn so schnell wie möglich.',shape:'Alle Figuren sind gleich, bis auf eine mit etwas anderer Form (Oval unter Kreisen, runde Ecken, andere Seitenzahl). Finde und tippe sie.',rot:'Alle Symbole zeigen in dieselbe Richtung, eines ist gedreht. Finde und tippe es.',mix:'Jede Runde zufällig: Farbe, Form oder Drehung.'},
-  lv:{color:['6×7 · deutlicher Unterschied','9×10 · kleinerer Unterschied','12×13 · sehr fein'],shape:['5×6 · merklich','8×10 · fein','10×12 · kaum sichtbar'],rot:['5×6 · 15–25°','8×10 · 7–10°','10×12 · 3–5°'],mix:['alle Modi · leicht','alle Modi · mittel','alle Modi · schwer']}},
+  lv:{color:['6×7 · deutlicher Unterschied','9×10 · kleinerer Unterschied','12×13 · sehr fein'],shape:['5×6 · merklich','8×10 · fein','9×11 · kaum sichtbar'],rot:['5×6 · 20–30°','8×10 · 12–15°','9×11 · 7–9°'],mix:['alle Modi · leicht','alle Modi · mittel','alle Modi · schwer']}},
  es:{m:['Color','Forma','Giro','Mezcla'],mode:'Modo',q:{color:'Encuentra el círculo de otro tono',shape:'Encuentra la figura de otra forma',rot:'Encuentra el símbolo girado'},
   i:{color:'Muchos círculos iguales y uno con otro tono. Tócalo lo más rápido posible.',shape:'Todas las figuras son iguales salvo una con forma algo distinta (un óvalo entre círculos, esquinas redondeadas, otro número de lados). Encuéntrala y tócala.',rot:'Todos los símbolos miran hacia el mismo lado y uno está girado. Encuéntralo y tócalo.',mix:'Cada ronda al azar: color, forma o giro.'},
-  lv:{color:['6×7 · diferencia clara','9×10 · diferencia menor','12×13 · muy sutil'],shape:['5×6 · notable','8×10 · sutil','10×12 · apenas visible'],rot:['5×6 · 15–25°','8×10 · 7–10°','10×12 · 3–5°'],mix:['todos los modos · fácil','todos los modos · medio','todos los modos · difícil']}},
+  lv:{color:['6×7 · diferencia clara','9×10 · diferencia menor','12×13 · muy sutil'],shape:['5×6 · notable','8×10 · sutil','9×11 · apenas visible'],rot:['5×6 · 20–30°','8×10 · 12–15°','9×11 · 7–9°'],mix:['todos los modos · fácil','todos los modos · medio','todos los modos · difícil']}},
  zh:{m:['颜色','形状','旋转','混合'],mode:'模式',q:{color:'找出色调不同的圆',shape:'找出形状不同的图形',rot:'找出被旋转的符号'},
   i:{color:'许多相同的圆，其中一个色调不同。尽快点击它。',shape:'所有图形都相同，只有一个形状略有不同（圆中的椭圆、圆角、边数不同）。找到并点击它。',rot:'所有符号朝向相同，只有一个被旋转。找到并点击它。',mix:'每轮随机：颜色、形状或旋转。'},
-  lv:{color:['6×7 · 差异明显','9×10 · 差异较小','12×13 · 极细微'],shape:['5×6 · 较明显','8×10 · 细微','10×12 · 几乎看不出'],rot:['5×6 · 15–25°','8×10 · 7–10°','10×12 · 3–5°'],mix:['全部模式 · 简单','全部模式 · 中等','全部模式 · 困难']}}
+  lv:{color:['6×7 · 差异明显','9×10 · 差异较小','12×13 · 极细微'],shape:['5×6 · 较明显','8×10 · 细微','9×11 · 几乎看不出'],rot:['5×6 · 20–30°','8×10 · 12–15°','9×11 · 7–9°'],mix:['全部模式 · 简单','全部模式 · 中等','全部模式 · 困难']}}
 };
 var VS_MODES=['color','shape','rot','mix'];
 function vsL(){return VS82[curLang]||VS82.en;}
@@ -13300,10 +13300,10 @@ function vsSetMode(m){dbSet('vs_mode',m);if(window.nfUx)nfUx('tap');vsPaint();}
 /* vector shapes; viewBox -50..50 */
 function vsPoly(n,r,rot){var p=[];for(var k=0;k<n;k++){var a=(rot||0)+(-90+360*k/n)*Math.PI/180;p.push((r*Math.cos(a)).toFixed(2)+','+(r*Math.sin(a)).toFixed(2));}return '<polygon points="'+p.join(' ')+'"/>';}
 var VS_SHAPES={
- circle:function(d,odd){var k=[0.84,0.9,0.94][d];return odd?'<ellipse rx="40" ry="'+(40*k).toFixed(1)+'"/>':'<circle r="40"/>';},
- square:function(d,odd){var rx=[14,8,5][d];return '<rect x="-36" y="-36" width="72" height="72" rx="'+(odd?rx:0)+'"/>';},
- poly:function(d,odd){var pr=[[5,6],[6,7],[7,8]][d];return vsPoly(odd?pr[1]:pr[0],42);},
- rect:function(d,odd){var k=[0.85,0.91,0.94][d];return odd?'<rect x="-38" y="'+(-38*k).toFixed(1)+'" width="76" height="'+(76*k).toFixed(1)+'" rx="4"/>':'<rect x="-38" y="-38" width="76" height="76" rx="4"/>';}
+ circle:function(d,odd){var k=[0.75,0.85,0.905][d];return odd?'<ellipse rx="40" ry="'+(40*k).toFixed(1)+'"/>':'<circle r="40"/>';},
+ square:function(d,odd){var rx=[20,12,8][d];return '<rect x="-36" y="-36" width="72" height="72" rx="'+(odd?rx:0)+'"/>';},
+ poly:function(d,odd){var pr=[[4,5],[5,6],[6,7]][d];return vsPoly(odd?pr[1]:pr[0],42);},
+ rect:function(d,odd){var k=[0.74,0.85,0.9][d];return odd?'<rect x="-38" y="'+(-38*k).toFixed(1)+'" width="76" height="'+(76*k).toFixed(1)+'" rx="4"/>':'<rect x="-38" y="-38" width="76" height="76" rx="4"/>';}
 };
 var VS_SYMS={
  arrow:'M0 36V-32M-22-10L0-34L22-10', T:'M-30-30H30M0-30V36', L:'M-16-36V30H24', chev:'M-32 16L0-16L32 16', F:'M-14 36V-34H22M-14-2H14'
@@ -13311,8 +13311,8 @@ var VS_SYMS={
 function vsSvg(inner,rot,stroke){return '<svg viewBox="-50 -50 100 100" shape-rendering="geometricPrecision"><g'+(rot?' transform="rotate('+rot.toFixed(1)+')"':'')+(stroke?' fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"':' fill="#fff"')+'>'+inner+'</g></svg>';}
 function cogVisualSearch(body,p){
   var diff=_cogDiff(),MODE=vsMode(),ROUNDS=[5,6,8][diff],L=vsL();
-  var CG={cols:[6,9,12][diff],rows:[7,10,13][diff]},SG={cols:[5,8,10][diff],rows:[6,10,12][diff]};
-  var D=[0.34,0.2,0.15][diff],FLOOR=[0.28,0.16,0.12][diff],BASE=0.55,ANG=[[15,25],[7,10],[3,5]][diff];
+  var CG={cols:[6,9,12][diff],rows:[7,10,13][diff]},SG={cols:[5,8,9][diff],rows:[6,10,11][diff]};
+  var D=[0.34,0.21,0.17][diff],FLOOR=[0.28,0.17,0.14][diff],BASE=0.55,ANG=[[20,30],[12,15],[7,9]][diff];
   var plan=[];for(var r=0;r<ROUNDS;r++)plan.push(MODE==='mix'?null:MODE);
   if(MODE==='mix'){var bag=[];while(bag.length<ROUNDS)bag=bag.concat(cgShuffle(['color','shape','rot']));plan=bag.slice(0,ROUNDS);
     for(var q=1;q<plan.length;q++)if(plan[q]===plan[q-1]){var j=(q+1)%plan.length;var t=plan[q];plan[q]=plan[j];plan[j]=t;}}
@@ -13353,30 +13353,35 @@ function cogVisualSearch(body,p){
   }
   next();
 }
-/* v108.2: Go/No-Go — instant pointerdown input, tap attributed to the stimulus visible at tap time (+120 ms grace), no click delay */
+/* v108.4: Go/No-Go — input on touchstart (pointerdown fallback), tap attributed to the stimulus visible when the finger came down (event timestamp); a tap ≤250 ms after a change goes to the previous untapped stimulus */
 function cogSART(body,p){
-  var diff=_cogDiff(),ms=[900,650,450][diff],F=3,total=[30,36,45][diff],NG=[4,5,7][diff],GRACE=120,cur=0,correct=0,comm=0,omit=0,_sess=_cogSess;
-  var items=cg4SartItems(total,NG,F),tap=[],shownAt=[],lat=[];
-  window._cogParams={game:'sart',d:diff,intervalMs:ms,items:total,nogo:NG,graceMs:GRACE,input:'pointerdown',repeats:items.some(function(v,i){return i&&v===items[i-1];})};
+  var diff=_cogDiff(),ms=[900,650,450][diff],F=3,total=[30,36,45][diff],NG=[4,5,7][diff],GRACE=250,cur=0,correct=0,comm=0,omit=0,_sess=_cogSess;
+  var items=cg4SartItems(total,NG,F),tap=[],shownAt=[],lat=[],useTouch=('ontouchstart' in window);
+  window._cogParams={game:'sart',d:diff,intervalMs:ms,items:total,nogo:NG,graceMs:GRACE,input:useTouch?'touchstart':'pointerdown',repeats:items.some(function(v,i){return i&&v===items[i-1];})};
   body.innerHTML='<div class="cg-pad cg-center cg4-sart"><div id="sart-cnt">'+cgCnt(1,total)+'</div><div class="cg-q">'+CT('sart_rule',{n:'<b class="cg-warn">'+F+'</b>'})+'</div>'+
-    '<button id="sart-stage" class="cg4-stage nf82-stage"><span class="cg4-frame" id="sart-num"></span><span class="cg4-track" id="sart-track"></span></button></div>';
+    '<button id="sart-stage" class="cg4-stage nf82-stage" style="touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none"><span class="cg4-frame" id="sart-num"></span><span class="cg4-track" id="sart-track"></span></button></div>';
   var stage=document.getElementById('sart-stage'),track=document.getElementById('sart-track'),frame=document.getElementById('sart-num'),cnt=document.getElementById('sart-cnt'),els=[];
   var POS=[{x:0,s:1,o:1},{x:-0.40,s:0.42,o:0.34},{x:-0.62,s:0.32,o:0.12},{x:-0.78,s:0.26,o:0}];
   function place(){var w=track.clientWidth||window.innerWidth;
     els.forEach(function(e,age){var q=POS[Math.min(age,POS.length-1)];e.style.transform='translate(-50%,-50%) translateX('+Math.round(q.x*w)+'px) scale('+q.s+')';e.style.opacity=q.o;});
     while(els.length>POS.length){var o=els.pop();if(o&&o.parentNode)o.parentNode.removeChild(o);}}
   function finalize(k){if(k<0||k>=total||tap[k]==='done')return;var t=tap[k];if(!t){if(items[k]===F)correct++;else omit++;}tap[k]='done';}
-  function flash(ok){frame.classList.remove('cg-ok','cg-bad','nf82-pop');void frame.offsetWidth;frame.classList.add(ok?'cg-ok':'cg-bad','nf82-pop');cogPlayFeedback(ok);}
+  function flash(ok,k){frame.classList.remove('cg-ok','cg-bad','nf82-pop');void frame.offsetWidth;frame.classList.add(ok?'cg-ok':'cg-bad','nf82-pop');
+    var de=els[cur-k];if(de){de.style.color=ok?'#38c068':'#f06040';}
+    try{if(navigator.vibrate)navigator.vibrate(ok?12:[30,40,30]);}catch(_){}cogPlayFeedback(ok);}
   function onDown(e){
     if(e.cancelable)e.preventDefault();if(_sess!==_cogSess||cur>=total)return;
-    var now=performance.now(),et=e.timeStamp&&e.timeStamp>1e5?e.timeStamp:now,k=cur;
-    if(cur>0&&now-shownAt[cur]<GRACE&&!tap[cur-1])k=cur-1;
+    var now=performance.now(),ts=e.timeStamp,et=(ts>0&&ts<=now+5&&now-ts<1000)?ts:now,k=cur;
+    while(k>0&&shownAt[k]>et)k--;               /* stimulus visible when the finger came down */
+    if(k>0&&et-shownAt[k]<GRACE&&!tap[k-1])k=k-1; /* slightly late tap -> previous untapped stimulus */
     if(tap[k])return;tap[k]=true;var ok=items[k]!==F;if(ok)correct++;else comm++;
-    flash(ok);var t1=performance.now();
-    requestAnimationFrame(function(){lat.push({handler:Math.round((t1-et)*10)/10,frame:Math.round((performance.now()-et)*10)/10,k:k,cur:cur,dt:Math.round(now-shownAt[cur])});});
-    window._cogState.taps=(window._cogState.taps||[]).concat([{k:k,ok:ok}]);
+    flash(ok,k);var t1=performance.now();
+    requestAnimationFrame(function(){lat.push({handler:Math.round((t1-et)*10)/10,frame:Math.round((performance.now()-et)*10)/10,k:k,cur:cur,dt:Math.round(et-shownAt[cur])});});
+    window._cogState.taps=(window._cogState.taps||[]).concat([{k:k,ok:ok,cur:cur}]);
   }
-  if(window.PointerEvent)stage.addEventListener('pointerdown',onDown,{passive:false});else stage.addEventListener('touchstart',onDown,{passive:false});
+  if(useTouch)stage.addEventListener('touchstart',onDown,{passive:false});
+  else if(window.PointerEvent)stage.addEventListener('pointerdown',onDown,{passive:false});
+  else stage.addEventListener('mousedown',onDown,{passive:false});
   stage.addEventListener('click',function(e){e.preventDefault();});
   window.cogSARTtap=function(){onDown({timeStamp:0});};
   window._sartLat=lat;
@@ -13384,15 +13389,15 @@ function cogSART(body,p){
   function show(){
     if(_sess!==_cogSess)return;
     if(cur>=total){setTimeout(function(){if(_sess!==_cogSess)return;finalize(total-1);window._cogParams.latency=lat;
-      cogShowResult(body,p,correct,total,CT('sart_res',{a:correct,b:total,n:F,c:comm,d:omit}));},GRACE);return;}
+      cogShowResult(body,p,correct,total,CT('sart_res',{a:correct,b:total,n:F,c:comm,d:omit}));},GRACE+60);return;}
     var n=items[cur];shownAt[cur]=performance.now();
-    if(cur>0){var pk=cur-1;setTimeout(function(){finalize(pk);},GRACE);}
+    if(cur>0){var pk=cur-1;setTimeout(function(){finalize(pk);},GRACE+60);}
     cnt.innerHTML=cgCnt(cur+1,total);
     var e=document.createElement('span');e.className='cg4-dig';e.textContent=n;
     var w=track.clientWidth||window.innerWidth;e.style.transform='translate(-50%,-50%) translateX('+Math.round(0.36*w)+'px) scale(.6)';e.style.opacity='0';
     track.appendChild(e);els.unshift(e);requestAnimationFrame(place);
     frame.classList.remove('cg-ok','cg-bad','nf82-pop');
-    window._cogState={game:'sart',cur:cur,n:n,prev:cur?items[cur-1]:null,shownAt:shownAt[cur],taps:(window._cogState&&window._cogState.taps)||[]};
+    window._cogState={game:'sart',cur:cur,n:n,prev:cur?items[cur-1]:null,shownAt:shownAt[cur],items:items,taps:(window._cogState&&window._cogState.taps)||[]};
     var due=t0+(cur+1)*ms;_cogTimer(function(){cur++;show();},Math.max(0,due-performance.now()));
   }
   show();
@@ -13424,6 +13429,74 @@ function cogSART(body,p){
     var m=t.match(/<meta name="nf-version" content="([^"]+)"/);if(!m||m[1]===cur)return;
     var k='nf_reload_'+m[1];if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1');
     location.replace(location.pathname+'?v='+m[1].replace(/\D/g,'')+'&r='+Date.now());}).catch(function(){});}catch(e){}})();
+
+/* v108.4: Focus point — the dot freezes, then the screen goes dark; the answer is EXACTLY the position of the last drawn frame */
+function cogFocusPoint(body,p){
+  var diff=_cogDiff(),ROUNDS=3,
+      SPD=[130,220,330][diff],RAD=[6,4.5,3][diff],ND=[10,20,40][diff],DUR=[8000,10000,12000][diff],WANDER=[0.8,1.8,3.2][diff],MARK=1600,FREEZE=350;
+  window._cogParams={game:'focus_point',d:diff,speedPxS:SPD,radius:RAD,distractors:ND,roundMs:DUR,wander:WANDER,freezeMs:FREEZE,colour:'white',markColour:'#2ee6d0'};
+  var W=0,H=0,pts=[],tgt=null,phase='track',round=0,scores=[],_sess=_cogSess,last=0,t0=0,raf=0,lastDrawn=null,answer=null;
+  body.innerHTML='<div class="cg-pad"><div id="fp-cnt">'+cgCnt(1,ROUNDS)+'</div><div class="cg-q" id="focus-msg">'+CT('fp_find')+'</div><canvas id="focus-cv" class="cg-canvas dark" style="touch-action:none;-webkit-tap-highlight-color:transparent"></canvas><div class="cg-tbar"><i id="focus-bar" style="background:'+p.color+';width:100%"></i></div></div>';
+  var cv=document.getElementById('focus-cv'),ctx=cv.getContext('2d'),dpr=Math.min(3,window.devicePixelRatio||1),msg=document.getElementById('focus-msg'),bar=document.getElementById('focus-bar');
+  W=cv.clientWidth||(cv.parentElement.clientWidth-32);H=Math.min(Math.round(W*1.25),480);cv.style.width=W+'px';cv.style.height=H+'px';cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(cv.width/W,0,0,cv.height/H,0,0);
+  function mk(isT){return {x:RAD+20+Math.random()*(W-2*RAD-40),y:RAD+20+Math.random()*(H-2*RAD-40),a:Math.random()*Math.PI*2,w:0,t:isT,sp:SPD*(isT?1:0.85+Math.random()*0.3)};}
+  function start(){
+    pts=[];for(var i=0;i<ND;i++)pts.push(mk(false));tgt=mk(true);pts.push(tgt);lastDrawn=null;answer=null;
+    phase='track';t0=performance.now();last=t0;msg.textContent=CT('fp_find');
+    document.getElementById('fp-cnt').innerHTML=cgCnt(round+1,ROUNDS);
+    bar.style.transition='none';bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+(DUR+MARK)+'ms linear';bar.style.width='0%';
+    window._cogState={game:'focus_point',phase:'mark',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};
+    raf=requestAnimationFrame(loop);
+  }
+  function step(q,dt){
+    q.w+=(Math.random()-0.5)*WANDER*dt*6;q.w=Math.max(-WANDER,Math.min(WANDER,q.w));q.a+=q.w*dt;
+    q.x+=Math.cos(q.a)*q.sp*dt;q.y+=Math.sin(q.a)*q.sp*dt;
+    if(q.x<RAD){q.x=RAD;q.a=Math.PI-q.a;}if(q.x>W-RAD){q.x=W-RAD;q.a=Math.PI-q.a;}
+    if(q.y<RAD){q.y=RAD;q.a=-q.a;}if(q.y>H-RAD){q.y=H-RAD;q.a=-q.a;}
+  }
+  function draw(mark){
+    var tx=tgt.x,ty=tgt.y;ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='rgba(255,255,255,.92)';
+    pts.forEach(function(q){if(mark&&q.t)return;var x=q.t?tx:q.x,y=q.t?ty:q.y;ctx.beginPath();ctx.arc(x,y,RAD,0,Math.PI*2);ctx.fill();});
+    if(mark){var gl=ctx.createRadialGradient(tx,ty,0,tx,ty,RAD*3.2);gl.addColorStop(0,'rgba(46,230,208,.55)');gl.addColorStop(1,'rgba(46,230,208,0)');
+      ctx.fillStyle=gl;ctx.beginPath();ctx.arc(tx,ty,RAD*3.2,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#2ee6d0';ctx.beginPath();ctx.arc(tx,ty,RAD+0.5,0,Math.PI*2);ctx.fill();}
+    lastDrawn={x:tx,y:ty};
+  }
+  function loop(now){
+    raf=0;if(_sess!==_cogSess||phase!=='track')return;
+    var dt=Math.min(0.05,Math.max(0,(now-last)/1000));last=now;
+    var el=now-t0;
+    if(el>=DUR+MARK){ /* stop movement: nothing moves from here on; the frame on screen stays */
+      phase='freeze';answer={x:lastDrawn.x,y:lastDrawn.y};
+      window._cogState={game:'focus_point',phase:'freeze',round:round,target:{x:answer.x,y:answer.y},lastDrawn:{x:lastDrawn.x,y:lastDrawn.y},W:W,H:H};
+      _cogTimer(function(){if(_sess!==_cogSess||phase!=='freeze')return;ctx.clearRect(0,0,W,H);phase='check';msg.textContent=CT('fp_where');
+        window._cogState={game:'focus_point',phase:'check',round:round,target:{x:answer.x,y:answer.y},lastDrawn:{x:lastDrawn.x,y:lastDrawn.y},W:W,H:H};},FREEZE);
+      return;}
+    pts.forEach(function(q){step(q,dt);});
+    var mark=el<MARK;draw(mark);
+    if(!mark&&window._cogState.phase==='mark'){window._cogState.phase='track';msg.textContent=CT('fp_track');}
+    window._cogState.target={x:lastDrawn.x,y:lastDrawn.y};
+    raf=requestAnimationFrame(loop);
+  }
+  function onTap(cx,cy){
+    if(phase!=='check')return;phase='done';
+    var r=cv.getBoundingClientRect(),x=(cx-r.left)*(W/(r.width||W)),y=(cy-r.top)*(H/(r.height||H)),d=Math.hypot(x-answer.x,y-answer.y),tol=RAD+16;
+    var pct=d<=tol?100:Math.max(0,Math.round(100-(d-tol)*1.2));scores.push(pct);
+    window._cogState.tap={x:x,y:y,d:d,pct:pct,marker:{x:answer.x,y:answer.y},cssW:r.width,cssH:r.height,W:W,H:H,dpr:dpr};
+    ctx.beginPath();ctx.arc(answer.x,answer.y,RAD+8,0,Math.PI*2);ctx.strokeStyle='#38c068';ctx.lineWidth=2;ctx.stroke();
+    ctx.fillStyle='#38c068';ctx.beginPath();ctx.arc(answer.x,answer.y,RAD,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle=pct>=50?'#38c068':'#f06040';ctx.fill();
+    cogPlayFeedback(pct>=50);
+    msg.textContent=CT('fp_round',{a:round+1,p:pct});
+    _cogTimer(function(){round++;
+      if(round>=ROUNDS){var avg=Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);cogShowResult(body,p,avg,100,CT('fp_res',{p:avg}));}
+      else start();},1100);
+  }
+  if('ontouchstart' in window)cv.addEventListener('touchstart',function(e){if(e.cancelable)e.preventDefault();var t=e.changedTouches[0];if(t)onTap(t.clientX,t.clientY);},{passive:false});
+  else cv.addEventListener('pointerdown',function(e){onTap(e.clientX,e.clientY);});
+  start();
+}
 
 /* v100: run init only after every function/var in this script is defined */
 init();
