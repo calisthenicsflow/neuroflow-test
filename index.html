@@ -7,11 +7,145 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v108.7">
+<meta name="nf-version" content="v108.8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#07070e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NeuroFlow">
+<meta name="application-name" content="NeuroFlow">
+<meta name="color-scheme" content="dark">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1290x2796.png">
+<link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1179x2556.png">
+<link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1284x2778.png">
+<link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1170x2532.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1125x2436.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1242x2688.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash/splash-828x1792.png">
+<link rel="apple-touch-startup-image" media="(device-width: 360px) and (device-height: 780px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1080x2340.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash/splash-750x1334.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1242x2208.png">
+<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash/splash-640x1136.png">
+<link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash/splash-1536x2048.png">
+<link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash/splash-1668x2388.png">
+<link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash/splash-2048x2732.png">
+<style>
+/* latin-ext */
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/dmmono-19de2e80.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/dmmono-a1644b8f.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/dmmono-1cb0636f.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/dmmono-7e5f82a6.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(assets/fonts/dmsans-e8eef872.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(assets/fonts/dmsans-8ca1b7f2.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/dmsans-e8eef872.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/dmsans-8ca1b7f2.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/dmsans-e8eef872.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/dmsans-8ca1b7f2.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/dmsans-e8eef872.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/dmsans-8ca1b7f2.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
 <style>
 /* ── Habit calendar grid ── */
 
@@ -1576,7 +1710,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 .ni.on .nl{ color:var(--glow-c, var(--t1)) !important; }
 .nl{ font-size:10px; letter-spacing:.14em; }
 
-/* ═══ v102 — HABITS ═══ */
+
 #reminders{--hb-acc:#38c068;}
 #reminders .hb-scroll{padding:0;width:100%;flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:none;}
 #reminders .hb-scroll::-webkit-scrollbar{display:none;}
@@ -1682,7 +1816,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 .hb-confirm-q{font-size:13px;font-weight:300;color:var(--t2);line-height:1.5;}
 #hbSheetOv .hb-list .hb-row{min-height:60px;}
 
-/* ═══ v102 — COGNITION ═══ */
+
 .cog-card-ico svg{width:20px;height:20px;}
 .cg-bar-t{font-size:15px;font-weight:500;color:var(--t1);text-align:center;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .cog-ex-bar{gap:8px;}
@@ -1781,7 +1915,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 .cg-res-bar{width:100%;max-width:280px;height:2px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;margin:14px 0 18px;}
 .cg-res-bar i{display:block;height:100%;transition:width 1s ease;}
 .cg-res-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
-/* ═══ v102 — misc line icons replacing emoji ═══ */
+
 .nf-ic{display:inline-flex;vertical-align:-3px;}
 .nf-ic svg{width:15px;height:15px;}
 .med-mood-em svg{width:24px;height:24px;color:var(--t2);}
@@ -1789,10 +1923,10 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 .msw-meta svg{width:12px;height:12px;vertical-align:-2px;color:var(--t3);}
 .med-done-icon svg{width:36px;height:36px;}
 
-/* v102: cognition list had no side padding (cards touched the screen edges) */
+
 #cog-body{padding-left:16px;padding-right:16px;box-sizing:border-box;}
 
-/* ═══════════ v103 ═══════════ */
+
 /* shared back / close button */
 .back,.back.nf-back,.med-ov-close.nf-back{width:40px;height:40px;min-width:40px;border-radius:50%;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
   color:#EDEFF4;display:flex;align-items:center;justify-content:center;opacity:1;visibility:visible;font-size:0;line-height:0;padding:0;cursor:pointer;flex-shrink:0;z-index:20;}
@@ -1878,7 +2012,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 .hb-txt{min-width:0;flex:1;}
 .hb-meta{white-space:normal !important;overflow:visible !important;text-overflow:clip !important;line-height:1.5;}
 
-/* ═══ v104 ═══ */
+
 /* Find the target: hint button + highlighted target */
 .cg4-hint{display:flex;align-items:center;justify-content:center;gap:8px;margin:16px auto 0;height:50px;min-width:180px;padding:0 24px;border-radius:25px;border:1px solid var(--br1);background:rgba(255,255,255,.04);color:var(--t1);font:500 15px 'DM Sans',sans-serif;cursor:pointer;}
 .cg4-hint:disabled{opacity:.4;}
@@ -1924,21 +2058,20 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 /* Settings: version label */
 .nf-ver{margin:22px 0 8px;text-align:center;font:400 12px 'DM Mono',monospace;color:var(--t3);letter-spacing:.04em;}
 
-/* ═══ v104.1 — Wim Hof: v103 practice player, open-ended retention ended by double tap ═══ */
+
 #practice.whm-hold{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
 #practice.whm-hold .pbtn{visibility:hidden;pointer-events:none;}
 .whm-cap{position:absolute;left:24px;right:24px;bottom:calc(env(safe-area-inset-bottom,0px) + 34px);z-index:6;text-align:center;font:500 15px 'DM Sans',sans-serif;color:rgba(255,255,255,.78);letter-spacing:.01em;pointer-events:none;opacity:0;transition:opacity .3s;}
 #practice.whm-hold .whm-cap{opacity:1;}
 .whm-cap .once{display:block;margin-top:6px;font-size:13px;color:rgba(255,255,255,.55);opacity:0;transition:opacity .25s;}
 .whm-cap.ping .once{opacity:1;}
-/* ═══ v104.2 — breathing player: no timer over the sphere; compact hold row below it ═══ */
+
 #practice .p-timer-wrap{display:none!important;}
 .p-hold{position:absolute;z-index:12;left:50%;transform:translateX(-50%);width:min(320px,calc(100% - 40px));height:48px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:opacity .25s,visibility 0s .25s;pointer-events:none;}
 .p-hold.on{opacity:1;visibility:visible;transition:opacity .25s;}
 .p-hold-l{flex:1;min-width:0;font:500 15px/1.2 'DM Sans',sans-serif;color:rgba(255,255,255,.92);letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .p-hold-t{flex-shrink:0;font:300 26px/1 'DM Sans',sans-serif;color:#fff;font-variant-numeric:tabular-nums;font-feature-settings:'tnum' 1;letter-spacing:-.01em;}
-/* ═══ v104.3 — breathing player as a flex column: header / sphere stage (flex:1) / hold row / rounds+dots / pause / caption.
-   No positions computed from innerHeight; nothing can overlap at any viewport height. ═══ */
+
 #practice{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;bottom:auto;height:100vh;height:-webkit-fill-available;height:100dvh;padding-bottom:calc(var(--sb) + 12px);background:rgb(2,2,10);}
 #practice>.p-close{position:absolute;top:0;left:0;}
 #practice #pAbove{position:relative;top:auto!important;bottom:auto!important;left:auto;right:auto;flex:0 0 auto;padding:calc(var(--st) + 46px) 24px 0;gap:4px;}
@@ -1984,7 +2117,7 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 #practice .pbtn{width:48px;height:48px;}
 #practice .p-play{flex-basis:48px;height:48px;}
 }
-/* ═══ v104.4 — Wim Hof pace selector (3 segmented buttons in the custom block) ═══ */
+
 .nf-pace{padding-top:12px;}
 .nf-seg{display:flex;gap:6px;margin-top:10px;padding:4px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);}
 .nf-seg-b{flex:1;min-width:0;min-height:44px;padding:8px 4px;border:0;border-radius:10px;background:transparent;color:rgba(255,255,255,.66);font:500 15px 'DM Sans',sans-serif;cursor:pointer;transition:background .16s,color .16s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-webkit-tap-highlight-color:transparent;}
@@ -1992,8 +2125,8 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 .nf-seg-b:active{transform:scale(.97);}
 
 </style>
-<style>#setBtn,#langGlobal,.back.nf-back,#postClose,#hbPrev,#hbNext,#nfSetBack{min-width:48px!important;min-height:48px!important;box-sizing:border-box;} /* v106 tap targets */</style>
-<style>/* v108 */
+<style>#setBtn,#langGlobal,.back.nf-back,#postClose,#hbPrev,#hbNext,#nfSetBack{min-width:48px!important;min-height:48px!important;box-sizing:border-box;} </style>
+<style>
 .sm-hdr{padding-bottom:6px;}
 .sm-hdr .back{width:48px;height:48px;min-width:48px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;}
 .sm-nm{font-size:18px;font-weight:400;}
@@ -2045,6 +2178,21 @@ html.nf8-bimlock,body.nf8-bimlock{overscroll-behavior:none;overflow:hidden;}
 body.nf8-bimlock{position:fixed;inset:0;width:100%;}
 html.nf8-bimlock #cog-exercise,html.nf8-bimlock #cog-exercise *{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;}
 html.nf8-bimlock .bim-cv{touch-action:none;}
+</style>
+<style>
+.tc-t,.med-footer-lbl,.med-list-title,.hb-meta,.hb-meta b,.cg-cnt,.p-rounds,#pRoundsLbl,.cog-card-sub,.cg4-count-sc,.cg-lv-i{color:#8f94a1 !important;}
+input[type=range]{height:44px;min-height:44px;background:transparent;margin:0;}
+input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:2px;background:rgba(255,255,255,.12);}
+input[type=range]::-webkit-slider-thumb{margin-top:-9.5px;}
+input[type=range]::-moz-range-track{height:3px;border-radius:2px;background:rgba(255,255,255,.12);}
+.nf-sl input[type=range],.cg4-range{height:44px;}
+@media (max-height:700px){.cg4-math .cg-expr{margin-top:4px}.cg4-math .cg4-field{height:52px;margin-top:8px}.cg4-math .cg4-fb{min-height:24px;margin:6px 0 2px}.cg4-math .cg4-pad{gap:8px}.cg4-math .cg4-pad .k{height:50px}.cg-pad.cg4-math{padding-bottom:calc(var(--sb) + 8px)}}
+.nf-priv{z-index:710;}
+.nf-pv{color:var(--t2);font-size:15px;font-weight:300;line-height:1.6;}
+.nf-pv h3{font-size:15px;font-weight:500;color:var(--t1);margin:20px 0 6px;}
+.nf-pv p{margin:0;}
+.nf-pv .nf-pv-u{font-size:12px;color:#8f94a1;margin-top:4px;}
+.nf-pv a{color:#8FB8FF;}
 </style>
 </head>
 <body>
@@ -2468,6 +2616,7 @@ html.nf8-bimlock .bim-cv{touch-action:none;}
 </div>
 
 <script>
+let _cogState=null,_cogParams=null;
 
 
 
@@ -2604,7 +2753,7 @@ var LANGS={
     settings:'Настройки',sound:'Звук при практике',sound_on:'ВКЛ',sound_off:'ВЫКЛ',
     calendar:'Календарь',avatar_hint:'Нажмите для смены фото',
     drag_hint:'Зажмите и перетащите для смены порядка фаз',
-    voice_cues:'Голосовые подсказки',ambient_music:'Ambient музыка',
+    voice_cues:'Голосовые подсказки',ambient_music:'Фоновая музыка',
     profile_title:'Мой профиль',
   breath_cycle_lbl:'Один цикл дыхания',
   after_round_lbl:'Пауза после круга',
@@ -2682,7 +2831,7 @@ var LANGS={
     rounds:'Runden',rounds_short:'Runden',cycles_lbl:'Zyklen',rounds_lbl:'Runden',
     round:'Runde',cycle:'Zyklus',
     hold_after_exhale:'Halten nach Ausatmen',hold_after_inhale:'Halten nach Einatmen',
-  hold_after_inhale:'Halten nach Einatmung',nav_rem:'Gewohnheiten',rem_recovery:'Bereite dich auf die nächste Runde vor',med_start_session:'Meditation beginnen',vup_title:'Sprachanweisungen',vup_upload:'Hochladen',vup_delete:'Löschen',vup_play:'Anhören',vup_loading:'...',vup_saving:'Speichern...',vup_uploaded:'hochgeladen',vup_clear_all:'Alle löschen',vup_hint:'MP3 oder WAV. Im Browser gespeichert.',med_lv_easy:'Leicht',med_desc_effect:'Wirkung',med_done_title:'Sitzung abgeschlossen',med_done_duration:'Dauer',med_done_mood:'Wie fühlen Sie sich?',med_done_note:'Notizen',med_done_note_ph:'Beobachtungen aufschreiben...',med_done_save:'Speichern',med_done_skip:'Überspringen',med_stat_title:'Meine Meditationen',med_stat_today:'Heute',med_stat_total:'Gesamt',med_stat_empty:'Keine Einträge',med_stat_min:'Min',med_desc_practice:'Praxis',med_desc_focus:'Fokus',med_lv_mid:'Mittel',med_lv_hard:'Tief',med_time_elapsed:'Vergangen',med_time_total:'Gesamt',med_stop_session:'Beenden',med_session_title:'Meditationssitzung',med_voice_preparing:'Vorbereitung...',rem_title:'Gewohnheiten',rem_sub_rem:'Erinnerungen',rem_sub_hab:'Gewohnheiten',rem_add_reminder:'+ Erinnerung hinzufügen',rem_add_habit:'+ Gewohnheit hinzufügen',rem_time:'Zeit',rem_label:'Titel',rem_days:'Tage',rem_save:'Speichern',rem_cancel:'Abbrechen',rem_delete:'Löschen',rem_edit:'Bearbeiten',rem_empty_rem:'Keine Erinnerungen. Erste hinzufügen.',rem_empty_hab:'Keine Gewohnheiten. Erste hinzufügen.',rem_done_today:'Heute erledigt',rem_streak:'Serie',rem_days_short:'Mo,Di,Mi,Do,Fr,Sa,So',rem_every_day:'Jeden Tag',rem_custom_days:'Tage wählen',rem_cal_export:'Zum Kalender',rem_notif_hint:'Benachrichtigungen funktionieren wenn App offen',med_sub:'Achtsamkeit & Meditation',med_how:'Wie zu üben',med_sci:'Wissenschaft',med_breath:'Empfohlene Atmung',
+  hold_after_inhale:'Halten nach Einatmung',nav_rem:'Routinen',rem_recovery:'Bereite dich auf die nächste Runde vor',med_start_session:'Meditation beginnen',vup_title:'Sprachanweisungen',vup_upload:'Hochladen',vup_delete:'Löschen',vup_play:'Anhören',vup_loading:'...',vup_saving:'Speichern...',vup_uploaded:'hochgeladen',vup_clear_all:'Alle löschen',vup_hint:'MP3 oder WAV. Im Browser gespeichert.',med_lv_easy:'Leicht',med_desc_effect:'Wirkung',med_done_title:'Sitzung abgeschlossen',med_done_duration:'Dauer',med_done_mood:'Wie fühlen Sie sich?',med_done_note:'Notizen',med_done_note_ph:'Beobachtungen aufschreiben...',med_done_save:'Speichern',med_done_skip:'Überspringen',med_stat_title:'Meine Meditationen',med_stat_today:'Heute',med_stat_total:'Gesamt',med_stat_empty:'Keine Einträge',med_stat_min:'Min',med_desc_practice:'Praxis',med_desc_focus:'Fokus',med_lv_mid:'Mittel',med_lv_hard:'Tief',med_time_elapsed:'Vergangen',med_time_total:'Gesamt',med_stop_session:'Beenden',med_session_title:'Meditationssitzung',med_voice_preparing:'Vorbereitung...',rem_title:'Gewohnheiten',rem_sub_rem:'Erinnerungen',rem_sub_hab:'Gewohnheiten',rem_add_reminder:'+ Erinnerung hinzufügen',rem_add_habit:'+ Gewohnheit hinzufügen',rem_time:'Zeit',rem_label:'Titel',rem_days:'Tage',rem_save:'Speichern',rem_cancel:'Abbrechen',rem_delete:'Löschen',rem_edit:'Bearbeiten',rem_empty_rem:'Keine Erinnerungen. Erste hinzufügen.',rem_empty_hab:'Keine Gewohnheiten. Erste hinzufügen.',rem_done_today:'Heute erledigt',rem_streak:'Serie',rem_days_short:'Mo,Di,Mi,Do,Fr,Sa,So',rem_every_day:'Jeden Tag',rem_custom_days:'Tage wählen',rem_cal_export:'Zum Kalender',rem_notif_hint:'Benachrichtigungen funktionieren wenn App offen',med_sub:'Achtsamkeit & Meditation',med_how:'Wie zu üben',med_sci:'Wissenschaft',med_breath:'Empfohlene Atmung',
     phase_inhale:'Einatmen',phase_hold_in:'Halten Einatmen',phase_exhale:'Ausatmen',phase_hold_ex:'Halten Ausatmen',
     settings:'Einstellungen',sound:'Ton bei Übung',sound_on:'AN',sound_off:'AUS',
     calendar:'Kalender',avatar_hint:'Tippen zum Ändern',
@@ -2694,7 +2843,7 @@ var LANGS={
     structure_lbl:'Struktur',
   },
   es:{
-    nav_home:'Inicio',nav_lib:'Prácticas',nav_med:'Meditaciones',nav_profile:'Perfil',
+    nav_home:'Inicio',nav_lib:'Prácticas',nav_med:'Meditar',nav_profile:'Perfil',
     my_cabinet:'Mi perfil',save:'Guardar',language:'Idioma',
     library:'Biblioteca',custom_title:'Práctica propia',custom_sub:'Ajusta tu ritmo de respiración',
     inhale:'Inhalar',exhale:'Exhalar',hold:'Retener',hold_inhale:'Retener inhal.',hold_exhale:'Retener exhal.',
@@ -2775,13 +2924,13 @@ var LANGS={
   }
 };
 var LANG_NAMES={ru:'Русский',en:'English',de:'Deutsch',es:'Español',zh:'中文'};
-/* v100: keys missing in de/es/zh */
+
 Object.assign(LANGS.de,{nav_cog:'Kognition',cog_title:'Kognitives Training',cog_sub:'Trainiere Aufmerksamkeit, Gedächtnis und Metakognition'});
 Object.assign(LANGS.es,{nav_cog:'Cognición',cog_title:'Entrenamiento cognitivo',cog_sub:'Entrena atención, memoria y metacognición'});
 Object.assign(LANGS.zh,{nav_cog:'认知',cog_title:'认知训练',cog_sub:'训练注意力、记忆与元认知'});
 var curLang=dbGet('lang')||'ru';
 function t(k){return(LANGS[curLang]||LANGS.ru)[k]||LANGS.en[k]||LANGS.ru[k]||k;}
-/* v106 i18n */
+
 (function(){var X={ru:{nf_round:'Раунд',nf_min:'мин',nf_err_best:'Ошибка! Раунд {n} — лучший результат'},
  en:{nf_round:'Round',nf_min:'min',nf_err_best:'Mistake! Round {n} — best result'},
  de:{nf_round:'Runde',nf_min:'Min.',nf_err_best:'Fehler! Runde {n} — bestes Ergebnis'},
@@ -3031,7 +3180,7 @@ var ALL_TC={
 
   bhastrika:{id:'bhastrika',cat:'energy',icon:'fire',color:'#f07040',
     name:{ru:'Бхастрика',en:'Bhastrika',de:'Bhastrika',es:'Bhastrika',zh:'风箱式呼吸'},
-    pattern:[1.5,0,1.5,0,0,0],restSec:30, /* v100: 30s normal breathing between rounds (was a 30s exhale hold) */
+    pattern:[1.5,0,1.5,0,0,0],restSec:30, 
     levels:[{cycles:20,rounds:2},{cycles:30,rounds:3},{cycles:40,rounds:3}],
     tag:{ru:'Кузнечные меха · Пранаяма',en:'Bellows breath · Pranayama',de:'Blasebalg',es:'Fuelles',zh:'风箱调息'},
     desc:{ru:'Энергичные ритмичные вдохи и выдохи через нос с одинаковой силой. Живот активно работает. Темп ~1 цикл/сек. Между раундами — 30 сек нормального дыхания.',
@@ -3618,7 +3767,7 @@ var ALL_TC={
       zh:'登山探险队使用。'}}
 };
 
-/* v100: safety notice for hyperventilation & breath-hold techniques */
+
 var SAFETY_TC={wim_hof:1,bhastrika:1,kapalabhati:1,tummo:1,cold_prep:1,co2_table:1,o2_table:1,ladder:1,mnt_rescue:1};
 var SAFETY_TXT={
   ru:'Не практикуй в воде (бассейн, ванна, душ), за рулём и стоя — возможны головокружение и потеря сознания. Сидя или лёжа. Не задерживай дыхание через силу. Беременность, эпилепсия, болезни сердца, высокое давление — сначала проконсультируйся с врачом.',
@@ -3646,7 +3795,7 @@ function getLevels(tc){
   // Use new levels array if present, else fallback
   if(tc.levels&&tc.levels.length===3){
     return tc.levels.map(function(lv,i){
-      var dur=calcDurFull(tc.pattern,lv.cycles,lv.rounds||1,tc); /* v100: was sum(all 6 values)*cycles -> "~117m" */
+      var dur=calcDurFull(tc.pattern,lv.cycles,lv.rounds||1,tc); 
       return{n:nm[i],cycles:lv.cycles,rounds:lv.rounds||1,
         label:(lv.rounds>1?lv.rounds+'×':'')+lv.cycles,dur:dur};
     });
@@ -3676,7 +3825,7 @@ function navTo(id){
   if(id!=='meditation')curMed=null;
   if(id!=='reminders'){closeRemForm();if(typeof hbCloseSheet==='function')hbCloseSheet();}
   stk=[];show(id);hlNav(id);
-  if(id==='cognitive'){if(typeof COG_CATS!=='undefined')try{renderCognitive();}catch(e){console.log('cog:',e.message);}}
+  if(id==='cognitive'){if(typeof COG_CATS!=='undefined')try{renderCognitive();}catch(e){}}
 }
 function hlNav(id){
   ['nav','lnav','mnav','rnav','snav','tnav','cnav','kgnav'].forEach(function(p){
@@ -3749,7 +3898,7 @@ function buildStateGrid(){
   // Show recent sessions below the grid
   var ss=dbGet('sessions')||[];
   var recs=ss.slice().reverse().slice(0,4);
-  var _oldRec=document.getElementById('recentSess');if(_oldRec)_oldRec.remove(); /* v100: no duplicates */
+  var _oldRec=document.getElementById('recentSess');if(_oldRec)_oldRec.remove(); 
   if(recs.length){
     var rHtml='<div style="width:100%;padding:20px 14px 6px;font-size:10px;font-weight:400;letter-spacing:.08em;color:rgba(255,255,255,.32);text-transform:uppercase">'+t('recent')+'</div>';
     recs.forEach(function(s){
@@ -3870,7 +4019,7 @@ function openTD(id,state){
   /* Reset selected level only on normal open, not on lang refresh */
   if(!arguments[2])selLv=1;
   var rvHtml=(tc.levels||[]).map(function(lv,i){
-    var dur=calcDurFull(tc.pattern,lv.cycles,lv.rounds||1,tc); /* v100 */
+    var dur=calcDurFull(tc.pattern,lv.cycles,lv.rounds||1,tc); 
     var rStr=lv.rounds>1?lv.rounds+'×'+lv.cycles+' '+t('cycles_lbl'):lv.cycles+' '+t('cycles_lbl');
     var isSel=(i===1)?'sel':'';
     return'<div class="d-rb '+isSel+'" onclick="pickLvTD('+i+')" style="cursor:pointer">'+
@@ -3948,7 +4097,7 @@ function renderLib(){
   var catCount=5;
   document.getElementById('libSub').textContent = curLang==='ru'
     ? total+' '+ruPlural(total,['техника','техники','техник'])+' · '+catCount+' '+ruPlural(catCount,['категория','категории','категорий'])
-    : (function(){var w={en:['techniques','categories'],de:['Techniken','Kategorien'],es:['técnicas','categorías'],zh:['种技巧','个类别']}[curLang]||['techniques','categories'];return total+' '+w[0]+' · '+catCount+' '+w[1];})(); /* v100: was "29 Technique · 5 sessions" */
+    : (function(){var w={en:['techniques','categories'],de:['Techniken','Kategorien'],es:['técnicas','categorías'],zh:['种技巧','个类别']}[curLang]||['techniques','categories'];return total+' '+w[0]+' · '+catCount+' '+w[1];})(); 
 
   var cats=[
     {k:'energy',c:'#e86040'},
@@ -4201,13 +4350,12 @@ function beginPh(ph,now){
       var pat=curTc.pattern;
       var ah1=pat[4]||0; // hold after exhale (post-round)
       var ah2=pat[5]||0; // hold after inhale (post-round)
-      /* v106: pRound++ moved into _next (after the holds) so the counter shows the current round during retention */
-      /* v100: the retention/holds belong to EVERY round (Wim Hof, Kapalabhati, Tummo...).
-         Before, the last round ended without its hold. Recovery only between rounds. */
+      
+      
       var _last=(pRound+1)>=pTotRounds;
       var _rest=curTc.restSec||8;
       var _next=function(tn){ pRound++; if(_last){endP();return;} pCy=0;updateProgUI();updateDotsUI(); doRecovery(_rest,tn,function(t4){beginPh(0,t4);}); };
-      if(!_last){pCy=pTotCy-1;updateProgUI();updateDotsUI();} // v106: current round stays shown during the hold
+      if(!_last){pCy=pTotCy-1;updateProgUI();updateDotsUI();} 
       if(ah1>0){doPostHold(ah1,'hold_exhale_post',now,function(t2){
         if(ah2>0){doPostHold(ah2,'hold_inhale_post',t2,_next);}else{_next(t2);}
       });}else if(ah2>0){doPostHold(ah2,'hold_inhale_post',now,_next);}
@@ -4446,7 +4594,7 @@ function finishSession(){
   var sel=document.querySelector('.wchip.sel');
   if(sel){var w=dbGet('words')||{};w[sel.textContent]=(w[sel.textContent]||0)+1;dbSet('words',w);}
   document.getElementById('postOv').classList.remove('on');
-  renderProfile();buildStateGrid();stk=[];show('dashboard');hlNav('dashboard'); /* v100: refresh recent list */
+  renderProfile();buildStateGrid();stk=[];show('dashboard');hlNav('dashboard'); 
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -4809,14 +4957,7 @@ function resizeCnv(){
 }
 window.addEventListener('resize',function(){resizeCnv();positionPracticeUI();});
 
-/* ═══════════════════════════════════════════════════════
-   SOUND ENGINE v10 — Вибрация + WebAudio тики
-   ① Вибрация на каждой фазе (Vibration API)
-   ② Тиканье часов (WebAudio) во время задержки
-   ③ Мягкий ambient (WebAudio, имитативный)
-   ④ Гонг при завершении круга
-   ⑤ Всё можно отключить через toggleSound
-═══════════════════════════════════════════════════════ */
+
 
 var audioCtx = null;
 var tickInterval = null;
@@ -5045,6 +5186,7 @@ function stopAmbient() {
 }
 
 function stopAmbientInstant() {
+  _nfAmbTok++;
   // Stop new MP3 ambient track immediately (no fade)
   if(_ambientSrc){try{_ambientSrc.stop();}catch(e){}_ambientSrc=null;}
   if(_ambientGain){try{_ambientGain.disconnect();}catch(e){}_ambientGain=null;}
@@ -5237,8 +5379,7 @@ function psStr(pat){
 function psRaw(pat){var l=['In','Hold','Out','Hold'];return pat.map(function(v,i){return v>0?l[i]+' '+v+'s':null;}).filter(Boolean).join(' · ');}
 function calcDur(pat,cyc){return Math.max(1,Math.round((pat||[4,0,6,0]).reduce(function(a,v){return a+v;},0)*cyc/60));}
 function calcDurFull(pat,cyc,rounds,tc){
-  /* v100: matches the practice engine exactly: every round = cycles x (in+hold+out+hold)
-     + post-round holds; between rounds there is a recovery pause (restSec, default 8s) */
+  
   pat=pat||[4,0,6,0,0,0];rounds=rounds||1;
   var sum4=(pat[0]||0)+(pat[1]||0)+(pat[2]||0)+(pat[3]||0);
   var extra=(pat[4]||0)+(pat[5]||0);
@@ -5528,7 +5669,7 @@ var MEDS=[
    breathId:'sama_vritti',
    breathWhy:{ru:'Сама Вритти 6-6 создаёт нейтральный баланс без доминирования симпатики или парасимпатики — идеально для незаинтересованного наблюдения.',en:'Sama Vritti 6-6 creates neutral balance without sympathetic or parasympathetic dominance — ideal for non-attached observation.',de:'Sama Vritti 6-6 schafft neutrales Gleichgewicht — ideal für interesseloses Beobachten.',es:'Sama Vritti 6-6 crea equilibrio neutral — ideal para la observación desapegada.',zh:'等量呼吸6-6创造不偏交感或副交感的中性平衡——完美适合无执着的观察。'}
   },
-  {id:'breath_focus',color:'#d870b0',trackSec:476.7,ownMusic:true, /* v101: fixed-length guided track with its own music bed */
+  {id:'breath_focus',color:'#d870b0',trackSec:476.7,ownMusic:true, 
    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5h18"/><path d="M6 9.5h12"/><path d="M9 14.5h6"/><circle cx="12" cy="19.5" r="1.3"/></svg>',
    name:{ru:'Луч внимания',en:'Beam of Attention',de:'Strahl der Aufmerksamkeit',es:'Haz de atención',zh:'注意力之光'},
    tag:{ru:'Дыхание · Ощущения тела',en:'Breath · Body sensations',de:'Atem · Körperempfindungen',es:'Respiración · Sensaciones',zh:'呼吸 · 身体感觉'},
@@ -5697,9 +5838,9 @@ function openMedDet(medId,skipPush){
     lvHtml+='<div class="med-lv-opt'+lvOn+' med-lv-'+li+'" style="--lc:'+m.color+'"'+
       ' onclick="setMedLv('+li+',\''+m.id+'\',\''+m.color+'\')">'+
       '<div class="med-lv-name">'+t(lvs[li])+'</div>'+
-      '<div class="med-lv-time">'+Math.round(_nfMedSession(m.id,MED_DURATIONS[li]||MED_DURATIONS[0],false)/60)+' '+t('nf_min')+'</div></div>'; /* v106: real length */
+      '<div class="med-lv-time">'+Math.round(_nfMedSession(m.id,MED_DURATIONS[li]||MED_DURATIONS[0],false)/60)+' '+t('nf_min')+'</div></div>'; 
   }
-  if(m.trackSec){ lvHtml=''; } /* v102: fixed-length track — no option card, Start plays the full recording */
+  if(m.trackSec){ lvHtml=''; } 
   var remSvg='<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="9" r="6"/><path d="M10 6v3l2 2"/><path d="M4 17l2-2M16 17l-2-2"/></svg>';
   medEl.innerHTML=
     '<div class="mdet">'+
@@ -6633,7 +6774,7 @@ var MED_VOICE = {
   }
 };
 
-/* v105: MED_VOICE guidance lines for de/es/zh */
+
 (function(){var X={
 mindfulness:{
 de:["Finde eine bequeme Haltung. Schließe sanft die Augen.","Atme langsam ein. Spüre, wie der Körper weich wird.","Richte die Aufmerksamkeit auf den Atem. Beobachte einfach.","Gedanken werden kommen. Bemerke sie sanft und kehre zurück.","Du bist hier. In diesem Moment. Alles ist gut.","Atme. Beobachte. Lass alles sein."],
@@ -6753,7 +6894,7 @@ MedParticle.prototype.draw = function(ctx) {
   gg.addColorStop(1,'rgba('+this.r1+','+this.g1+','+this.b1+',0)');
   ctx.fillStyle=gg;
   ctx.fillRect(this.x-gw,this.y-gw,gw*2,gw*2);
-  // v106: round core (was fillRect -> squares)
+  
   ctx.fillStyle='rgba('+this.r1+','+this.g1+','+this.b1+','+this.a+')';
   ctx.beginPath();ctx.arc(this.x,this.y,Math.max(0.9,s),0,6.2832);ctx.fill();
 };
@@ -6828,7 +6969,7 @@ function medReleaseFormation(particles){
 }
 
 // ── Ambient audio ──
-/* v106: session-scoped timers — every meditation timer is tied to a session token and cleared on stop */
+
 function _medTO(fn,d){var tok=medSession.token||0;var id=setTimeout(function(){if((medSession.token||0)!==tok)return;fn();},d);(medSession._timers||(medSession._timers=[])).push(id);if(medSession._timers.length>400)medSession._timers.splice(0,200);return id;}
 function medStartAudio(color) {
   if(medSession.audioOn) return;
@@ -6843,7 +6984,7 @@ function medStartAudio(color) {
   medSession.audioOn=true;
   // Play the ambient MP3 track (looped) through meditation AudioContext
   var _mA=MEDS.find(function(x){return x.id===medSession.medId;});
-  if(!(_mA&&_mA.ownMusic)) playAmbientTrack(medSession.audioCtx, 0.22); /* v101: tracks with their own music skip the ambient loop */
+  if(!(_mA&&_mA.ownMusic)) playAmbientTrack(medSession.audioCtx, 0.22); 
 }
 
 
@@ -6871,7 +7012,7 @@ function medSpeakIntro(medId, onDone) {
 
   var _tok=medSession.token;
   function updateCard(text,stepNum){
-    if(medSession.token!==_tok||!medSession.active)return; /* v106 */
+    if(medSession.token!==_tok||!medSession.active)return; 
     var instrEl=document.getElementById('med-instr-text');
     var stepEl=document.getElementById('med-instr-step');
     var card=document.getElementById('med-instr-card');
@@ -6933,7 +7074,7 @@ function medSpeakIntro(medId, onDone) {
 function medStartOngoingGuidance(medId){
   var ms=medSession;
   var lang=(curLang==='ru')?'ru':'en';
-  var _G=(typeof MED_GUIDANCE!=='undefined')?(MED_GUIDANCE[medId]||MED_GUIDANCE.mindfulness):null; /* v101: MED_GUIDANCE was never defined */
+  var _G=(typeof MED_GUIDANCE!=='undefined')?(MED_GUIDANCE[medId]||MED_GUIDANCE.mindfulness):null; 
   var lines=(_G&&_G[lang])||[];
   if(!lines.length) return;
   var idx=0;
@@ -7016,7 +7157,7 @@ function _stopSynthAmbient(){
 function playAmbientTrack(ac, vol){
   vol = vol || 0.45;
   if(!ac) return;
-  if(!_AMBIENT_B64 && !_ambientBufCache[0]){ _synthAmbientPad(ac, vol); return; }
+  if(!_AMBIENT_B64 && !_ambientBufCache[0]){ var _tk=++_nfAmbTok; _nfFetchDecode('_AMBIENT_B64',ac,function(b){ if(b)_ambientBufCache[0]=b; if(_tk!==_nfAmbTok)return; if(b)_startAmbientLoop(ac,b,vol); else _synthAmbientPad(ac,vol); }); return; }
   if(!_ambientBufCache[0]){
     try{
       var bin=atob(_AMBIENT_B64);
@@ -7057,7 +7198,9 @@ function _startAmbientLoop(ac, buf, vol){
   _ambientSrc = src;
 }
 
+var _nfAmbTok=0;
 function stopAmbientTrack(fadeTime){
+  _nfAmbTok++;
   fadeTime = fadeTime || 6;
   if(!_ambientGain || !_ambientAC) return;
   var gain = _ambientGain;
@@ -7121,10 +7264,10 @@ var _openBufStartCache=[null];
 var _openBufFinalCache=[null];
 var _visualBufStartCache=[null];
 var _visualBufFinalCache=[null];
-/* v101: Луч внимания — single full-length track (voice + own music), no separate FINAL */
+
 var _BREATH_B64_START="";
 var _breathBufStartCache=[null];
-/* v105: per-language meditation voice tracks. ru = original (embedded / assets/), others from assets/<lang>/, fallback en, then ru */
+
 var NF_MED_LANGS=['en','de','es','zh'];
 function _nfMedLang(){return curLang==='ru'?'ru':(NF_MED_LANGS.indexOf(curLang)>=0?curLang:'en');}
 function _nfMedFile(cache){var m=[[_mfulBufStartCache,'mful_b64_start.mp3'],[_mfulBufFinalCache,'mful_b64_final.mp3'],[_skanBufStartCache,'skan_b64_start.mp3'],[_skanBufFinalCache,'skan_b64_final.wav'],[_loveBufStartCache,'love_b64_start.mp3'],[_loveBufFinalCache,'love_b64_final.mp3'],[_mantBufStartCache,'mant_b64_start.mp3'],[_mantBufFinalCache,'mant_b64_final.mp3'],[_openBufStartCache,'open_b64_start.mp3'],[_openBufFinalCache,'open_b64_final.mp3'],[_visualBufStartCache,'visual_b64_start.mp3'],[_visualBufFinalCache,'visual_b64_final.mp3'],[_breathBufStartCache,'breath_b64_start.mp3']];for(var i=0;i<m.length;i++)if(m[i][0]===cache)return m[i][1];return null;}
@@ -7140,13 +7283,12 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1087';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1088';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
 };
-/* v105.1: per-language session length. Translated voice tracks may be longer than the Russian ones; the session
-   is extended so the opening voice finishes and the closing part never overlaps it. Russian: unchanged (returns base). */
+
 var NF_MED_DUR={"en": {"breath_b64_start.mp3": 479.71, "love_b64_final.mp3": 15.96, "love_b64_start.mp3": 277.17, "mant_b64_final.mp3": 18.8, "mant_b64_start.mp3": 130.29, "mful_b64_final.mp3": 15.35, "mful_b64_start.mp3": 104.54, "open_b64_final.mp3": 25.85, "open_b64_start.mp3": 123.09, "skan_b64_final.wav": 19.25, "skan_b64_start.mp3": 258.68, "visual_b64_final.mp3": 21.49, "visual_b64_start.mp3": 147.16}, "de": {"breath_b64_start.mp3": 479.71, "love_b64_final.mp3": 15.96, "love_b64_start.mp3": 287.41, "mant_b64_final.mp3": 18.8, "mant_b64_start.mp3": 137.68, "mful_b64_final.mp3": 16.07, "mful_b64_start.mp3": 108.12, "open_b64_final.mp3": 26.48, "open_b64_start.mp3": 137.52, "skan_b64_final.wav": 20.02, "skan_b64_start.mp3": 271.47, "visual_b64_final.mp3": 22.37, "visual_b64_start.mp3": 147.6}, "es": {"breath_b64_start.mp3": 479.71, "love_b64_final.mp3": 16.7, "love_b64_start.mp3": 296.5, "mant_b64_final.mp3": 20.03, "mant_b64_start.mp3": 145.43, "mful_b64_final.mp3": 16.84, "mful_b64_start.mp3": 116.54, "open_b64_final.mp3": 28.66, "open_b64_start.mp3": 144.4, "skan_b64_final.wav": 21.53, "skan_b64_start.mp3": 299.69, "visual_b64_final.mp3": 23.8, "visual_b64_start.mp3": 159.73}, "zh": {"breath_b64_start.mp3": 479.71, "love_b64_final.mp3": 15.96, "love_b64_start.mp3": 278.61, "mant_b64_final.mp3": 18.8, "mant_b64_start.mp3": 130.38, "mful_b64_final.mp3": 15.48, "mful_b64_start.mp3": 104.49, "open_b64_final.mp3": 26.14, "open_b64_start.mp3": 128.87, "skan_b64_final.wav": 18.65, "skan_b64_start.mp3": 256.6, "visual_b64_final.mp3": 21.49, "visual_b64_start.mp3": 146.78}};
 var _NF_MED_PFX={mindfulness:'mful',body_scan:'skan',loving_kindness:'love',mantra:'mant',open_monitoring:'open',visualization:'visual',breath_focus:'breath'};
 function _nfDurOf(fn){var L=_nfMedLang();var t=NF_MED_DUR[L]||NF_MED_DUR.en;return t&&t[fn];}
@@ -7188,7 +7330,7 @@ function medPlayGenericTrack(startB64, startCache, finalB64, finalCache, finalOf
 }
 
 function medScheduleGenericFinal(finalB64, finalCache, offsetSec){
-  if(!finalCache)return; /* v101: tracks without a separate final part */
+  if(!finalCache)return; 
   var ms=medSession;
   var tot=ms.sessionDuration||300;
   var finalOffset=tot-_nfFinalOff(finalCache,(offsetSec||25));
@@ -7306,8 +7448,7 @@ function medScheduleLoveFinal(){
 
 // ── Touch / mouse interaction on meditation canvas ──
 function medInitTouch(cv, ms){
-  /* v106: multitouch tracked by identifier; per-finger vortices (alternating spin), pinch compress/expand + twist,
-     free-flight connection lines (spatial grid), swipe trails with sparks, release burst scaled by hold time. */
+  
   var F={}, nF=0, spinFlip=1, sparks=[], pinch=null;
   ms._fingers=F;
   function explosion(cx,cy,k){
@@ -7458,7 +7599,7 @@ function medRender(){
   ms.t+=0.016;
 
   var cv=ms.canvas, ctx=ms.ctx;
-  /* v106: fade alpha instead of painting grey (8-bit rounding left permanent smears); overlay bg shows through */
+  
   ctx.save();ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,0.16)';ctx.fillRect(0,0,ms.W,ms.H);
   ms._fr=(ms._fr||0)+1; if(ms._fr%90===0){ctx.fillStyle='rgba(0,0,0,0.5)';ctx.fillRect(0,0,ms.W,ms.H);} ctx.restore();
 
@@ -7511,7 +7652,7 @@ function medRender(){
     ms.particles[i].update(ms.formationStrength);
     ms.particles[i].draw(ctx);
   }
-  if(ms._fxDrawFn) ms._fxDrawFn(ctx); /* v106 lines, trails, sparks */
+  if(ms._fxDrawFn) ms._fxDrawFn(ctx); 
 
   // Connection lines
   if(ms.formationStrength>0.35){
@@ -7591,7 +7732,7 @@ function setMedLv(lv, medId, color){
 function launchMedSession(medId, color, lv) {
   if(medSession.active) stopMedSession();
   var ms=medSession;
-  ms.token=(ms.token||0)+1; ms._timers=[]; /* v106 */
+  ms.token=(ms.token||0)+1; ms._timers=[]; 
   ms.medId=medId; ms.color=color||'#4a7fff';
   // Pre-decode mindfulness audio in background
   if(medId==='mindfulness'){
@@ -7638,8 +7779,8 @@ function launchMedSession(medId, color, lv) {
   ms.active=true; ms.paused=false;
   ms.sessionDuration=MED_DURATIONS[lv!==undefined?lv:medSelLv]||MED_DURATIONS[0];
   var _mT=MEDS.find(function(x){return x.id===medId;});
-  if(_mT&&_mT.trackSec) ms.sessionDuration=Math.ceil(_mT.trackSec); /* v101: fixed-length guided track */
-  ms.sessionDuration=_nfMedSession(medId,ms.sessionDuration,!!(_mT&&_mT.trackSec)); /* v105.1 */
+  if(_mT&&_mT.trackSec) ms.sessionDuration=Math.ceil(_mT.trackSec); 
+  ms.sessionDuration=_nfMedSession(medId,ms.sessionDuration,!!(_mT&&_mT.trackSec)); 
   ms.formationIdx=0; ms.formationStrength=0; ms.formationTarget=0; ms.formationTimer=0;
   ms.formation='drift'; ms.t=0;
   ms.startTs=performance.now(); ms.elapsedSec=0;
@@ -7824,7 +7965,7 @@ function stopMedSession(){
   if(!ms.active)return;
   ms.active=false;
   ms.speechActive=false;
-  ms.token=(ms.token||0)+1; if(ms._timers){ms._timers.forEach(function(x){clearTimeout(x);});ms._timers=[];} /* v106 */
+  ms.token=(ms.token||0)+1; if(ms._timers){ms._timers.forEach(function(x){clearTimeout(x);});ms._timers=[];} 
   if(typeof speechSynthesis!=='undefined'){try{speechSynthesis.cancel();}catch(e){}}
   voiceStopCustom();
   if(ms._fullAudioSrc){try{ms._fullAudioSrc.stop();}catch(e){}} ms._fullAudioSrc=null;
@@ -7837,7 +7978,7 @@ function stopMedSession(){
   var ov=document.getElementById('med-session-ov');
   if(ov){
     ov.classList.remove('on');
-    if(ov.parentNode)ov.parentNode.removeChild(ov); /* v106: remove immediately (duplicate ids caused stale card text) */
+    if(ov.parentNode)ov.parentNode.removeChild(ov); 
   }
 }
 
@@ -8135,7 +8276,7 @@ function completeMedSession(){
   var dur=ms.elapsedSec||0;
   var color=ms.color||'#4a7fff';
   // Stop everything except show the post screen
-  ms.active=false; ms.token=(ms.token||0)+1; if(ms._timers){ms._timers.forEach(function(x){clearTimeout(x);});ms._timers=[];} /* v106 */
+  ms.active=false; ms.token=(ms.token||0)+1; if(ms._timers){ms._timers.forEach(function(x){clearTimeout(x);});ms._timers=[];} 
   ms.speechActive=false;
   if(typeof speechSynthesis!=='undefined'){try{speechSynthesis.cancel();}catch(e){}}
   voiceStopCustom();
@@ -8225,7 +8366,7 @@ function saveMedDone(skip){
   // Close overlay
   if(ov){
     ov.classList.remove('on');
-    if(ov.parentNode)ov.parentNode.removeChild(ov); /* v106: remove immediately (duplicate ids caused stale card text) */
+    if(ov.parentNode)ov.parentNode.removeChild(ov); 
   }
   window._medDoneMood=-1;
   renderMedStatWidget();
@@ -8309,7 +8450,7 @@ function init(){
   setTimeout(function(){
     try{
       var _preAC=new(window.AudioContext||window.webkitAudioContext)();
-      if(!_AMBIENT_B64){_nfFetchDecode('_AMBIENT_B64',_preAC,function(b){if(b)_ambientBufCache[0]=b;});return;}
+      if(!_AMBIENT_B64){try{_preAC.close();}catch(e){}return;}
       var bin=atob(_AMBIENT_B64);
       var bytes=new Uint8Array(bin.length);
       for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
@@ -8322,10 +8463,7 @@ function init(){
 }
 var COG_NAV_SVG='<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.2a2.8 2.8 0 0 0-2.6 3.8A3 3 0 0 0 4 11a3 3 0 0 0 3.3 3c.3 0 .5 0 .7-.1"/><path d="M13 4.2a2.8 2.8 0 0 1 2.6 3.8A3 3 0 0 1 16 11a3 3 0 0 1-3.3 3c-.3 0-.5 0-.7-.1"/><path d="M10 4.2V14"/><path d="M7.3 7.5h2M10.7 7.5h2M7.3 11h2M10.7 11h2"/></svg>';
 
-/* ═══════════════════════════════════════════════════════════
-   COGNITIVE TRAINING MODULE — NeuroFlow v72
-   13 exercises: Attention / Metacognition / Memory
-═══════════════════════════════════════════════════════════ */
+
 
 /* ─── i18n ─── */
 var COG_T = {
@@ -8411,12 +8549,12 @@ var COG_PRACTICES = [
   {id:'seq',          cat:'memory',       icon:'', color:'#5EEAD4'}
 ];
 var _cogDifficulty = 1;
-/* v100: "_cogDifficulty||1" turned Easy (0) into Medium — Easy was unreachable everywhere */
+
 function _cogDiff(){ return (_cogDifficulty===0||_cogDifficulty===1||_cogDifficulty===2)?_cogDifficulty:1; }
-/* v100: one shared AudioContext for game sounds (a new one per tap fails on iOS after a few) */
+
 var _cogACtx=null;
 function _cogAC(){ try{ if(!_cogACtx)_cogACtx=new(window.AudioContext||window.webkitAudioContext)(); if(_cogACtx.state==='suspended')_cogACtx.resume(); return _cogACtx; }catch(e){ return null; } }
-/* v100: session token — animation loops of a closed game stop themselves */
+
 var _cogSess=0;
 function cogSetDiff(el,d){_cogDifficulty=d;var p=el.parentNode;for(var i=0;i<p.children.length;i++){p.children[i].style.outline="none";p.children[i].style.color="rgba(255,255,255,.5)";}el.style.outline="2px solid #A78BFA";el.style.color="rgba(255,255,255,.85)";}
 var COG_CATS = [
@@ -8426,7 +8564,7 @@ var COG_CATS = [
 ];
 
 /* ─── Scores storage ─── */
-/* init() moved to the end of the script (v100) */
+
 
 
 
@@ -8646,7 +8784,7 @@ function renderCognitive(){
 
 /* ─── Detail screen ─── */
 function openCogDetail(id){
-  _cogDifficulty=1; /* v100: UI always pre-selects Средне */
+  _cogDifficulty=1; 
   var p=null;
   for(var i=0;i<COG_PRACTICES.length;i++){if(COG_PRACTICES[i].id===id){p=COG_PRACTICES[i];break;}}
   if(!p)return;
@@ -8782,7 +8920,7 @@ function _stopAllCogTimers(){ _cogTimers.forEach(function(t){clearTimeout(t);cle
 function cogShowResult(body,p,score,max,extra){
   var pct=max>0?Math.round(score/max*100):0;
   saveCogScore(p.id,pct,100);
-  /* v100: "Ещё раз" must restart the SAME game (intuition sub-games restarted the hidden quiz; Focus point did nothing) */
+  
   var _retry=(p.id==='conf'&&window._intuitGid)?"launchIntuitionGame('"+window._intuitGid+"')":(p.id==='focus_point'?"launchFocusPoint()":"launchCogEx('"+p.id+"')");
   body.innerHTML=
     '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:20px;padding:40px 20px;text-align:center;">'+
@@ -8905,7 +9043,7 @@ function cogFocusPoint(body,p,holdSec){
   var holdMs=holdSec*1000;
 
   function loop(){
-    if(_sess!==_cogSess) return; /* v100: game was closed */
+    if(_sess!==_cogSess) return; 
     move(); draw();
     var now=Date.now();
     if(phase==='moving' && (now-startTime)>stopDelay){
@@ -9348,7 +9486,7 @@ function cogPrediction(body,p){
 
     window.cogPredFinish=function(){
       var ta=document.getElementById('pred-ta');
-      var entered=(ta?ta.value:'').toLowerCase().replace(/ё/g,'е').split(/[\s,;.]+/).filter(Boolean); /* v100: commas, spaces or new lines */
+      var entered=(ta?ta.value:'').toLowerCase().replace(/ё/g,'е').split(/[\s,;.]+/).filter(Boolean); 
       var WORDS=window._predWords||[];
       var correct=0;
       WORDS.forEach(function(w){if(entered.indexOf(w)>=0)correct++;});
@@ -9390,7 +9528,7 @@ function cogCardFlash(el, ok){
 
 /* ═══ Intuition sub-games launcher ═══ */
 function launchIntuitionGame(gid){
-  _stopAllCogTimers(); window._intuitGid=gid; /* v100 */
+  _stopAllCogTimers(); window._intuitGid=gid; 
   var el=document.getElementById('cog-exercise');
   if(!el)return;
   el.classList.add('on');
@@ -9412,7 +9550,7 @@ function cogIntuitNumber(body,p){
     var winIdx=Math.floor(Math.random()*4);
     var nums=[];
     var _pool=[1,2,3,4,5,6,7,8,9].filter(function(x){return x!==target;}).sort(function(){return Math.random()-.5;});
-    for(var k=0,_j=0;k<4;k++) nums.push(k===winIdx?target:_pool[_j++]); /* v100: no duplicates of the target */
+    for(var k=0,_j=0;k<4;k++) nums.push(k===winIdx?target:_pool[_j++]); 
     var picked=false;
     body.innerHTML=
       '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:26px;padding:20px;">'+
@@ -9506,7 +9644,7 @@ function cogIntuitColor(body,p){
   var colors=[{k:'red',c:'#e05050'},{k:'blue',c:'#5090f0'},{k:'green',c:'#50c050'},{k:'yellow',c:'#d0c030'}];
   function nextRound(){
     if(cur>=rounds){ cogShowResult(body,p,correct,rounds,correct+'/'+rounds+'</div>'); return; }
-    /* v100: shuffle colours every round and SHOW the colour to find */
+    
     var order=colors.slice().sort(function(){return Math.random()-.5;});
     var winIdx=Math.floor(Math.random()*4);
     var target=order[winIdx];
@@ -9575,7 +9713,7 @@ function cogErrorAware(body,p){
       var fake=pr.ans+(Math.random()<0.5?-1:1)*delta;
       var dup=false;
       for(var oi=0;oi<opts.length;oi++){if(opts[oi]===fake)dup=true;}
-      if(!dup&&fake>=0) opts.push(fake); /* v100 */
+      if(!dup&&fake>=0) opts.push(fake); 
     }
     opts.sort(function(){return Math.random()-.5;});
     var picked=false;
@@ -9735,7 +9873,7 @@ function cogMOT(body,p){
   }
 
   var _sess=_cogSess;
-  function loop(){ if(_sess!==_cogSess)return; /* v100 */ if(phase==='move')move(); draw(); raf=requestAnimationFrame(loop); }
+  function loop(){ if(_sess!==_cogSess)return;  if(phase==='move')move(); draw(); raf=requestAnimationFrame(loop); }
 
   function startTrial(){
     phase='show'; initOrbs();
@@ -9818,7 +9956,7 @@ function cogStroop(body,p){
       '</div>';
 
     if(timerInterval) clearInterval(timerInterval);
-    timerInterval=_cogInterval(function(){ /* v100: tracked, stops when the game is closed */
+    timerInterval=_cogInterval(function(){ 
       timeLeft--;
       var tel=document.getElementById('stroop-timer');
       if(tel){tel.textContent=timeLeft;if(timeLeft>0)cogTick();}
@@ -9846,7 +9984,7 @@ function cogNBack(body,p){
 
   function renderTrial(){
     if(cur>=total){
-      var score=hits+crs; /* v100: hits + correct rejections over all scorable trials */
+      var score=hits+crs; 
       var possible=Math.max(0,total-N);
       cogShowResult(body,p,score,possible,'Совпадения: '+hits+' · Ложные: '+fas+' · Пропуски: '+misses+'</div>');
       return;
@@ -9873,7 +10011,7 @@ function cogNBack(body,p){
             'background:'+(isCurrent?p.color+'33':'rgba(255,255,255,.06)')+';'+
             'border:2px solid '+(isTarget?p.color:isCurrent?'rgba(255,255,255,.2)':'rgba(255,255,255,.08)')+';'+
             'color:'+(isCurrent?p.color:'rgba(255,255,255,.5)')+';'+
-            'box-shadow:'+(isTarget?'0 0 12px '+p.color+'44':'none')+';">'+(isCurrent?s:'•')+'</div>'; /* v100: hide past symbols — must be remembered */
+            'box-shadow:'+(isTarget?'0 0 12px '+p.color+'44':'none')+';">'+(isCurrent?s:'•')+'</div>'; 
         }).join('<div style="width:6px;height:2px;background:rgba(255,255,255,.15);border-radius:1px;"></div>')+
         '</div>'+
         '<div style="width:90px;height:90px;border-radius:18px;background:'+p.color+'22;border:2.5px solid '+p.color+';display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;color:'+p.color+';box-shadow:0 0 24px '+p.color+'44;">'+sym+'</div>'+
@@ -9947,7 +10085,7 @@ function cogSequence(body,p){
     player.push(i);
     var pos=player.length-1;
     if(player[pos]!==sequence[pos]){
-      playing=true; /* v100: lock input */
+      playing=true; 
       var m=document.getElementById('seq-msg');
       if(m)m.textContent=t('nf_err_best').replace('{n}',round-1);
       _cogTimer(function(){cogShowResult(body,p,round-1,maxRound,t('nf_round')+' '+(round-1)+'/'+maxRound+'</div>');},800);
@@ -10060,8 +10198,8 @@ function cogSpacedRep(body,p){
 
 
 
-/* ════════ v102 modules ════════ */
-/* ═══ v102 — thin line icons that replace emoji across the app ═══ */
+
+
 var NF_IC={
  check:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
  close:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
@@ -10415,11 +10553,7 @@ function openDaySheet(k){hbOpenDay(k);}
 function closeDaySheet(){hbCloseSheet();}
 function deleteHabitDirect(id){var s=hbState();s.habits=s.habits.filter(function(h){return h.id!==id;});hbSave();hbRender();}
 
-/* ═══════════════════════════════════════════════════════
-   v103 — HABITS: schedule by weekdays (Mon..Sun chips + presets)
-   Store v3: habits[].days = [0..6] (0 = Monday). Streaks, % and the
-   calendar ring count scheduled days only. v2 targets are migrated.
-═══════════════════════════════════════════════════════ */
+
 var HB_ALL=[0,1,2,3,4,5,6],HB_WD=[0,1,2,3,4],HB_WE=[5,6];
 var HB_MAP={7:HB_ALL,6:[0,1,2,3,4,5],5:HB_WD,4:[0,1,3,4],3:[0,2,4],2:[1,3],1:[0]};
 var HB_T3={
@@ -10636,7 +10770,7 @@ function hbSaveForm(){
 }
 function getHabits(){return hbState().habits.map(function(h){return {id:h.id,name:hbName(h),icon:'',color:HB_ACC,builtin:!!h.key,enabled:false,notify:false,time:'',days:hbDays(h).map(function(i){return (i+1)%7;})};});}
 
-/* ═══ v102 — cognition: full translations (de/es/zh were falling back to Russian) + new UI strings ═══ */
+
 (function(){
 var base={
  de:{cog_nav:'Kognition',cog_title:'Kognitives Training',cog_sub:'Trainiere Aufmerksamkeit, Gedächtnis und Metakognition',cat_attention:'Aufmerksamkeit',cat_metacognition:'Metakognition',cat_memory:'Gedächtnis',cog_start:'Start',cog_back:'Zurück',cog_result:'Ergebnis',cog_score:'Punkte',cog_accuracy:'Genauigkeit',cog_again:'Nochmal',cog_done:'Fertig',cog_correct:'Richtig',cog_wrong:'Fehler',cog_instructions:'Anleitung',cog_get_ready:'Bereit machen',cog_seconds:'s',
@@ -10770,7 +10904,7 @@ var CG_T={
 };
 function CT(k,v){var s=(CG_T[curLang]||CG_T.ru)[k];if(s==null)s=CG_T.ru[k];if(s==null)return k;if(v&&typeof s==='string')for(var x in v)s=s.split('{'+x+'}').join(v[x]);return s;}
 
-/* ═══ v103 — cognition texts: "what this develops", level labels, new Focus point ═══ */
+
 (function(){
 var X={
 ru:{dev_lbl:'Что развивает',
@@ -10880,10 +11014,7 @@ var FP={
 Object.keys(FP).forEach(function(l){if(COG_T[l]){COG_T[l].focus_point_s=FP[l].s;COG_T[l].focus_point_i=FP[l].i;}});
 })();
 
-/* ═══════════════════════════════════════════════════════
-   v102 — COGNITION: line icons, localized UI, game fixes
-   (same concepts; overrides the v101 implementations)
-═══════════════════════════════════════════════════════ */
+
 var CG_IC={
  visual_search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/><circle cx="10.5" cy="10.5" r="1.6"/></svg>',
  mot:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="8" r="2.5"/><circle cx="17" cy="6" r="2.5"/><circle cx="13" cy="17" r="2.5"/><path d="M8.3 9.2l3.4 5.6M14.6 15l1.8-6.5" stroke-dasharray="1.5 2"/></svg>',
@@ -10958,7 +11089,7 @@ function cgDiffHtml(color){
 function cogSetDiff(el,d){_cogDifficulty=d;var b=el.parentNode.children;for(var i=0;i<b.length;i++)b[i].classList.toggle('on',b[i]===el);if(typeof motSpdPaint==='function')motSpdPaint();}
 function cgStartBtn(p,fn){return '<button class="cg-start" style="background:'+p.color+'" onclick="'+fn+'">'+CG_IC.play+'<span>'+cogT('cog_start')+'</span></button>';}
 function openCogDetail(id,keep){
-  if(!keep)_cogDifficulty=1; /* v100: Средне pre-selected; kept when returning from a game */
+  if(!keep)_cogDifficulty=1; 
   var p=cgP(id),el=document.getElementById('cog-detail');if(!p||!el)return;
   var h=cgBar(cogT(id+'_t'))+'<div class="cog-det-body cg-det">'+cgHero(p,id);
   if(id==='conf'){
@@ -10992,7 +11123,7 @@ function cgExOpen(p,title){
   if(bar&&!document.getElementById('cogExTitle')){bar.insertAdjacentHTML('beforeend','<div class="cg-bar-t" id="cogExTitle"></div><div style="width:40px"></div>');}
   var tt=document.getElementById('cogExTitle');if(tt)tt.textContent=title||'';
   var b=document.getElementById('cog-ex-body');if(b){b.innerHTML='';b.scrollTop=0;}
-  window._cogState=null;
+  _cogState=null;
   return b;
 }
 function launchCogEx(id){
@@ -11013,7 +11144,7 @@ function closeCogEx(){
   var el=document.getElementById('cog-exercise');if(el)el.classList.remove('on');
   _stopAllCogTimers();
   var b=document.getElementById('cog-ex-body');if(b)b.innerHTML='';
-  window._cogState=null;
+  _cogState=null;
   var det=document.getElementById('cog-detail');if(det&&det.classList.contains('on')&&_cogExId)openCogDetail(_cogExId,true);
   renderCognitive();
 }
@@ -11030,8 +11161,8 @@ function cogShowResult(body,p,score,max,extra){
     (isBest?'<div class="cg-res-best">'+CT('new_best')+'</div>':'')+
     '<div class="cg-res-bar"><i style="width:'+pct+'%;background:'+p.color+'"></i></div>'+
     '<div class="cg-res-btns"><button class="cg-btn2 nf8-lv" id="cg-levels" onclick="nf8Levels()">'+T8('levels')+'</button>'+
-    '<button class="cg-btn1 nf8-next" id="cg-next" style="background:'+p.color+'" onclick="nf8Next()">'+T8('next')+' →</button></div></div>'; /* v108 */
-  window._cogState={result:pct,score:score,max:max};
+    '<button class="cg-btn1 nf8-next" id="cg-next" style="background:'+p.color+'" onclick="nf8Next()">'+T8('next')+' →</button></div></div>'; 
+  _cogState={result:pct,score:score,max:max};
 }
 function cgFlash(el,ok){if(!el)return;el.classList.remove('cg-ok','cg-bad');void el.offsetWidth;el.classList.add(ok?'cg-ok':'cg-bad');cogPlayFeedback(ok);}
 function cgShuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
@@ -11039,7 +11170,7 @@ function cgShuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor
 /* ═══ Visual search ═══ */
 function cogVisualSearch(body,p){
   var diff=_cogDiff(),ROUNDS=[5,6,8][diff],cols=[6,9,12][diff],rows=[7,10,13][diff],d0=[0.30,0.16,0.07][diff],LIM=[0,10000,5000][diff];
-  window._cogParams={game:'visual_search',d:diff,grid:cols+'x'+rows,delta:d0,limitMs:LIM,rounds:ROUNDS};
+  _cogParams={game:'visual_search',d:diff,grid:cols+'x'+rows,delta:d0,limitMs:LIM,rounds:ROUNDS};
   var score=0,round=0,times=[];
   function next(){
     if(round>=ROUNDS){var avg=times.length?times.reduce(function(a,b){return a+b;},0)/times.length:0;
@@ -11049,7 +11180,7 @@ function cogVisualSearch(body,p){
     for(var i=0;i<n;i++)h+='<button data-i="'+i+'"'+(i===tp?' data-t="1"':'')+' onclick="cogVSClick('+i+')"><i style="background:'+p.color+';opacity:'+(i===tp?top:base).toFixed(3)+'"></i></button>';
     body.innerHTML=h+'</div></div>';
     var ts=Date.now(),done=false;
-    window._cogState={game:'visual_search',round:round,target:tp,n:n};
+    _cogState={game:'visual_search',round:round,target:tp,n:n};
     if(LIM)_cogTimer(function(){if(done)return;done=true;var c=document.querySelectorAll('#vs-grid button');if(c[tp])c[tp].classList.add('cg-ring');cogPlayFeedback(false);_cogTimer(function(){round++;next();},900);},LIM);
     window.cogVSClick=function(i){
       if(done)return;done=true;
@@ -11065,7 +11196,7 @@ function cogVisualSearch(body,p){
 /* ═══ MOT ═══ */
 function cogMOT(body,p){
   var diff=_cogDiff(),nOrbs=[5,8,11][diff],nT=[2,3,5][diff],speed=[1.2,2.0,3.0][diff],TRACK=[3000,5000,7000][diff],TRIALS=3;
-  window._cogParams={game:'mot',d:diff,orbs:nOrbs,targets:nT,speed:speed,trackMs:TRACK};
+  _cogParams={game:'mot',d:diff,orbs:nOrbs,targets:nT,speed:speed,trackMs:TRACK};
   var orbs=[],phase='show',score=0,trial=0,W=0,H=0,sel=0,raf=null,_sess=_cogSess;
   body.innerHTML='<div class="cg-pad"><div id="mot-cnt">'+cgCnt(1,TRIALS)+'</div><div class="cg-q" id="mot-msg"></div>'+
     '<canvas id="cog-mot-cv" class="cg-canvas"></canvas></div>';
@@ -11106,9 +11237,9 @@ function cogMOT(body,p){
   function loop(){if(_sess!==_cogSess)return;if(phase==='move')move();draw();raf=requestAnimationFrame(loop);}
   function start(){
     phase='show';init();document.getElementById('mot-cnt').innerHTML=cgCnt(trial+1,TRIALS);msg.textContent=CT('mot_mem');
-    window._cogState={game:'mot',trial:trial,phase:phase,orbs:orbs,W:W,H:H,nT:nT};
-    _cogTimer(function(){phase='move';window._cogState.phase=phase;msg.textContent=CT('mot_track');
-      _cogTimer(function(){phase='select';window._cogState.phase=phase;orbs.forEach(function(o){o.vx=o.vy=0;});msg.textContent=CT('mot_pick')+' · '+CT('mot_sel',{a:0,b:nT});},TRACK);
+    _cogState={game:'mot',trial:trial,phase:phase,orbs:orbs,W:W,H:H,nT:nT};
+    _cogTimer(function(){phase='move';_cogState.phase=phase;msg.textContent=CT('mot_track');
+      _cogTimer(function(){phase='select';_cogState.phase=phase;orbs.forEach(function(o){o.vx=o.vy=0;});msg.textContent=CT('mot_pick')+' · '+CT('mot_sel',{a:0,b:nT});},TRACK);
     },2200);
   }
   cv.addEventListener('pointerdown',function(e){
@@ -11117,7 +11248,7 @@ function cogMOT(body,p){
     orbs.forEach(function(o){var d=Math.hypot(x-o.x,y-o.y);if(!o.s&&d<o.r+12&&d<bd){bd=d;best=o;}});
     if(!best)return;best.s=true;sel++;if(best.t)score++;
     msg.textContent=CT('mot_pick')+' · '+CT('mot_sel',{a:sel,b:nT});
-    if(sel>=nT){phase='reveal';window._cogState.phase=phase;try{var _hit=orbs.filter(function(o){return o.s&&o.t;}).length;cogPlayFeedback(_hit===nT);}catch(e){}
+    if(sel>=nT){phase='reveal';_cogState.phase=phase;try{var _hit=orbs.filter(function(o){return o.s&&o.t;}).length;cogPlayFeedback(_hit===nT);}catch(e){}
       _cogTimer(function(){trial++;if(trial>=TRIALS){cancelAnimationFrame(raf);cogShowResult(body,p,score,nT*TRIALS,CT('mot_res',{a:score,b:nT*TRIALS}));}else start();},1200);}
   });
   loop();start();
@@ -11126,7 +11257,7 @@ function cogMOT(body,p){
 /* ═══ Stroop ═══ */
 function cogStroop(body,p){
   var diff=_cogDiff(),total=[12,20,30][diff],limit=[3100,1900,1150][diff],nC=[3,4,5][diff],INC=[0.5,0.75,1][diff];
-  window._cogParams={game:'stroop',d:diff,colors:nC,windowMs:limit,incongruent:INC,trials:total};
+  _cogParams={game:'stroop',d:diff,colors:nC,windowMs:limit,incongruent:INC,trials:total};
   var COL=['#e05555','#4f8ff0','#46b860','#d8c23a','#a066e0'].slice(0,nC),W=CT('st_words'),B=CT('st_btn');
   var cur=0,correct=0,rt=[];
   function tick(){try{var ac=_cogAC();if(!ac)return;var o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.value=600;g.gain.setValueAtTime(0.08,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+0.06);o.start();o.stop(ac.currentTime+0.07);}catch(e){}}
@@ -11141,7 +11272,7 @@ function cogStroop(body,p){
     body.innerHTML=h+'</div><div class="cg-fb" id="stroop-fb"></div></div>';
     var bar=document.getElementById('stroop-bar');bar.style.transition='none';bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+limit+'ms linear';bar.style.width='0%';
     var ts=Date.now(),done=false,secs=Math.ceil(limit/1000);
-    window._cogState={game:'stroop',cur:cur,ink:ci,word:wi,total:total};
+    _cogState={game:'stroop',cur:cur,ink:ci,word:wi,total:total};
     for(var k=1;k<secs;k++)_cogTimer(function(){if(!done)tick();},k*1000);
     _cogTimer(function(){if(done)return;done=true;var fb=document.getElementById('stroop-fb');if(fb){fb.textContent=CT('timeout');fb.className='cg-fb bad';}
       var bs=document.querySelectorAll('#stroop-btns button');if(bs[ci])bs[ci].classList.add('cg-ring');cogPlayFeedback(false);
@@ -11158,7 +11289,7 @@ function cogStroop(body,p){
 /* ═══ SART ═══ */
 function cogSART(body,p){
   var diff=_cogDiff(),ms=[1150,820,575][diff],F=3,total=[30,36,45][diff],NG=[4,5,7][diff],cur=0,correct=0,comm=0,omit=0;
-  window._cogParams={game:'sart',d:diff,intervalMs:ms,items:total,nogo:NG};
+  _cogParams={game:'sart',d:diff,intervalMs:ms,items:total,nogo:NG};
   var items=[];for(var i=0;i<total-NG;i++){var n;do{n=Math.floor(Math.random()*9)+1;}while(n===F);items.push(n);}
   for(i=0;i<NG;i++)items.splice(4+Math.floor(Math.random()*(items.length-4)),0,F);
   function show(){
@@ -11166,7 +11297,7 @@ function cogSART(body,p){
     var n=items[cur],forb=n===F,tapped=false;
     body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(cur+1,total)+'<div class="cg-q">'+CT('sart_rule',{n:'<b class="cg-warn">'+F+'</b>'})+'</div>'+
       '<button id="sart-num" class="cg-bigtap" onclick="cogSARTtap()">'+n+'</button></div>';
-    window._cogState={game:'sart',cur:cur,n:n};
+    _cogState={game:'sart',cur:cur,n:n};
     window.cogSARTtap=function(){
       if(tapped)return;tapped=true;var el=document.getElementById('sart-num');
       if(forb)comm++;else correct++;cgFlash(el,!forb);
@@ -11186,7 +11317,7 @@ function cogFocusPoint(body,p,holdSec){
   for(var i=0;i<nP;i++){var a=Math.random()*Math.PI*2;pts.push({x:30+Math.random()*(W-60),y:30+Math.random()*(H-60),vx:Math.cos(a)*spd,vy:Math.sin(a)*spd,t:false});}
   tgt=pts[Math.floor(Math.random()*nP)];tgt.t=true;
   var msg=document.getElementById('focus-msg'),tm=document.getElementById('focus-timer');
-  window._cogState={game:'focus_point',phase:phase,target:tgt,W:W,H:H};
+  _cogState={game:'focus_point',phase:phase,target:tgt,W:W,H:H};
   function draw(){ctx.clearRect(0,0,W,H);pts.forEach(function(q){ctx.beginPath();ctx.arc(q.x,q.y,R,0,Math.PI*2);
     if(q.t&&phase!=='check'){ctx.shadowBlur=14;ctx.shadowColor='#38c068';ctx.fillStyle='#38c068';}else{ctx.shadowBlur=6;ctx.shadowColor='rgba(255,255,255,.4)';ctx.fillStyle='rgba(255,255,255,.75)';}
     ctx.fill();ctx.shadowBlur=0;});}
@@ -11194,9 +11325,9 @@ function cogFocusPoint(body,p,holdSec){
     if(_sess!==_cogSess)return;
     if(phase!=='check')pts.forEach(function(q){if(q.t&&phase==='hold')return;q.x+=q.vx;q.y+=q.vy;if(q.x<R||q.x>W-R)q.vx*=-1;if(q.y<R||q.y>H-R)q.vy*=-1;});
     draw();var now=Date.now();
-    if(phase==='moving'&&now-t0>stopDelay){phase='hold';holdT=now;msg.textContent=CT('fp_hold');window._cogState.phase=phase;}
+    if(phase==='moving'&&now-t0>stopDelay){phase='hold';holdT=now;msg.textContent=CT('fp_hold');_cogState.phase=phase;}
     if(phase==='hold'){var left=Math.max(0,holdSec*1000-(now-holdT));tm.textContent=Math.ceil(left/1000)+' '+CT('s');
-      if(left<=0){phase='check';window._cogState.phase=phase;tm.textContent='';msg.textContent=CT('fp_where');draw();return;}}
+      if(left<=0){phase='check';_cogState.phase=phase;tm.textContent='';msg.textContent=CT('fp_where');draw();return;}}
     raf=requestAnimationFrame(loop);
   }
   cv.addEventListener('pointerdown',function(e){
@@ -11243,11 +11374,11 @@ function cogBimanual(body,p){
       res[id]={score:function(){return scoreDrawing(drawn,ideal,r);},done:function(){return strokes>0;},ideal:ideal,size:size};
     }
     setup('bim-l',pr[0]);setup('bim-r',pr[1]);
-    window._cogState={game:'bimanual',round:cur,shapes:pr,canv:res,started:false};
+    _cogState={game:'bimanual',round:cur,shapes:pr,canv:res,started:false};
     function check(){if(started&&!doneR&&res['bim-l'].done()&&res['bim-r'].done())_cogTimer(finish,250);}
     var bar=document.getElementById('bim-bar'),tm=document.getElementById('bim-timer');
     _cogTimer(function(){
-      started=true;t0=Date.now();window._cogState.started=true;document.getElementById('bim-msg').textContent=cogT('bimanual_s');
+      started=true;t0=Date.now();_cogState.started=true;document.getElementById('bim-msg').textContent=cogT('bimanual_s');
       bar.style.transition='width '+limit+'ms linear';bar.style.width='0%';
       (function tk(){if(doneR)return;var left=limit-(Date.now()-t0);if(tm)tm.textContent=cgFmtS(Math.max(0,left))+' '+CT('s');if(left<=0){finish();return;}_cogTimer(tk,100);})();
     },1200);
@@ -11257,7 +11388,7 @@ function cogBimanual(body,p){
       body.innerHTML='<div class="cg-pad cg-center"><div class="cg-q">'+CT('bim_round',{n:cur+1,p:rs})+'</div>'+
         '<div class="cg-split"><div><div class="cg-cap">'+CT('bim_l')+'</div><div class="cg-num" style="color:'+p.color+'">'+sL+'%</div></div>'+
         '<div><div class="cg-cap">'+CT('bim_r')+'</div><div class="cg-num" style="color:'+p.color+'">'+sR+'%</div></div></div></div>';
-      window._cogState={game:'bimanual',round:cur,between:true,last:[sL,sR]};
+      _cogState={game:'bimanual',round:cur,between:true,last:[sL,sR]};
       _cogTimer(function(){cur++;round();},1400);
     }
   }
@@ -11272,10 +11403,10 @@ function cogPrediction(body,p){
     '<div class="cg-big" id="pred-val" style="color:'+p.color+'">'+count+'</div>'+
     '<input type="range" class="cg-range" min="5" max="15" value="'+count+'" style="accent-color:'+p.color+'" oninput="document.getElementById(\'pred-val\').textContent=this.value;window._predCount=parseInt(this.value)">'+
     '<button class="cg-btn1 wide" style="background:'+p.color+'" onclick="cogPredPhase1()">'+CT('pred_go')+'</button></div>';
-  window._predCount=count;window._cogState={game:'pred',setup:true};window._cogParams={game:'pred',d:_cogDiff(),wordMs:[1800,1200,700][_cogDiff()]};
+  window._predCount=count;_cogState={game:'pred',setup:true};_cogParams={game:'pred',d:_cogDiff(),wordMs:[1800,1200,700][_cogDiff()]};
   window.cogPredPhase1=function(){
     var n=window._predCount||8,W=nfBagTake('pred_'+curLang,CT('pred_words'),n),i=0;window._predWords=W;
-    window._cogState={game:'pred',words:W};
+    _cogState={game:'pred',words:W};
     (function show(){
       if(i>=W.length){recall();return;}
       body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(i+1,W.length)+'<div class="cg-card-word" id="pred-word">'+hbEsc(W[i])+'</div></div>';
@@ -11286,7 +11417,7 @@ function cogPrediction(body,p){
     body.innerHTML='<div class="cg-pad"><div class="cg-h">'+CT('pred_recall')+'</div><div class="cg-q">'+CT('pred_hint')+'</div>'+
       '<textarea id="pred-ta" class="cg-ta" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="'+hbEsc(CT('pred_ph'))+'"></textarea>'+
       '<button class="cg-btn1 wide" id="pred-check" style="background:'+p.color+'" onclick="cogPredFinish()">'+CT('pred_check')+'</button></div>';
-    window._cogState={game:'pred',words:window._predWords,recall:true};
+    _cogState={game:'pred',words:window._predWords,recall:true};
     window.cogPredFinish=function(){
       var raw=cgNorm((document.getElementById('pred-ta')||{}).value||''),toks=raw.split(/[\s,;.，、。；]+/).filter(Boolean),W=window._predWords||[],got=[];
       W.forEach(function(w){var nw=cgNorm(w);if(toks.indexOf(nw)>=0||(curLang==='zh'&&raw.indexOf(nw)>=0))got.push(w);});
@@ -11304,7 +11435,7 @@ function cgIntuit(body,p,cfg){
     var st=cfg.make(),picked=false;
     body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(cur+1,rounds)+'<div class="cg-q">'+st.q+'</div>'+(st.top||'')+
       '<div class="cg-ig '+cfg.cls+'" id="'+cfg.grid+'">'+st.cells.map(function(c,i){return '<button data-i="'+i+'" onclick="cgIntPick('+i+')">'+c+'</button>';}).join('')+'</div><div class="cg-fb" id="in-fb"></div></div>';
-    window._cogState={game:'conf',sub:cfg.grid,win:st.win,cur:cur};
+    _cogState={game:'conf',sub:cfg.grid,win:st.win,cur:cur};
     window.cgIntPick=function(i){
       if(picked)return;picked=true;var cs=document.querySelectorAll('#'+cfg.grid+' button'),good=i===st.win;if(good)ok++;if(i>=0&&window.nfUx)nfUx('pick');
       st.reveal(cs,i);cgFlash(cs[i],good);if(!good&&cs[st.win])cs[st.win].classList.add('cg-ring');
@@ -11348,7 +11479,7 @@ function cogIntuitColor(body,p){
 /* ═══ Math (timed) ═══ */
 function cogErrorAware(body,p){
   var diff=_cogDiff(),rounds=10,cur=0,ok=0,times=[],limit=[15000,10000,6000][diff];
-  window._cogParams={game:'err',d:diff,limitMs:limit,ops:['+−×÷ 1-digit','2-digit +−×÷, two-step, missing operand','2×2-digit, 3-digit ±, multi-step, brackets'][diff]};
+  _cogParams={game:'err',d:diff,limitMs:limit,ops:['+−×÷ 1-digit','2-digit +−×÷, two-step, missing operand','2×2-digit, 3-digit ±, multi-step, brackets'][diff]};
   function R(a,b){return a+Math.floor(Math.random()*(b-a+1));}
   function gen(){var a,b,c,op,t,q;
     if(diff===0){a=R(2,20);b=R(2,20);op=Math.random()<.5?'+':'−';if(op==='−'&&b>a){t=a;a=b;b=t;}return {q:a+' '+op+' '+b,ans:op==='+'?a+b:a-b,op:op,b:b};}
@@ -11370,7 +11501,7 @@ function cogErrorAware(body,p){
       '<div class="cg-expr'+(pr.q.length>12?' sm':'')+'" id="math-q">'+pr.q+'</div><div class="cg-ig g2 wide" id="math-grid">'+
       opts.map(function(o,i){return '<button data-v="'+o+'" onclick="cogMathPick('+i+')">'+o+'</button>';}).join('')+'</div><div class="cg-fb" id="math-fb"></div></div>';
     var bar=document.getElementById('math-bar');bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+limit+'ms linear';bar.style.width='0%';
-    window._cogState={game:'err',cur:cur,ans:pr.ans,win:win};
+    _cogState={game:'err',cur:cur,ans:pr.ans,win:win};
     function end(i){if(done)return;done=true;var cs=document.querySelectorAll('#math-grid button'),good=i===win;
       if(good){ok++;times.push(Date.now()-ts);}if(i>=0)cgFlash(cs[i],good);else{cogPlayFeedback(false);var fb=document.getElementById('math-fb');if(fb){fb.textContent=CT('timeout');fb.className='cg-fb bad';}}
       if(!good&&cs[win])cs[win].classList.add('cg-ring');_cogTimer(function(){cur++;next();},good?450:1000);}
@@ -11382,7 +11513,7 @@ function cogErrorAware(body,p){
 /* ═══ N-back ═══ */
 function cogNBack(body,p){
   var diff=_cogDiff(),N=[1,2,3][diff],S=['A','B','C','D','E','F','G','H'],total=[20,24,30][diff],step=[2500,2000,1500][diff];
-  window._cogParams={game:'nb',d:diff,N:N,stepMs:step,items:total};
+  _cogParams={game:'nb',d:diff,N:N,stepMs:step,items:total};
   var hist=[],cur=0,hits=0,miss=0,fa=0,cr=0;
   function next(){
     if(cur>=total){cogShowResult(body,p,hits+cr,Math.max(1,total-N),CT('nb_res',{h:hits,f:fa,m:miss}));return;}
@@ -11393,7 +11524,7 @@ function cogNBack(body,p){
       '<div class="cg-trail" style="--c:'+p.color+'">'+trail+'<b></b></div>'+
       '<div class="cg-letter" id="nb-sym" style="color:'+p.color+';border-color:'+hexA(p.color,.5)+'">'+s+'</div>'+
       '<button class="cg-match" id="nb-match" style="--c:'+p.color+'" onclick="cogNBMatch()">'+CT('nb_match')+'</button><div class="cg-hint">'+CT('nb_hint')+'</div></div>';
-    window._cogState={game:'nb',cur:cur,N:N,match:match,sym:s};
+    _cogState={game:'nb',cur:cur,N:N,match:match,sym:s};
     window.cogNBMatch=function(){if(ans)return;ans=true;if(match)hits++;else fa++;cgFlash(document.getElementById('nb-match'),match);};
     _cogTimer(function(){if(!ans){if(match)miss++;else if(cur>=N)cr++;}cur++;next();},step);
   }
@@ -11403,7 +11534,7 @@ function cogNBack(body,p){
 /* ═══ Sequence ═══ */
 function cogSequence(body,p){
   var diff=_cogDiff(),C=['#60A5FA','#f06040','#38c068','#A78BFA'],start=[3,4,6][diff],sp=[750,500,300][diff],maxR=[10,12,14][diff];
-  window._cogParams={game:'seq',d:diff,start:start,flashMs:sp,maxRounds:maxR};
+  _cogParams={game:'seq',d:diff,start:start,flashMs:sp,maxRounds:maxR};
   var seq=[],pl=[],round=1,lock=true;
   function grid(m){
     body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(round,maxR)+'<div class="cg-q" id="seq-msg">'+m+'</div><div class="cg-seq">'+
@@ -11411,12 +11542,12 @@ function cogSequence(body,p){
   }
   function lit(i,on){var b=document.getElementById('seq-btn-'+i);if(b)b.classList.toggle('lit',on);}
   function play(i){
-    if(i>=seq.length){lock=false;var m=document.getElementById('seq-msg');if(m)m.textContent=CT('seq_go',{n:seq.length});window._cogState.phase='input';return;}
+    if(i>=seq.length){lock=false;var m=document.getElementById('seq-msg');if(m)m.textContent=CT('seq_go',{n:seq.length});_cogState.phase='input';return;}
     _cogTimer(function(){lit(seq[i],true);_cogTimer(function(){lit(seq[i],false);play(i+1);},sp*0.65);},sp*0.35);
   }
   function next(){
     var add=round===1?start:1;for(var k=0;k<add;k++)seq.push(Math.floor(Math.random()*4));
-    pl=[];lock=true;grid(CT('seq_watch'));window._cogState={game:'seq',seq:seq.slice(),round:round,phase:'show'};
+    pl=[];lock=true;grid(CT('seq_watch'));_cogState={game:'seq',seq:seq.slice(),round:round,phase:'show'};
     _cogTimer(function(){play(0);},500);
   }
   window.cogSeqTap=function(i){
@@ -11487,18 +11618,18 @@ function openCogDetail(id,keep){
 }
 function launchFocusPoint(){launchCogEx('focus_point');}
 function launchCogEx(id){
-  _stopAllCogTimers();window._intuitGid=null;_cogExId=id;window._cogParams=null;
+  _stopAllCogTimers();window._intuitGid=null;_cogExId=id;_cogParams=null;
   var p=cgP(id),body=cgExOpen(p,cogT(id+'_t'));if(!body||!p)return;
   var fns={visual_search:cogVisualSearch,mot:cogMOT,stroop:cogStroop,sart:cogSART,pred:cogPrediction,err:cogErrorAware,nb:cogNBack,seq:cogSequence,bimanual:cogBimanual,focus_point:cogFocusPoint};
   if(id==='conf'){closeCogEx();openCogDetail('conf');return;}
   if(fns[id])fns[id](body,p);
 }
 
-/* ═══ Focus point v103: the dot never stops; levels = speed + visibility ═══ */
+
 function cogFocusPoint(body,p){
   var diff=_cogDiff(),ROUNDS=3,
       SPD=[70,165,290][diff],RAD=[8,5.5,3.5][diff],ALPHA=[1,0.68,0.4][diff],ND=[5,9,14][diff],DUR=[8000,10000,12000][diff],WANDER=[0,0.9,2.6][diff];
-  window._cogParams={game:'focus_point',d:diff,speedPxS:SPD,radius:RAD,alpha:ALPHA,distractors:ND,roundMs:DUR,wander:WANDER,stops:false};
+  _cogParams={game:'focus_point',d:diff,speedPxS:SPD,radius:RAD,alpha:ALPHA,distractors:ND,roundMs:DUR,wander:WANDER,stops:false};
   var W=0,H=0,pts=[],tgt=null,phase='track',round=0,scores=[],_sess=_cogSess,last=0,t0=0,raf=null;
   body.innerHTML='<div class="cg-pad">'+'<div id="fp-cnt">'+cgCnt(1,ROUNDS)+'</div><div class="cg-q" id="focus-msg">'+CT('fp_track')+'</div><canvas id="focus-cv" class="cg-canvas dark"></canvas><div class="cg-tbar"><i id="focus-bar" style="background:'+p.color+';width:100%"></i></div></div>';
   var cv=document.getElementById('focus-cv'),ctx=cv.getContext('2d'),dpr=Math.min(2,window.devicePixelRatio||1),msg=document.getElementById('focus-msg'),bar=document.getElementById('focus-bar');
@@ -11509,7 +11640,7 @@ function cogFocusPoint(body,p){
     phase='track';t0=performance.now();last=t0;msg.textContent=CT('fp_track');
     document.getElementById('fp-cnt').innerHTML=cgCnt(round+1,ROUNDS);
     bar.style.transition='none';bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+DUR+'ms linear';bar.style.width='0%';
-    window._cogState={game:'focus_point',phase:'track',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};
+    _cogState={game:'focus_point',phase:'track',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};
     raf=requestAnimationFrame(loop);
   }
   function step(q,dt){
@@ -11529,8 +11660,8 @@ function cogFocusPoint(body,p){
     if(_sess!==_cogSess||phase!=='track')return;
     var dt=Math.min(0.05,Math.max(0,(now-last)/1000));last=now;
     pts.forEach(function(q){step(q,dt);});draw();
-    if(window._cogState&&window._cogState.target){window._cogState.target.x=tgt.x;window._cogState.target.y=tgt.y;}
-    if(now-t0>=DUR){phase='check';ctx.clearRect(0,0,W,H);msg.textContent=CT('fp_where');window._cogState={game:'focus_point',phase:'check',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};return;}
+    if(_cogState&&_cogState.target){_cogState.target.x=tgt.x;_cogState.target.y=tgt.y;}
+    if(now-t0>=DUR){phase='check';ctx.clearRect(0,0,W,H);msg.textContent=CT('fp_where');_cogState={game:'focus_point',phase:'check',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};return;}
     raf=requestAnimationFrame(loop);
   }
   cv.addEventListener('pointerdown',function(e){
@@ -11547,7 +11678,7 @@ function cogFocusPoint(body,p){
   start();
 }
 
-/* ═══ Two hands v103: Pointer Events per finger, no gaps, bigger canvases ═══ */
+
 function cgScoreDraw(strokes,ideal,r){
   var pts=[];strokes.forEach(function(s){pts=pts.concat(s);});
   if(pts.length<4)return 0;
@@ -11561,7 +11692,7 @@ function cogBimanual(body,p){
   _bimSetupDocGuard();
   var diff=_cogDiff(),limit=[10000,7000,4500][diff],ROUNDS=4,cur=0,scores=[];
   var POOL=[['circle','square'],['circle','square','triangle','diamond'],['star','triangle','diamond']][diff];
-  window._cogParams={game:'bimanual',d:diff,limitMs:limit,shapes:POOL.join(','),sameShape:diff===0,guideHidden:diff===2,guideAlpha:[0.45,0.3,0][diff]};
+  _cogParams={game:'bimanual',d:diff,limitMs:limit,shapes:POOL.join(','),sameShape:diff===0,guideHidden:diff===2,guideAlpha:[0.45,0.3,0][diff]};
   function pair(){var a=cgShuffle(POOL);return diff===0?[a[0],a[0]]:[a[0],a[1]];}
   function round(){
     if(cur>=ROUNDS){var avg=Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);cogShowResult(body,p,avg,100,CT('bim_res',{p:avg}));return;}
@@ -11578,7 +11709,7 @@ function cogBimanual(body,p){
       var cx=cw/2,cy=ch/2,r=Math.min(cw,ch)*0.40,ideal=buildShapePoints(shape,cx,cy,r,96),strokes=[],curS=null,pid=null,cancelled=false,len=0,per=0;
       for(var i=1;i<ideal.length;i++)per+=Math.hypot(ideal[i].x-ideal[i-1].x,ideal[i].y-ideal[i-1].y);
       function draw(){ctx.clearRect(0,0,cw,ch);
-        var ga=window._cogParams.guideAlpha;if(showGuide&&!(diff===2&&started)){ctx.beginPath();ideal.forEach(function(q,i){i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y);});ctx.closePath();
+        var ga=_cogParams.guideAlpha;if(showGuide&&!(diff===2&&started)){ctx.beginPath();ideal.forEach(function(q,i){i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y);});ctx.closePath();
           ctx.strokeStyle='rgba(255,255,255,'+(ga||0.45)+')';ctx.lineWidth=3;ctx.setLineDash([6,6]);ctx.stroke();ctx.setLineDash([]);}
         ctx.strokeStyle=p.color;ctx.lineWidth=4;ctx.lineCap='round';ctx.lineJoin='round';
         strokes.forEach(function(s){if(s.length<2){if(s.length){ctx.beginPath();ctx.arc(s[0].x,s[0].y,2,0,7);ctx.fillStyle=p.color;ctx.fill();}return;}ctx.beginPath();s.forEach(function(q,i){i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y);});ctx.stroke();});}
@@ -11605,11 +11736,11 @@ function cogBimanual(body,p){
         ideal:ideal,cw:cw,ch:ch,strokes:function(){return strokes;},redraw:draw,gapMax:function(){var g=0;strokes.forEach(function(s){for(var i=1;i<s.length;i++){var d=Math.hypot(s[i].x-s[i-1].x,s[i].y-s[i-1].y);if(d>g)g=d;}});return g;}};
     }
     setup('bim-l',pr[0]);setup('bim-r',pr[1]);
-    window._cogState={game:'bimanual',round:cur,shapes:pr,canv:res,started:false};
+    _cogState={game:'bimanual',round:cur,shapes:pr,canv:res,started:false};
     function check(){if(started&&!doneR&&res['bim-l'].done()&&res['bim-r'].done())_cogTimer(finish,250);}
     var bar=document.getElementById('bim-bar'),tm=document.getElementById('bim-timer');
     _cogTimer(function(){
-      started=true;t0=Date.now();window._cogState.started=true;document.getElementById('bim-msg').textContent=cogT('bimanual_s');
+      started=true;t0=Date.now();_cogState.started=true;document.getElementById('bim-msg').textContent=cogT('bimanual_s');
       res['bim-l'].redraw();res['bim-r'].redraw();
       bar.style.transition='width '+limit+'ms linear';bar.style.width='0%';
       (function tk(){if(doneR)return;var left=limit-(Date.now()-t0);if(tm)tm.textContent=cgFmtS(Math.max(0,left))+' '+CT('s');if(left<=0){finish();return;}_cogTimer(tk,100);})();
@@ -11621,14 +11752,14 @@ function cogBimanual(body,p){
       body.innerHTML='<div class="cg-pad cg-center"><div class="cg-q">'+CT('bim_round',{n:cur+1,p:rs})+'</div>'+
         '<div class="cg-split"><div><div class="cg-cap">'+CT('bim_l')+'</div><div class="cg-num" style="color:'+p.color+'">'+sL+'%</div></div>'+
         '<div><div class="cg-cap">'+CT('bim_r')+'</div><div class="cg-num" style="color:'+p.color+'">'+sR+'%</div></div></div></div>';
-      window._cogState={game:'bimanual',round:cur,between:true,last:[sL,sR],gap:window._bimLastGap};
+      _cogState={game:'bimanual',round:cur,between:true,last:[sL,sR],gap:window._bimLastGap};
       _cogTimer(function(){cur++;round();},1400);
     }
   }
   round();
 }
 
-/* ═══ Intuition v103: option count by level, Hard = 3 s to answer ═══ */
+
 function cgIntuit(body,p,cfg){
   var diff=_cogDiff(),rounds=5,cur=0,ok=0,LIM=diff===2?3000:0;
   function next(){
@@ -11636,7 +11767,7 @@ function cgIntuit(body,p,cfg){
     var st=cfg.make(),picked=false;
     body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(cur+1,rounds)+'<div class="cg-q">'+st.q+'</div>'+(LIM?'<div class="cg-tbar"><i id="in-bar" style="background:'+p.color+';width:100%"></i></div>':'')+(st.top||'')+
       '<div class="cg-ig '+cfg.cls+'" id="'+cfg.grid+'">'+st.cells.map(function(c,i){return '<button data-i="'+i+'" onclick="cgIntPick('+i+')">'+c+'</button>';}).join('')+'</div><div class="cg-fb" id="in-fb"></div></div>';
-    window._cogState={game:'conf',sub:cfg.grid,win:st.win,cur:cur,n:cfg.n};
+    _cogState={game:'conf',sub:cfg.grid,win:st.win,cur:cur,n:cfg.n};
     function res(i){
       if(picked)return;picked=true;var cs=document.querySelectorAll('#'+cfg.grid+' button'),good=i===st.win;if(good)ok++;if(i>=0&&window.nfUx)nfUx('pick');
       st.reveal(cs,i);if(i>=0)cgFlash(cs[i],good);else cogPlayFeedback(false);if(!good&&cs[st.win])cs[st.win].classList.add('cg-ring');
@@ -11650,7 +11781,7 @@ function cgIntuit(body,p,cfg){
 }
 function cgIntParams(gid){
   var d=_cogDiff(),n={number:[3,4,6],direction:[2,4,8],spy:[4,9,16],color:[3,4,6]}[gid][d];
-  window._cogParams={game:'conf',sub:gid,d:d,options:n,answerMs:d===2?3000:0};return n;
+  _cogParams={game:'conf',sub:gid,d:d,options:n,answerMs:d===2?3000:0};return n;
 }
 function cogIntuitNumber(body,p){
   var N=cgIntParams('number');
@@ -11686,10 +11817,10 @@ function cogIntuitColor(body,p){
   }});
 }
 
-/* ═══ N-back v103: blank gap between letters, fade-in, progress dots ═══ */
+
 function cogNBack(body,p){
   var diff=_cogDiff(),N=[1,2,3][diff],S=['A','B','C','D','E','F','G','H'],total=[20,24,30][diff],step=[2500,2000,1500][diff],GAP=[500,400,300][diff];
-  window._cogParams={game:'nb',d:diff,N:N,stepMs:step,gapMs:GAP,items:total};
+  _cogParams={game:'nb',d:diff,N:N,stepMs:step,gapMs:GAP,items:total};
   var hist=[],cur=0,hits=0,miss=0,fa=0,cr=0,ans=false,match=false;
   function dots(){var h='';for(var i=0;i<total;i++)h+='<i class="'+(i<cur?'p':i===cur?'c':'')+'"></i>';return h;}
   body.innerHTML='<div class="cg-pad cg-center"><div id="nb-cnt"></div><div class="cg-q">'+(N===1?CT('nb_q1'):CT('nb_qn',{n:N}))+'</div>'+
@@ -11704,8 +11835,8 @@ function cogNBack(body,p){
     hist.push(s);match=cur>=N&&s===hist[cur-N];ans=false;
     document.getElementById('nb-cnt').innerHTML=cgCnt(cur+1,total);document.getElementById('nb-dots').innerHTML=dots();
     sym.textContent=s;sym.classList.remove('blank','cg-in');void sym.offsetWidth;sym.classList.add('cg-in');
-    window._cogState={game:'nb',cur:cur,N:N,match:match,sym:s,phase:'show'};
-    _cogTimer(function(){sym.textContent='';sym.classList.remove('cg-in');sym.classList.add('blank');if(window._cogState)window._cogState.phase='gap';},step-GAP);
+    _cogState={game:'nb',cur:cur,N:N,match:match,sym:s,phase:'show'};
+    _cogTimer(function(){sym.textContent='';sym.classList.remove('cg-in');sym.classList.add('blank');if(_cogState)_cogState.phase='gap';},step-GAP);
     _cogTimer(function(){if(!ans){if(match)miss++;else if(cur>=N)cr++;}cur++;next();},step);
   }
   next();
@@ -11788,9 +11919,7 @@ function nfWakeInit(){
 
 /* keep the screen on for practices and meditations (gesture-initiated) */
 (function(){var _l=launch;launch=function(){nfWakeRequest(true);return _l.apply(this,arguments);};var _m=launchMedSession;launchMedSession=function(){nfWakeRequest(true);return _m.apply(this,arguments);};})();
-/* ═══════════════════════════════════════════════════════
-   v103 — UI sounds + haptics, Settings sheet, shared back button
-═══════════════════════════════════════════════════════ */
+
 var NF_BACK_SVG='<svg class="nf-chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg>';
 var NF_CLOSE_SVG='<svg class="nf-chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>';
 var UX_T={
@@ -11936,8 +12065,8 @@ function nfFitNav(){
   var _u=nfUxInit;nfUxInit=function(){_u();nfFitNav();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(nfFitNav);window.addEventListener('resize',nfFitNav);};
 })();
 
-/* ════════ v104 modules ════════ */
-/* ═══ v104 — cognition texts for the reworked games (5 languages) ═══ */
+
+
 (function(){
 var X={
 ru:{vs_hint:'Подсказка',vs_res:'Найдено {a} из {b} · подсказок {h} · в среднем {t} с',
@@ -12022,14 +12151,7 @@ zh:{visual_search_i:'许多相同的圆中有一个色调不同。找到并点�
 Object.keys(I).forEach(function(l){if(COG_T[l])for(var k in I[l])COG_T[l][k]=I[l][k];});
 })();
 
-/* ═══════════════════════════════════════════════════════
-   v104 — COGNITION rework after iPhone testing:
-   Find the target (hint button, perceivable shades), MOT (target count),
-   Stroop (natural spoken word), SART (huge digit + carousel, no repeats),
-   Focus point (white dots, harder), Two hands (Touch Events, no timer),
-   Memory (count on the detail screen), Math (typed answer + keypad),
-   Sequence (fresh chain every round, length by level).
-═══════════════════════════════════════════════════════ */
+
 var CG4_IC={
   hint:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
   spk:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9.2a4 4 0 010 5.6M18 7a7.2 7.2 0 010 10"/></svg>',
@@ -12061,13 +12183,13 @@ function cg4SetPredCount(v){v=parseInt(v,10)||8;dbSet('pred_count',v);var e=docu
 /* ═══ Memory: starts straight away with the count chosen on the detail screen ═══ */
 function cogPrediction(body,p){
   var n=cg4PredCount(),MS=1500,W=nfBagTake('pred_'+curLang,CT('pred_words'),n),i=0;
-  window._predWords=W;window._cogParams={game:'pred',count:n,wordMs:MS,levels:false};
-  window._cogState={game:'pred',words:W};
+  window._predWords=W;_cogParams={game:'pred',count:n,wordMs:MS,levels:false};
+  _cogState={game:'pred',words:W};
   function recall(){
     body.innerHTML='<div class="cg-pad"><div class="cg-h">'+CT('pred_recall')+'</div><div class="cg-q">'+CT('pred_hint')+'</div>'+
       '<textarea id="pred-ta" class="cg-ta" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="'+hbEsc(CT('pred_ph'))+'"></textarea>'+
       '<button class="cg-btn1 wide" id="pred-check" style="background:'+p.color+'" onclick="cogPredFinish()">'+CT('pred_check')+'</button></div>';
-    window._cogState={game:'pred',words:W,recall:true};
+    _cogState={game:'pred',words:W,recall:true};
     window.cogPredFinish=function(){
       var raw=cgNorm((document.getElementById('pred-ta')||{}).value||''),toks=raw.split(/[\s,;.，、。；]+/).filter(Boolean),got=[];
       W.forEach(function(w){var nw=cgNorm(w);if(toks.indexOf(nw)>=0||(curLang==='zh'&&raw.indexOf(nw)>=0))got.push(w);});
@@ -12085,7 +12207,7 @@ function cogPrediction(body,p){
 /* ═══ Find the target: perceivable shade difference, hint button instead of a timed reveal ═══ */
 function cogVisualSearch(body,p){
   var diff=_cogDiff(),ROUNDS=[5,6,8][diff],cols=[6,9,12][diff],rows=[7,10,13][diff],D=[0.34,0.22,0.19][diff],FLOOR=[0.28,0.18,0.16][diff],BASE=0.55;
-  window._cogParams={game:'visual_search',d:diff,grid:cols+'x'+rows,delta:D,deltaMin:FLOOR,limitMs:0,autoHint:false,rounds:ROUNDS};
+  _cogParams={game:'visual_search',d:diff,grid:cols+'x'+rows,delta:D,deltaMin:FLOOR,limitMs:0,autoHint:false,rounds:ROUNDS};
   var pts=0,found=0,hints=0,round=0,times=[];
   function next(){
     if(round>=ROUNDS){var avg=times.length?times.reduce(function(a,b){return a+b;},0)/times.length:0;
@@ -12096,9 +12218,9 @@ function cogVisualSearch(body,p){
     h+='</div><button class="cg4-hint" id="vs-hint" onclick="cogVSHint()">'+CG4_IC.hint+'<span>'+CT('vs_hint')+'</span></button></div>';
     body.innerHTML=h;
     var ts=Date.now(),done=false,hinted=false;
-    window._cogState={game:'visual_search',round:round,target:tp,n:n,delta:delta,hinted:false};
+    _cogState={game:'visual_search',round:round,target:tp,n:n,delta:delta,hinted:false};
     window.cogVSHint=function(){
-      if(done||hinted)return;hinted=true;hints++;window._cogState.hinted=true;
+      if(done||hinted)return;hinted=true;hints++;_cogState.hinted=true;
       var c=document.querySelectorAll('#vs-grid button');if(c[tp])c[tp].classList.add('cg4-hinted');
       var b=document.getElementById('vs-hint');if(b){b.disabled=true;b.classList.add('used');}
       if(window.nfUx)nfUx('tap');
@@ -12118,7 +12240,7 @@ function cogVisualSearch(body,p){
 /* ═══ MOT: slow everywhere, levels differ mainly by the number of targets ═══ */
 function cogMOT(body,p){
   var diff=_cogDiff(),nOrbs=[8,10,12][diff],nT=[3,4,5][diff],SPD0=[50,58,66][diff],SPM=motSpd(diff)/100,SPD=SPD0*SPM,TRACK=[6000,6500,7000][diff],SHOW=[2200,2600,3000][diff],TRIALS=3;
-  window._cogParams={game:'mot',d:diff,orbs:nOrbs,targets:nT,speedPxS:SPD,speedMult:SPM,trackMs:TRACK,showMs:SHOW};
+  _cogParams={game:'mot',d:diff,orbs:nOrbs,targets:nT,speedPxS:SPD,speedMult:SPM,trackMs:TRACK,showMs:SHOW};
   var orbs=[],phase='show',score=0,trial=0,W=0,H=0,sel=0,_sess=_cogSess,last=0;
   body.innerHTML='<div class="cg-pad"><div id="mot-cnt">'+cgCnt(1,TRIALS)+'</div><div class="cg-q" id="mot-msg"></div>'+
     '<canvas id="cog-mot-cv" class="cg-canvas"></canvas></div>';
@@ -12164,9 +12286,9 @@ function cogMOT(body,p){
   function loop(now){if(_sess!==_cogSess)return;var dt=last?Math.min(0.05,(now-last)/1000):0;last=now;if(phase==='move')move(dt);draw();requestAnimationFrame(loop);}
   function start(){
     phase='show';init();document.getElementById('mot-cnt').innerHTML=cgCnt(trial+1,TRIALS);msg.textContent=CT('mot_mem');
-    window._cogState={game:'mot',trial:trial,phase:phase,orbs:orbs,W:W,H:H,nT:nT};
-    _cogTimer(function(){phase='move';window._cogState.phase=phase;msg.textContent=CT('mot_track');
-      _cogTimer(function(){phase='select';window._cogState.phase=phase;orbs.forEach(function(o){o.vx=o.vy=0;});msg.textContent=CT('mot_pick')+' · '+CT('mot_sel',{a:0,b:nT});},TRACK);
+    _cogState={game:'mot',trial:trial,phase:phase,orbs:orbs,W:W,H:H,nT:nT};
+    _cogTimer(function(){phase='move';_cogState.phase=phase;msg.textContent=CT('mot_track');
+      _cogTimer(function(){phase='select';_cogState.phase=phase;orbs.forEach(function(o){o.vx=o.vy=0;});msg.textContent=CT('mot_pick')+' · '+CT('mot_sel',{a:0,b:nT});},TRACK);
     },SHOW);
   }
   cv.addEventListener('pointerdown',function(e){
@@ -12175,7 +12297,7 @@ function cogMOT(body,p){
     orbs.forEach(function(o){var d=Math.hypot(x-o.x,y-o.y);if(!o.s&&d<o.r+14&&d<bd){bd=d;best=o;}});
     if(!best)return;best.s=true;sel++;if(best.t)score++;if(window.nfUx)nfUx('pick');
     msg.textContent=CT('mot_pick')+' · '+CT('mot_sel',{a:sel,b:nT});
-    if(sel>=nT){phase='reveal';window._cogState.phase=phase;try{var _hit=orbs.filter(function(o){return o.s&&o.t;}).length;cogPlayFeedback(_hit===nT);}catch(e){}
+    if(sel>=nT){phase='reveal';_cogState.phase=phase;try{var _hit=orbs.filter(function(o){return o.s&&o.t;}).length;cogPlayFeedback(_hit===nT);}catch(e){}
       _cogTimer(function(){trial++;if(trial>=TRIALS){cogShowResult(body,p,score,nT*TRIALS,CT('mot_res',{a:score,b:nT*TRIALS}));}else start();},1200);}
   });
   requestAnimationFrame(loop);start();
@@ -12216,7 +12338,7 @@ function stToggleVoice(){var on=!stVoiceOn();dbSet('stroop_voice',on);var b=docu
 function cogStroop(body,p){
   var diff=_cogDiff(),total=[12,20,30][diff],limit=[3100,1900,1150][diff],nC=[3,4,5][diff],INC=[0.5,0.75,1][diff];
   var L0=NF_ST_CLIPS[curLang]?curLang:'ru';
-  window._cogParams={game:'stroop',d:diff,colors:nC,windowMs:limit,incongruent:INC,trials:total,voice:stVoiceOn(),voiceSrc:'clips'};
+  _cogParams={game:'stroop',d:diff,colors:nC,windowMs:limit,incongruent:INC,trials:total,voice:stVoiceOn(),voiceSrc:'clips'};
   stLoad(L0);
   var COL=['#e05555','#4f8ff0','#46b860','#d8c23a','#a066e0'].slice(0,nC),W=CT('st_words'),B=CT('st_btn');
   var cur=0,correct=0,rt=[],wait=0;
@@ -12236,7 +12358,7 @@ function cogStroop(body,p){
     body.innerHTML=h+'</div><div class="cg-fb" id="stroop-fb"></div></div>';
     var bar=document.getElementById('stroop-bar');bar.style.transition='none';bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+limit+'ms linear';bar.style.width='0%';
     var ts=Date.now(),done=false;
-    window._cogState={game:'stroop',cur:cur,ink:ci,word:wi,total:total,spoken:stSpeak(wi)};
+    _cogState={game:'stroop',cur:cur,ink:ci,word:wi,total:total,spoken:stSpeak(wi)};
     _cogTimer(function(){if(done)return;done=true;var fb=document.getElementById('stroop-fb');if(fb){fb.textContent=CT('timeout');fb.className='cg-fb bad';}
       var bs=document.querySelectorAll('#stroop-btns button');if(bs[ci])bs[ci].classList.add('cg-ring');cogPlayFeedback(false);
       _cogTimer(function(){cur++;next();},750);},limit);
@@ -12260,7 +12382,7 @@ function cg4SartItems(total,NG,F){
 function cogSART(body,p){
   var diff=_cogDiff(),ms=[1150,820,575][diff],F=3,total=[30,36,45][diff],NG=[4,5,7][diff],cur=0,correct=0,comm=0,omit=0;
   var items=cg4SartItems(total,NG,F);
-  window._cogParams={game:'sart',d:diff,intervalMs:ms,items:total,nogo:NG,repeats:items.some(function(v,i){return i&&v===items[i-1];})};
+  _cogParams={game:'sart',d:diff,intervalMs:ms,items:total,nogo:NG,repeats:items.some(function(v,i){return i&&v===items[i-1];})};
   body.innerHTML='<div class="cg-pad cg-center cg4-sart"><div id="sart-cnt">'+cgCnt(1,total)+'</div><div class="cg-q">'+CT('sart_rule',{n:'<b class="cg-warn">'+F+'</b>'})+'</div>'+
     '<button id="sart-stage" class="cg4-stage" onclick="cogSARTtap()"><span class="cg4-frame" id="sart-num"></span><span class="cg4-track" id="sart-track"></span></button></div>';
   var track=document.getElementById('sart-track'),frame=document.getElementById('sart-num'),els=[],tapped=true,forb=false;
@@ -12282,7 +12404,7 @@ function cogSART(body,p){
     var w=track.clientWidth||window.innerWidth;e.style.transform='translate(-50%,-50%) translateX('+Math.round(0.36*w)+'px) scale(.6)';e.style.opacity='0';
     track.appendChild(e);els.unshift(e);void e.offsetWidth;place();
     frame.classList.remove('cg-ok','cg-bad');
-    window._cogState={game:'sart',cur:cur,n:n,prev:cur?items[cur-1]:null};
+    _cogState={game:'sart',cur:cur,n:n,prev:cur?items[cur-1]:null};
     _cogTimer(function(){if(!tapped){if(forb)correct++;else omit++;}tapped=true;cur++;show();},ms);
   }
   show();
@@ -12292,7 +12414,7 @@ function cogSART(body,p){
 function cogFocusPoint(body,p){
   var diff=_cogDiff(),ROUNDS=3,
       SPD=[130,220,330][diff],RAD=[6,4.5,3][diff],DIM=[0.70,0.78,0.85][diff],ND=[10,20,40][diff],DUR=[8000,10000,12000][diff],WANDER=[0.8,1.8,3.2][diff],MARK=1600;
-  window._cogParams={game:'focus_point',d:diff,speedPxS:SPD,radius:RAD,targetAlpha:0.92,distractorAlpha:0.92,distractors:ND,roundMs:DUR,wander:WANDER,colour:'white',markColour:'#2ee6d0',stops:false};
+  _cogParams={game:'focus_point',d:diff,speedPxS:SPD,radius:RAD,targetAlpha:0.92,distractorAlpha:0.92,distractors:ND,roundMs:DUR,wander:WANDER,colour:'white',markColour:'#2ee6d0',stops:false};
   var W=0,H=0,pts=[],tgt=null,phase='track',round=0,scores=[],_sess=_cogSess,last=0,t0=0,fpDrawn=[],fpRaf=0;
   body.innerHTML='<div class="cg-pad"><div id="fp-cnt">'+cgCnt(1,ROUNDS)+'</div><div class="cg-q" id="focus-msg">'+CT('fp_find')+'</div><canvas id="focus-cv" class="cg-canvas dark"></canvas><div class="cg-tbar"><i id="focus-bar" style="background:'+p.color+';width:100%"></i></div></div>';
   var cv=document.getElementById('focus-cv'),ctx=cv.getContext('2d'),dpr=Math.min(3,window.devicePixelRatio||1),msg=document.getElementById('focus-msg'),bar=document.getElementById('focus-bar');
@@ -12303,7 +12425,7 @@ function cogFocusPoint(body,p){
     phase='track';t0=performance.now();last=t0;msg.textContent=CT('fp_find');
     document.getElementById('fp-cnt').innerHTML=cgCnt(round+1,ROUNDS);
     bar.style.transition='none';bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+(DUR+MARK)+'ms linear';bar.style.width='0%';
-    window._cogState={game:'focus_point',phase:'mark',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};
+    _cogState={game:'focus_point',phase:'mark',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};
     requestAnimationFrame(loop);
   }
   function step(q,dt){
@@ -12314,7 +12436,7 @@ function cogFocusPoint(body,p){
   }
   function draw(mark){
     ctx.clearRect(0,0,W,H);fpDrawn.push({x:tgt.x,y:tgt.y,t:performance.now()});if(fpDrawn.length>4)fpDrawn.shift();
-    /* v107: during the mark phase the target is turquoise; afterwards every dot is the same white */
+    
     ctx.fillStyle='rgba(255,255,255,.92)';
     pts.forEach(function(q){if(mark&&q.t)return;ctx.beginPath();ctx.arc(q.x,q.y,RAD,0,Math.PI*2);ctx.fill();});
     if(mark){var gl=ctx.createRadialGradient(tgt.x,tgt.y,0,tgt.x,tgt.y,RAD*3.2);gl.addColorStop(0,'rgba(46,230,208,.55)');gl.addColorStop(1,'rgba(46,230,208,0)');
@@ -12324,17 +12446,17 @@ function cogFocusPoint(body,p){
   function loop(now){
     if(_sess!==_cogSess||phase!=='track')return;
     var dt=Math.min(0.05,Math.max(0,(now-last)/1000));last=now;
-    var el=now-t0;if(el>=DUR+MARK){if(fpRaf)cancelAnimationFrame(fpRaf);fpRaf=0;var ld=fpDrawn[fpDrawn.length-1],pv=fpDrawn.length>1?fpDrawn[fpDrawn.length-2]:ld,useP=SPD>=200&&pv;var fz=useP?pv:ld;if(fz){tgt.x=fz.x;tgt.y=fz.y;}window._fpStop={lastDrawn:ld,prevDrawn:pv,used:useP?'prev':'last',spd:SPD};phase='check';ctx.clearRect(0,0,W,H);msg.textContent=CT('fp_where');window._cogState={game:'focus_point',phase:'check',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H,frozenAt:now};return;}
+    var el=now-t0;if(el>=DUR+MARK){if(fpRaf)cancelAnimationFrame(fpRaf);fpRaf=0;var ld=fpDrawn[fpDrawn.length-1],pv=fpDrawn.length>1?fpDrawn[fpDrawn.length-2]:ld,useP=SPD>=200&&pv;var fz=useP?pv:ld;if(fz){tgt.x=fz.x;tgt.y=fz.y;}phase='check';ctx.clearRect(0,0,W,H);msg.textContent=CT('fp_where');_cogState={game:'focus_point',phase:'check',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H,frozenAt:now};return;}
     pts.forEach(function(q){step(q,dt);});
     var mark=el<MARK;draw(mark);
-    if(!mark&&window._cogState.phase==='mark'){window._cogState.phase='track';msg.textContent=CT('fp_track');}
-    window._cogState.target.x=tgt.x;window._cogState.target.y=tgt.y;
-    if(el>=DUR+MARK){phase='check';ctx.clearRect(0,0,W,H);msg.textContent=CT('fp_where');window._cogState={game:'focus_point',phase:'check',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};return;}
+    if(!mark&&_cogState.phase==='mark'){_cogState.phase='track';msg.textContent=CT('fp_track');}
+    _cogState.target.x=tgt.x;_cogState.target.y=tgt.y;
+    if(el>=DUR+MARK){phase='check';ctx.clearRect(0,0,W,H);msg.textContent=CT('fp_where');_cogState={game:'focus_point',phase:'check',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};return;}
     fpRaf=requestAnimationFrame(loop);
   }
   cv.addEventListener('pointerdown',function(e){
     if(phase!=='check')return;phase='done';
-    var r=cv.getBoundingClientRect(),x=(e.clientX-r.left-cv.clientLeft)*(W/(cv.clientWidth||W)),y=(e.clientY-r.top-cv.clientTop)*(H/(cv.clientHeight||H)),d=Math.hypot(x-tgt.x,y-tgt.y),tol=RAD+16;window._cogState.tap={x:x,y:y,d:d,cssW:cv.clientWidth,cssH:cv.clientHeight,W:W,H:H};
+    var r=cv.getBoundingClientRect(),x=(e.clientX-r.left-cv.clientLeft)*(W/(cv.clientWidth||W)),y=(e.clientY-r.top-cv.clientTop)*(H/(cv.clientHeight||H)),d=Math.hypot(x-tgt.x,y-tgt.y),tol=RAD+16;_cogState.tap={x:x,y:y,d:d,cssW:cv.clientWidth,cssH:cv.clientHeight,W:W,H:H};
     var pct=d<=tol?100:Math.max(0,Math.round(100-(d-tol)*1.2));scores.push(pct);
     ctx.beginPath();ctx.arc(tgt.x,tgt.y,RAD+8,0,Math.PI*2);ctx.strokeStyle='#38c068';ctx.lineWidth=2;ctx.stroke();
     ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle=pct>=50?'#38c068':'#f06040';ctx.fill();
@@ -12362,7 +12484,7 @@ function cg4BimGuard(){
   document.addEventListener('selectstart',function(e){if(document.getElementById('bim-wrap')&&inGame(e))e.preventDefault();});
   document.addEventListener('contextmenu',function(e){if(inGame(e))e.preventDefault();});
 }
-/* v107: Two hands — different shapes per hand, level-based shape sets, shuffle bag, strict scoring, robust multi-touch */
+
 function cg5Poly(c,n,open){
   var segs=[],tot=0,m=open?c.length-1:c.length;
   for(var i=0;i<m;i++){var a=c[i],b=c[(i+1)%c.length],d=Math.hypot(b.x-a.x,b.y-a.y);segs.push({a:a,b:b,l:d});tot+=d;}
@@ -12440,22 +12562,20 @@ function cogBimanual(body,p){
   cg4BimGuard();nf8BimLock(true);
   var diff=_cogDiff(),ROUNDS=4,cur=0,scores=[];
   var HAS_TOUCH=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
-  window._cogParams={game:'bimanual',d:diff,shapes:CG5_SETS[diff].join(','),sameShape:false,timer:false,guideAlwaysVisible:true,input:HAS_TOUCH?'touch':'pointer',scoring:'strict-v107'};
+  _cogParams={game:'bimanual',d:diff,shapes:CG5_SETS[diff].join(','),sameShape:false,timer:false,guideAlwaysVisible:true,input:HAS_TOUCH?'touch':'pointer',scoring:'strict-v107'};
   var _bimSess=(window._bimSessN=(window._bimSessN||0)+1);
   function round(){
     if(_bimSess!==window._bimSessN)return;
     if(cur>=ROUNDS){var avg=Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);cogShowResult(body,p,avg,100,CT('bim_res',{p:avg}));return;}
     var pr=cg5Pair(diff);
-    /* v107: the round DOM (canvases) is built ONCE and reused — replacing it while a finger was down orphaned that
-       touch (events kept going to the detached canvas and never reached the new round) */
+    
     if(!document.getElementById('bim-wrap')){
       body.innerHTML='<div class="cg-pad cg-bim-pad" style="position:relative"><div id="bim-cnt">'+cgCnt(cur+1,ROUNDS)+'</div><div class="cg-q" id="bim-msg">'+CT('bim_go')+'</div>'+
         '<div class="cg-bim" id="bim-wrap" style="touch-action:none"><div><canvas id="bim-l" class="bim-cv" style="touch-action:none"></canvas><div class="cg-cap">'+CT('bim_l')+'</div></div><div><canvas id="bim-r" class="bim-cv" style="touch-action:none"></canvas><div class="cg-cap">'+CT('bim_r')+'</div></div></div>'+
         '<button class="cg-btn2 wide cg4-done" id="bim-done" onclick="cogBimDone()">'+CT('bim_done')+'</button>'+
         '<div id="bim-res" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;background:rgba(7,7,14,.94);border-radius:16px;z-index:5;pointer-events:none"></div></div>';
       var w0=document.getElementById('bim-wrap');
-      /* v108: target-level non-passive listeners — iOS honours preventDefault reliably only here; stops the native
-         pull/overscroll that grabbed downward strokes and fired touchcancel */
+      
       ['bim-l','bim-r'].forEach(function(cid){var c=document.getElementById(cid);['touchstart','touchmove'].forEach(function(ev){c.addEventListener(ev,function(e){if(e.cancelable)e.preventDefault();},{passive:false});});});
       w0.addEventListener('touchstart',function(e){if(e.cancelable)e.preventDefault();},{passive:false});
       ['pointerdown','pointermove','pointerup','pointercancel'].forEach(function(ev){w0.addEventListener(ev,function(e){var h=window._bimH;if(h&&h[ev])h[ev](e);});});
@@ -12500,15 +12620,12 @@ function cogBimanual(body,p){
       };
     }
     setup('bim-l',pr[0]);setup('bim-r',pr[1]);
-    window._cogState={game:'bimanual',round:cur,shapes:pr,canv:res,started:true};
+    _cogState={game:'bimanual',round:cur,shapes:pr,canv:res,started:true};
     function cvOf(el){var c=el&&el.closest?el.closest('canvas.bim-cv'):null;return c&&res[c.id]?c.id:null;}
     function cvAt(x,y){var ids=['bim-l','bim-r'];for(var i=0;i<2;i++){var rc=document.getElementById(ids[i]).getBoundingClientRect();if(x>=rc.left-12&&x<=rc.right+12&&y>=rc.top-12&&y<=rc.bottom+12)return ids[i];}return null;}
     function anyActive(){return res['bim-l'].busy()||res['bim-r'].busy();}
     function check(){if(!doneR&&res['bim-l'].done()&&res['bim-r'].done())_cogTimer(function(){if(!doneR&&!anyActive())finish();},450);}
-    /* v107 root cause of broken lines: (1) iOS reuses touch identifiers and a lost touchend left a canvas 'active'
-       so begin() refused and the new finger never drew; (2) the 900 ms 'ready' window swallowed the first touch of the
-       round, so a finger already moving drew nothing; (3) the cached rect went stale after the message text changed.
-       Now: owners are reconciled with e.touches on every event, drawing is accepted immediately, rect read per event. */
+    
     function reconcile(e){var live={};for(var i=0;i<e.touches.length;i++)live[e.touches[i].identifier]=1;
       for(var k in owner){if(k.charAt(0)!=='p'&&!live[k]){var c=owner[k];delete owner[k];if(res[c])res[c].suspend();}}}
     function tStart(e){
@@ -12556,7 +12673,7 @@ function cogBimanual(body,p){
         '<div class="cg-split"><div><div class="cg-cap">'+CT('bim_l')+'</div><div class="cg-num" style="color:'+p.color+'">'+sL+'%</div></div>'+
         '<div><div class="cg-cap">'+CT('bim_r')+'</div><div class="cg-num" style="color:'+p.color+'">'+sR+'%</div></div></div>';
       cogPlayFeedback(rs>=60);
-      window._cogState={game:'bimanual',round:cur,between:true,last:[sL,sR],gap:window._bimLastGap,shapes:pr};
+      _cogState={game:'bimanual',round:cur,between:true,last:[sL,sR],gap:window._bimLastGap,shapes:pr};
       _cogTimer(function(){cur++;round();},1400);
     }
   }
@@ -12567,9 +12684,9 @@ function cogBimanual(body,p){
 var _mathKeyBound=false;
 function cogErrorAware(body,p){
   var diff=_cogDiff(),rounds=10,cur=0,ok=0,times=[],limit=[20000,25000,30000][diff];
-  window._cogParams={game:'err',d:diff,limitMs:limit,input:'keypad',options:0,ops:['+−×÷ 1-digit','2-digit +−×÷, two-step, missing operand','2×2-digit, 3-digit ±, multi-step, brackets'][diff]};
+  _cogParams={game:'err',d:diff,limitMs:limit,input:'keypad',options:0,ops:['+−×÷ 1-digit','2-digit +−×÷, two-step, missing operand','2×2-digit, 3-digit ±, multi-step, brackets'][diff]};
   var R=cg4Rand,_seen=nfRecentObj('math_'+diff),_lastK=-1;
-  /* v107: richer generator — easy: one-digit/small; medium: two-digit operands; hard: occasional 2-digit×2-digit, multi-step. No repeats. */
+  
   function gen1(){var a,b,c,t,k;
     if(diff===0){k=R(0,3);if(k===_lastK)k=(k+1+R(0,2))%4;
       if(k===0){a=R(2,20);b=R(2,20);return {q:a+' + '+b,ans:a+b,k:k};}
@@ -12609,7 +12726,7 @@ function cogErrorAware(body,p){
         if(k==='ok')return '<button class="k ok" data-k="ok" style="background:'+p.color+'" onclick="cogMathKey(\'ok\')">'+CT('math_enter')+'</button>';
         return '<button class="k" data-k="'+k+'" onclick="cogMathKey(\''+k+'\')">'+k+'</button>';}).join('')+'</div></div>';
     var bar=document.getElementById('math-bar');bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+limit+'ms linear';bar.style.width='0%';
-    window._cogState={game:'err',cur:cur,ans:pr.ans,q:pr.q};window._mathActive=true;
+    _cogState={game:'err',cur:cur,ans:pr.ans,q:pr.q};window._mathActive=true;
     function paint(){var v=document.getElementById('math-val');if(!v)return;if(val){v.textContent=val;v.className='';}else{v.textContent=CT('math_q');v.className='ph';}}
     function submit(timeout){
       if(done)return;if(!timeout&&!val)return;done=true;
@@ -12619,7 +12736,7 @@ function cogErrorAware(body,p){
       if(fb){fb.className='cg4-fb '+(good?'good':'bad');fb.innerHTML=(good?CG4_IC.ok+'<span>'+CT('math_ok')+'</span>':CG4_IC.bad+'<span>'+(timeout?CT('timeout')+' · ':'')+CT('math_bad',{a:pr.ans})+'</span>');}
       var pd=document.getElementById('math-pad');if(pd)pd.classList.add('lock');
       bar.style.transition='none';
-      cogPlayFeedback(good);window._cogState.answered={val:val,good:good};
+      cogPlayFeedback(good);_cogState.answered={val:val,good:good};
       _cogTimer(function(){cur++;next();},good?900:1900);
     }
     window.cogMathKey=function(k){
@@ -12640,7 +12757,7 @@ function cogErrorAware(body,p){
 /* ═══ Sequence: a fresh random chain every round, length set by the level ═══ */
 function cogSequence(body,p){
   var diff=_cogDiff(),C=['#60A5FA','#f06040','#38c068','#A78BFA'],LEN=[4,6,8][diff],sp=[700,560,450][diff],ROUNDS=8;
-  window._cogParams={game:'seq',d:diff,length:LEN,flashMs:sp,rounds:ROUNDS,fresh:true};
+  _cogParams={game:'seq',d:diff,length:LEN,flashMs:sp,rounds:ROUNDS,fresh:true};
   var seq=[],pl=[],round=1,lock=true,okR=0,hist=[];
   function grid(m){
     body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(round,ROUNDS)+'<div class="cg-q" id="seq-msg">'+m+'</div><div class="cg-seq">'+
@@ -12648,13 +12765,13 @@ function cogSequence(body,p){
   }
   function lit(i,on){var b=document.getElementById('seq-btn-'+i);if(b)b.classList.toggle('lit',on);}
   function play(i){
-    if(i>=seq.length){lock=false;var m=document.getElementById('seq-msg');if(m)m.textContent=CT('seq_go',{n:seq.length});window._cogState.phase='input';return;}
+    if(i>=seq.length){lock=false;var m=document.getElementById('seq-msg');if(m)m.textContent=CT('seq_go',{n:seq.length});_cogState.phase='input';return;}
     _cogTimer(function(){lit(seq[i],true);_cogTimer(function(){lit(seq[i],false);play(i+1);},sp*0.62);},sp*0.38);
   }
   function fresh(){var s,prev,key;do{s=[];prev=-1;for(var k=0;k<LEN;k++){var n;do{n=Math.floor(Math.random()*4);}while(n===prev);s.push(n);prev=n;}key=s.join('');}while(hist.indexOf(key)>=0);hist.push(key);return s;}
   function next(){
     if(round>ROUNDS){cogShowResult(body,p,okR,ROUNDS,CT('seq_res',{a:okR,b:ROUNDS,l:LEN}));return;}
-    seq=fresh();pl=[];lock=true;grid(CT('seq_watch'));window._cogState={game:'seq',seq:seq.slice(),round:round,phase:'show'};
+    seq=fresh();pl=[];lock=true;grid(CT('seq_watch'));_cogState={game:'seq',seq:seq.slice(),round:round,phase:'show'};
     _cogTimer(function(){play(0);},600);
   }
   window.cogSeqTap=function(i){
@@ -12667,7 +12784,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.7</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.8</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -12683,11 +12800,7 @@ function stAudioSession(on){
   var _c=closeCogEx;closeCogEx=function(){stAudioSession(false);try{if(_stSrc)_stSrc.stop();}catch(e){}return _c.apply(this,arguments);};
 })();
 
-/* ═══ v104.1 — Wim Hof Method: the v103 practice player is kept unchanged (sphere animation, sounds,
-   flow, recovery). The only change: the retention after the last exhale of every round is open-ended.
-   The timer counts UP from 0:00 without a limit, the pause button is hidden during that phase only,
-   and a double tap anywhere on the screen ends the retention -> the v103 15 s recovery hold and the
-   next round follow exactly as before. A single tap does not end it (subtle "tap once more"). ═══ */
+
 var WHM_T={
  ru:{cap:'Двойной тап — следующий цикл',once:'Коснитесь ещё раз'},
  en:{cap:'Double tap — next cycle',once:'Tap once more'},
@@ -12718,7 +12831,7 @@ function whmEndHold(now){
   whmHoldOff();if(pRafId){cancelAnimationFrame(pRafId);pRafId=null;}
   playRoundEndSound();cb(now);
 }
-/* open-ended retention: same visual state as the v103 post-round hold (pPh=3, setPT(3), drawP) */
+
 function whmOpenHold(lbl,startNow,cb){
   stopTickSound();
   if(pPause)togglePause(); /* no pause in this phase */
@@ -12752,11 +12865,7 @@ function whmOpenHold(lbl,startNow,cb){
   document.addEventListener('pointerdown',function(e){var p=document.getElementById('practice');if(p&&p.contains(e.target))whmTapIn(e);},true);
 })();
 
-/* ═══ v104.2 — breathing player (v103 sphere + sounds unchanged):
-   • the big timer over the sphere is gone for every phase (no timer while breathing in/out);
-   • during breath holds only, a compact row sits below the sphere, just above the rounds/cycles line:
-     left the instruction, right the stopwatch/countdown (mirrors the original timer text);
-   • Wim Hof: preparation pause before the next round 5 s (was 8 s). ═══ */
+
 var PH_T={
  ru:{ex:'Задержите дыхание',inh:'Держите вдох'},
  en:{ex:'Hold your breath',inh:'Hold the inhale'},
@@ -12775,7 +12884,7 @@ function phRowSync(){var t=document.getElementById('pTim'),o=document.getElement
 function phRowSet(mode){PH_ROW.mode=mode||'';var r=phRowEl();if(!r)return;
   if(mode){var L=PH_T[curLang]||PH_T.ru;document.getElementById('pHoldL').textContent=mode==='inh'?L.inh:L.ex;phRowSync();r.classList.add('on');}
   else r.classList.remove('on');}
-/* layout: row just below the sphere, rounds/cycles line moved down to make room (v103 had it at cy+R+32) */
+
 function phRowPlace(){var H=window.innerHeight,W=window.innerWidth,R=Math.min(W,H)*0.33,cy=H/2;
   var r=document.getElementById('pHoldRow'),b=document.getElementById('pBelow');
   var top=cy+R+26;if(r)r.style.top=top+'px';if(b)b.style.top=(top+48+14)+'px';}
@@ -12792,7 +12901,7 @@ function phRowPlace(){var H=window.innerHeight,W=window.innerWidth,R=Math.min(W,
   if(ALL_TC&&ALL_TC.wim_hof)ALL_TC.wim_hof.restSec=5;
 })();
 
-/* ═══ v104.3 — breathing player layout + sphere state + WHM custom rounds/breaths ═══ */
+
 /* 1. Stable flex layout. The DOM is regrouped once; the canvas is sized to its stage via ResizeObserver. */
 var NF_PL={done:false,ro:null,w:0,h:0,dpr:0};
 function nfPlayerLayout(){
@@ -12825,9 +12934,7 @@ positionPracticeUI=function(){nfPlayerLayout();};
 phRowPlace=function(){};
 function nfHasHold(tc){var p=(tc&&tc.pattern)||[];return !!(p[1]||p[3]||p[4]||p[5]);}
 
-/* 2. Sphere size follows the action: an inhale hold stays expanded, an exhale hold stays contracted.
-   The v103 post-round holds always froze the sphere contracted; now the in-breath hold expands first
-   (recovery inhale) and stays large, and the following pause contracts it (release). */
+
 var NF_VIS=null;
 function nfVisAnim(ph,ms){setPT(ph);NF_VIS={t0:performance.now(),dur:ms};}
 (function(){
@@ -12898,14 +13005,7 @@ function nfFitPhase(){var e=document.getElementById('pLbl');if(!e)return;e.style
 (function(){var e=document.getElementById('pLbl');if(e&&window.MutationObserver){new MutationObserver(function(){nfFitPhase();}).observe(e,{childList:true,characterData:true,subtree:true});}
   window.addEventListener('resize',nfFitPhase);})();
 
-/* ═══ v104.4 — Wim Hof breathing pace: Fast / Medium / Slow (as in the official WHM app).
-   Medium = the pace of v104.3 (1.5 s in + 1.5 s out). Fast is ~23% quicker, Slow ~27% slower.
-   Each difficulty preset has a default pace (Novice=Slow, Medium=Medium, Pro=Fast); the pace can be
-   changed in the custom block (3 segmented buttons), is saved in whm_cfg.pace and used by the session.
-   Sounds: the ORIGINAL v103 inhale/exhale breath recordings, time-stretched with pitch preserved
-   (ffmpeg atempo / WSOLA) to exactly the inhale and exhale length of every pace and stored as WAV
-   (sample-exact length, no MP3/AAC padding; plays the same on iOS Safari). Each one starts with its
-   phase, ends exactly at the phase boundary with a 15 ms ramp, so consecutive breaths never overlap. ═══ */
+
 var WHM_PACE={fast:{i:1.15,e:1.15},medium:{i:1.5,e:1.5},slow:{i:1.9,e:1.9}};
 var WHM_PACES=['fast','medium','slow'];
 var WHM_LV_PACE=['slow','medium','fast'];
@@ -13006,7 +13106,7 @@ function whmPlayBreath(kind,d){var key=whmBreathKey(kind,d);if(!key||WHM_SND.fai
   var _pe=playExhaleSound;playExhaleSound=function(d){if(whmPlayBreath('out',d))return;return _pe.apply(this,arguments);};
 })();
 
-/* ════════ v107 ════════ */
+
 (function(){
 var X={
  ru:{fp_find:'Запомни бирюзовую точку',fp_track:'Следи за ней — теперь все точки белые',fp_where:'Где сейчас шарик, который был подсвечен? Нажми туда',
@@ -13021,7 +13121,7 @@ var X={
   focus_point_i:'开始时有一个点以青绿色高亮——记住它。随后它变成和其他点一样的白色，所有点开始移动。用眼睛跟住它，最后点出它现在的位置。'}};
 Object.keys(X).forEach(function(l){CG_T[l]=CG_T[l]||{};for(var k in X[l])CG_T[l][k]=X[l][k];});
 })();
-/* v107: softer, fuller UI sounds (WebAudio synth): marimba-like correct, soft low bloop for wrong, woody tap */
+
 (function(){
   function bell(ac,t,f,dur,g,o){_nfTone(ac,t,f,f,dur,'sine',g,o);_nfTone(ac,t,f*2,f*2,dur*0.45,'sine',g*0.22,o);_nfTone(ac,t,f*3.01,f*3.01,dur*0.18,'triangle',g*0.06,o);}
   NF_SND.tap=function(ac,t,o){_nfTone(ac,t,1180,880,0.05,'sine',0.055,o);_nfTone(ac,t,2360,1760,0.025,'triangle',0.012,o);};
@@ -13034,7 +13134,7 @@ Object.keys(X).forEach(function(l){CG_T[l]=CG_T[l]||{};for(var k in X[l])CG_T[l]
   var un=false;function unlock(){if(un)return;try{var ac=_cogAC();if(!ac)return;var b=ac.createBuffer(1,1,22050),s=ac.createBufferSource();s.buffer=b;s.connect(ac.destination);s.start(0);if(ac.state==='suspended')ac.resume();un=ac.state!=='suspended';}catch(e){}}
   ['touchend','pointerup','click','keydown'].forEach(function(ev){document.addEventListener(ev,unlock,{capture:true,passive:true});});
 })();
-/* v107: tapping the active bottom-nav tab scrolls that screen smoothly to the very top (iOS-style) */
+
 (function(){
   var _nt=navTo;
   navTo=function(id){
@@ -13049,7 +13149,7 @@ function nfScrollTop(scr){
   if(window.scrollY>0||document.scrollingElement&&document.scrollingElement.scrollTop>0){any=true;try{window.scrollTo({top:0,behavior:'smooth'});}catch(x){window.scrollTo(0,0);}}
   window._nfScrolledTop=(window._nfScrolledTop||0)+1;return any;
 }
-/* v107: Memory supports 3–20 words → bigger word pools (30 per language) */
+
 (function(){var add={
  ru:['гора','лес','окно','часы','ключ','лампа','облако','поле','камень','рыба','чашка','дорога','остров','цветок'],
  en:['mountain','forest','window','clock','key','lamp','cloud','field','stone','fish','cup','road','island','flower'],
@@ -13058,7 +13158,7 @@ function nfScrollTop(scr){
  zh:['山','森林','窗户','钟','钥匙','灯','云','田野','石头','鱼','杯子','道路','岛','花']};
  Object.keys(add).forEach(function(l){if(CG_T[l]&&CG_T[l].pred_words)add[l].forEach(function(w){if(CG_T[l].pred_words.indexOf(w)<0)CG_T[l].pred_words.push(w);});});})();
 
-/* v107.1: MOT ball-speed slider (50–200 % of the level default, per level, remembered) */
+
 var MOT_SPD_T={ru:'Скорость шаров',en:'Ball speed',de:'Ballgeschwindigkeit',es:'Velocidad de las bolas',zh:'小球速度'};
 var MOT_SPD_V={ru:'Скорость: {v}×',en:'Speed: {v}×',de:'Tempo: {v}×',es:'Velocidad: {v}×',zh:'速度：{v}×'};
 function motSpd(d){var v=parseInt(dbGet('mot_spd_'+d),10);return v>=50&&v<=200?v:100;}
@@ -13073,7 +13173,7 @@ function motSpdInput(v){v=Math.max(50,Math.min(200,parseInt(v,10)||100));dbSet('
   if(id==='mot'){var el=document.getElementById('cog-detail'),st=el&&el.querySelector('.cg-start');if(st&&!document.getElementById('motSpdBox'))st.insertAdjacentHTML('beforebegin',motSpdHTML());}
   return x;};})();
 
-/* ════════ v108 ════════ */
+
 var NF8_T={
  ru:{more:'Развернуть',less:'Свернуть',next:'Далее',levels:'К уровням',del_t:'Удалить привычку?',del_s:'«{n}» и вся её история будут удалены.',del_y:'Удалить',cancel:'Отмена',drag_hint:'Удерживай карточку, чтобы перетащить',rename:'Изменить',trash:'Удалить',
   whm:'30 мощных вдохов: полный вдох носом в живот и грудь, пассивный выдох без усилий. После серии — задержка на выдохе 60+ сек: 60 сек — желательный минимум, держи дольше, до первого позыва (часто 1–2 мин). Затем глубокий вдох и задержка 15 сек. Это один круг.'},
@@ -13170,7 +13270,7 @@ function nf8AskDel(id){
     try{hbConfirmDelete();}catch(e){var s=hbState();s.habits=s.habits.filter(function(x){return x.id!==id;});hbSave();hbRender();}
     if(window.nfUx)nfUx('uncheck');};
 }
-/* long-press drag — v108.1: FLIP-style, transform-only, rAF, midpoint swap, animated drop, no re-render flicker */
+
 (function(){
   var LP=420,EASE='cubic-bezier(.2,.8,.2,1)',DUR=220,st=null,blockClick=0;
   function rowAt(t){var r=t&&t.closest?t.closest('#hbList > .hb-row'):null;if(!r)return null;if(t.closest('button'))return null;return r;}
@@ -13239,7 +13339,7 @@ function nf8AskDel(id){
 })();
 
 
-/* v108.1: MOT speed 0.3×–4× on a logarithmic slider (100 % exactly reachable), live speed words in the level cards */
+
 var MOT_MIN=0.3,MOT_MAX=4,MOT_BASE=[50,58,66];
 function motSpd(d){var v=parseInt(dbGet('mot_spd_'+d),10);return v>=30&&v<=400?v:100;}
 function motPosToMult(s){var m=MOT_MIN*Math.pow(MOT_MAX/MOT_MIN,s/1000);if(Math.abs(m-1)<0.035)m=1;return m<1?Math.round(m*20)/20:m<2?Math.round(m*10)/10:Math.round(m*4)/4;}
@@ -13263,23 +13363,23 @@ function motSpdPaint(){var r=document.getElementById('motSpd');if(!r)return;var 
 function motSpdInput(s){var m=motPosToMult(parseInt(s,10)||0);dbSet('mot_spd_'+_cogDiff(),Math.round(m*100));motSpdPaint();}
 (function(){var _o=openCogDetail;openCogDetail=function(id){var x=_o.apply(this,arguments);if(id==='mot')setTimeout(motLvPaint,0);return x;};})();
 
-/* v108.4: Find the target (denser grids, subtle but noticeable differences) — modes Colour / Shape / Rotation / Mix (vector SVG, one odd item per round) */
+
 var VS82={
  ru:{m:['Цвет','Форма','Поворот','Микс'],mode:'Режим',q:{color:'Найди круг другого оттенка',shape:'Найди фигуру другой формы',rot:'Найди повёрнутый символ'},
   i:{color:'Много одинаковых кругов, один другого оттенка. Нажми на него как можно быстрее.',shape:'Все фигуры одинаковые, кроме одной — у неё немного другая форма (овал среди кругов, скруглённые углы, другое число сторон). Найди и нажми.',rot:'Все символы смотрят в одну сторону, один повёрнут. Найди и нажми на него.',mix:'Каждый раунд случайно: цвет, форма или поворот.'},
-  lv:{color:['6×7 · заметная разница','9×10 · меньше разница','12×13 · очень тонкая'],shape:['5×6 · заметная','8×10 · тонкая','9×11 · едва заметная'],rot:['5×6 · 20–30°','8×10 · 12–15°','9×11 · 7–9°'],mix:['все режимы · легко','все режимы · средне','все режимы · сложно']}},
+  lv:{color:['6×7 · заметная разница','7×8 · меньше разница','7×9 · очень тонкая'],shape:['5×6 · заметная','7×8 · тонкая','7×9 · едва заметная'],rot:['5×6 · 20–30°','7×8 · 12–15°','7×9 · 7–9°'],mix:['все режимы · легко','все режимы · средне','все режимы · сложно']}},
  en:{m:['Colour','Shape','Rotation','Mix'],mode:'Mode',q:{color:'Find the circle with a different shade',shape:'Find the shape with a different form',rot:'Find the rotated symbol'},
   i:{color:'Many identical circles, one has a different shade. Tap it as fast as you can.',shape:'All shapes are identical except one with a slightly different form (an oval among circles, rounded corners, another number of sides). Find and tap it.',rot:'All symbols face the same way, one is rotated. Find and tap it.',mix:'Each round is random: colour, shape or rotation.'},
-  lv:{color:['6×7 · clear difference','9×10 · smaller difference','12×13 · very subtle'],shape:['5×6 · noticeable','8×10 · subtle','9×11 · barely visible'],rot:['5×6 · 20–30°','8×10 · 12–15°','9×11 · 7–9°'],mix:['all modes · easy','all modes · medium','all modes · hard']}},
+  lv:{color:['6×7 · clear difference','7×8 · smaller difference','7×9 · very subtle'],shape:['5×6 · noticeable','7×8 · subtle','7×9 · barely visible'],rot:['5×6 · 20–30°','7×8 · 12–15°','7×9 · 7–9°'],mix:['all modes · easy','all modes · medium','all modes · hard']}},
  de:{m:['Farbe','Form','Drehung','Mix'],mode:'Modus',q:{color:'Finde den Kreis mit anderem Farbton',shape:'Finde die Figur mit anderer Form',rot:'Finde das gedrehte Symbol'},
   i:{color:'Viele gleiche Kreise, einer hat einen anderen Farbton. Tippe ihn so schnell wie möglich.',shape:'Alle Figuren sind gleich, bis auf eine mit etwas anderer Form (Oval unter Kreisen, runde Ecken, andere Seitenzahl). Finde und tippe sie.',rot:'Alle Symbole zeigen in dieselbe Richtung, eines ist gedreht. Finde und tippe es.',mix:'Jede Runde zufällig: Farbe, Form oder Drehung.'},
-  lv:{color:['6×7 · deutlicher Unterschied','9×10 · kleinerer Unterschied','12×13 · sehr fein'],shape:['5×6 · merklich','8×10 · fein','9×11 · kaum sichtbar'],rot:['5×6 · 20–30°','8×10 · 12–15°','9×11 · 7–9°'],mix:['alle Modi · leicht','alle Modi · mittel','alle Modi · schwer']}},
+  lv:{color:['6×7 · deutlicher Unterschied','7×8 · kleinerer Unterschied','7×9 · sehr fein'],shape:['5×6 · merklich','7×8 · fein','7×9 · kaum sichtbar'],rot:['5×6 · 20–30°','7×8 · 12–15°','7×9 · 7–9°'],mix:['alle Modi · leicht','alle Modi · mittel','alle Modi · schwer']}},
  es:{m:['Color','Forma','Giro','Mezcla'],mode:'Modo',q:{color:'Encuentra el círculo de otro tono',shape:'Encuentra la figura de otra forma',rot:'Encuentra el símbolo girado'},
   i:{color:'Muchos círculos iguales y uno con otro tono. Tócalo lo más rápido posible.',shape:'Todas las figuras son iguales salvo una con forma algo distinta (un óvalo entre círculos, esquinas redondeadas, otro número de lados). Encuéntrala y tócala.',rot:'Todos los símbolos miran hacia el mismo lado y uno está girado. Encuéntralo y tócalo.',mix:'Cada ronda al azar: color, forma o giro.'},
-  lv:{color:['6×7 · diferencia clara','9×10 · diferencia menor','12×13 · muy sutil'],shape:['5×6 · notable','8×10 · sutil','9×11 · apenas visible'],rot:['5×6 · 20–30°','8×10 · 12–15°','9×11 · 7–9°'],mix:['todos los modos · fácil','todos los modos · medio','todos los modos · difícil']}},
+  lv:{color:['6×7 · diferencia clara','7×8 · diferencia menor','7×9 · muy sutil'],shape:['5×6 · notable','7×8 · sutil','7×9 · apenas visible'],rot:['5×6 · 20–30°','7×8 · 12–15°','7×9 · 7–9°'],mix:['todos los modos · fácil','todos los modos · medio','todos los modos · difícil']}},
  zh:{m:['颜色','形状','旋转','混合'],mode:'模式',q:{color:'找出色调不同的圆',shape:'找出形状不同的图形',rot:'找出被旋转的符号'},
   i:{color:'许多相同的圆，其中一个色调不同。尽快点击它。',shape:'所有图形都相同，只有一个形状略有不同（圆中的椭圆、圆角、边数不同）。找到并点击它。',rot:'所有符号朝向相同，只有一个被旋转。找到并点击它。',mix:'每轮随机：颜色、形状或旋转。'},
-  lv:{color:['6×7 · 差异明显','9×10 · 差异较小','12×13 · 极细微'],shape:['5×6 · 较明显','8×10 · 细微','9×11 · 几乎看不出'],rot:['5×6 · 20–30°','8×10 · 12–15°','9×11 · 7–9°'],mix:['全部模式 · 简单','全部模式 · 中等','全部模式 · 困难']}}
+  lv:{color:['6×7 · 差异明显','7×8 · 差异较小','7×9 · 极细微'],shape:['5×6 · 较明显','7×8 · 细微','7×9 · 几乎看不出'],rot:['5×6 · 20–30°','7×8 · 12–15°','7×9 · 7–9°'],mix:['全部模式 · 简单','全部模式 · 中等','全部模式 · 困难']}}
 };
 var VS_MODES=['color','shape','rot','mix'];
 function vsL(){return VS82[curLang]||VS82.en;}
@@ -13311,12 +13411,12 @@ var VS_SYMS={
 function vsSvg(inner,rot,stroke){return '<svg viewBox="-50 -50 100 100" shape-rendering="geometricPrecision"><g'+(rot?' transform="rotate('+rot.toFixed(1)+')"':'')+(stroke?' fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"':' fill="#fff"')+'>'+inner+'</g></svg>';}
 function cogVisualSearch(body,p){
   var diff=_cogDiff(),MODE=vsMode(),ROUNDS=[5,6,8][diff],L=vsL();
-  var CG={cols:[6,9,12][diff],rows:[7,10,13][diff]},SG={cols:[5,8,9][diff],rows:[6,10,11][diff]};
+  var CG={cols:[6,7,7][diff],rows:[7,8,9][diff]},SG={cols:[5,7,7][diff],rows:[6,8,9][diff]};
   var D=[0.34,0.21,0.17][diff],FLOOR=[0.28,0.17,0.14][diff],BASE=0.55,ANG=[[20,30],[12,15],[7,9]][diff];
   var plan=[];for(var r=0;r<ROUNDS;r++)plan.push(MODE==='mix'?null:MODE);
   if(MODE==='mix'){var bag=[];while(bag.length<ROUNDS)bag=bag.concat(cgShuffle(['color','shape','rot']));plan=bag.slice(0,ROUNDS);
     for(var q=1;q<plan.length;q++)if(plan[q]===plan[q-1]){var j=(q+1)%plan.length;var t=plan[q];plan[q]=plan[j];plan[j]=t;}}
-  window._cogParams={game:'visual_search',d:diff,mode:MODE,plan:plan.slice(),grid:CG.cols+'x'+CG.rows,gridShape:SG.cols+'x'+SG.rows,delta:D,deltaMin:FLOOR,angle:ANG,limitMs:0,autoHint:false,rounds:ROUNDS};
+  _cogParams={game:'visual_search',d:diff,mode:MODE,plan:plan.slice(),grid:CG.cols+'x'+CG.rows,gridShape:SG.cols+'x'+SG.rows,delta:D,deltaMin:FLOOR,angle:ANG,limitMs:0,autoHint:false,rounds:ROUNDS};
   var pts=0,found=0,hints=0,round=0,times=[],lastTp=-1;
   function next(){
     if(round>=ROUNDS){var avg=times.length?times.reduce(function(a,b){return a+b;},0)/times.length:0;
@@ -13335,16 +13435,16 @@ function cogVisualSearch(body,p){
     h+='</div><button class="cg4-hint" id="vs-hint" onclick="cogVSHint()">'+CG4_IC.hint+'<span>'+CT('vs_hint')+'</span></button></div>';
     body.innerHTML=h;
     var ts=Date.now(),done=false,hinted=false;
-    info.game='visual_search';info.round=round;info.target=tp;info.n=n;info.hinted=false;window._cogState=info;
+    info.game='visual_search';info.round=round;info.target=tp;info.n=n;info.hinted=false;_cogState=info;
     window.cogVSHint=function(){
-      if(done||hinted)return;hinted=true;hints++;window._cogState.hinted=true;
+      if(done||hinted)return;hinted=true;hints++;_cogState.hinted=true;
       var c=document.querySelectorAll('#vs-grid button');if(c[tp])c[tp].classList.add('cg4-hinted');
       var b=document.getElementById('vs-hint');if(b){b.disabled=true;b.classList.add('used');}
       if(window.nfUx)nfUx('tap');
     };
     window.cogVSClick=function(i){
       if(done)return;done=true;
-      var c=document.querySelectorAll('#vs-grid button'),ok=i===tp;window._cogState.last={i:i,ok:ok};
+      var c=document.querySelectorAll('#vs-grid button'),ok=i===tp;_cogState.last={i:i,ok:ok};
       if(ok){found++;pts+=hinted?1:2;times.push(Date.now()-ts);}
       cgFlash(c[i],ok);if(!ok&&c[tp])c[tp].classList.add('cg-ring');
       var b=document.getElementById('vs-hint');if(b)b.disabled=true;
@@ -13353,11 +13453,11 @@ function cogVisualSearch(body,p){
   }
   next();
 }
-/* v108.4: Go/No-Go — input on touchstart (pointerdown fallback), tap attributed to the stimulus visible when the finger came down (event timestamp); a tap ≤250 ms after a change goes to the previous untapped stimulus */
+
 function cogSART(body,p){
   var diff=_cogDiff(),ms=[900,650,450][diff],F=3,total=[30,36,45][diff],NG=[4,5,7][diff],GRACE=250,cur=0,correct=0,comm=0,omit=0,_sess=_cogSess;
   var items=cg4SartItems(total,NG,F),tap=[],shownAt=[],lat=[],useTouch=('ontouchstart' in window);
-  window._cogParams={game:'sart',d:diff,intervalMs:ms,items:total,nogo:NG,graceMs:GRACE,input:useTouch?'touchstart':'pointerdown',repeats:items.some(function(v,i){return i&&v===items[i-1];})};
+  _cogParams={game:'sart',d:diff,intervalMs:ms,items:total,nogo:NG,graceMs:GRACE,input:useTouch?'touchstart':'pointerdown',repeats:items.some(function(v,i){return i&&v===items[i-1];})};
   body.innerHTML='<div class="cg-pad cg-center cg4-sart"><div id="sart-cnt">'+cgCnt(1,total)+'</div><div class="cg-q">'+CT('sart_rule',{n:'<b class="cg-warn">'+F+'</b>'})+'</div>'+
     '<button id="sart-stage" class="cg4-stage nf82-stage" style="touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none"><span class="cg4-frame" id="sart-num"></span><span class="cg4-track" id="sart-track"></span></button></div>';
   var stage=document.getElementById('sart-stage'),track=document.getElementById('sart-track'),frame=document.getElementById('sart-num'),cnt=document.getElementById('sart-cnt'),els=[];
@@ -13377,18 +13477,18 @@ function cogSART(body,p){
     if(tap[k])return;tap[k]=true;var ok=items[k]!==F;if(ok)correct++;else comm++;
     flash(ok,k);var t1=performance.now();
     requestAnimationFrame(function(){lat.push({handler:Math.round((t1-et)*10)/10,frame:Math.round((performance.now()-et)*10)/10,k:k,cur:cur,dt:Math.round(et-shownAt[cur])});});
-    window._cogState.taps=(window._cogState.taps||[]).concat([{k:k,ok:ok,cur:cur}]);
+    _cogState.taps=(_cogState.taps||[]).concat([{k:k,ok:ok,cur:cur}]);
   }
   if(useTouch)stage.addEventListener('touchstart',onDown,{passive:false});
   else if(window.PointerEvent)stage.addEventListener('pointerdown',onDown,{passive:false});
   else stage.addEventListener('mousedown',onDown,{passive:false});
   stage.addEventListener('click',function(e){e.preventDefault();});
   window.cogSARTtap=function(){onDown({timeStamp:0});};
-  window._sartLat=lat;
+  
   var t0=performance.now();
   function show(){
     if(_sess!==_cogSess)return;
-    if(cur>=total){setTimeout(function(){if(_sess!==_cogSess)return;finalize(total-1);window._cogParams.latency=lat;
+    if(cur>=total){setTimeout(function(){if(_sess!==_cogSess)return;finalize(total-1);_cogParams.latency=lat;
       cogShowResult(body,p,correct,total,CT('sart_res',{a:correct,b:total,n:F,c:comm,d:omit}));},GRACE+60);return;}
     var n=items[cur];shownAt[cur]=performance.now();
     if(cur>0){var pk=cur-1;setTimeout(function(){finalize(pk);},GRACE+60);}
@@ -13397,12 +13497,12 @@ function cogSART(body,p){
     var w=track.clientWidth||window.innerWidth;e.style.transform='translate(-50%,-50%) translateX('+Math.round(0.36*w)+'px) scale(.6)';e.style.opacity='0';
     track.appendChild(e);els.unshift(e);requestAnimationFrame(place);
     frame.classList.remove('cg-ok','cg-bad','nf82-pop');
-    window._cogState={game:'sart',cur:cur,n:n,prev:cur?items[cur-1]:null,shownAt:shownAt[cur],items:items,taps:(window._cogState&&window._cogState.taps)||[]};
+    _cogState={game:'sart',cur:cur,n:n,prev:cur?items[cur-1]:null,shownAt:shownAt[cur],items:items,taps:(_cogState&&_cogState.taps)||[]};
     var due=t0+(cur+1)*ms;_cogTimer(function(){cur++;show();},Math.max(0,due-performance.now()));
   }
   show();
 }
-/* v108.2 two hands: hard lock of every iOS system gesture while the game is open (zoom, toolbar collapse, callout) */
+
 (function(){
   var vpOld=null;
   var _l=nf8BimLock;nf8BimLock=function(on){_l(on);
@@ -13419,24 +13519,24 @@ function cogSART(body,p){
   window._bimCancels=0;
 })();
 
-/* v108.3: Stroop — v108.1 behaviour, each level ~22 % faster */
+
 (function(){var lv={ru:['3 цвета · 3,1 с','4 цвета · 1,9 с','5 цветов · 1,15 с'],en:['3 colours · 3.1 s','4 colours · 1.9 s','5 colours · 1.15 s'],
   de:['3 Farben · 3,1 s','4 Farben · 1,9 s','5 Farben · 1,15 s'],es:['3 colores · 3,1 s','4 colores · 1,9 s','5 colores · 1,15 s'],zh:['3 色 · 3.1 秒','4 色 · 1.9 秒','5 色 · 1.15 秒']};
   for(var l in lv)if(CG_T[l])CG_T[l].lv_stroop=lv[l];})();
-/* v108.3: stale-cache guard — GitHub Pages caches for 10 min; if the server has a newer build, reload once to it */
-(function(){try{var cur=(document.querySelector('meta[name=nf-version]')||{}).content;if(!cur||!window.fetch||location.protocol.indexOf('http')!==0)return;
-  fetch(location.pathname+'?nc='+Date.now(),{cache:'no-store'}).then(function(r){return r.text();}).then(function(t){
-    var m=t.match(/<meta name="nf-version" content="([^"]+)"/);if(!m||m[1]===cur)return;
-    var k='nf_reload_'+m[1];if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1');
-    location.replace(location.pathname+'?v='+m[1].replace(/\D/g,'')+'&r='+Date.now());}).catch(function(){});}catch(e){}})();
 
-/* v108.7: hit radius 45 px; v108.6: binary scoring (hit / miss); v108.5: finger-tolerance zone 22 CSS px; v108.4: Focus point — the dot freezes, then the screen goes dark; the answer is EXACTLY the position of the last drawn frame */
+(function(){try{var cur=(document.querySelector('meta[name=nf-version]')||{}).content;if(!cur||!window.fetch||location.protocol.indexOf('http')!==0)return;
+  fetch('version.txt?nc='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(t){
+    var v=(t||'').trim();if(!/^v\d+(\.\d+)*$/.test(v)||v===cur)return;
+    var k='nf_reload_'+v;if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1');
+    location.replace(location.pathname+'?v='+v.replace(/\D/g,'')+'&r='+Date.now());}).catch(function(){});}catch(e){}})();
+
+
 var FP86={ru:{hit:'Верно!',miss:'Мимо',res:'Попаданий: {a} из {b}'},en:{hit:'Correct!',miss:'Miss',res:'Hits: {a} of {b}'},de:{hit:'Richtig!',miss:'Daneben',res:'Treffer: {a} von {b}'},es:{hit:'¡Correcto!',miss:'Fallo',res:'Aciertos: {a} de {b}'},zh:{hit:'正确！',miss:'没点中',res:'命中：{a} / {b}'}};
 (function(){var st=document.createElement('style');st.textContent='.cog-card[onclick*="focus_point"] .cog-card-score{display:none}';document.head.appendChild(st);})();
 function cogFocusPoint(body,p){
   var diff=_cogDiff(),ROUNDS=3,
       SPD=[130,220,330][diff],RAD=[6,4.5,3][diff],ND=[10,20,40][diff],DUR=[8000,10000,12000][diff],WANDER=[0.8,1.8,3.2][diff],MARK=1600,FREEZE=350;
-  window._cogParams={game:'focus_point',d:diff,speedPxS:SPD,radius:RAD,distractors:ND,roundMs:DUR,wander:WANDER,freezeMs:FREEZE,colour:'white',markColour:'#2ee6d0'};
+  _cogParams={game:'focus_point',d:diff,speedPxS:SPD,radius:RAD,distractors:ND,roundMs:DUR,wander:WANDER,freezeMs:FREEZE,colour:'white',markColour:'#2ee6d0'};
   var W=0,H=0,pts=[],tgt=null,phase='track',round=0,scores=[],hits=0,_sess=_cogSess,last=0,t0=0,raf=0,lastDrawn=null,answer=null;
   body.innerHTML='<div class="cg-pad"><div id="fp-cnt">'+cgCnt(1,ROUNDS)+'</div><div class="cg-q" id="focus-msg">'+CT('fp_find')+'</div><canvas id="focus-cv" class="cg-canvas dark" style="touch-action:none;-webkit-tap-highlight-color:transparent"></canvas><div class="cg-tbar"><i id="focus-bar" style="background:'+p.color+';width:100%"></i></div></div>';
   var cv=document.getElementById('focus-cv'),ctx=cv.getContext('2d'),dpr=Math.min(3,window.devicePixelRatio||1),msg=document.getElementById('focus-msg'),bar=document.getElementById('focus-bar');
@@ -13447,7 +13547,7 @@ function cogFocusPoint(body,p){
     phase='track';t0=performance.now();last=t0;msg.textContent=CT('fp_find');
     document.getElementById('fp-cnt').innerHTML=cgCnt(round+1,ROUNDS);
     bar.style.transition='none';bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+(DUR+MARK)+'ms linear';bar.style.width='0%';
-    window._cogState={game:'focus_point',phase:'mark',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};
+    _cogState={game:'focus_point',phase:'mark',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};
     raf=requestAnimationFrame(loop);
   }
   function step(q,dt){
@@ -13471,21 +13571,21 @@ function cogFocusPoint(body,p){
     var el=now-t0;
     if(el>=DUR+MARK){ /* stop movement: nothing moves from here on; the frame on screen stays */
       phase='freeze';answer={x:lastDrawn.x,y:lastDrawn.y};
-      window._cogState={game:'focus_point',phase:'freeze',round:round,target:{x:answer.x,y:answer.y},lastDrawn:{x:lastDrawn.x,y:lastDrawn.y},W:W,H:H};
+      _cogState={game:'focus_point',phase:'freeze',round:round,target:{x:answer.x,y:answer.y},lastDrawn:{x:lastDrawn.x,y:lastDrawn.y},W:W,H:H};
       _cogTimer(function(){if(_sess!==_cogSess||phase!=='freeze')return;ctx.clearRect(0,0,W,H);phase='check';msg.textContent=CT('fp_where');
-        window._cogState={game:'focus_point',phase:'check',round:round,target:{x:answer.x,y:answer.y},lastDrawn:{x:lastDrawn.x,y:lastDrawn.y},W:W,H:H};},FREEZE);
+        _cogState={game:'focus_point',phase:'check',round:round,target:{x:answer.x,y:answer.y},lastDrawn:{x:lastDrawn.x,y:lastDrawn.y},W:W,H:H};},FREEZE);
       return;}
     pts.forEach(function(q){step(q,dt);});
     var mark=el<MARK;draw(mark);
-    if(!mark&&window._cogState.phase==='mark'){window._cogState.phase='track';msg.textContent=CT('fp_track');}
-    window._cogState.target={x:lastDrawn.x,y:lastDrawn.y};
+    if(!mark&&_cogState.phase==='mark'){_cogState.phase='track';msg.textContent=CT('fp_track');}
+    _cogState.target={x:lastDrawn.x,y:lastDrawn.y};
     raf=requestAnimationFrame(loop);
   }
   function onTap(cx,cy){
     if(phase!=='check')return;phase='done';
     var r=cv.getBoundingClientRect(),x=(cx-r.left)*(W/(r.width||W)),y=(cy-r.top)*(H/(r.height||H)),d=Math.hypot(x-answer.x,y-answer.y),tol=45;
     var hit=d<=tol;if(hit)hits++;
-    window._cogState.tap={tol:tol,x:x,y:y,d:d,hit:hit,marker:{x:answer.x,y:answer.y},cssW:r.width,cssH:r.height,W:W,H:H,dpr:dpr};window._cogState.hits=hits;
+    _cogState.tap={tol:tol,x:x,y:y,d:d,hit:hit,marker:{x:answer.x,y:answer.y},cssW:r.width,cssH:r.height,W:W,H:H,dpr:dpr};_cogState.hits=hits;
     if(!hit){ctx.fillStyle='#2ee6d0';ctx.beginPath();ctx.arc(answer.x,answer.y,RAD+1,0,Math.PI*2);ctx.fill();
       ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle='rgba(240,96,64,.85)';ctx.fill();}
     var L=FP86[curLang]||FP86.en,ov=document.createElement('div');ov.id='fp-verdict';ov.textContent=hit?L.hit:L.miss;
@@ -13507,7 +13607,111 @@ function cogFocusPoint(body,p){
   start();
 }
 
-/* v100: run init only after every function/var in this script is defined */
+(function(){var lv={ru:['2,2 с на слово','1,5 с на слово','0,9 с на слово'],en:['2.2 s per word','1.5 s per word','0.9 s per word'],de:['2,2 s pro Wort','1,5 s pro Wort','0,9 s pro Wort'],es:['2,2 s por palabra','1,5 s por palabra','0,9 s por palabra'],zh:['每词 2.2 秒','每词 1.5 秒','每词 0.9 秒']};
+  for(var l in lv)if(CG_T[l])CG_T[l].lv_pred=lv[l];})();
+var _nf88Open=openCogDetail;
+openCogDetail=function(id,keep){
+  _nf88Open(id,keep);
+  if(id!=='pred')return;
+  var el=document.getElementById('cog-detail'),box=el&&el.querySelector('#pred-count-box');if(!box||el.querySelector('#diff-btns'))return;
+  var lb=box.previousElementSibling,at=lb&&lb.classList.contains('cg-lbl')?lb:box;
+  at.insertAdjacentHTML('beforebegin',cgDiffHtml(cgP('pred').color,'pred'));
+};
+function cogPrediction(body,p){
+  var n=cg4PredCount(),MS=[2200,1500,900][_cogDiff()],W=nfBagTake('pred_'+curLang,CT('pred_words'),n),i=0;
+  window._predWords=W;_cogParams={game:'pred',d:_cogDiff(),count:n,wordMs:MS};
+  _cogState={game:'pred',words:W};
+  function recall(){
+    body.innerHTML='<div class="cg-pad"><div class="cg-h">'+CT('pred_recall')+'</div><div class="cg-q">'+CT('pred_hint')+'</div>'+
+      '<textarea id="pred-ta" class="cg-ta" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="'+hbEsc(CT('pred_ph'))+'"></textarea>'+
+      '<button class="cg-btn1 wide" id="pred-check" style="background:'+p.color+'" onclick="cogPredFinish()">'+CT('pred_check')+'</button></div>';
+    _cogState={game:'pred',words:W,recall:true};
+    window.cogPredFinish=function(){
+      var raw=cgNorm((document.getElementById('pred-ta')||{}).value||''),toks=raw.split(/[\s,;.，、。；]+/).filter(Boolean),got=[];
+      W.forEach(function(w){var nw=cgNorm(w);if(toks.indexOf(nw)>=0||(curLang==='zh'&&raw.indexOf(nw)>=0))got.push(w);});
+      var list='<div class="cg-words">'+W.map(function(w){return '<span class="'+(got.indexOf(w)>=0?'ok':'')+'">'+hbEsc(w)+'</span>';}).join('')+'</div>';
+      cogShowResult(body,p,got.length,W.length,CT('pred_res',{a:got.length,b:W.length})+list);
+    };
+  }
+  (function show(){
+    if(i>=W.length){recall();return;}
+    body.innerHTML='<div class="cg-pad cg-center">'+cgCnt(i+1,W.length)+'<div class="cg-card-word cg-in" id="pred-word">'+hbEsc(W[i])+'</div></div>';
+    i++;if(window.nfUx)nfUx('count');_cogTimer(show,MS);
+  })();
+}
+/* privacy policy */
+var NF_PRIV={
+ru:{row:'Политика конфиденциальности',sec:'О приложении',t:'Политика конфиденциальности',upd:'Обновлено: 21 октября 2026',
+ p:[['Коротко','NeuroFlow не собирает, не передаёт и не продаёт никакие данные. Всё, что вы делаете в приложении, остаётся только на вашем устройстве.'],
+ ['Какие данные хранятся','Настройки, язык, привычки, результаты упражнений и история практик сохраняются в локальном хранилище браузера на вашем устройстве. Они никуда не отправляются.'],
+ ['Аккаунты','Регистрации и аккаунтов нет. Мы не знаем, кто вы.'],
+ ['Аналитика и реклама','Нет аналитики, трекеров, рекламы и cookie третьих сторон. Шрифты и звуки загружаются с того же сайта, что и приложение.'],
+ ['Офлайн-кэш','Для работы без интернета приложение сохраняет свои файлы (страницу, шрифты, звуки) в кэше браузера на устройстве.'],
+ ['Удаление данных','Чтобы удалить все данные, очистите данные сайта в настройках браузера или удалите приложение с главного экрана.'],
+ ['Контакты','Вопросы о конфиденциальности: calistenicsflow@gmail.com']]},
+en:{row:'Privacy policy',sec:'About',t:'Privacy policy',upd:'Updated: 21 October 2026',
+ p:[['In short','NeuroFlow does not collect, share or sell any data. Everything you do in the app stays on your device only.'],
+ ['What is stored','Settings, language, habits, exercise results and practice history are saved in your browser\u2019s local storage on your device. They are never sent anywhere.'],
+ ['Accounts','There is no sign-up and there are no accounts. We do not know who you are.'],
+ ['Analytics and ads','No analytics, trackers, ads or third-party cookies. Fonts and sounds are loaded from the same site as the app.'],
+ ['Offline cache','To work without internet, the app keeps its own files (page, fonts, sounds) in the browser cache on your device.'],
+ ['Deleting data','To delete all data, clear this site\u2019s data in your browser settings or remove the app from your home screen.'],
+ ['Contact','Privacy questions: calistenicsflow@gmail.com']]},
+de:{row:'Datenschutz',sec:'Über die App',t:'Datenschutzerklärung',upd:'Aktualisiert: 21. Oktober 2026',
+ p:[['Kurz gesagt','NeuroFlow erhebt, teilt oder verkauft keine Daten. Alles, was du in der App tust, bleibt ausschließlich auf deinem Gerät.'],
+ ['Was gespeichert wird','Einstellungen, Sprache, Gewohnheiten, Übungsergebnisse und Verlauf werden im lokalen Speicher deines Browsers auf deinem Gerät gespeichert. Sie werden nirgendwohin gesendet.'],
+ ['Konten','Keine Registrierung, keine Konten. Wir wissen nicht, wer du bist.'],
+ ['Analyse und Werbung','Keine Analyse, keine Tracker, keine Werbung, keine Drittanbieter-Cookies. Schriften und Klänge werden von derselben Website wie die App geladen.'],
+ ['Offline-Cache','Damit die App ohne Internet funktioniert, speichert sie ihre eigenen Dateien (Seite, Schriften, Klänge) im Browser-Cache auf deinem Gerät.'],
+ ['Daten löschen','Um alle Daten zu löschen, lösche die Website-Daten in den Browsereinstellungen oder entferne die App vom Startbildschirm.'],
+ ['Kontakt','Fragen zum Datenschutz: calistenicsflow@gmail.com']]},
+es:{row:'Privacidad',sec:'Acerca de',t:'Política de privacidad',upd:'Actualizado: 21 de octubre de 2026',
+ p:[['En resumen','NeuroFlow no recopila, comparte ni vende ningún dato. Todo lo que haces en la app se queda solo en tu dispositivo.'],
+ ['Qué se guarda','Ajustes, idioma, hábitos, resultados de ejercicios e historial se guardan en el almacenamiento local del navegador en tu dispositivo. Nunca se envían a ningún sitio.'],
+ ['Cuentas','No hay registro ni cuentas. No sabemos quién eres.'],
+ ['Analítica y anuncios','Sin analítica, rastreadores, anuncios ni cookies de terceros. Las fuentes y los sonidos se cargan desde el mismo sitio que la app.'],
+ ['Caché sin conexión','Para funcionar sin internet, la app guarda sus propios archivos (página, fuentes, sonidos) en la caché del navegador de tu dispositivo.'],
+ ['Borrar datos','Para borrar todos los datos, elimina los datos de este sitio en los ajustes del navegador o quita la app de la pantalla de inicio.'],
+ ['Contacto','Preguntas sobre privacidad: calistenicsflow@gmail.com']]},
+zh:{row:'隐私政策',sec:'关于',t:'隐私政策',upd:'更新日期：2026年10月21日',
+ p:[['简要说明','NeuroFlow 不收集、不共享、不出售任何数据。你在应用中的一切操作都只保存在你的设备上。'],
+ ['存储的内容','设置、语言、习惯、练习成绩和历史记录保存在你设备上浏览器的本地存储中，绝不会被发送到任何地方。'],
+ ['账户','无需注册，没有账户。我们不知道你是谁。'],
+ ['分析与广告','没有数据分析、跟踪器、广告或第三方 Cookie。字体和声音均从应用所在的同一网站加载。'],
+ ['离线缓存','为了在无网络时使用，应用会把自身文件（页面、字体、声音）保存在你设备的浏览器缓存中。'],
+ ['删除数据','要删除所有数据，请在浏览器设置中清除本网站数据，或从主屏幕移除应用。'],
+ ['联系方式','隐私问题：calistenicsflow@gmail.com']]}
+};
+function nfPrivHtml(L){var P=NF_PRIV[L]||NF_PRIV.en;return '<p class="nf-pv-u">'+P.upd+'</p>'+P.p.map(function(x){return '<h3>'+x[0]+'</h3><p>'+x[1].replace('calistenicsflow@gmail.com','<a href="mailto:calistenicsflow@gmail.com">calistenicsflow@gmail.com</a>')+'</p>';}).join('');}
+
+function nfOpenPrivacy(){
+  var ov=document.getElementById('nfPriv'),P=NF_PRIV[curLang]||NF_PRIV.en;
+  if(!ov){ov=document.createElement('div');ov.id='nfPriv';ov.className='nf-set nf-priv';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');
+    ov.innerHTML='<div class="nf-set-bar"><div class="back" id="nfPrivBack" onclick="nfClosePrivacy()"></div><div class="nf-set-t" id="nfPrivTitle"></div></div><div class="nf-set-body nf-pv" id="nfPrivBody"></div>';
+    document.body.appendChild(ov);try{nfFixBacks(ov);}catch(e){}}
+  document.getElementById('nfPrivTitle').textContent=P.t;
+  document.getElementById('nfPrivBack').setAttribute('aria-label',UT('back'));
+  document.getElementById('nfPrivBody').innerHTML=nfPrivHtml(curLang)+'<p class="nf-pv-u"><a href="privacy.html?lang='+curLang+'" target="_blank" rel="noopener">privacy.html</a></p>';
+  void ov.offsetWidth;ov.classList.add('on');
+}
+function nfClosePrivacy(){var ov=document.getElementById('nfPriv');if(ov)ov.classList.remove('on');}
+var _nf88Render=nfRenderSettings;
+nfRenderSettings=function(){
+  _nf88Render();
+  var b=document.getElementById('nfSetBody');if(!b)return;var P=NF_PRIV[curLang]||NF_PRIV.en;
+  b.insertAdjacentHTML('beforeend','<div class="nf-sec">'+P.sec+'</div><div class="nf-group"><div class="nf-lang-row" id="nfPrivRow" role="button" tabindex="0" onclick="nfOpenPrivacy()"><span>'+P.row+'</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--t3)"><path d="M8 5l5 5-5 5"/></svg></div></div>');
+};
+/* offline: service worker; it also caches the audio of the current language */
+function nfSwLang(){try{var c=navigator.serviceWorker&&navigator.serviceWorker.controller;if(c)c.postMessage({t:'lang',lang:curLang});}catch(e){}}
+(function(){if(!('serviceWorker' in navigator)||location.protocol!=='https:'&&location.hostname!=='localhost')return;
+  window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(function(r){
+    if(navigator.serviceWorker.controller)nfSwLang();
+    else navigator.serviceWorker.addEventListener('controllerchange',function(){nfSwLang();},{once:true});
+  }).catch(function(){});});
+  var _sl=setLang;setLang=function(l){_sl.apply(this,arguments);nfSwLang();};
+})();
+
+
 init();
 nfWakeInit();
 nfUxInit();
