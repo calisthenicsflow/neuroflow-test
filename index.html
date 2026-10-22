@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v108.5">
+<meta name="nf-version" content="v108.6">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -7140,7 +7140,7 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1085';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1086';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
@@ -12667,7 +12667,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.5</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.6</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -13430,12 +13430,14 @@ function cogSART(body,p){
     var k='nf_reload_'+m[1];if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1');
     location.replace(location.pathname+'?v='+m[1].replace(/\D/g,'')+'&r='+Date.now());}).catch(function(){});}catch(e){}})();
 
-/* v108.5: finger-tolerance zone 22 CSS px; v108.4: Focus point — the dot freezes, then the screen goes dark; the answer is EXACTLY the position of the last drawn frame */
+/* v108.6: binary scoring (hit / miss); v108.5: finger-tolerance zone 22 CSS px; v108.4: Focus point — the dot freezes, then the screen goes dark; the answer is EXACTLY the position of the last drawn frame */
+var FP86={ru:{hit:'Верно!',miss:'Мимо',res:'Попаданий: {a} из {b}'},en:{hit:'Correct!',miss:'Miss',res:'Hits: {a} of {b}'},de:{hit:'Richtig!',miss:'Daneben',res:'Treffer: {a} von {b}'},es:{hit:'¡Correcto!',miss:'Fallo',res:'Aciertos: {a} de {b}'},zh:{hit:'正确！',miss:'没点中',res:'命中：{a} / {b}'}};
+(function(){var st=document.createElement('style');st.textContent='.cog-card[onclick*="focus_point"] .cog-card-score{display:none}';document.head.appendChild(st);})();
 function cogFocusPoint(body,p){
   var diff=_cogDiff(),ROUNDS=3,
       SPD=[130,220,330][diff],RAD=[6,4.5,3][diff],ND=[10,20,40][diff],DUR=[8000,10000,12000][diff],WANDER=[0.8,1.8,3.2][diff],MARK=1600,FREEZE=350;
   window._cogParams={game:'focus_point',d:diff,speedPxS:SPD,radius:RAD,distractors:ND,roundMs:DUR,wander:WANDER,freezeMs:FREEZE,colour:'white',markColour:'#2ee6d0'};
-  var W=0,H=0,pts=[],tgt=null,phase='track',round=0,scores=[],_sess=_cogSess,last=0,t0=0,raf=0,lastDrawn=null,answer=null;
+  var W=0,H=0,pts=[],tgt=null,phase='track',round=0,scores=[],hits=0,_sess=_cogSess,last=0,t0=0,raf=0,lastDrawn=null,answer=null;
   body.innerHTML='<div class="cg-pad"><div id="fp-cnt">'+cgCnt(1,ROUNDS)+'</div><div class="cg-q" id="focus-msg">'+CT('fp_find')+'</div><canvas id="focus-cv" class="cg-canvas dark" style="touch-action:none;-webkit-tap-highlight-color:transparent"></canvas><div class="cg-tbar"><i id="focus-bar" style="background:'+p.color+';width:100%"></i></div></div>';
   var cv=document.getElementById('focus-cv'),ctx=cv.getContext('2d'),dpr=Math.min(3,window.devicePixelRatio||1),msg=document.getElementById('focus-msg'),bar=document.getElementById('focus-bar');
   W=cv.clientWidth||(cv.parentElement.clientWidth-32);H=Math.min(Math.round(W*1.25),480);cv.style.width=W+'px';cv.style.height=H+'px';cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(cv.width/W,0,0,cv.height/H,0,0);
@@ -13482,17 +13484,23 @@ function cogFocusPoint(body,p){
   function onTap(cx,cy){
     if(phase!=='check')return;phase='done';
     var r=cv.getBoundingClientRect(),x=(cx-r.left)*(W/(r.width||W)),y=(cy-r.top)*(H/(r.height||H)),d=Math.hypot(x-answer.x,y-answer.y),tol=22;
-    var pct=d<=tol?100:Math.max(0,Math.round(100-(d-tol)*1.2));scores.push(pct);
-    window._cogState.tap={tol:tol,x:x,y:y,d:d,pct:pct,marker:{x:answer.x,y:answer.y},cssW:r.width,cssH:r.height,W:W,H:H,dpr:dpr};
-    ctx.beginPath();ctx.arc(answer.x,answer.y,tol,0,Math.PI*2);ctx.fillStyle='rgba(56,192,104,.10)';ctx.fill();ctx.strokeStyle='rgba(56,192,104,.35)';ctx.lineWidth=1;ctx.stroke();
-    ctx.beginPath();ctx.arc(answer.x,answer.y,RAD+8,0,Math.PI*2);ctx.strokeStyle='#38c068';ctx.lineWidth=2;ctx.stroke();
-    ctx.fillStyle='#38c068';ctx.beginPath();ctx.arc(answer.x,answer.y,RAD,0,Math.PI*2);ctx.fill();
-    ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle=pct>=50?'#38c068':'#f06040';ctx.fill();
-    cogPlayFeedback(pct>=50);
-    msg.textContent=CT('fp_round',{a:round+1,p:pct});
-    _cogTimer(function(){round++;
-      if(round>=ROUNDS){var avg=Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);cogShowResult(body,p,avg,100,CT('fp_res',{p:avg}));}
-      else start();},1100);
+    var hit=d<=tol;if(hit)hits++;
+    window._cogState.tap={tol:tol,x:x,y:y,d:d,hit:hit,marker:{x:answer.x,y:answer.y},cssW:r.width,cssH:r.height,W:W,H:H,dpr:dpr};window._cogState.hits=hits;
+    if(!hit){ctx.fillStyle='#2ee6d0';ctx.beginPath();ctx.arc(answer.x,answer.y,RAD+1,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle='rgba(240,96,64,.85)';ctx.fill();}
+    var L=FP86[curLang]||FP86.en,ov=document.createElement('div');ov.id='fp-verdict';ov.textContent=hit?L.hit:L.miss;
+    ov.style.cssText='position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.85);font-size:44px;font-weight:800;pointer-events:none;transition:transform .18s ease-out,opacity .18s;opacity:0;text-shadow:0 2px 12px rgba(0,0,0,.6);color:'+(hit?'#38c068':'#f0a060');
+    var wrap=cv.parentElement;if(getComputedStyle(wrap).position==='static')wrap.style.position='relative';
+    var cr=cv.getBoundingClientRect(),wr=wrap.getBoundingClientRect();ov.style.left=(cr.left-wr.left+cr.width/2)+'px';ov.style.top=(cr.top-wr.top+cr.height/2)+'px';
+    wrap.appendChild(ov);requestAnimationFrame(function(){ov.style.opacity='1';ov.style.transform='translate(-50%,-50%) scale(1)';});
+    try{if(navigator.vibrate)navigator.vibrate(hit?[15,40,15]:30);}catch(_){}
+    cogPlayFeedback(hit);
+    msg.textContent=CT('fp_where');
+    _cogTimer(function(){if(ov.parentNode)ov.parentNode.removeChild(ov);round++;
+      if(round>=ROUNDS){cogShowResult(body,p,hits,ROUNDS,L.res.replace('{a}',hits).replace('{b}',ROUNDS));
+        var pe=document.querySelector('#cg-result .cg-res-pct');if(pe)pe.textContent=hits+' / '+ROUNDS;
+        var be=document.querySelector('#cg-result .cg-res-bar');if(be)be.style.display='none';}
+      else start();},1200);
   }
   if('ontouchstart' in window)cv.addEventListener('touchstart',function(e){if(e.cancelable)e.preventDefault();var t=e.changedTouches[0];if(t)onTap(t.clientX,t.clientY);},{passive:false});
   else cv.addEventListener('pointerdown',function(e){onTap(e.clientX,e.clientY);});
