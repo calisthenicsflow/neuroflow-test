@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v108.4">
+<meta name="nf-version" content="v108.5">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -7140,7 +7140,7 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1084';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1085';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
@@ -12667,7 +12667,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.4</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.5</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -13430,7 +13430,7 @@ function cogSART(body,p){
     var k='nf_reload_'+m[1];if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1');
     location.replace(location.pathname+'?v='+m[1].replace(/\D/g,'')+'&r='+Date.now());}).catch(function(){});}catch(e){}})();
 
-/* v108.4: Focus point — the dot freezes, then the screen goes dark; the answer is EXACTLY the position of the last drawn frame */
+/* v108.5: finger-tolerance zone 22 CSS px; v108.4: Focus point — the dot freezes, then the screen goes dark; the answer is EXACTLY the position of the last drawn frame */
 function cogFocusPoint(body,p){
   var diff=_cogDiff(),ROUNDS=3,
       SPD=[130,220,330][diff],RAD=[6,4.5,3][diff],ND=[10,20,40][diff],DUR=[8000,10000,12000][diff],WANDER=[0.8,1.8,3.2][diff],MARK=1600,FREEZE=350;
@@ -13481,9 +13481,10 @@ function cogFocusPoint(body,p){
   }
   function onTap(cx,cy){
     if(phase!=='check')return;phase='done';
-    var r=cv.getBoundingClientRect(),x=(cx-r.left)*(W/(r.width||W)),y=(cy-r.top)*(H/(r.height||H)),d=Math.hypot(x-answer.x,y-answer.y),tol=RAD+16;
+    var r=cv.getBoundingClientRect(),x=(cx-r.left)*(W/(r.width||W)),y=(cy-r.top)*(H/(r.height||H)),d=Math.hypot(x-answer.x,y-answer.y),tol=22;
     var pct=d<=tol?100:Math.max(0,Math.round(100-(d-tol)*1.2));scores.push(pct);
-    window._cogState.tap={x:x,y:y,d:d,pct:pct,marker:{x:answer.x,y:answer.y},cssW:r.width,cssH:r.height,W:W,H:H,dpr:dpr};
+    window._cogState.tap={tol:tol,x:x,y:y,d:d,pct:pct,marker:{x:answer.x,y:answer.y},cssW:r.width,cssH:r.height,W:W,H:H,dpr:dpr};
+    ctx.beginPath();ctx.arc(answer.x,answer.y,tol,0,Math.PI*2);ctx.fillStyle='rgba(56,192,104,.10)';ctx.fill();ctx.strokeStyle='rgba(56,192,104,.35)';ctx.lineWidth=1;ctx.stroke();
     ctx.beginPath();ctx.arc(answer.x,answer.y,RAD+8,0,Math.PI*2);ctx.strokeStyle='#38c068';ctx.lineWidth=2;ctx.stroke();
     ctx.fillStyle='#38c068';ctx.beginPath();ctx.arc(answer.x,answer.y,RAD,0,Math.PI*2);ctx.fill();
     ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle=pct>=50?'#38c068':'#f06040';ctx.fill();
