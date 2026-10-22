@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NEURO.FLOW</title>
-<meta name="nf-version" content="v108.2">
+<meta name="nf-version" content="v108.3">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -2029,7 +2029,7 @@ html.nf8-bimlock,body.nf8-bimlock{overscroll-behavior:none;overflow:hidden;}
 <style>.nf82-mode{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
 .nf82-mode button{min-height:56px;border-radius:14px;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.04);color:#fff;font:600 15px 'DM Sans',sans-serif;cursor:pointer;padding:4px 2px;transition:background .15s,color .15s,border-color .15s;}
 .nf82-mode button.on{background:#fff;color:#0b0b10;border-color:#fff;}
-.cg-vs.nf82-vec{gap:4px;}
+.cg-vs.nf82-vec{gap:2px;}
 .cg-vs.nf82-vec button{border-radius:10px;}
 .cg-vs.nf82-vec button svg{width:86%;height:86%;display:block;overflow:visible;}
 .nf82-tbar{height:4px;opacity:.7;}
@@ -7140,7 +7140,7 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1082';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1083';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
@@ -11125,7 +11125,7 @@ function cogMOT(body,p){
 
 /* ═══ Stroop ═══ */
 function cogStroop(body,p){
-  var diff=_cogDiff(),total=[12,20,30][diff],limit=[4000,2500,1500][diff],nC=[3,4,5][diff],INC=[0.5,0.75,1][diff];
+  var diff=_cogDiff(),total=[12,20,30][diff],limit=[3100,1900,1150][diff],nC=[3,4,5][diff],INC=[0.5,0.75,1][diff];
   window._cogParams={game:'stroop',d:diff,colors:nC,windowMs:limit,incongruent:INC,trials:total};
   var COL=['#e05555','#4f8ff0','#46b860','#d8c23a','#a066e0'].slice(0,nC),W=CT('st_words'),B=CT('st_btn');
   var cur=0,correct=0,rt=[];
@@ -12214,7 +12214,7 @@ function stSpeak(i){
 }
 function stToggleVoice(){var on=!stVoiceOn();dbSet('stroop_voice',on);var b=document.getElementById('st-voice');if(b){b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);b.querySelector('.ic').innerHTML=on?CG4_IC.spk:CG4_IC.spkOff;}if(!on){try{if(_stSrc)_stSrc.stop();}catch(e){}try{speechSynthesis.cancel();}catch(e){}}}
 function cogStroop(body,p){
-  var diff=_cogDiff(),total=[12,20,30][diff],limit=[4000,2500,1500][diff],nC=[3,4,5][diff],INC=[0.5,0.75,1][diff];
+  var diff=_cogDiff(),total=[12,20,30][diff],limit=[3100,1900,1150][diff],nC=[3,4,5][diff],INC=[0.5,0.75,1][diff];
   var L0=NF_ST_CLIPS[curLang]?curLang:'ru';
   window._cogParams={game:'stroop',d:diff,colors:nC,windowMs:limit,incongruent:INC,trials:total,voice:stVoiceOn(),voiceSrc:'clips'};
   stLoad(L0);
@@ -12293,7 +12293,7 @@ function cogFocusPoint(body,p){
   var diff=_cogDiff(),ROUNDS=3,
       SPD=[130,220,330][diff],RAD=[6,4.5,3][diff],DIM=[0.70,0.78,0.85][diff],ND=[10,20,40][diff],DUR=[8000,10000,12000][diff],WANDER=[0.8,1.8,3.2][diff],MARK=1600;
   window._cogParams={game:'focus_point',d:diff,speedPxS:SPD,radius:RAD,targetAlpha:0.92,distractorAlpha:0.92,distractors:ND,roundMs:DUR,wander:WANDER,colour:'white',markColour:'#2ee6d0',stops:false};
-  var W=0,H=0,pts=[],tgt=null,phase='track',round=0,scores=[],_sess=_cogSess,last=0,t0=0;
+  var W=0,H=0,pts=[],tgt=null,phase='track',round=0,scores=[],_sess=_cogSess,last=0,t0=0,fpDrawn=[],fpRaf=0;
   body.innerHTML='<div class="cg-pad"><div id="fp-cnt">'+cgCnt(1,ROUNDS)+'</div><div class="cg-q" id="focus-msg">'+CT('fp_find')+'</div><canvas id="focus-cv" class="cg-canvas dark"></canvas><div class="cg-tbar"><i id="focus-bar" style="background:'+p.color+';width:100%"></i></div></div>';
   var cv=document.getElementById('focus-cv'),ctx=cv.getContext('2d'),dpr=Math.min(3,window.devicePixelRatio||1),msg=document.getElementById('focus-msg'),bar=document.getElementById('focus-bar');
   W=cv.clientWidth||(cv.parentElement.clientWidth-32);H=Math.min(Math.round(W*1.25),480);cv.width=W*dpr;cv.height=H*dpr;cv.style.height=H+'px';ctx.setTransform(dpr,0,0,dpr,0,0);
@@ -12313,7 +12313,7 @@ function cogFocusPoint(body,p){
     if(q.y<RAD){q.y=RAD;q.a=-q.a;}if(q.y>H-RAD){q.y=H-RAD;q.a=-q.a;}
   }
   function draw(mark){
-    ctx.clearRect(0,0,W,H);
+    ctx.clearRect(0,0,W,H);fpDrawn.push({x:tgt.x,y:tgt.y,t:performance.now()});if(fpDrawn.length>4)fpDrawn.shift();
     /* v107: during the mark phase the target is turquoise; afterwards every dot is the same white */
     ctx.fillStyle='rgba(255,255,255,.92)';
     pts.forEach(function(q){if(mark&&q.t)return;ctx.beginPath();ctx.arc(q.x,q.y,RAD,0,Math.PI*2);ctx.fill();});
@@ -12324,13 +12324,13 @@ function cogFocusPoint(body,p){
   function loop(now){
     if(_sess!==_cogSess||phase!=='track')return;
     var dt=Math.min(0.05,Math.max(0,(now-last)/1000));last=now;
-    var el=now-t0;if(el>=DUR+MARK){phase='check';ctx.clearRect(0,0,W,H);msg.textContent=CT('fp_where');window._cogState={game:'focus_point',phase:'check',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H,frozenAt:now};return;}
+    var el=now-t0;if(el>=DUR+MARK){if(fpRaf)cancelAnimationFrame(fpRaf);fpRaf=0;var ld=fpDrawn[fpDrawn.length-1],pv=fpDrawn.length>1?fpDrawn[fpDrawn.length-2]:ld,useP=SPD>=200&&pv;var fz=useP?pv:ld;if(fz){tgt.x=fz.x;tgt.y=fz.y;}window._fpStop={lastDrawn:ld,prevDrawn:pv,used:useP?'prev':'last',spd:SPD};phase='check';ctx.clearRect(0,0,W,H);msg.textContent=CT('fp_where');window._cogState={game:'focus_point',phase:'check',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H,frozenAt:now};return;}
     pts.forEach(function(q){step(q,dt);});
     var mark=el<MARK;draw(mark);
     if(!mark&&window._cogState.phase==='mark'){window._cogState.phase='track';msg.textContent=CT('fp_track');}
     window._cogState.target.x=tgt.x;window._cogState.target.y=tgt.y;
     if(el>=DUR+MARK){phase='check';ctx.clearRect(0,0,W,H);msg.textContent=CT('fp_where');window._cogState={game:'focus_point',phase:'check',round:round,target:{x:tgt.x,y:tgt.y},W:W,H:H};return;}
-    requestAnimationFrame(loop);
+    fpRaf=requestAnimationFrame(loop);
   }
   cv.addEventListener('pointerdown',function(e){
     if(phase!=='check')return;phase='done';
@@ -12667,7 +12667,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.2</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.3</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -13263,23 +13263,23 @@ function motSpdPaint(){var r=document.getElementById('motSpd');if(!r)return;var 
 function motSpdInput(s){var m=motPosToMult(parseInt(s,10)||0);dbSet('mot_spd_'+_cogDiff(),Math.round(m*100));motSpdPaint();}
 (function(){var _o=openCogDetail;openCogDetail=function(id){var x=_o.apply(this,arguments);if(id==='mot')setTimeout(motLvPaint,0);return x;};})();
 
-/* v108.2: Find the target — modes Colour / Shape / Rotation / Mix (vector SVG, one odd item per round) */
+/* v108.3: Find the target (denser grids, tiny differences) — modes Colour / Shape / Rotation / Mix (vector SVG, one odd item per round) */
 var VS82={
  ru:{m:['Цвет','Форма','Поворот','Микс'],mode:'Режим',q:{color:'Найди круг другого оттенка',shape:'Найди фигуру другой формы',rot:'Найди повёрнутый символ'},
   i:{color:'Много одинаковых кругов, один другого оттенка. Нажми на него как можно быстрее.',shape:'Все фигуры одинаковые, кроме одной — у неё немного другая форма (овал среди кругов, скруглённые углы, другое число сторон). Найди и нажми.',rot:'Все символы смотрят в одну сторону, один повёрнут. Найди и нажми на него.',mix:'Каждый раунд случайно: цвет, форма или поворот.'},
-  lv:{color:['6×7 · заметная разница','9×10 · меньше разница','12×13 · тонкая разница'],shape:['5×6 · явная разница','6×8 · заметная','7×9 · тонкая'],rot:['5×6 · 90–180°','6×8 · 30–45°','7×9 · 12–20°'],mix:['все режимы · легко','все режимы · средне','все режимы · сложно']}},
+  lv:{color:['6×7 · заметная разница','9×10 · меньше разница','12×13 · очень тонкая'],shape:['5×6 · заметная','8×10 · тонкая','10×12 · едва заметная'],rot:['5×6 · 15–25°','8×10 · 7–10°','10×12 · 3–5°'],mix:['все режимы · легко','все режимы · средне','все режимы · сложно']}},
  en:{m:['Colour','Shape','Rotation','Mix'],mode:'Mode',q:{color:'Find the circle with a different shade',shape:'Find the shape with a different form',rot:'Find the rotated symbol'},
   i:{color:'Many identical circles, one has a different shade. Tap it as fast as you can.',shape:'All shapes are identical except one with a slightly different form (an oval among circles, rounded corners, another number of sides). Find and tap it.',rot:'All symbols face the same way, one is rotated. Find and tap it.',mix:'Each round is random: colour, shape or rotation.'},
-  lv:{color:['6×7 · clear difference','9×10 · smaller difference','12×13 · subtle difference'],shape:['5×6 · obvious','6×8 · noticeable','7×9 · subtle'],rot:['5×6 · 90–180°','6×8 · 30–45°','7×9 · 12–20°'],mix:['all modes · easy','all modes · medium','all modes · hard']}},
+  lv:{color:['6×7 · clear difference','9×10 · smaller difference','12×13 · very subtle'],shape:['5×6 · noticeable','8×10 · subtle','10×12 · barely visible'],rot:['5×6 · 15–25°','8×10 · 7–10°','10×12 · 3–5°'],mix:['all modes · easy','all modes · medium','all modes · hard']}},
  de:{m:['Farbe','Form','Drehung','Mix'],mode:'Modus',q:{color:'Finde den Kreis mit anderem Farbton',shape:'Finde die Figur mit anderer Form',rot:'Finde das gedrehte Symbol'},
   i:{color:'Viele gleiche Kreise, einer hat einen anderen Farbton. Tippe ihn so schnell wie möglich.',shape:'Alle Figuren sind gleich, bis auf eine mit etwas anderer Form (Oval unter Kreisen, runde Ecken, andere Seitenzahl). Finde und tippe sie.',rot:'Alle Symbole zeigen in dieselbe Richtung, eines ist gedreht. Finde und tippe es.',mix:'Jede Runde zufällig: Farbe, Form oder Drehung.'},
-  lv:{color:['6×7 · deutlicher Unterschied','9×10 · kleinerer Unterschied','12×13 · feiner Unterschied'],shape:['5×6 · deutlich','6×8 · merklich','7×9 · fein'],rot:['5×6 · 90–180°','6×8 · 30–45°','7×9 · 12–20°'],mix:['alle Modi · leicht','alle Modi · mittel','alle Modi · schwer']}},
+  lv:{color:['6×7 · deutlicher Unterschied','9×10 · kleinerer Unterschied','12×13 · sehr fein'],shape:['5×6 · merklich','8×10 · fein','10×12 · kaum sichtbar'],rot:['5×6 · 15–25°','8×10 · 7–10°','10×12 · 3–5°'],mix:['alle Modi · leicht','alle Modi · mittel','alle Modi · schwer']}},
  es:{m:['Color','Forma','Giro','Mezcla'],mode:'Modo',q:{color:'Encuentra el círculo de otro tono',shape:'Encuentra la figura de otra forma',rot:'Encuentra el símbolo girado'},
   i:{color:'Muchos círculos iguales y uno con otro tono. Tócalo lo más rápido posible.',shape:'Todas las figuras son iguales salvo una con forma algo distinta (un óvalo entre círculos, esquinas redondeadas, otro número de lados). Encuéntrala y tócala.',rot:'Todos los símbolos miran hacia el mismo lado y uno está girado. Encuéntralo y tócalo.',mix:'Cada ronda al azar: color, forma o giro.'},
-  lv:{color:['6×7 · diferencia clara','9×10 · diferencia menor','12×13 · diferencia sutil'],shape:['5×6 · evidente','6×8 · notable','7×9 · sutil'],rot:['5×6 · 90–180°','6×8 · 30–45°','7×9 · 12–20°'],mix:['todos los modos · fácil','todos los modos · medio','todos los modos · difícil']}},
+  lv:{color:['6×7 · diferencia clara','9×10 · diferencia menor','12×13 · muy sutil'],shape:['5×6 · notable','8×10 · sutil','10×12 · apenas visible'],rot:['5×6 · 15–25°','8×10 · 7–10°','10×12 · 3–5°'],mix:['todos los modos · fácil','todos los modos · medio','todos los modos · difícil']}},
  zh:{m:['颜色','形状','旋转','混合'],mode:'模式',q:{color:'找出色调不同的圆',shape:'找出形状不同的图形',rot:'找出被旋转的符号'},
   i:{color:'许多相同的圆，其中一个色调不同。尽快点击它。',shape:'所有图形都相同，只有一个形状略有不同（圆中的椭圆、圆角、边数不同）。找到并点击它。',rot:'所有符号朝向相同，只有一个被旋转。找到并点击它。',mix:'每轮随机：颜色、形状或旋转。'},
-  lv:{color:['6×7 · 差异明显','9×10 · 差异较小','12×13 · 差异细微'],shape:['5×6 · 明显','6×8 · 较明显','7×9 · 细微'],rot:['5×6 · 90–180°','6×8 · 30–45°','7×9 · 12–20°'],mix:['全部模式 · 简单','全部模式 · 中等','全部模式 · 困难']}}
+  lv:{color:['6×7 · 差异明显','9×10 · 差异较小','12×13 · 极细微'],shape:['5×6 · 较明显','8×10 · 细微','10×12 · 几乎看不出'],rot:['5×6 · 15–25°','8×10 · 7–10°','10×12 · 3–5°'],mix:['全部模式 · 简单','全部模式 · 中等','全部模式 · 困难']}}
 };
 var VS_MODES=['color','shape','rot','mix'];
 function vsL(){return VS82[curLang]||VS82.en;}
@@ -13300,10 +13300,10 @@ function vsSetMode(m){dbSet('vs_mode',m);if(window.nfUx)nfUx('tap');vsPaint();}
 /* vector shapes; viewBox -50..50 */
 function vsPoly(n,r,rot){var p=[];for(var k=0;k<n;k++){var a=(rot||0)+(-90+360*k/n)*Math.PI/180;p.push((r*Math.cos(a)).toFixed(2)+','+(r*Math.sin(a)).toFixed(2));}return '<polygon points="'+p.join(' ')+'"/>';}
 var VS_SHAPES={
- circle:function(d,odd){var k=[0.66,0.8,0.87][d];return odd?'<ellipse rx="40" ry="'+(40*k).toFixed(1)+'"/>':'<circle r="40"/>';},
- square:function(d,odd){var rx=[26,17,12][d];return '<rect x="-36" y="-36" width="72" height="72" rx="'+(odd?rx:0)+'"/>';},
- poly:function(d,odd){var pr=[[3,5],[5,6],[6,7]][d];return vsPoly(odd?pr[1]:pr[0],42);},
- rect:function(d,odd){var k=[0.62,0.78,0.86][d];return odd?'<rect x="-38" y="'+(-38*k).toFixed(1)+'" width="76" height="'+(76*k).toFixed(1)+'" rx="4"/>':'<rect x="-38" y="-38" width="76" height="76" rx="4"/>';}
+ circle:function(d,odd){var k=[0.84,0.9,0.94][d];return odd?'<ellipse rx="40" ry="'+(40*k).toFixed(1)+'"/>':'<circle r="40"/>';},
+ square:function(d,odd){var rx=[14,8,5][d];return '<rect x="-36" y="-36" width="72" height="72" rx="'+(odd?rx:0)+'"/>';},
+ poly:function(d,odd){var pr=[[5,6],[6,7],[7,8]][d];return vsPoly(odd?pr[1]:pr[0],42);},
+ rect:function(d,odd){var k=[0.85,0.91,0.94][d];return odd?'<rect x="-38" y="'+(-38*k).toFixed(1)+'" width="76" height="'+(76*k).toFixed(1)+'" rx="4"/>':'<rect x="-38" y="-38" width="76" height="76" rx="4"/>';}
 };
 var VS_SYMS={
  arrow:'M0 36V-32M-22-10L0-34L22-10', T:'M-30-30H30M0-30V36', L:'M-16-36V30H24', chev:'M-32 16L0-16L32 16', F:'M-14 36V-34H22M-14-2H14'
@@ -13311,8 +13311,8 @@ var VS_SYMS={
 function vsSvg(inner,rot,stroke){return '<svg viewBox="-50 -50 100 100" shape-rendering="geometricPrecision"><g'+(rot?' transform="rotate('+rot.toFixed(1)+')"':'')+(stroke?' fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"':' fill="#fff"')+'>'+inner+'</g></svg>';}
 function cogVisualSearch(body,p){
   var diff=_cogDiff(),MODE=vsMode(),ROUNDS=[5,6,8][diff],L=vsL();
-  var CG={cols:[6,9,12][diff],rows:[7,10,13][diff]},SG={cols:[5,6,7][diff],rows:[6,8,9][diff]};
-  var D=[0.34,0.22,0.19][diff],FLOOR=[0.28,0.18,0.16][diff],BASE=0.55,ANG=[[90,180],[30,45],[12,20]][diff];
+  var CG={cols:[6,9,12][diff],rows:[7,10,13][diff]},SG={cols:[5,8,10][diff],rows:[6,10,12][diff]};
+  var D=[0.34,0.2,0.15][diff],FLOOR=[0.28,0.16,0.12][diff],BASE=0.55,ANG=[[15,25],[7,10],[3,5]][diff];
   var plan=[];for(var r=0;r<ROUNDS;r++)plan.push(MODE==='mix'?null:MODE);
   if(MODE==='mix'){var bag=[];while(bag.length<ROUNDS)bag=bag.concat(cgShuffle(['color','shape','rot']));plan=bag.slice(0,ROUNDS);
     for(var q=1;q<plan.length;q++)if(plan[q]===plan[q-1]){var j=(q+1)%plan.length;var t=plan[q];plan[q]=plan[j];plan[j]=t;}}
@@ -13353,57 +13353,9 @@ function cogVisualSearch(body,p){
   }
   next();
 }
-/* v108.2: Stroop — shuffled answer buttons whose labels are colour words in mismatched ink (medium/hard), adaptive time window */
-var ST82={
- ru:{lv:['3 цвета · 4→2,4 с','4 цвета · кнопки путаются · 2,5→1,4 с','5 цветов · кнопки путаются · 1,6→0,8 с'],add:' На среднем и сложном кнопки меняются местами, а их надписи окрашены в чужие цвета — читай слово на кнопке. Каждый верный ответ немного сокращает время, ошибка возвращает шаг назад.'},
- en:{lv:['3 colours · 4→2.4 s','4 colours · shuffled buttons · 2.5→1.4 s','5 colours · shuffled buttons · 1.6→0.8 s'],add:' On medium and hard the buttons swap places and their labels are printed in the wrong colours — read the word on the button. Each correct answer shortens the time a little, a mistake gives a step back.'},
- de:{lv:['3 Farben · 4→2,4 s','4 Farben · Tasten gemischt · 2,5→1,4 s','5 Farben · Tasten gemischt · 1,6→0,8 s'],add:' Auf mittel und schwer wechseln die Tasten die Plätze und ihre Beschriftungen sind in falschen Farben — lies das Wort auf der Taste. Jede richtige Antwort verkürzt die Zeit etwas, ein Fehler gibt einen Schritt zurück.'},
- es:{lv:['3 colores · 4→2,4 s','4 colores · botones mezclados · 2,5→1,4 s','5 colores · botones mezclados · 1,6→0,8 s'],add:' En medio y difícil los botones cambian de sitio y sus textos están en colores equivocados: lee la palabra del botón. Cada acierto acorta un poco el tiempo; un error devuelve un paso atrás.'},
- zh:{lv:['3 色 · 4→2.4 秒','4 色 · 按钮打乱 · 2.5→1.4 秒','5 色 · 按钮打乱 · 1.6→0.8 秒'],add:'中等和困难难度下按钮会换位置，按钮上的文字用错误的颜色显示——请读按钮上的字。每答对一次时间稍微缩短，答错会退回一步。'}
-};
-(function(){for(var l in ST82){if(CG_T[l])CG_T[l].lv_stroop=ST82[l].lv;if(COG_T[l]&&COG_T[l].stroop_i&&COG_T[l].stroop_i.indexOf(ST82[l].add)<0)COG_T[l].stroop_i+=ST82[l].add;}})();
-function stDerange(n){var a;do{a=cgShuffle(Array.from({length:n},function(_,i){return i;}));}while(a.some(function(v,i){return v===i;}));return a;}
-function cogStroop(body,p){
-  var diff=_cogDiff(),total=[12,20,30][diff],limit=[4000,2500,1600][diff],FLOOR=[2400,1400,800][diff],nC=[3,4,5][diff],INC=[0.5,0.75,1][diff],TRICK=diff>0;
-  var L0=NF_ST_CLIPS[curLang]?curLang:'ru';
-  window._cogParams={game:'stroop',d:diff,colors:nC,windowMs:limit,floorMs:FLOOR,step:0.04,shuffle:TRICK?'trial':'session',trickLabels:TRICK,incongruent:INC,trials:total,voice:stVoiceOn(),voiceSrc:'clips'};
-  stLoad(L0);
-  var COL=['#e05555','#4f8ff0','#46b860','#d8c23a','#a066e0'].slice(0,nC),W=CT('st_words'),B=CT('st_btn');
-  var cur=0,correct=0,rt=[],wait=0,lim=limit,order=cgShuffle(Array.from({length:nC},function(_,i){return i;})),lastOrd='',lims=[];
-  function next(){
-    if(cur>=total){var avg=rt.length?Math.round(rt.reduce(function(a,b){return a+b;},0)/rt.length):0;
-      cogShowResult(body,p,correct,total,CT('st_res',{a:correct,b:total,t:avg}));return;}
-    if(cur===0&&stVoiceOn()&&_stBuf[L0]&&!_stBuf[L0].failed&&!stReady(L0)&&wait<1500){wait+=100;_cogTimer(next,100);return;}
-    var wi=Math.floor(Math.random()*nC),ci=wi;if(Math.random()<INC){do{ci=Math.floor(Math.random()*nC);}while(ci===wi);}
-    if(TRICK){do{order=cgShuffle(order.slice());}while(order.join()===lastOrd);lastOrd=order.join();}
-    var ink=TRICK?stDerange(nC):null,on=stVoiceOn(),T=lim;lims.push(T);
-    var h='<div class="cg-pad cg-center"><div class="cg4-top">'+cgCnt(cur+1,total)+
-      '<button class="cg4-voice'+(on?' on':'')+'" id="st-voice" aria-pressed="'+on+'" onclick="stToggleVoice()"><span class="ic">'+(on?CG4_IC.spk:CG4_IC.spkOff)+'</span><span>'+CT('st_voice')+'</span></button></div>'+
-      '<div class="cg-q">'+CT('st_q')+'</div>'+
-      '<div class="cg-tbar nf82-tbar"><i id="stroop-bar" style="background:'+p.color+'"></i></div><div class="nf82-tms" id="stroop-ms">'+(T/1000).toFixed(1)+' s</div>'+
-      '<div id="stroop-word" class="cg-word" style="color:'+COL[ci]+'">'+W[wi]+'</div><div class="cg-colors n'+nC+(TRICK?' nf82-trick':'')+'" id="stroop-btns">';
-    order.forEach(function(i){h+='<button data-i="'+i+'" onclick="cogStroopAns('+i+')">'+(TRICK?'':'<i style="background:'+COL[i]+'"></i>')+
-      '<span'+(TRICK?' style="color:'+COL[ink[i]]+'"':'')+'>'+B[i]+'</span></button>';});
-    body.innerHTML=h+'</div><div class="cg-fb" id="stroop-fb"></div></div>';
-    var bar=document.getElementById('stroop-bar');bar.style.transition='none';bar.style.width='100%';void bar.offsetWidth;bar.style.transition='width '+T+'ms linear';bar.style.width='0%';
-    var ts=Date.now(),done=false;
-    window._cogState={game:'stroop',cur:cur,ink:ci,word:wi,total:total,limitMs:T,order:order.slice(),labelInk:ink,spoken:stSpeak(wi)};
-    function slower(){lim=Math.min(limit,Math.round(lim/0.96));}
-    _cogTimer(function(){if(done)return;done=true;var fb=document.getElementById('stroop-fb');if(fb){fb.textContent=CT('timeout');fb.className='cg-fb bad';}
-      var b=document.querySelector('#stroop-btns button[data-i="'+ci+'"]');if(b)b.classList.add('cg-ring');cogPlayFeedback(false);slower();window._cogState.res='timeout';
-      _cogTimer(function(){cur++;next();},750);},T);
-    window.cogStroopAns=function(i){
-      if(done)return;done=true;var ok=i===ci,b=document.querySelector('#stroop-btns button[data-i="'+i+'"]'),bc=document.querySelector('#stroop-btns button[data-i="'+ci+'"]');
-      if(ok){correct++;rt.push(Date.now()-ts);lim=Math.max(FLOOR,Math.round(lim*0.96));}else{slower();if(bc)bc.classList.add('cg-ring');}
-      window._cogState.res=ok?'ok':'bad';window._cogParams.limits=lims;
-      cgFlash(b,ok);_cogTimer(function(){cur++;next();},ok?300:700);
-    };
-  }
-  next();
-}
-/* v108.2: Go/No-Go — instant pointerdown input, tap attributed to the stimulus visible at tap time (+180 ms grace), no click delay */
+/* v108.2: Go/No-Go — instant pointerdown input, tap attributed to the stimulus visible at tap time (+120 ms grace), no click delay */
 function cogSART(body,p){
-  var diff=_cogDiff(),ms=[1150,820,575][diff],F=3,total=[30,36,45][diff],NG=[4,5,7][diff],GRACE=180,cur=0,correct=0,comm=0,omit=0,_sess=_cogSess;
+  var diff=_cogDiff(),ms=[900,650,450][diff],F=3,total=[30,36,45][diff],NG=[4,5,7][diff],GRACE=120,cur=0,correct=0,comm=0,omit=0,_sess=_cogSess;
   var items=cg4SartItems(total,NG,F),tap=[],shownAt=[],lat=[];
   window._cogParams={game:'sart',d:diff,intervalMs:ms,items:total,nogo:NG,graceMs:GRACE,input:'pointerdown',repeats:items.some(function(v,i){return i&&v===items[i-1];})};
   body.innerHTML='<div class="cg-pad cg-center cg4-sart"><div id="sart-cnt">'+cgCnt(1,total)+'</div><div class="cg-q">'+CT('sart_rule',{n:'<b class="cg-warn">'+F+'</b>'})+'</div>'+
@@ -13461,6 +13413,17 @@ function cogSART(body,p){
     if(t&&t.closest&&(t.closest('#bim-wrap')||e.touches.length>1)&&e.cancelable)e.preventDefault();},{passive:false,capture:true});
   window._bimCancels=0;
 })();
+
+/* v108.3: Stroop — v108.1 behaviour, each level ~22 % faster */
+(function(){var lv={ru:['3 цвета · 3,1 с','4 цвета · 1,9 с','5 цветов · 1,15 с'],en:['3 colours · 3.1 s','4 colours · 1.9 s','5 colours · 1.15 s'],
+  de:['3 Farben · 3,1 s','4 Farben · 1,9 s','5 Farben · 1,15 s'],es:['3 colores · 3,1 s','4 colores · 1,9 s','5 colores · 1,15 s'],zh:['3 色 · 3.1 秒','4 色 · 1.9 秒','5 色 · 1.15 秒']};
+  for(var l in lv)if(CG_T[l])CG_T[l].lv_stroop=lv[l];})();
+/* v108.3: stale-cache guard — GitHub Pages caches for 10 min; if the server has a newer build, reload once to it */
+(function(){try{var cur=(document.querySelector('meta[name=nf-version]')||{}).content;if(!cur||!window.fetch||location.protocol.indexOf('http')!==0)return;
+  fetch(location.pathname+'?nc='+Date.now(),{cache:'no-store'}).then(function(r){return r.text();}).then(function(t){
+    var m=t.match(/<meta name="nf-version" content="([^"]+)"/);if(!m||m[1]===cur)return;
+    var k='nf_reload_'+m[1];if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1');
+    location.replace(location.pathname+'?v='+m[1].replace(/\D/g,'')+'&r='+Date.now());}).catch(function(){});}catch(e){}})();
 
 /* v100: run init only after every function/var in this script is defined */
 init();
