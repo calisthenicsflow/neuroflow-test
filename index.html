@@ -7,11 +7,11 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>METAFLEX</title>
-<meta name="nf-version" content="v108.10">
+<meta name="nf-version" content="v108.11">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<link rel="manifest" href="manifest.webmanifest?v=10810">
+<link rel="manifest" href="manifest.webmanifest?v=10811">
 <meta name="theme-color" content="#07070e">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,9 +19,9 @@
 <meta name="apple-mobile-web-app-title" content="METAFLEX">
 <meta name="application-name" content="METAFLEX">
 <meta name="color-scheme" content="dark">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=10810">
-<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png?v=10810">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=10810">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=10811">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png?v=10811">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=10811">
 <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1290x2796.png">
 <link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1179x2556.png">
 <link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1284x2778.png">
@@ -2023,6 +2023,10 @@ input[type=time]::-webkit-inner-spin-button{display:none}
 .cg4-top .cg-cnt{margin:0;}
 .cg4-voice{display:flex;align-items:center;gap:6px;height:40px;padding:0 14px;border-radius:20px;border:1px solid var(--br1);background:transparent;color:var(--t3);font:500 13px 'DM Sans',sans-serif;cursor:pointer;}
 .cg4-voice .ic{display:flex;}
+/* v108.11 */
+.cg4-voice{height:48px;border-radius:24px;}
+.cg-pad:has(>#vs-grid){padding-top:2px;padding-left:12px;padding-right:12px;padding-bottom:calc(var(--sb) + 2px);}
+.cg-pad:has(>#vs-grid)>.cg4-hint{margin-top:6px;height:48px;}
 .cg4-voice.on{color:var(--t1);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);}
 /* SART: huge digit, frame, carousel */
 .cg4-sart{overflow:hidden;}
@@ -7284,7 +7288,7 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=10810';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=10811';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
@@ -12785,7 +12789,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">METAFLEX · '+CT('ver')+' v108.10</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">METAFLEX · '+CT('ver')+' v108.11</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
