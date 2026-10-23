@@ -1,4 +1,4 @@
-const V='1089',SHELL='nf-shell-v'+V,AUDIO='nf-audio-a1';
+const V='10810',SHELL='nf-shell-v'+V,AUDIO='nf-audio-a1';
 const PRE=['./','index.html','manifest.webmanifest','privacy.html'].concat(["assets/fonts/dmmono-19de2e80.woff2", "assets/fonts/dmmono-1cb0636f.woff2", "assets/fonts/dmmono-7e5f82a6.woff2", "assets/fonts/dmmono-a1644b8f.woff2", "assets/fonts/dmsans-8ca1b7f2.woff2", "assets/fonts/dmsans-e8eef872.woff2"],["icons/apple-touch-icon.png", "icons/favicon.ico", "icons/icon-180.png", "icons/icon-192.png", "icons/icon-32.png", "icons/icon-512.png", "icons/maskable-192.png", "icons/maskable-512.png"]);
 const LANGF=["breath_b64_start.mp3", "love_b64_final.mp3", "love_b64_start.mp3", "mant_b64_final.mp3", "mant_b64_start.mp3", "mful_b64_final.mp3", "mful_b64_start.mp3", "open_b64_final.mp3", "open_b64_start.mp3", "skan_b64_final.wav", "skan_b64_start.mp3", "visual_b64_final.mp3", "visual_b64_start.mp3"];
 const WHM=['fast_in','fast_out','medium_in','medium_out','slow_in','slow_out'].map(k=>'assets/whm_'+k+'.wav');
