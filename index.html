@@ -6,8 +6,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>NEURO.FLOW</title>
-<meta name="nf-version" content="v108.8">
+<title>Synapse</title>
+<meta name="nf-version" content="v108.9">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -16,8 +16,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="NeuroFlow">
-<meta name="application-name" content="NeuroFlow">
+<meta name="apple-mobile-web-app-title" content="Synapse">
+<meta name="application-name" content="Synapse">
 <meta name="color-scheme" content="dark">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
@@ -208,7 +208,7 @@
 
 
 /* ═══════════════════════════════════════════════════════════
-   NEUROFLOW — DESIGN SYSTEM v2
+   SYNAPSE — DESIGN SYSTEM v2
    Premium Dark / Calm-Tech / Wellness-Neuro
    Spacing: 8 · 12 · 16 · 20 · 24
    Radii:   card=20px  panel=16px  ctrl=12px  pill=100px
@@ -2201,7 +2201,7 @@ input[type=range]::-moz-range-track{height:3px;border-radius:2px;background:rgba
 <!-- ═══ DASHBOARD ═══════════════════════════════════════ -->
 <div id="dashboard" class="scr active">
   <div class="dh">
-    <span class="logo">Neuro · Flow</span>
+    <span class="logo">Synapse</span>
     <div class="dh-r">
       <!-- Кнопка смены языка (глобальная) -->
       <div class="icon-btn" id="setBtn" onclick="nfOpenSettings()" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.72)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></div>
@@ -6489,14 +6489,14 @@ function remToIcs(r){
   var now = new Date();
   var dtstart = icsDateTimeLocal(now, r.time);
   var uid = 'neuroflow-' + r.id + '@neuroflow.app';
-  var summary = r.label || 'NeuroFlow';
+  var summary = r.label || 'Synapse';
   var rrule = byday === 'MO,TU,WE,TH,FR,SA,SU'
     ? 'RRULE:FREQ=DAILY'
     : 'RRULE:FREQ=WEEKLY;BYDAY=' + byday;
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//NeuroFlow//NeuroFlow App//EN',
+    'PRODID:-//Synapse//Synapse App//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
@@ -6506,7 +6506,7 @@ function remToIcs(r){
     'DTEND;TZID=Europe/Moscow:' + icsDateTimeLocal(now, r.time, 15),
     rrule,
     'SUMMARY:' + summary,
-    'DESCRIPTION:NeuroFlow — напоминание о дыхательной практике',
+    'DESCRIPTION:Synapse — напоминание о дыхательной практике',
     'BEGIN:VALARM',
     'TRIGGER:-PT0M',
     'ACTION:DISPLAY',
@@ -6532,7 +6532,7 @@ function habToIcs(h){
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//NeuroFlow//NeuroFlow App//EN',
+    'PRODID:-//Synapse//Synapse App//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
@@ -6542,7 +6542,7 @@ function habToIcs(h){
     'DTEND;TZID=Europe/Moscow:' + icsDateTimeLocal(now, time, 15),
     rrule,
     'SUMMARY:' + summary,
-    'DESCRIPTION:NeuroFlow — ежедневная привычка',
+    'DESCRIPTION:Synapse — ежедневная привычка',
     'BEGIN:VALARM',
     'TRIGGER:-PT0M',
     'ACTION:DISPLAY',
@@ -6582,14 +6582,14 @@ function exportRemToCalendar(remId){
   var rems = getReminders();
   var r = rems.find(function(x){return x.id===remId;});
   if(!r) return;
-  downloadIcs(remToIcs(r), 'neuroflow-reminder.ics');
+  downloadIcs(remToIcs(r), 'synapse-reminder.ics');
 }
 
 function exportHabToCalendar(habId){
   var habits = getHabits();
   var h = habits.find(function(x){return x.id===habId;});
   if(!h) return;
-  downloadIcs(habToIcs(h), 'neuroflow-habit.ics');
+  downloadIcs(habToIcs(h), 'synapse-habit.ics');
 }
 
 /* ── Browser notification scheduling ── */
@@ -7284,7 +7284,7 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1088';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=1089';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
@@ -12785,7 +12785,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">NeuroFlow · '+CT('ver')+' v108.8</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">Synapse · '+CT('ver')+' v108.9</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -13643,7 +13643,7 @@ function cogPrediction(body,p){
 /* privacy policy */
 var NF_PRIV={
 ru:{row:'Политика конфиденциальности',sec:'О приложении',t:'Политика конфиденциальности',upd:'Обновлено: 21 октября 2026',
- p:[['Коротко','NeuroFlow не собирает, не передаёт и не продаёт никакие данные. Всё, что вы делаете в приложении, остаётся только на вашем устройстве.'],
+ p:[['Коротко','Synapse не собирает, не передаёт и не продаёт никакие данные. Всё, что вы делаете в приложении, остаётся только на вашем устройстве.'],
  ['Какие данные хранятся','Настройки, язык, привычки, результаты упражнений и история практик сохраняются в локальном хранилище браузера на вашем устройстве. Они никуда не отправляются.'],
  ['Аккаунты','Регистрации и аккаунтов нет. Мы не знаем, кто вы.'],
  ['Аналитика и реклама','Нет аналитики, трекеров, рекламы и cookie третьих сторон. Шрифты и звуки загружаются с того же сайта, что и приложение.'],
@@ -13651,7 +13651,7 @@ ru:{row:'Политика конфиденциальности',sec:'О прил
  ['Удаление данных','Чтобы удалить все данные, очистите данные сайта в настройках браузера или удалите приложение с главного экрана.'],
  ['Контакты','Вопросы о конфиденциальности: calistenicsflow@gmail.com']]},
 en:{row:'Privacy policy',sec:'About',t:'Privacy policy',upd:'Updated: 21 October 2026',
- p:[['In short','NeuroFlow does not collect, share or sell any data. Everything you do in the app stays on your device only.'],
+ p:[['In short','Synapse does not collect, share or sell any data. Everything you do in the app stays on your device only.'],
  ['What is stored','Settings, language, habits, exercise results and practice history are saved in your browser\u2019s local storage on your device. They are never sent anywhere.'],
  ['Accounts','There is no sign-up and there are no accounts. We do not know who you are.'],
  ['Analytics and ads','No analytics, trackers, ads or third-party cookies. Fonts and sounds are loaded from the same site as the app.'],
@@ -13659,7 +13659,7 @@ en:{row:'Privacy policy',sec:'About',t:'Privacy policy',upd:'Updated: 21 October
  ['Deleting data','To delete all data, clear this site\u2019s data in your browser settings or remove the app from your home screen.'],
  ['Contact','Privacy questions: calistenicsflow@gmail.com']]},
 de:{row:'Datenschutz',sec:'Über die App',t:'Datenschutzerklärung',upd:'Aktualisiert: 21. Oktober 2026',
- p:[['Kurz gesagt','NeuroFlow erhebt, teilt oder verkauft keine Daten. Alles, was du in der App tust, bleibt ausschließlich auf deinem Gerät.'],
+ p:[['Kurz gesagt','Synapse erhebt, teilt oder verkauft keine Daten. Alles, was du in der App tust, bleibt ausschließlich auf deinem Gerät.'],
  ['Was gespeichert wird','Einstellungen, Sprache, Gewohnheiten, Übungsergebnisse und Verlauf werden im lokalen Speicher deines Browsers auf deinem Gerät gespeichert. Sie werden nirgendwohin gesendet.'],
  ['Konten','Keine Registrierung, keine Konten. Wir wissen nicht, wer du bist.'],
  ['Analyse und Werbung','Keine Analyse, keine Tracker, keine Werbung, keine Drittanbieter-Cookies. Schriften und Klänge werden von derselben Website wie die App geladen.'],
@@ -13667,7 +13667,7 @@ de:{row:'Datenschutz',sec:'Über die App',t:'Datenschutzerklärung',upd:'Aktuali
  ['Daten löschen','Um alle Daten zu löschen, lösche die Website-Daten in den Browsereinstellungen oder entferne die App vom Startbildschirm.'],
  ['Kontakt','Fragen zum Datenschutz: calistenicsflow@gmail.com']]},
 es:{row:'Privacidad',sec:'Acerca de',t:'Política de privacidad',upd:'Actualizado: 21 de octubre de 2026',
- p:[['En resumen','NeuroFlow no recopila, comparte ni vende ningún dato. Todo lo que haces en la app se queda solo en tu dispositivo.'],
+ p:[['En resumen','Synapse no recopila, comparte ni vende ningún dato. Todo lo que haces en la app se queda solo en tu dispositivo.'],
  ['Qué se guarda','Ajustes, idioma, hábitos, resultados de ejercicios e historial se guardan en el almacenamiento local del navegador en tu dispositivo. Nunca se envían a ningún sitio.'],
  ['Cuentas','No hay registro ni cuentas. No sabemos quién eres.'],
  ['Analítica y anuncios','Sin analítica, rastreadores, anuncios ni cookies de terceros. Las fuentes y los sonidos se cargan desde el mismo sitio que la app.'],
@@ -13675,7 +13675,7 @@ es:{row:'Privacidad',sec:'Acerca de',t:'Política de privacidad',upd:'Actualizad
  ['Borrar datos','Para borrar todos los datos, elimina los datos de este sitio en los ajustes del navegador o quita la app de la pantalla de inicio.'],
  ['Contacto','Preguntas sobre privacidad: calistenicsflow@gmail.com']]},
 zh:{row:'隐私政策',sec:'关于',t:'隐私政策',upd:'更新日期：2026年10月21日',
- p:[['简要说明','NeuroFlow 不收集、不共享、不出售任何数据。你在应用中的一切操作都只保存在你的设备上。'],
+ p:[['简要说明','Synapse 不收集、不共享、不出售任何数据。你在应用中的一切操作都只保存在你的设备上。'],
  ['存储的内容','设置、语言、习惯、练习成绩和历史记录保存在你设备上浏览器的本地存储中，绝不会被发送到任何地方。'],
  ['账户','无需注册，没有账户。我们不知道你是谁。'],
  ['分析与广告','没有数据分析、跟踪器、广告或第三方 Cookie。字体和声音均从应用所在的同一网站加载。'],
