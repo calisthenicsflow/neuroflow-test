@@ -7,11 +7,11 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>METAFLEX</title>
-<meta name="nf-version" content="v108.11">
+<meta name="nf-version" content="v108.12">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<link rel="manifest" href="manifest.webmanifest?v=10811">
+<link rel="manifest" href="manifest.webmanifest?v=10812">
 <meta name="theme-color" content="#07070e">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,9 +19,9 @@
 <meta name="apple-mobile-web-app-title" content="METAFLEX">
 <meta name="application-name" content="METAFLEX">
 <meta name="color-scheme" content="dark">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=10811">
-<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png?v=10811">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=10811">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=10812">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png?v=10812">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=10812">
 <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1290x2796.png">
 <link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1179x2556.png">
 <link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1284x2778.png">
@@ -4358,8 +4358,8 @@ function beginPh(ph,now){
       
       
       var _last=(pRound+1)>=pTotRounds;
-      var _rest=curTc.restSec||8;
-      var _next=function(tn){ pRound++; if(_last){endP();return;} pCy=0;updateProgUI();updateDotsUI(); doRecovery(_rest,tn,function(t4){beginPh(0,t4);}); };
+      var _rest=(curTc&&curTc.id==='wim_hof')?(curTc.restSec||5):0;
+      var _next=function(tn){ pRound++; if(_last){endP();return;} pCy=0;updateProgUI();updateDotsUI(); if(_rest>0){doRecovery(_rest,tn,function(t4){beginPh(0,t4);});}else{beginPh(0,tn);} };
       if(!_last){pCy=pTotCy-1;updateProgUI();updateDotsUI();} 
       if(ah1>0){doPostHold(ah1,'hold_exhale_post',now,function(t2){
         if(ah2>0){doPostHold(ah2,'hold_inhale_post',t2,_next);}else{_next(t2);}
@@ -5388,7 +5388,7 @@ function calcDurFull(pat,cyc,rounds,tc){
   pat=pat||[4,0,6,0,0,0];rounds=rounds||1;
   var sum4=(pat[0]||0)+(pat[1]||0)+(pat[2]||0)+(pat[3]||0);
   var extra=(pat[4]||0)+(pat[5]||0);
-  var rest=(tc&&tc.restSec)||8;
+  var rest=(tc&&tc.id==='wim_hof')?((tc&&tc.restSec)||5):0;
   var total=((sum4*(cyc||1)+extra)*rounds+(rounds-1)*rest)/60;
   return Math.max(1,Math.round(total));
 }
@@ -7288,7 +7288,7 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=10811';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=10812';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
@@ -12789,7 +12789,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">METAFLEX · '+CT('ver')+' v108.11</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">METAFLEX · '+CT('ver')+' v108.12</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -13716,6 +13716,90 @@ function nfSwLang(){try{var c=navigator.serviceWorker&&navigator.serviceWorker.c
   var _sl=setLang;setLang=function(l){_sl.apply(this,arguments);nfSwLang();};
 })();
 
+
+
+/* v108.12: Only Wim Hof has multi-round pauses; all other 28 practices flow continuously without inter-cycle/inter-round pauses */
+(function(){
+  if(typeof ALL_TC==='undefined')return;
+  /* 1. Diaphragmatic breathing: remove erroneous 2s hold after exhale ([5,0,7,2] -> [5,0,7,0]) */
+  if(ALL_TC.diaphragmatic) ALL_TC.diaphragmatic.pattern=[5,0,7,0];
+  /* 2. Active energy practices: remove post-round freeze / restSec so cycles flow continuously */
+  if(ALL_TC.bhastrika){
+    ALL_TC.bhastrika.pattern=[1.5,0,1.5,0];
+    delete ALL_TC.bhastrika.restSec;
+    ALL_TC.bhastrika.desc={
+      ru:'Резкий активный вдох и выдох через нос за счёт живота — как кузнечные меха. Дыши ритмично и мощно без пауз между циклами.',
+      en:'Sharp active inhale and exhale through the nose using the belly — like bellows. Breathe rhythmically and powerfully without pauses between cycles.',
+      de:'Scharfes aktives Ein- und Ausatmen durch die Nase mit dem Bauch — wie ein Blasebalg. Rhythmisch und kraftvoll ohne Pausen zwischen den Zyklen.',
+      es:'Inhalación y exhalación activa y rápida por la nariz usando el abdomen, como un fuelle. Respira con ritmo y fuerza sin pausas entre ciclos.',
+      zh:'用腹部通过鼻子急促有力地吸气和呼气——如同风箱。有节奏、有力地连续呼吸，循环之间不停顿。'
+    };
+  }
+  if(ALL_TC.kapalabhati){
+    ALL_TC.kapalabhati.pattern=[0.5,0,0.5,0];
+    ALL_TC.kapalabhati.desc={
+      ru:'Резкий короткий выдох носом (живот резко внутрь), вдох происходит сам — пассивно. Только нос! Ритм 1 раз в секунду без пауз.',
+      en:'Sharp short nasal exhale (belly snaps in), inhale happens passively. Nose only! Rhythm 1 per second without pauses.',
+      de:'Kurzer scharfer Nasenausatem (Bauch schnellt nach innen), Einatem geschieht passiv. Nur durch die Nase! Rhythmus 1 pro Sekunde ohne Pausen.',
+      es:'Exhalación nasal corta y fuerte (el abdomen entra de golpe), la inhalación ocurre sola. ¡Solo nariz! Ritmo 1 por segundo sin pausas.',
+      zh:'用鼻子短促有力呼气（腹部迅速内收），吸气自然被动发生。仅用鼻子！每秒1次，连续不停顿。'
+    };
+  }
+  if(ALL_TC.tummo){
+    ALL_TC.tummo.pattern=[1.5,0,1.5,0];
+    ALL_TC.tummo.desc={
+      ru:'Мощный диафрагмальный вдох с визуализацией огня в животе, свободный непрерывный выдох без пауз между циклами.',
+      en:'Powerful diaphragmatic inhale visualizing fire in the belly, free continuous exhale without pauses between cycles.',
+      de:'Kraftvoller Zwerchfell-Einatem mit Visualisierung von Feuer im Bauch, freier kontinuierlicher Ausatem ohne Pausen zwischen den Zyklen.',
+      es:'Potente inhalación diafragmática visualizando fuego en el abdomen, exhalación libre y continua sin pausas entre ciclos.',
+      zh:'强力腹式吸气并观想腹部火焰，自由连续呼气，循环之间不停顿。'
+    };
+  }
+  /* 3. Continuous single-round levels (rounds:1) for all practices except wim_hof */
+  var LVS={
+    bhastrika:[20,35,50],
+    double_inhale:[15,25,35],
+    kapalabhati:[30,60,90],
+    tummo:[15,25,40],
+    morning_energy:[15,30,45],
+    cold_prep:[20,30,40],
+    box:[6,12,18],
+    coherent:[12,20,30],
+    nadi_shodhana:[8,16,24],
+    tc444:[8,16,24],
+    tc478f:[4,8,12],
+    square_5:[6,10,15],
+    flow_55:[15,25,35],
+    extended_46:[12,20,30],
+    sama_vritti:[10,15,25],
+    cyclic_sigh:[15,25,35],
+    ujjayi:[12,20,30],
+    resonant_65:[10,18,26],
+    tc478s:[4,8,12],
+    extended_48:[10,16,24],
+    diaphragmatic:[10,15,25],
+    slow_57:[10,15,25],
+    pranava:[8,12,18],
+    co2_table:[6,10,14],
+    o2_table:[6,10,14],
+    buteyko:[15,25,40],
+    ladder:[8,12,18],
+    mnt_rescue:[10,18,25]
+  };
+  Object.keys(ALL_TC).forEach(function(id){
+    if(id==='wim_hof')return;
+    var tc=ALL_TC[id];
+    if(!tc)return;
+    if(tc.pattern&&tc.pattern.length>4)tc.pattern=tc.pattern.slice(0,4);
+    delete tc.restSec;
+    var cycs=LVS[id];
+    if(cycs){
+      tc.levels=cycs.map(function(c){return{cycles:c,rounds:1};});
+    }else if(tc.levels){
+      tc.levels=tc.levels.map(function(lv){return{cycles:lv.cycles*(lv.rounds||1),rounds:1};});
+    }
+  });
+})();
 
 init();
 nfWakeInit();
