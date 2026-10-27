@@ -7,11 +7,11 @@
   <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>METAFLEX</title>
-<meta name="nf-version" content="v108.12">
+<meta name="nf-version" content="v108.13">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<link rel="manifest" href="manifest.webmanifest?v=10812">
+<link rel="manifest" href="manifest.webmanifest?v=10813">
 <meta name="theme-color" content="#07070e">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,9 +19,9 @@
 <meta name="apple-mobile-web-app-title" content="METAFLEX">
 <meta name="application-name" content="METAFLEX">
 <meta name="color-scheme" content="dark">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=10812">
-<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png?v=10812">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=10812">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=10813">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png?v=10813">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=10813">
 <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1290x2796.png">
 <link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1179x2556.png">
 <link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/splash-1284x2778.png">
@@ -3979,7 +3979,7 @@ function openStateMenu(state){
 function buildTcCard(tc,state,nm,tag,color,isPrimary){
   var lv=tc.levels&&tc.levels[1]?tc.levels[1]:{cycles:tc.defCycles||10,rounds:1};
   var dur=calcDurFull(tc.pattern,lv.cycles,lv.rounds,tc);
-  var ps=psStr(tc.pattern);
+  var ps=psStr(tc.pattern,tc);
   var ico=ICONS[tc.icon]||ICONS.wave;
   return'<div class="tc'+(isPrimary?' tc-primary':'')+'" data-id="'+tc.id+'" data-st="'+state+'" onclick="openTD(this.dataset.id,this.dataset.st)"'+
     (isPrimary?' style="border-color:'+hexA(color,.28)+';background:'+hexA(color,.06)+'"':'')+'>'+
@@ -4012,11 +4012,23 @@ function openTD(id,state){
   document.getElementById('dCat').textContent=(s?s.name[curLang]||s.name.ru:state||tc.cat);
   document.getElementById('dbg').style.background='radial-gradient(ellipse 88% 58% at 50% 14%,'+hexA(col,.2)+' 0%,transparent 64%)';
 
+  var _lvIdx=(!arguments[2])?1:(typeof selLv==='number'?selLv:1);
+  var _lvObj=(tc.levels&&tc.levels[_lvIdx])||tc.levels&&tc.levels[1]||{cycles:10,rounds:1};
   var blks=tc.pattern.map(function(v,i){
     if(!v&&i!==0)return'';
     var phKeys=['phase_inhale','phase_hold_in','phase_exhale','phase_hold_ex','phase_hold_ex','phase_hold_in'];
     var lb=t(phKeys[Math.min(i,phKeys.length-1)]);
-    return'<div class="dpb"><div class="dpn">'+v+'</div><div class="dpl">'+lb+'</div></div>';
+    var dispV=v;
+    if(typeof isDoubleInhaleTc==='function'&&isDoubleInhaleTc(tc)&&i===1){
+      lb=({ru:'Довдох',en:'Top-up',de:'Nachzug',es:'Recarga',zh:'补吸'})[curLang]||'Довдох';
+    }else if(tc.id==='ladder'&&i===3){
+      var pk=5+Math.floor(((_lvObj.cycles||12)-1)/2)*5;
+      dispV='5→'+pk+'→5';
+    }else if(tc.id==='o2_table'&&i===1){
+      var mx=15+((_lvObj.cycles||8)-1)*5;
+      dispV='15→'+mx;
+    }
+    return'<div class="dpb"><div class="dpn">'+dispV+'</div><div class="dpl">'+lb+'</div></div>';
   }).filter(function(x,i){return x||i===0;}).join('');
 
   var ico=ICONS[tc.icon]||ICONS.wave;
@@ -4058,7 +4070,7 @@ function openSetup(){
   var iw=document.getElementById('sIcoWrap');
   if(iw){iw.style.cssText='background:'+hexA(col,.16)+';color:'+col+';width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center';iw.innerHTML=ico;}
   document.getElementById('sNm').textContent=nm;
-  document.getElementById('sPat').textContent=psStr(curTc.pattern);
+  document.getElementById('sPat').textContent=psStr(curTc.pattern,curTc);
   selLv=1;
   var lvs=getLevels(curTc);
   document.getElementById('lvRow').innerHTML=lvs.map(function(lv,i){
@@ -4075,6 +4087,17 @@ function pickLv(i){selLv=i;document.querySelectorAll('.lv').forEach(function(b,j
 function pickLvTD(i){
   selLv=i;
   document.querySelectorAll('.d-rb').forEach(function(b,j){b.classList.toggle('sel',j===i);});
+  if(curTc&&(curTc.id==='ladder'||curTc.id==='o2_table')&&curTc.levels&&curTc.levels[i]){
+    var cyc=curTc.levels[i].cycles||8;
+    var dpns=document.querySelectorAll('#dBody .dpb .dpn');
+    if(curTc.id==='ladder'&&dpns[2]){
+      var pk=5+Math.floor((cyc-1)/2)*5;
+      dpns[2].textContent='5→'+pk+'→5';
+    }else if(curTc.id==='o2_table'&&dpns[1]){
+      var mx=15+(cyc-1)*5;
+      dpns[1].textContent='15→'+mx;
+    }
+  }
 }
 function closeSetup(){document.getElementById('setupOv').classList.remove('on');}
 function closeSetupOut(e){if(e.target===document.getElementById('setupOv'))closeSetup();}
@@ -4293,7 +4316,7 @@ function launch(tc,cycles,rounds){
   pRun=true;pPause=false;pSesSt=Date.now();
   var nm=tc.name[curLang]||tc.name.ru;
   // Pattern string for sub-title
-  var ps=psStr(tc.pattern);
+  var ps=psStr(tc.pattern,tc);
   document.getElementById('pNm').textContent=nm;
   // pPat удалён, название практики теперь в .p-nm id=pNm
   document.getElementById('pBtnSvg').innerHTML=
@@ -4347,7 +4370,7 @@ var PHASE_LABELS_ZH=['吸气','屏息','呼气','屏息'];
 function beginPh(ph,now){
   if(!pRun||!curTc)return; // safety guard
   var _guard=0;
-  while(ph<4&&!curTc.pattern[ph]){ph++;_guard++;if(_guard>5)break;}
+  while(ph<4&&!((typeof getDynamicPhaseDur==='function')?getDynamicPhaseDur(curTc,ph,pCy,pTotCy):curTc.pattern[ph])){ph++;_guard++;if(_guard>5)break;}
   if(ph>=4){
     pCy++;
     if(pCy>=pTotCy){
@@ -4355,12 +4378,10 @@ function beginPh(ph,now){
       var pat=curTc.pattern;
       var ah1=pat[4]||0; // hold after exhale (post-round)
       var ah2=pat[5]||0; // hold after inhale (post-round)
-      
-      
       var _last=(pRound+1)>=pTotRounds;
       var _rest=(curTc&&curTc.id==='wim_hof')?(curTc.restSec||5):0;
       var _next=function(tn){ pRound++; if(_last){endP();return;} pCy=0;updateProgUI();updateDotsUI(); if(_rest>0){doRecovery(_rest,tn,function(t4){beginPh(0,t4);});}else{beginPh(0,tn);} };
-      if(!_last){pCy=pTotCy-1;updateProgUI();updateDotsUI();} 
+      if(!_last){pCy=pTotCy-1;updateProgUI();updateDotsUI();}
       if(ah1>0){doPostHold(ah1,'hold_exhale_post',now,function(t2){
         if(ah2>0){doPostHold(ah2,'hold_inhale_post',t2,_next);}else{_next(t2);}
       });}else if(ah2>0){doPostHold(ah2,'hold_inhale_post',now,_next);}
@@ -4369,11 +4390,11 @@ function beginPh(ph,now){
     }
     updateProgUI();updateDotsUI();beginPh(0,now);return;
   }
-  pPh=ph;pPhDur=curTc.pattern[ph]*1000;pPhSt=now;
-  var phVal=curTc.pattern[ph];
+  var phVal=(typeof getDynamicPhaseDur==='function')?getDynamicPhaseDur(curTc,ph,pCy,pTotCy):curTc.pattern[ph];
+  pPh=ph;pPhDur=phVal*1000;pPhSt=now;
   pCurT=phVal<1?phVal:Math.ceil(phVal);
   var labels={ru:PHASE_LABELS_RU,en:PHASE_LABELS_EN,de:PHASE_LABELS_DE,es:PHASE_LABELS_ES,zh:PHASE_LABELS_ZH}[curLang]||PHASE_LABELS_RU;
-  document.getElementById('pLbl').textContent=labels[ph];
+  document.getElementById('pLbl').textContent=(typeof getTechPhaseLabel==='function')?getTechPhaseLabel(curTc,ph,pCy):labels[ph];
   document.getElementById('pTim').textContent=phVal<1&&phVal>0?phVal.toFixed(1):Math.ceil(phVal);
   playPhaseSound(ph);
   setPT(ph);
@@ -4647,11 +4668,18 @@ function initParts(){
 
 
 function setPT(ph){
+  var _isDbl=(typeof isDoubleInhaleTc==='function'&&isDoubleInhaleTc(curTc));
   parts.forEach(function(p){
-    // ph=0: inhale → expand to full
-    if(ph===0){p.tR=0.74+Math.random()*0.24; p.tOp=0.38+Math.random()*0.50;}
-    // ph=1: hold inhale → stay expanded
-    else if(ph===1){p.tR=p.r; p.tOp=p.op;}
+    // ph=0: inhale → expand (to ~70% for 2-step double inhale, or full for standard)
+    if(ph===0){
+      if(_isDbl){p.tR=0.54+Math.random()*0.16; p.tOp=0.30+Math.random()*0.36;}
+      else{p.tR=0.74+Math.random()*0.24; p.tOp=0.38+Math.random()*0.50;}
+    }
+    // ph=1: top-up sip expand to 100% for double inhale, or stay expanded for hold
+    else if(ph===1){
+      if(_isDbl){p.tR=0.80+Math.random()*0.20; p.tOp=0.44+Math.random()*0.50;}
+      else{p.tR=p.r; p.tOp=p.op;}
+    }
     // ph=2: exhale → contract
     else if(ph===2){p.tR=0.05+Math.random()*0.09; p.tOp=0.06+Math.random()*0.16;}
     // ph=3: hold exhale → stay contracted
@@ -4662,7 +4690,8 @@ function setPT(ph){
 
 
 function interpParts(){
-  if(pPh===1||pPh===3)return;
+  var _isDbl=(typeof isDoubleInhaleTc==='function'&&isDoubleInhaleTc(curTc));
+  if((pPh===1&&!_isDbl)||pPh===3)return;
   var t=pPhDur>0?Math.min(1,(performance.now()-pPhSt)/pPhDur):1;
   // Smooth cubic ease
   var e=t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
@@ -4682,7 +4711,11 @@ function initNostrilParticles(){
 }
 function drawNostrilFlow(cx,cy,R,col,c1,t){
   if(!_nsParticles)initNostrilParticles();
-  var activeSide=(pCy%2===0)?1:-1;
+  var isEx=(pPh===2);
+  /* Classical Nadi Shodhana:
+     even pCy (Cycle 1,3,5): Inhale Left (-1) -> Hold -> Exhale Right (+1)
+     odd  pCy (Cycle 2,4,6): Inhale Right (+1) -> Hold -> Exhale Left (-1) */
+  var activeSide=((pCy%2===0)?(isEx?1:-1):(isEx?-1:1));
   var noseW=R*1.5,noseH=R*0.9;
   var nostrilR=R*0.22;
   var leftX=cx-noseW*0.32,rightX=cx+noseW*0.32;
@@ -4951,6 +4984,9 @@ function drawP(now){
       ctx.fill();
     }
   }
+  if(curTc&&curTc.id==='nadi_shodhana'){
+    drawNostrilFlow(cx,cy,R,col,c1,t);
+  }
 }
 
 
@@ -5049,18 +5085,24 @@ function playInhaleSound(dur) {
   vib(VIB.inhale);
   var ac = getAC(); if (!ac) return;
   stopBreathSound();
-  var d = dur || 4;
+  var d = Math.max(0.25, dur || 4);
   ensureBreathBufs(ac, function(){
-    // Pick nearest inhale file: ≤2s → in2, >2s → in4
-    var buf = (d <= 2) ? _breathIn2Buf : _breathIn4Buf;
+    var buf = (d <= 2.4) ? _breathIn2Buf : _breathIn4Buf;
     if(!buf){ _playBreathNoise(ac,'inhale',d); return; }
     try{
       var src = ac.createBufferSource();
       src.buffer = buf;
+      var rate = buf.duration > 0.1 ? (buf.duration / d) : 1.0;
+      src.playbackRate.value = Math.max(0.55, Math.min(2.8, rate));
       var gain = ac.createGain();
-      gain.gain.setValueAtTime(0.40, ac.currentTime);
+      var t0 = ac.currentTime, t1 = t0 + d;
+      gain.gain.setValueAtTime(0.01, t0);
+      gain.gain.linearRampToValueAtTime(0.40, Math.min(t1, t0 + Math.min(0.05, d * 0.15)));
+      gain.gain.setValueAtTime(0.40, Math.max(t0, t1 - Math.min(0.25, d * 0.22)));
+      gain.gain.linearRampToValueAtTime(0.0001, t1);
       src.connect(gain); gain.connect(ac.destination);
-      src.start(ac.currentTime);
+      src.start(t0);
+      src.stop(t1 + 0.03);
       _breathSrc = src; _breathGain = gain;
     }catch(e){}
   });
@@ -5098,22 +5140,28 @@ function playExhaleSound(dur) {
   vib(VIB.exhale);
   var ac = getAC(); if (!ac) return;
   stopBreathSound();
-  var d = dur || 6;
+  var d = Math.max(0.25, dur || 6);
   ensureBreathBufs(ac, function(){
-    // Pick nearest exhale file: ≤2→out2, ≤4→out4, ≤6→out6, >6→out8
     var buf;
-    if(d <= 2) buf = _breathOut2Buf;
-    else if(d <= 4) buf = _breathOut4Buf;
-    else if(d <= 6) buf = _breathOut6Buf;
+    if(d <= 2.4) buf = _breathOut2Buf;
+    else if(d <= 4.5) buf = _breathOut4Buf;
+    else if(d <= 6.8) buf = _breathOut6Buf;
     else buf = _breathOut8Buf;
     if(!buf){ _playBreathNoise(ac,'exhale',d); return; }
     try{
       var src = ac.createBufferSource();
       src.buffer = buf;
+      var rate = buf.duration > 0.1 ? (buf.duration / d) : 1.0;
+      src.playbackRate.value = Math.max(0.55, Math.min(2.8, rate));
       var gain = ac.createGain();
-      gain.gain.setValueAtTime(0.40, ac.currentTime);
+      var t0 = ac.currentTime, t1 = t0 + d;
+      gain.gain.setValueAtTime(0.01, t0);
+      gain.gain.linearRampToValueAtTime(0.40, Math.min(t1, t0 + Math.min(0.05, d * 0.15)));
+      gain.gain.setValueAtTime(0.40, Math.max(t0, t1 - Math.min(0.30, d * 0.22)));
+      gain.gain.linearRampToValueAtTime(0.0001, t1);
       src.connect(gain); gain.connect(ac.destination);
-      src.start(ac.currentTime);
+      src.start(t0);
+      src.stop(t1 + 0.03);
       _breathSrc = src; _breathGain = gain;
     }catch(e){}
   });
@@ -5242,7 +5290,10 @@ function playPhaseSound(ph) {
   if (dbGet('sound_on') !== false) {
     var pat = curTc && curTc.pattern ? curTc.pattern : [];
     if      (ph === 0) playInhaleSound(pat[0] || 4);
-    else if (ph === 1) startTickSound();
+    else if (ph === 1) {
+      if (typeof isDoubleInhaleTc==='function' && isDoubleInhaleTc(curTc)) playInhaleSound(pat[1] || 1);
+      else startTickSound();
+    }
     else if (ph === 2) playExhaleSound(pat[2] || 6);
     else if (ph === 3) startTickSound();
   }
@@ -5370,7 +5421,7 @@ function renderCal(y,m,ss){
 /* ═══════════════════════════════════════════════════════
    HELPERS
 ═══════════════════════════════════════════════════════ */
-function psStr(pat){
+function psStr(pat,tc){
   var short={
     ru:['Вдох','Задерж.','Выдох','Задерж.','Пауза выд.','Пауза вд.'],
     en:['In','Hold','Out','Hold','Pause-Ex','Pause-In'],
@@ -5378,19 +5429,40 @@ function psStr(pat){
     es:['Inh.','Ret.','Exh.','Ret.','P.Exh','P.Inh'],
     zh:['吸','屏','呼','屏','呼后','吸后']
   };
-  var l=short[curLang]||short.ru;
-  return pat.map(function(v,i){return (v>0&&l[i])?l[i]+' '+v+'s':null;}).filter(Boolean).join(' · ');
+  var l=(short[curLang]||short.ru).slice();
+  if(typeof isDoubleInhaleTc==='function'&&isDoubleInhaleTc(tc)){
+    l[1]=({ru:'Довдох',en:'Top-up',de:'Nachzug',es:'Recarga',zh:'补吸'})[curLang]||'Довдох';
+  }
+  return pat.map(function(v,i){
+    if(!(v>0&&l[i]))return null;
+    if(tc&&tc.id==='ladder'&&i===3)return l[i]+' 5→30→5s';
+    if(tc&&tc.id==='o2_table'&&i===1)return l[i]+' 15→50s';
+    return l[i]+' '+v+'s';
+  }).filter(Boolean).join(' · ');
 }
 function psRaw(pat){var l=['In','Hold','Out','Hold'];return pat.map(function(v,i){return v>0?l[i]+' '+v+'s':null;}).filter(Boolean).join(' · ');}
 function calcDur(pat,cyc){return Math.max(1,Math.round((pat||[4,0,6,0]).reduce(function(a,v){return a+v;},0)*cyc/60));}
 function calcDurFull(pat,cyc,rounds,tc){
-  
-  pat=pat||[4,0,6,0,0,0];rounds=rounds||1;
-  var sum4=(pat[0]||0)+(pat[1]||0)+(pat[2]||0)+(pat[3]||0);
-  var extra=(pat[4]||0)+(pat[5]||0);
-  var rest=(tc&&tc.id==='wim_hof')?((tc&&tc.restSec)||5):0;
-  var total=((sum4*(cyc||1)+extra)*rounds+(rounds-1)*rest)/60;
-  return Math.max(1,Math.round(total));
+  pat=pat||[4,0,6,0,0,0];rounds=rounds||1;cyc=cyc||1;
+  var totalSec=0;
+  if(tc&&tc.id==='ladder'){
+    for(var c=0;c<cyc;c++){
+      var step=Math.min(c,cyc-1-c);
+      totalSec+=(pat[0]||5)+(pat[2]||5)+(5+step*5);
+    }
+    totalSec*=rounds;
+  }else if(tc&&tc.id==='o2_table'){
+    for(var c2=0;c2<cyc;c2++){
+      totalSec+=(pat[0]||6)+(15+c2*5)+(pat[2]||6);
+    }
+    totalSec*=rounds;
+  }else{
+    var sum4=(pat[0]||0)+(pat[1]||0)+(pat[2]||0)+(pat[3]||0);
+    var extra=(pat[4]||0)+(pat[5]||0);
+    var rest=(tc&&tc.id==='wim_hof')?((tc&&tc.restSec)||5):0;
+    totalSec=(sum4*cyc+extra)*rounds+(rounds-1)*rest;
+  }
+  return Math.max(1,Math.round(totalSec/60));
 }
 function hexA(h,a){var rgb=hexToRgb(h);return'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+','+a+')';}
 function hexToRgb(h){h=h.replace('#','');if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
@@ -7288,7 +7360,7 @@ medDecodeB64=function(b64,cache,cb){
   cache._lq=[cb];
   var ac=medSession.audioCtx;if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   function done(buf,url){if(cache._lang!==L)return;var q=cache._lq||[];cache._lq=null;if(buf){cache[0]=buf;_nfMedLog.push({url:url,dur:buf.duration,lang:L});q.forEach(function(f){f(buf);});}else{_nfMedLog.push({url:'ru-fallback',lang:L});_nfMedDecodeRu(b64,cache,function(b){q.forEach(function(f){f(b);});});}}
-  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=10812';
+  function get(lang,next){var url='assets/'+lang+'/'+fn+'?v=10813';
     if(!ac){next();return;}
     fetch(url).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();}).then(function(ab){ac.decodeAudioData(ab,function(b){done(b,url);},function(){next();});}).catch(function(){next();});}
   get(L,function(){if(L!=='en')get('en',function(){done(null);});else done(null);});
@@ -12789,7 +12861,7 @@ function cogSequence(body,p){
 }
 
 /* ── Settings: visible build version ── */
-(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">METAFLEX · '+CT('ver')+' v108.12</div>');};})();
+(function(){var _r=nfRenderSettings;nfRenderSettings=function(){_r();var b=document.getElementById('nfSetBody');if(b&&!document.getElementById('nfVer'))b.insertAdjacentHTML('beforeend','<div class="nf-ver" id="nfVer">METAFLEX · '+CT('ver')+' v108.13</div>');};})();
 
 /* iOS 16.4+: let the Stroop voice play even with the ring/silent switch on (Web Audio follows it otherwise).
    Only while the Stroop game runs with the voice on; restored when the game ends or closes. */
@@ -12896,7 +12968,7 @@ function phRowPlace(){var H=window.innerHeight,W=window.innerWidth,R=Math.min(W,
 (function(){
   var _pos=positionPracticeUI;positionPracticeUI=function(){_pos.apply(this,arguments);phRowEl();phRowPlace();};
   var _bp=beginPh;beginPh=function(ph,now){var s0=PH_ROW.seq;var r=_bp.apply(this,arguments);
-    if(PH_ROW.seq===s0&&pRun&&curTc){var v=curTc.pattern[pPh];phRowSet(pPh===1&&v>0?'inh':(pPh===3&&v>0?'ex':''));}
+    if(PH_ROW.seq===s0&&pRun&&curTc){var v=(typeof getDynamicPhaseDur==='function')?getDynamicPhaseDur(curTc,pPh,pCy,pTotCy):curTc.pattern[pPh];var _realInhHold=(pPh===1&&v>0&&!(typeof isDoubleInhaleTc==='function'&&isDoubleInhaleTc(curTc)));phRowSet(_realInhHold?'inh':(pPh===3&&v>0?'ex':''));}
     return r;};
   var _dph=doPostHold;doPostHold=function(dur,labelKey,startNow,cb){PH_ROW.seq++;phRowSet(labelKey==='hold_inhale_post'?'inh':'ex');return _dph.apply(this,arguments);};
   var _rec=doRecovery;doRecovery=function(){PH_ROW.seq++;phRowSet('');return _rec.apply(this,arguments);};
@@ -12937,7 +13009,7 @@ resizeCnv=function(){
 };
 positionPracticeUI=function(){nfPlayerLayout();};
 phRowPlace=function(){};
-function nfHasHold(tc){var p=(tc&&tc.pattern)||[];return !!(p[1]||p[3]||p[4]||p[5]);}
+function nfHasHold(tc){var p=(tc&&tc.pattern)||[];var p1=(typeof isDoubleInhaleTc==='function'&&isDoubleInhaleTc(tc))?0:p[1];return !!(p1||p[3]||p[4]||p[5]);}
 
 
 var NF_VIS=null;
@@ -13718,12 +13790,11 @@ function nfSwLang(){try{var c=navigator.serviceWorker&&navigator.serviceWorker.c
 
 
 
-/* v108.12: Only Wim Hof has multi-round pauses; all other 28 practices flow continuously without inter-cycle/inter-round pauses */
+/* v108.13: Comprehensive methodology & technique upgrade across all 29 breathing practices */
 (function(){
   if(typeof ALL_TC==='undefined')return;
-  /* 1. Diaphragmatic breathing: remove erroneous 2s hold after exhale ([5,0,7,2] -> [5,0,7,0]) */
-  if(ALL_TC.diaphragmatic) ALL_TC.diaphragmatic.pattern=[5,0,7,0];
-  /* 2. Active energy practices: remove post-round freeze / restSec so cycles flow continuously */
+
+  /* 1. Active energy practices: continuous cycles without inter-cycle pauses */
   if(ALL_TC.bhastrika){
     ALL_TC.bhastrika.pattern=[1.5,0,1.5,0];
     delete ALL_TC.bhastrika.restSec;
@@ -13735,16 +13806,46 @@ function nfSwLang(){try{var c=navigator.serviceWorker&&navigator.serviceWorker.c
       zh:'用腹部通过鼻子急促有力地吸气和呼气——如同风箱。有节奏、有力地连续呼吸，循环之间不停顿。'
     };
   }
-  if(ALL_TC.kapalabhati){
-    ALL_TC.kapalabhati.pattern=[0.5,0,0.5,0];
-    ALL_TC.kapalabhati.desc={
-      ru:'Резкий короткий выдох носом (живот резко внутрь), вдох происходит сам — пассивно. Только нос! Ритм 1 раз в секунду без пауз.',
-      en:'Sharp short nasal exhale (belly snaps in), inhale happens passively. Nose only! Rhythm 1 per second without pauses.',
-      de:'Kurzer scharfer Nasenausatem (Bauch schnellt nach innen), Einatem geschieht passiv. Nur durch die Nase! Rhythmus 1 pro Sekunde ohne Pausen.',
-      es:'Exhalación nasal corta y fuerte (el abdomen entra de golpe), la inhalación ocurre sola. ¡Solo nariz! Ritmo 1 por segundo sin pausas.',
-      zh:'用鼻子短促有力呼气（腹部迅速内收），吸气自然被动发生。仅用鼻子！每秒1次，连续不停顿。'
+
+  /* 2. Double Inhale (Physiological Sigh — Huberman): genuine 2-step inhale (2.5s nasal inhale + 1s nasal top-up sip) + 6.5s long mouth exhale */
+  if(ALL_TC.double_inhale){
+    ALL_TC.double_inhale.pattern=[2.5,1,6.5,0];
+    ALL_TC.double_inhale.isDoubleInhale=true;
+    ALL_TC.double_inhale.desc={
+      ru:'Глубокий вдох носом (2.5 сек) → сразу короткий довдох носом на верхушке (1 сек) → долгий плавный выдох ртом (6.5 сек). Раскрывает альвеолы и быстро снимает стресс.',
+      en:'Deep nasal inhale (2.5s) → immediate short nasal top-up sip at the top (1s) → long slow mouth exhale (6.5s). Re-inflates alveoli and rapidly resets stress.',
+      de:'Tiefer Naseneinatem (2,5 Sek) → sofort kurzer Nachzug durch die Nase (1 Sek) → langer ruhiger Mundausatem (6,5 Sek). Öffnet Lungenbläschen und baut Stress ab.',
+      es:'Inhalación nasal profunda (2,5 s) → segunda inhalación corta inmediata por la nariz (1 s) → exhalación larga y suave por la boca (6,5 s). Abre alvéolos y reduce el estrés.',
+      zh:'鼻子深吸气（2.5秒）→顶部立即短暂补吸一口（1秒）→嘴巴缓慢长呼气（6.5秒）。打开肺泡并迅速缓解压力。'
     };
   }
+
+  /* 3. Cyclic Sigh (Stanford / Yackle / Huberman): slower 12s cyclic physiological sigh (3s nasal inhale + 1s top-up sip + 8s mouth exhale) */
+  if(ALL_TC.cyclic_sigh){
+    ALL_TC.cyclic_sigh.pattern=[3,1,8,0];
+    ALL_TC.cyclic_sigh.isDoubleInhale=true;
+    ALL_TC.cyclic_sigh.desc={
+      ru:'Плавный вдох носом (3 сек) → мягкий довдох носом (1 сек) → долгий расслабленный выдох ртом (8 сек). Ненапряжённый ритм для активации блуждающего нерва.',
+      en:'Smooth nasal inhale (3s) → gentle nasal top-up sip (1s) → long effortless mouth exhale (8s). Relaxed rhythm for vagal self-regulation.',
+      de:'Ruhiger Naseneinatem (3 Sek) → sanfter Nachzug durch die Nase (1 Sek) → langer entspannter Mundausatem (8 Sek). Müheloser Rhythmus zur Vagus-Regulation.',
+      es:'Inhalación nasal suave (3 s) → breve recarga nasal (1 s) → exhalación bucal larga y relajada (8 s). Ritmo sin esfuerzo para activar el nervio vago.',
+      zh:'平稳鼻吸气（3秒）→轻柔鼻补吸（1秒）→悠长放松的嘴呼气（8秒）。轻松有节奏地调节迷走神经。'
+    };
+  }
+
+  /* 4. Kapalabhati: 0.6s passive diaphragmatic recoil inhale + 0.4s sharp active abdominal exhale = 1.0s cycle (60 breaths/min) */
+  if(ALL_TC.kapalabhati){
+    ALL_TC.kapalabhati.pattern=[0.6,0,0.4,0];
+    ALL_TC.kapalabhati.desc={
+      ru:'Резкий короткий выдох носом (0.4 сек — живот резко внутрь) и расслабленный пассивный вдох (0.6 сек — живот отпускается сам). Только через нос, ритм 1 цикл в секунду без пауз.',
+      en:'Sharp short nasal exhale (0.4s — belly snaps in) and relaxed passive inhale (0.6s — belly recoils naturally). Nose only, 1 cycle per second without pauses.',
+      de:'Kurzer scharfer Nasenausatem (0,4 Sek — Bauch schnellt nach innen) und entspannter passiver Einatem (0,6 Sek — Bauch lässt los). Nur durch die Nase, 1 Zyklus/Sek.',
+      es:'Exhalación nasal corta y fuerte (0,4 s — el abdomen entra de golpe) e inhalación pasiva relajada (0,6 s — el abdomen vuelve solo). Solo por la nariz, 1 ciclo/seg.',
+      zh:'短促有力的鼻呼气（0.4秒——腹部迅速内收）与自然放松的被动吸气（0.6秒）。仅用鼻子，每秒1次连续循环。'
+    };
+  }
+
+  /* 5. Tummo: continuous powerful diaphragmatic fire breathing without inter-cycle pauses */
   if(ALL_TC.tummo){
     ALL_TC.tummo.pattern=[1.5,0,1.5,0];
     ALL_TC.tummo.desc={
@@ -13755,13 +13856,76 @@ function nfSwLang(){try{var c=navigator.serviceWorker&&navigator.serviceWorker.c
       zh:'强力腹式吸气并观想腹部火焰，自由连续呼气，循环之间不停顿。'
     };
   }
-  /* 3. Continuous single-round levels (rounds:1) for all practices except wim_hof */
+
+  /* 6. Cold Preparation: active 2s deep inhale -> 1.5s free exhale (sympathetic pre-activation before cold exposure, instead of 2-4 parasympathetic) */
+  if(ALL_TC.cold_prep){
+    ALL_TC.cold_prep.pattern=[2,0,1.5,0];
+    ALL_TC.cold_prep.desc={
+      ru:'Глубокий активный вдох (2 сек) и свободный выдох (1.5 сек) прямо перед холодным душем. Включает симпатику, согревает тело и снижает холодовой шок.',
+      en:'Deep active inhale (2s) and free exhale (1.5s) right before a cold shower. Pre-activates sympathetic tone, warms the body, and reduces cold shock.',
+      de:'Tiefer aktiver Einatem (2 Sek) und freier Ausatem (1,5 Sek) direkt vor der Kaltdusche. Aktiviert den Sympathikus und reduziert den Kälteschock.',
+      es:'Inhalación profunda y activa (2 s) y exhalación libre (1,5 s) justo antes de la ducha fría. Preactiva el simpático y reduce el choque por frío.',
+      zh:'冷水浴前深而有力的吸气（2秒）与自由呼气（1.5秒）。预先激活交感神经，温暖身体并减少冷休克。'
+    };
+  }
+
+  /* 7. Diaphragmatic breathing: 4s belly inhale -> 6s relaxed exhale without pause (distinct from 5-7 Deep Sleep, no pause in text) */
+  if(ALL_TC.diaphragmatic){
+    ALL_TC.diaphragmatic.pattern=[4,0,6,0];
+    ALL_TC.diaphragmatic.desc={
+      ru:'Мягкий вдох животом 4 сек (рука на животе поднимается, грудь неподвижна) → плавный расслабленный выдох 6 сек без пауз.',
+      en:'Gentle belly inhale for 4 sec (hand on belly rises, chest stays still) → smooth relaxed 6 sec exhale without pauses.',
+      de:'Sanfte Bauchatmung 4 Sek ein (Hand auf dem Bauch hebt sich, Brust bleibt ruhig) → ruhiger 6 Sek Ausatem ohne Pausen.',
+      es:'Inhalación abdominal suave de 4 seg (la mano en el abdomen sube, el pecho quieto) → exhalación relajada de 6 seg sin pausas.',
+      zh:'轻柔腹式吸气4秒（腹部升起，胸部不动）→平稳放松呼气6秒，无停顿。'
+    };
+  }
+
+  /* 8. CO2 Table: clarify fixed 20s exhale hold & safety */
+  if(ALL_TC.co2_table){
+    ALL_TC.co2_table.pattern=[6,0,6,20];
+    ALL_TC.co2_table.desc={
+      ru:'Спокойный вдох 6 сек → выдох 6 сек → фиксированная задержка 20 сек на выдохе. Лёгкий воздушный голод тренирует толерантность к CO₂. Только сидя или лёжа натощак!',
+      en:'Calm inhale 6 sec → exhale 6 sec → fixed 20 sec hold after exhale. Mild air hunger trains CO₂ chemoreceptor tolerance. Sitting or lying down on an empty stomach only!',
+      de:'Ruhiges Einatmen 6 Sek → Ausatmen 6 Sek → festes Halten 20 Sek nach dem Ausatmen. Trainiert die CO₂-Toleranz. Nur sitzend oder liegend auf nüchternen Magen!',
+      es:'Inhalar 6 seg → exhalar 6 seg → retención fija de 20 seg tras exhalar. Entrena la tolerancia al CO₂. ¡Solo sentado o tumbado y en ayunas!',
+      zh:'平静吸气6秒→呼气6秒→呼气后固定屏息20秒。轻微缺气感可训练CO₂耐受力。仅限空腹坐姿或卧姿！'
+    };
+  }
+
+  /* 9. O2 Table: progressive inhale hold (15s + 5s each cycle) + fix dangerous "standing" text to "sitting or lying down" */
+  if(ALL_TC.o2_table){
+    ALL_TC.o2_table.pattern=[6,15,6,0];
+    ALL_TC.o2_table.isProgressiveO2=true;
+    ALL_TC.o2_table.desc={
+      ru:'Вдох 6 сек → задержка на вдохе с прогрессией (+5 сек каждый цикл: 15 → 20 → 25 → 30 сек…) → спокойный выдох 6 сек. Только сидя или лёжа!',
+      en:'Inhale 6 sec → progressive breath hold on inhale (+5 sec each cycle: 15 → 20 → 25 → 30 sec…) → calm exhale 6 sec. Sitting or lying down only!',
+      de:'Einatmen 6 Sek → progressives Halten nach dem Einatmen (+5 Sek pro Zyklus: 15 → 20 → 25 → 30 Sek…) → Ausatmen 6 Sek. Nur sitzend oder liegend!',
+      es:'Inhalar 6 seg → retención progresiva tras inhalar (+5 seg cada ciclo: 15 → 20 → 25 → 30 seg…) → exhalar 6 seg. ¡Solo sentado o tumbado!',
+      zh:'吸气6秒→吸气后渐进屏息（每循环+5秒：15→20→25→30秒…）→呼气6秒。仅限坐姿或卧姿！'
+    };
+  }
+
+  /* 10. Hold Ladder (ladder): pyramid exhale hold (5s -> +5s/cycle up to peak -> -5s/cycle back to 5s) */
+  if(ALL_TC.ladder){
+    ALL_TC.ladder.pattern=[5,0,5,5];
+    ALL_TC.ladder.isPyramidLadder=true;
+    ALL_TC.ladder.desc={
+      ru:'Вдох 5 сек → выдох 5 сек → задержка лесенкой: начинается с 5 сек, растёт на +5 сек каждый цикл до пика, затем спускается обратно по 5 сек.',
+      en:'Inhale 5 sec → exhale 5 sec → pyramid hold ladder: starts at 5 sec, increases by +5 sec each cycle to the peak, then steps back down by 5 sec.',
+      de:'Einatmen 5 Sek → Ausatmen 5 Sek → Pyramiden-Halten: startet bei 5 Sek, steigt jede Runde um +5 Sek bis zum Gipfel und sinkt dann wieder um 5 Sek.',
+      es:'Inhalar 5 seg → exhalar 5 seg → retención en pirámide: empieza en 5 seg, sube +5 seg cada ciclo hasta el pico y luego baja de 5 en 5 seg.',
+      zh:'吸气5秒→呼气5秒→金字塔阶梯屏息：从5秒开始，每循环增加5秒至峰值，再逐级递减5秒回到5秒。'
+    };
+  }
+
+  /* 11. Continuous single-round levels (rounds:1) for all practices except wim_hof */
   var LVS={
     bhastrika:[20,35,50],
-    double_inhale:[15,25,35],
+    double_inhale:[12,20,30],
     kapalabhati:[30,60,90],
     tummo:[15,25,40],
-    morning_energy:[15,30,45],
+    morning_energy:[20,30,45],
     cold_prep:[20,30,40],
     box:[6,12,18],
     coherent:[12,20,30],
@@ -13769,7 +13933,7 @@ function nfSwLang(){try{var c=navigator.serviceWorker&&navigator.serviceWorker.c
     tc444:[8,16,24],
     tc478f:[4,8,12],
     square_5:[6,10,15],
-    flow_55:[15,25,35],
+    flow_55:[15,22,33],
     extended_46:[12,20,30],
     sama_vritti:[10,15,25],
     cyclic_sigh:[15,25,35],
@@ -13777,13 +13941,13 @@ function nfSwLang(){try{var c=navigator.serviceWorker&&navigator.serviceWorker.c
     resonant_65:[10,18,26],
     tc478s:[4,8,12],
     extended_48:[10,16,24],
-    diaphragmatic:[10,15,25],
+    diaphragmatic:[12,18,30],
     slow_57:[10,15,25],
     pranava:[8,12,18],
     co2_table:[6,10,14],
-    o2_table:[6,10,14],
+    o2_table:[6,8,10],
     buteyko:[15,25,40],
-    ladder:[8,12,18],
+    ladder:[8,12,16],
     mnt_rescue:[10,18,25]
   };
   Object.keys(ALL_TC).forEach(function(id){
@@ -13800,6 +13964,62 @@ function nfSwLang(){try{var c=navigator.serviceWorker&&navigator.serviceWorker.c
     }
   });
 })();
+
+/* Helper: check if technique uses 2-step double inhale (phase 1 = top-up inhale instead of hold) */
+function isDoubleInhaleTc(tc){
+  return !!(tc && (tc.id==='double_inhale' || tc.id==='cyclic_sigh' || tc.isDoubleInhale));
+}
+
+/* Helper: get dynamic phase duration for progressive practices (ladder, o2_table) */
+function getDynamicPhaseDur(tc, ph, cy, totCy){
+  if(!tc) return 0;
+  var pat = tc.pattern || [4,0,6,0];
+  if(tc.id==='ladder' && ph===3){
+    var tot = Math.max(1, totCy || 8);
+    var c = Math.max(0, Math.min(tot-1, cy || 0));
+    var step = Math.min(c, tot - 1 - c);
+    return 5 + step * 5;
+  }
+  if(tc.id==='o2_table' && ph===1){
+    var c2 = Math.max(0, cy || 0);
+    return 15 + c2 * 5;
+  }
+  return pat[ph] || 0;
+}
+
+/* Helper: custom phase label on screen (#pLbl) for technique-specific guidance */
+function getTechPhaseLabel(tc, ph, cy){
+  var L = (typeof curLang!=='undefined' && curLang) ? curLang : 'ru';
+  if(tc){
+    if(isDoubleInhaleTc(tc)){
+      if(ph===0) return ({ru:'Вдох носом',en:'Inhale · nose',de:'Einatmen · Nase',es:'Inhalar · nariz',zh:'鼻吸气'})[L]||'Вдох носом';
+      if(ph===1) return ({ru:'+ Довдох',en:'+ Top-up sip',de:'+ Kurzer Nachzug',es:'+ 2.ª inhalación',zh:'+ 补吸一口'})[L]||'+ Довдох';
+      if(ph===2) return ({ru:'Медленный выдох',en:'Long mouth exhale',de:'Langer Ausatem',es:'Exhalación larga',zh:'缓慢长呼气'})[L]||'Медленный выдох';
+    }
+    if(tc.id==='nadi_shodhana'){
+      var even = ((cy||0) % 2 === 0);
+      if(ph===0){
+        return even
+          ? (({ru:'Вдох · левая',en:'Inhale · Left',de:'Einatmen · Links',es:'Inhalar · Izq.',zh:'左鼻孔吸气'})[L]||'Вдох · левая')
+          : (({ru:'Вдох · правая',en:'Inhale · Right',de:'Einatmen · Rechts',es:'Inhalar · Der.',zh:'右鼻孔吸气'})[L]||'Вдох · правая');
+      }
+      if(ph===2){
+        return even
+          ? (({ru:'Выдох · правая',en:'Exhale · Right',de:'Ausatmen · Rechts',es:'Exhalar · Der.',zh:'右鼻孔呼气'})[L]||'Выдох · правая')
+          : (({ru:'Выдох · левая',en:'Exhale · Left',de:'Ausatmen · Links',es:'Exhalar · Izq.',zh:'左鼻孔呼气'})[L]||'Выдох · левая');
+      }
+    }
+    if(tc.id==='kapalabhati'){
+      if(ph===0) return ({ru:'Пассивный вдох',en:'Passive inhale',de:'Passiv ein',es:'Inhalar pasivo',zh:'被动吸气'})[L]||'Пассивный вдох';
+      if(ph===2) return ({ru:'Резкий выдох!',en:'Sharp exhale!',de:'Scharf aus!',es:'¡Exhalar fuerte!',zh:'短促呼气！'})[L]||'Резкий выдох!';
+    }
+    if(tc.id==='pranava' && ph===2){
+      return ({ru:'Выдох «ОМ»',en:'Exhale “OM”',de:'Ausatmen „OM“',es:'Exhalar «OM»',zh:'呼气 “OM”'})[L]||'Выдох «ОМ»';
+    }
+  }
+  var pNames=[t('inhale'),t('hold'),t('exhale'),t('hold')];
+  return pNames[ph]||'';
+}
 
 init();
 nfWakeInit();
